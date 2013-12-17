@@ -1,0 +1,15 @@
+(autoload 'popwin-mode "popwin" "Enable popwin mode" t)
+(popwin-mode 1)
+(setq popwin:special-display-config
+      '((help-mode)
+        (apropos-mode)
+        (completion-list-mode)
+        (compilation-mode)
+        (grep-mode)
+        (occur-mode)
+        ("*Shell Command Output*")
+        (" *undo-tree*" :width 60 :position right)
+        ("^\*helm .+\*$" :regexp t :height 0.3 :position bottom)
+        ("^\*helm-.+\*$" :regexp t :height 0.3 :position bottom)))
+
+(provide 'wasa-popwin)
