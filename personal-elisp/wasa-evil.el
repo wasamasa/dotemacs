@@ -48,6 +48,10 @@
 (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-char-mode)
 (define-key evil-normal-state-map (kbd "S-SPC") 'evil-ace-jump-word-mode)
 (define-key evil-normal-state-map (kbd "C-SPC") 'evil-ace-jump-line-mode)
+(define-key evil-operator-state-map (kbd "SPC") 'evil-ace-jump-char-mode)
+(define-key evil-operator-state-map (kbd "S-SPC") 'evil-ace-jump-word-mode)
+(define-key evil-operator-state-map (kbd "C-SPC") 'evil-ace-jump-line-mode)
+
 (define-key evil-insert-state-map (kbd "RET") 'newline-and-indent)
 (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
 (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
