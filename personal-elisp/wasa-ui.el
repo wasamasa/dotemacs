@@ -10,6 +10,7 @@
 (setq custom-file (concat user-emacs-directory "custom/custom"))
 (load custom-file)
 (set-default-font "DejaVu Sans Mono-7")
+(set-fontset-font "fontset-default" 'unicode "DejaVu Sans")
 (set-fontset-font "fontset-default" 'unicode "Symbola")
 (setq x-gtk-use-system-tooltips nil)
 (add-to-list 'custom-theme-load-path
