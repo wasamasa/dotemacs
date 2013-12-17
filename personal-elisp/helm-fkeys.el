@@ -1,3 +1,5 @@
+(require 's)
+
 (setq helm-fkey-keymap
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
