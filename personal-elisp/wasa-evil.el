@@ -1,6 +1,7 @@
 (setq evil-default-cursor t)
 (evil-mode t)
 (global-surround-mode t)
+(global-evil-matchit-mode)
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'package-menu-mode 'motion)
 (evil-set-initial-state 'Custom-mode 'motion)
@@ -43,8 +44,7 @@
 (evil-define-key 'normal org-mode-map
   (kbd "RET") 'org-open-at-point)
 
-(setq ace-jump-mode-move-keys
-      '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
+(setq ace-jump-mode-move-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
 (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-char-mode)
 (define-key evil-normal-state-map (kbd "S-SPC") 'evil-ace-jump-word-mode)
 (define-key evil-normal-state-map (kbd "C-SPC") 'evil-ace-jump-line-mode)
