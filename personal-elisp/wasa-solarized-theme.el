@@ -505,8 +505,8 @@
      `(helm-selection-line ((t (:background ,solarized-hl :foreground ,solarized-emph
                                             :underline nil))))
      `(helm-separator ((t (:foreground ,red))))
-     `(helm-source-header ((t (:family mono :weight bold :background ,blue-d
-                                       :foreground ,solarized-bg))))
+     `(helm-source-header ((t (:family mono :weight bold :height 1.0
+                                       :background ,blue-d :foreground ,solarized-bg))))
      `(helm-time-zone-current ((t (:foreground ,green))))
      `(helm-time-zone-home ((t (:foreground ,red))))
      `(helm-visible-mark ((t (:background ,solarized-bg :foreground ,magenta :bold t))))
