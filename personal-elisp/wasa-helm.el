@@ -3,7 +3,8 @@
       recentf-max-saved-items 50)
 (recentf-mode t)
 (helm-mode t)
-(setq helm-ff-ido-style-backspace 'always)
+(setq helm-ff-ido-style-backspace 'always
+      helm-ff-auto-update-initial-value t)
 (setq helm-adaptive-history-file (concat user-emacs-directory "etc/helm-adaptive")
       helm-adaptive-history-length 100)
 (helm-adaptative-mode t)
