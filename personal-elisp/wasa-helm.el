@@ -4,7 +4,9 @@
 (recentf-mode t)
 (helm-mode t)
 (setq helm-ff-ido-style-backspace 'always
-      helm-ff-auto-update-initial-value t)
+      helm-ff-auto-update-initial-value t
+      helm-ff-newfile-prompt-p nil
+      helm-ff-skip-boring-files t)
 (setq helm-adaptive-history-file (concat user-emacs-directory "etc/helm-adaptive")
       helm-adaptive-history-length 100)
 (helm-adaptative-mode t)
