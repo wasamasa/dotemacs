@@ -10,6 +10,7 @@
 (setq helm-adaptive-history-file (concat user-emacs-directory "etc/helm-adaptive")
       helm-adaptive-history-length 100)
 (helm-adaptative-mode t)
+(setq helm-mp-highlight-delay 0.3)
 
 (setq helm-cmd-t-default-repo (concat user-directory "code/dotfiles"))
 (setq helm-grep-default-command "ack-grep -nH --no-group --no-color --smart-case %p %f"
