@@ -59,9 +59,8 @@ It may be customized with the following variables:
 						   "document"
 						 LaTeX-default-environment)
 					       ") ")
-				      (LaTeX-environment-list)
-				      nil nil LaTeX-default-environment
-				      'LaTeX-environment-history)))
+				      (LaTeX-environment-list) nil t nil
+				      'LaTeX-environment-history LaTeX-default-environment)))
     ;; Get default
     (cond ((and (zerop (length environment))
 		(TeX-near-bobp))
