@@ -71,7 +71,7 @@
         ("i" . ("Package [I]nstall" "package-install"))
         ;("r" . ("Package [R]emove" "wasa-package-remove"))
         ("p" . ("[P]ackage List" "package-list-packages"))
-        ("t" . ("Load [T]heme" "load-theme"))
+        ("t" . ("Load [T]heme" "helm-themes"))
         ("v" . ("Customize [V]ariable" "customize-variable"))))
 
 (defun helm-f2-candidates ()
