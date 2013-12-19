@@ -21,4 +21,13 @@
 ;(global-set-key (kbd "<f11>") 'org-capture)
 (global-set-key (kbd "<f11>") (lambda () (interactive) (org-capture nil "n")))
 
+;; org-present
+(add-hook 'org-present-mode-hook
+          (lambda ()
+            (org-display-inline-images)))
+
+(add-hook 'org-present-mode-quit-hook
+          (lambda ()
+            (org-remove-inline-images)))
+
 (provide 'wasa-org)
