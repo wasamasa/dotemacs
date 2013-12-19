@@ -21,6 +21,10 @@
       helm-grep-default-recurse-command
       (concat helm-ack-grep-executable " -H --nogroup --nocolor --nopager --smart-case %p %f"))
 
+;; helm grep hacks
+(when helm-ff-ido-style-backspace
+  (define-key helm-read-file-map (kbd "<backspace>")
+    'helm-find-files-down-one-level))
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
