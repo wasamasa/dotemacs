@@ -1,10 +1,6 @@
 ;; annoyances
 (setq inhibit-splash-screen t)
-(setq wasa-fonts '("DejaVu Sans Mono-7" "DejaVu Sans" "Symbola"))
-(create-fontset-from-fontset-spec standard-fontset-spec) ;to make --daemon work
-(dolist (font (reverse wasa-fonts))
-  (set-fontset-font "fontset-standard" 'unicode font nil 'prepend))
-(add-to-list 'default-frame-alist '(font . "fontset-standard"))
+(set-default-font "DejaVu Sans Mono-7")
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
