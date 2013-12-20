@@ -1,4 +1,5 @@
 (setq evil-default-cursor t)
+(setq evil-want-C-w-in-emacs-state t)
 (evil-mode t)
 (global-surround-mode t)
 (global-evil-matchit-mode)
@@ -55,6 +56,7 @@
 (define-key evil-insert-state-map (kbd "RET") 'newline-and-indent)
 (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
 (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
+(define-key evil-window-map (kbd "u") 'winner-undo)
 
 (defun wasa-evil-unimpaired-insert-newline-above (count)
   "Insert an empty line below point"
