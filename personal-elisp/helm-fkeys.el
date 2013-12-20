@@ -33,7 +33,7 @@
 (setq helm-f1-data
       '(("a" . ("[A]propos" "helm-apropos"))
         ("b" . ("Describe [B]indings" "describe-bindings"))
-        ("c" . ("Describe [C]ommand" "describe-key-briefly"))
+        ("c" . ("Describe [C]har" "describe-char"))
         ("d" . ("[D]ocumentation" "apropos-documentation"))
         ("f" . ("Describe [F]unction" "describe-function"))
         ("F" . ("Find [F]unction" "find-function"))
