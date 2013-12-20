@@ -26,6 +26,17 @@
   (define-key helm-read-file-map (kbd "<backspace>")
     'helm-find-files-down-one-level))
 
+;; helm completing read functions
+(setq helm-completing-read-handlers-alist
+      '((describe-function . helm-completing-read-symbols)
+        (describe-variable . helm-completing-read-symbols)
+        (debug-on-entry . helm-completing-read-symbols)
+        (find-function . helm-completing-read-symbols)
+        (find-tag . helm-completing-read-with-cands-in-buffer)
+        (find-library . helm-completing-read-with-cands-in-buffer)
+        (ffap-alternate-file)
+        (tmm-menubar)))
+
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 
