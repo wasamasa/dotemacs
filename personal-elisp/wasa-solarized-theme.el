@@ -286,7 +286,7 @@
      `(lui-highlight-face ((t (:foreground ,base2))))
      `(lui-time-stamp-face ((t (:foreground ,violet-d :weight bold))))
 
-     `(circe-prompt-face ((t (:foreground ,solarized-bg :background ,blue :weight bold))))
+     `(circe-prompt-face ((t (:foreground ,blue :background ,solarized-bg))))
      `(circe-server-face ((t (:foreground ,blue))))
      `(circe-highlight-nick-face ((t (:foreground ,base2 :weight bold))))
      `(circe-topic-diff-new-face ((t (:background ,green-d))))
