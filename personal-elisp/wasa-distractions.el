@@ -64,6 +64,7 @@ static char *noname[] = {
       circe-nickserv-ghost-style 'immediate
       circe-format-self-say "<{nick}> {body}"
       circe-highlight-nick-type 'message
+      circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
       circe-network-options `(("Freenode"
                                :nickserv-password ,freenode-password)
                               ("Bitlbee" :port 6667
