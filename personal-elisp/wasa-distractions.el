@@ -75,7 +75,7 @@ static char *noname[] = {
 (circe-lagmon-mode)
 (setq lui-highlight-keywords '("webspid0r" "wubspider" "wasamasa" "wasa")
       lui-fill-column 69
-      lui-max-buffer-size 100000)
+      lui-max-buffer-size 50000)
 (autoload 'lui-fool-toggle-display "lui" "Toggle fools" t)
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
 (defun wasa-circe-nick-next (oldnick)
