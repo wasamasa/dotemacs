@@ -8,6 +8,7 @@
 (require 'ac-company)
 (require 'gimme-cat)
 (require 'highlight-tail)
+(require 'wc-mode)
 ;; load own elisp
 (add-to-list 'load-path (concat user-emacs-directory "personal-elisp"))
 (setq wasa-packages
@@ -27,6 +28,7 @@
         wasa-cc
         wasa-lisp
         wasa-web
+        wasa-python
         wasa-smartparens
         wasa-auctex
         wasa-defuns
