@@ -15,6 +15,7 @@
       '(wasa-ui
         wasa-hooks
         wasa-annoyances
+        wasa-defuns
         wasa-pretty-symbols
         wasa-autocomplete
         wasa-company
@@ -29,9 +30,8 @@
         wasa-lisp
         wasa-web
         wasa-python
-        wasa-smartparens
         wasa-auctex
-        wasa-defuns
+        wasa-smartparens
         wasa-keybinds
         wasa-evil
         wasa-distractions))
