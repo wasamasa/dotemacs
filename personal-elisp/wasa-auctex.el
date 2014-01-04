@@ -8,6 +8,13 @@
                                    (output-html "xdg-open")))
 (add-hook 'LaTeX-mode-hook '(lambda () (TeX-global-PDF-mode 1)))
 (add-hook 'LaTeX-mode-hook 'latex/setup-keybinds)
+(autoload 'latex/section-regexp "latex-extra" "LaTeX section regexp" t)
+(defun wasa-extend-hs-modes-alist ()
+  (add-to-list 'hs-special-modes-alist
+               `(latex-mode ,(latex/section-regexp) nil "%"
+                            (lambda (arg) (latex/next-section 1)
+                              (skip-chars-backward " \t\n")) nil)))
+(add-hook 'LaTeX-mode-hook 'wasa-extend-hs-modes-alist)
 
 (defun wasa-turn-on-pretty-symbols-mode ()
   (pretty-symbols-mode 1)
