@@ -15,9 +15,6 @@
   (font-lock-fontify-buffer))
 (setq TeX-install-font-lock 'wasa-turn-on-pretty-symbols-mode)
 (add-hook 'LaTeX-mode-hook 'wasa-turn-on-pretty-symbols-mode)
-(add-hook 'latex-mode-hook 'wasa-turn-on-pretty-symbols-mode)
-(add-hook 'TeX-mode-hook 'wasa-turn-on-pretty-symbols-mode)
-(add-hook 'tex-mode-hook 'wasa-turn-on-pretty-symbols-mode)
 
 (setq LaTeX-section-hook '(wasa-LaTeX-section-heading
                            LaTeX-section-title
@@ -127,11 +124,6 @@ depend on it being positive instead of the entry in `TeX-command-list'."
 (defun wasa-LaTeX-hook ()
   (local-set-key (kbd "C-c C-e") 'wasa-LaTeX-environment)
   (local-set-key (kbd "C-c C-c") 'wasa-TeX-command-master))
-(defun wasa-TeX-hook ()
-  (local-set-key (kbd "C-c C-e") 'wasa-LaTeX-environment)
-  (local-set-key (kbd "C-c C-c") 'wasa-TeX-command-master))
-
 (add-hook 'LaTeX-mode-hook 'wasa-LaTeX-hook)
-(add-hook 'TeX-mode-hook 'wasa-TeX-hook)
 
 (provide 'wasa-auctex)
