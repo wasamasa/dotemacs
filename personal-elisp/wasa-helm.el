@@ -15,11 +15,11 @@
 (setq helm-cmd-t-default-repo (concat user-directory "code/dotfiles"))
 
 ;; helm ack-grep hacks
-(setq helm-ack-grep-executable "ack")
+(setq helm-ack-grep-executable "ag")
 (setq helm-grep-default-command
-      (concat helm-ack-grep-executable " -nH --nogroup --nocolor --nopager --smart-case %p %f")
+      (concat helm-ack-grep-executable " --nogroup --nocolor --nopager --smart-case %p %f")
       helm-grep-default-recurse-command
-      (concat helm-ack-grep-executable " -H --nogroup --nocolor --nopager --smart-case %p %f"))
+      (concat helm-ack-grep-executable " --nogroup --nocolor --nopager --smart-case %p %f"))
 
 ;; helm grep hacks
 (when helm-ff-ido-style-backspace
