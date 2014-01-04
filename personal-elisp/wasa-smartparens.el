@@ -39,4 +39,18 @@
 (sp-local-pair 'tex-mode "'" nil :actions nil)
 (sp-local-pair 'tex-mode "`" nil :actions nil)
 
+;; lots of autopairing solutions from other editors insert an extra
+;; newline with correct indentation after pressing enter after an
+;; opening key, this adds a generic function for that
+
+(defun my-create-newline-and-enter-sexp (&rest _ignored)
+  "open a new brace or bracket expression, with relevant newlines and indent. "
+  (newline)
+  (indent-according-to-mode)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+;; list of modes and pairs to apply this to
+(sp-local-pair 'c-mode "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
+
 (provide 'wasa-smartparens)
