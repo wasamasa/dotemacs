@@ -58,6 +58,7 @@
 (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
 (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
 (define-key evil-window-map (kbd "u") 'winner-undo)
+(define-key evil-window-map (kbd "b") 'helm-mini)
 
 (defun wasa-evil-unimpaired-insert-newline-above (count)
   "Insert an empty line below point"
