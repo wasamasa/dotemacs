@@ -10,6 +10,7 @@
 ;; for some reason (evil-set-initial-state 'org-capture-mode 'insert) does not work
 (add-hook 'org-capture-mode-hook (lambda () (evil-insert-state)))
 (evil-set-initial-state 'tumblesocks-compose-mode 'insert)
+(evil-set-initial-state 'git-commit-mode 'insert)
 (evil-set-initial-state 'nrepl-mode 'emacs)
 (evil-set-initial-state 'circe-chat-mode 'emacs)
 (evil-set-initial-state 'circe-channel-mode 'emacs)
