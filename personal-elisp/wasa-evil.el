@@ -1,5 +1,6 @@
 (setq evil-default-cursor t)
 (setq evil-want-C-w-in-emacs-state t)
+(setq evil-symbol-word-search t)
 (evil-mode t)
 (global-surround-mode t)
 (global-evil-matchit-mode)
