@@ -33,6 +33,7 @@
       `((".*" ,(concat user-emacs-directory "autosave/\\1") t)))
 (setq version-control t)
 (winner-mode t)
+(setq windmove-wrap-around t)
 (setq-default save-place t)
 (setq save-place-file (concat user-emacs-directory "etc/saved-places"))
 (setq python-check-command "flake8")
