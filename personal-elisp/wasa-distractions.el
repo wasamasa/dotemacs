@@ -85,9 +85,9 @@ static char *noname[] = {
 (autoload 'lui-fool-toggle-display "lui" "Toggle fools" t)
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
 (defun wasa-circe-nick-next (oldnick)
-    (cond ((string= oldnick "webspid0r") "wubspider")
-          ((string= oldnick "wubspider") "webspid0r")
-          (t "wasamasa")))
+    (cond ((string= oldnick "wasamasa") "wasa")
+          ((string= oldnick "wasa") "wasamasa")
+          (t "wubspider")))
 (setq circe-nick-next-function 'wasa-circe-nick-next)
 
 (defun circe-generate-nick-color ()
