@@ -107,50 +107,14 @@ static char *noname[] = {
                        (logior flags #x00000100)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
-(defun lui-highlight-keywords ()
-  "Highlight the entries in the variable `lui-highlight-keywords'.
-
-This is called automatically when new text is inserted."
-  (let ((regex (lambda (entry)
-                 (if (stringp entry)
-                     entry
-                   (car entry))))
-        (submatch (lambda (entry)
-                    (if (and (consp entry)
-                             (numberp (cadr entry)))
-                        (cadr entry)
-                      0)))
-        (properties (lambda (entry)
-                      (let ((face (cond
-                                   ;; REGEXP
-                                   ((stringp entry)
-                                    'lui-highlight-face)
-                                   ;; (REGEXP SUBMATCH)
-                                   ((and (numberp (cadr entry))
-                                         (null (cddr entry)))
-                                    'lui-highlight-face)
-                                   ;; (REGEXP FACE)
-                                   ((null (cddr entry))
-                                    (cadr entry))
-                                   ;; (REGEXP SUBMATCH FACE)
-                                   (t
-                                    (nth 2 entry)))))
-                        (if (facep face)
-                            `(face ,face)
-                          face)))))
-    (dolist (entry lui-highlight-keywords)
-      (goto-char (point-min))
-      (while (re-search-forward (funcall regex entry) nil t)
-        (let* ((exp (funcall submatch entry))
-               (beg (match-beginning exp))
-               (end (match-end exp)))
-          (when (not (text-property-any beg end 'lui-highlight-fontified-p t))
-            ;; patch start
-            (wasa-x-urgency-hint)
-            ;; patch end
-            (add-text-properties beg end
-                                 (append (funcall properties entry)
-                                         '(lui-highlight-fontified-p t)))))))))
+(defun wasa-circe-message-option-highlight (nick user host command args)
+  (let ((irc-message (second args)))
+    (when (and irc-message
+               (or (wasa-any-regex-in-string lui-highlight-keywords irc-message)
+                   (eq major-mode 'circe-query-mode)))
+      (wasa-x-urgency-hint)
+      '((text-properties . (face default message t))))))
+(add-hook 'circe-message-option-functions 'wasa-circe-message-option-highlight)
 
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
