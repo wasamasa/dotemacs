@@ -28,6 +28,12 @@
 (defun helm-fkey-prettify (candidates)
   (mapcar 'helm-fkey-propertize-candidate candidates))
 
+(defun wasa-irc ()
+  "Connect to all my IRC servers"
+  (interactive)
+  (circe "Bitlbee")
+  (circe "Freenode"))
+
 ;;------------------
 
 (setq helm-f1-data
@@ -251,7 +257,7 @@
 (setq helm-f9-data
       '(("d" . ("Tumblr [D]ashboard" "tumblesocks-view-dashboard"))
         ("f" . ("News [F]eeds" "elfeed"))
-        ("i" . ("[I]RC" "circe"))
+        ("i" . ("[I]RC" "wasa-irc"))
         ;("m" . ("E-[M]ail" "mu4e"))
         ("t" . ("[T]etris" "tetris"))))
 
