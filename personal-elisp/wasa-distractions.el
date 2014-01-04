@@ -58,14 +58,20 @@ static char *noname[] = {
       tumblesocks-post-default-state "ask")
 
 ;; circe
-(setq circe-default-nick "webspid0r"
+(setq circe-default-nick "wasamasa"
+      circe-default-user "wasamasa"
+      circe-default-realname "wasamasa"
+      circe-default-part-message "Bye"
+      circe-default-quit-message "Bye"
       circe-use-cycle-completion t
       circe-reduce-lurker-spam t
       circe-nickserv-ghost-style 'immediate
       circe-format-self-say "<{nick}> {body}"
+      circe-format-server-topic "*** Topic Change by {origin}: {topic-diff}"
       circe-highlight-nick-type 'message
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
       circe-network-options `(("Freenode"
+                               :channels ("#archlinux" "#archlinux.de" "#emacs")
                                :nickserv-password ,freenode-password)
                               ("Bitlbee" :port 6667
                                :lagmon-disabled t
