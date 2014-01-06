@@ -1,6 +1,7 @@
+;; -*- lexical-binding: t -*-
 (require 's)
 
-(setq helm-fkey-keymap
+(defvar helm-fkey-keymap
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
     (dolist (key (number-sequence ?! ?~))
@@ -41,7 +42,7 @@
                           (candidates . (lambda () (mapcar 'cadr ,data)))
                           (candidate-transformer helm-fkey-prettify)
                           (action ("Execute" . (lambda (_) (helm-fkey-call-function ,data)))))))
-           (helm :sources 'source :keymap helm-fkey-keymap :prompt "Key: " :buffer ,(concat "*helm-" key))))
+           (helm :sources source :keymap helm-fkey-keymap :prompt "Key: " :buffer ,(concat "*helm-" key))))
        (global-set-key (kbd ,bind) ',func-name))))
 
 (defun wasa-irc ()
