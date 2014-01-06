@@ -96,6 +96,7 @@
 (helm-fkey "Eval" "f5" "<f5>"
            '(("c" "[C]alc" "calc")
              ("e" "[E]val Expression" "helm-eval-expression-with-eldoc")
+             ("g" "Ma[g]it" "magit-status")
              ("i" "[I]ELM" "ielm")
              ("r" "[R]egexp" "helm-regexp")
              ("s" "[S]hell" "shell")
