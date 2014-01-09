@@ -5,7 +5,6 @@
 (defun wasa-turn-on-indicate-buffer-boundaries ()
   (setq indicate-buffer-boundaries
         '((top . left) (bottom . left))))
-(rainbow-delimiters-mode-enable)
 
 (add-hook 'text-mode-hook 'wasa-turn-on-indicate-buffer-boundaries)
 (add-hook 'text-mode-hook 'wasa-turn-on-indicate-empty-lines)
