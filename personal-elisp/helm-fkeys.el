@@ -9,13 +9,15 @@
     map))
 
 (defun helm-fkey-call-function (data)
-  "Calls the function associated to the last key pressed"
+  "Calls the function associated to the last key pressed by
+looking up DATA"
   (let ((command (caddr (assoc (string last-command-event) data))))
     (when command
       (command-execute (intern command) 'record))))
 
 (defun helm-fkey-propertize-candidate (str)
-  "Propertizes a helm-fkey candidate"
+  "Propertizes a helm-fkey candidate, both brackets and the
+enclosed glyph get a distinct face"
   (let* ((split-str (s-split "\\(\\[\\|\\]\\)" str))
          (beg (first split-str))
          (opening-bracket "[")
@@ -29,6 +31,7 @@
               rest)))
 
 (defun helm-fkey-prettify (candidates)
+  "Applies `helm-fkey-propertize-candidate' to CANDIDATES"
   (mapcar 'helm-fkey-propertize-candidate candidates))
 
 (defmacro helm-fkey (label key bind data)
