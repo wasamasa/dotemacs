@@ -16,6 +16,11 @@ looking up DATA"
     (when command
       (command-execute (intern command) 'record))))
 
+(defface helm-fkey-key-face '((t (:foreground "red" :weight bold)))
+  "Face for the highlighted key")
+(defface helm-fkey-bracket-face '((t (:weight bold)))
+  "Face for the highlighted brackets")
+
 (defun helm-fkey-propertize-candidate (str)
   "Propertizes a helm-fkey candidate, both brackets and the
 enclosed glyph get a distinct face"
