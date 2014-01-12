@@ -128,7 +128,7 @@ enclosed glyph get a distinct face"
            '(("d" "Tumblr [D]ashboard" "tumblesocks-view-dashboard")
              ("f" "News [F]eeds" "elfeed")
              ("i" "[I]RC" "wasa-irc")
-             ;;("m" "E-[M]ail" "mu4e")
+             ("m" "E-[M]ail" "mu4e")
              ("t" "[T]etris" "tetris")))
 
 ;; helm-pacman, helm-aur (compare helm-apt)
