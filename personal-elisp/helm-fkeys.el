@@ -1,4 +1,5 @@
 ;; -*- lexical-binding: t -*-
+(require 'helm)
 (require 's)
 
 (defvar helm-fkey-keymap
