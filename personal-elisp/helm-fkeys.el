@@ -49,12 +49,6 @@ enclosed glyph get a distinct face"
            (helm :sources source :keymap helm-fkey-keymap :prompt "Key: " :buffer ,(concat "*helm-" key))))
        (global-set-key (kbd ,bind) ',func-name))))
 
-(defun wasa-irc ()
-  "Connect to all my IRC servers"
-  (interactive)
-  (circe "Bitlbee")
-  (circe "Freenode"))
-
 ;;------------------
 
 (helm-fkey "Help" "f1" "<f1>"
