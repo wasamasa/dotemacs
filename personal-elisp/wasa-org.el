@@ -15,7 +15,6 @@
       org-capture-templates
             '(("n" "Note" entry (file+headline org-default-notes-file "Inbox")
                         "* TODO %<%Y-%m-%d %H:%M:%S>\n\n%?" :empty-lines 1)))
-;(global-set-key (kbd "<f12>") 'org-agenda)
 (setq which-func-modes '(org-mode))
 (which-function-mode)
 ;(global-set-key (kbd "<f11>") 'org-capture)
