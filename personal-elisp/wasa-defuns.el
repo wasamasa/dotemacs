@@ -27,12 +27,6 @@
      ("ü" "\"u")
      ("ß" "\"s"))))
 
-(defun wasa-region-test (beg end)
-  (interactive "r")
-  (unless (region-active-p)
-    (setq beg 0)(setq end 0))
-  (message "Region: %d %d" beg end))
-
 (defun wasa-any-regex-in-string (regexes string)
   "Tests whether any of the given regular expressions is present in the given string."
   (cl-dolist (regex regexes)
