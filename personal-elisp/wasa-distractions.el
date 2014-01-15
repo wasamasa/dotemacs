@@ -201,6 +201,33 @@ static char *noname[] = {
 (setq message-sendmail-envelope-from 'header)
 (add-hook 'message-send-mail-hook 'choose-msmtp-account)
 
+(eval-after-load "mu4e-main"
+  '(defun mu4e~main-action-str (str &optional func-or-shortcut)
+     "Highlight the first occurence of [.+] in STR.
+If FUNC-OR-SHORTCUT is non-nil and if it is a function, call it
+when STR is clicked (using RET or mouse-2); if FUNC-OR-SHORTCUT is
+a string, execute the corresponding keyboard action when it is
+clicked."
+     (let ((newstr
+            (replace-regexp-in-string
+             "\\[\\(.+\\)\\]"
+             (lambda(m)
+               (format "[%s]"
+                       (propertize (match-string 1 m) 'face 'mu4e-highlight-face)))
+             str))
+           (map (make-sparse-keymap))
+           (func (if (functionp func-or-shortcut)
+                     func-or-shortcut
+                   (if (stringp func-or-shortcut)
+                       (lexical-let ((macro func-or-shortcut))
+                         (lambda()(interactive)
+                           (execute-kbd-macro macro)))))))
+       (define-key map [mouse-2] func)
+       (define-key map (kbd "RET") func)
+       (put-text-property 0 (length newstr) 'keymap map newstr)
+       (put-text-property (string-match "\\[.+" newstr)
+                          (- (length newstr) 1) 'mouse-face 'highlight newstr) newstr)))
+
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
