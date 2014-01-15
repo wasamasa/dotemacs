@@ -185,6 +185,22 @@ static char *noname[] = {
            (error "No email account found"))))
 (add-hook 'mu4e-compose-pre-hook 'wasa-mu4e-set-account)
 
+(setq message-send-mail-function 'message-send-mail-with-sendmail
+      sendmail-program "msmtp")
+(defun choose-msmtp-account ()
+    (if (message-mail-p)
+        (save-excursion
+          (let* ((from (save-restriction
+                         (message-narrow-to-headers)
+                         (message-fetch-field "from")))
+                 (account
+                  (cond
+                   ((string-match "hurrus.durrus@gmail.com" from) "private")
+                   ((string-match "v.schneidermann@gmail.com" from) "public"))))
+            (setq message-sendmail-extra-arguments (list '"-a" account))))))
+(setq message-sendmail-envelope-from 'header)
+(add-hook 'message-send-mail-hook 'choose-msmtp-account)
+
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
