@@ -1,6 +1,7 @@
 (require 's)
 
 (setq gc-cons-threshold 50000000)
+(setq initial-scratch-message "\n")
 (setq safe-local-variable-values '((org-confirm-elisp-link-function . nil)))
 (setq find-function-C-source-directory (concat user-emacs-directory "emacs-24.3/src"))
 (setq delete-old-versions t)
