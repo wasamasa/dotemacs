@@ -228,6 +228,17 @@ clicked."
        (put-text-property (string-match "\\[.+" newstr)
                           (- (length newstr) 1) 'mouse-face 'highlight newstr) newstr)))
 
+(defun wasa-mu4e-main-view-fix ()
+  (with-current-buffer (get-buffer mu4e~main-buffer-name)
+    (save-excursion
+      (let ((inhibit-read-only t))
+        (goto-char (point-min))
+        (when (search-forward "\t* enter a [s]earch query\n" (point-max) t)
+          (set-text-properties (match-beginning 0) (match-end 0) nil)
+          (replace-match "" t t)
+          (insert (mu4e~main-action-str "\t* [?] enter a search query\n" 'mu4e-search)))))))
+(add-hook 'mu4e-main-mode-hook 'wasa-mu4e-main-view-fix)
+
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
