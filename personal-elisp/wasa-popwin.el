@@ -10,6 +10,7 @@
         ("*Shell Command Output*")
         (" *undo-tree*" :width 60 :position right)
         ("^\*helm .+\*$" :regexp t :height 0.3 :position bottom)
-        ("^\*helm-.+\*$" :regexp t :height 0.3 :position bottom)))
+        ("^\*helm-.+\*$" :regexp t :height 0.3 :position bottom))
+      popwin:close-popup-window-timer-interval 0.1)
 
 (provide 'wasa-popwin)
