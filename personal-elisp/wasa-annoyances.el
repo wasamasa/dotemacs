@@ -14,6 +14,13 @@
 (setq-default indent-tabs-mode nil)
 (setq uniquify-buffer-name-style 'forward)
 (setq apropos-do-all t)
+(setq recentf-save-file (concat user-emacs-directory "etc/recentf")
+      recentf-max-menu-items 25
+      recentf-max-saved-items 50)
+(recentf-mode t)
+(setq savehist-file (concat user-emacs-directory "etc/savehist")
+      history-length 150)
+(savehist-mode t)
 (setq async-shell-command-buffer 'new-buffer)
 (setq server-use-tcp t)
 (setq mouse-yank-at-point t)
