@@ -1,6 +1,19 @@
 ;; -*- lexical-binding: t -*-
 (require 'cl-lib)
 (require 's)
+(require 'dash)
+
+(defun wasa-define-keys (keymap &rest binds)
+  (cl-dolist (pair (-partition 2 binds))
+    (let ((key (first pair))
+          (func (second pair)))
+      (define-key keymap key func))))
+
+(defun wasa-global-set-keys (&rest binds)
+  (cl-dolist (pair (-partition 2 binds))
+    (let ((key (first pair))
+          (func (second pair)))
+      (define-key key func))))
 
 (defun wasa-replace-in-region-or-buffer (search-replace-list)
   (let ((beg (if (region-active-p) (region-beginning) (point-min)))
