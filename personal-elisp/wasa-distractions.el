@@ -148,6 +148,23 @@ static char *noname[] = {
                     (kbd "s") nil
                     (kbd "/") 'mu4e-headers-search))
 (add-hook 'mu4e-main-mode-hook 'wasa-mu4e-remap-search)
+
+(setq wasa-mu4e-account-alist
+      '(("private"
+         (user-full-name . "Hurrus Durrus")
+         (user-mail-address . "hurrus.durrus@gmail.com")
+         (mu4e-drafts-folder . "/private/drafts")
+         (mu4e-sent-folder . "/private/sent")
+         (mu4e-trash-folder . "/private/trash")
+         (mu4e-refile-folder . "/private/archive"))
+        ("public"
+         (user-full-name . "Vasilij Schneidermann")
+         (user-mail-address . "v.schneidermann@gmail.com")
+         (mu4e-drafts-folder . "/public/drafts")
+         (mu4e-sent-folder . "/public/sent")
+         (mu4e-trash-folder . "/public/trash")
+         (mu4e-refile-folder . "/public/archive"))))
+
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
