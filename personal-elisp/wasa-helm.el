@@ -1,7 +1,3 @@
-(setq recentf-save-file (concat user-emacs-directory "etc/recentf")
-      recentf-max-menu-items 25
-      recentf-max-saved-items 50)
-(recentf-mode t)
 (helm-mode t)
 (setq helm-ff-ido-style-backspace 'always
       helm-ff-auto-update-initial-value t
