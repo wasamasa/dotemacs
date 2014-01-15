@@ -637,7 +637,8 @@
      `(mu4e-warning-face ((t (:foreground ,red :slant normal :weight bold))))
      `(mu4e-header-highlight-face
        ((t (:inherit unspecified :foreground unspecified :background ,solarized-hl
-                          :underline ,solarized-emph  :weight normal))))
+                          ;:underline ,solarized-emph  :weight normal))))
+                          :weight normal))))
 
      ;; `(mu4e-draft-face ((t (:inherit font-lock-string-face))))
      ;; `(mu4e-footer-face ((t (:inherit font-lock-comment-face))))
