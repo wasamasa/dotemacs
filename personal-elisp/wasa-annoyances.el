@@ -31,7 +31,6 @@
       scroll-preserve-screen-position 1)
 (setq frame-title-format '("" invocation-name ": " (:eval (s-trim (buffer-name)))))
 (setq user-directory (concat "/home/" user-login-name "/"))
-(setq initial-buffer-choice (concat user-emacs-directory "init.el"))
 (setq blink-matching-paren nil)
 ;; primitive vcs and uncluttering
 (setq backup-directory-alist
