@@ -47,5 +47,6 @@
 (unicode-whitespace-setup)
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (setq bookmark-default-file (concat user-emacs-directory "etc/bookmarks"))
+(modify-syntax-entry ?_ "w" (standard-syntax-table))
 
 (provide 'wasa-annoyances)
