@@ -143,6 +143,11 @@ static char *noname[] = {
       ;mu4e-html2text-command "lynx -hiddenlinks=merge -display_charset=utf-8 -dump -stdin"
       mu4e-html2text-command "lynx -display_charset=utf-8 -dump -stdin"
       mu4e-confirm-quit nil)
+(defun wasa-mu4e-remap-search ()
+  (wasa-define-keys 'mu4e-main-mode-map
+                    (kbd "s") nil
+                    (kbd "/") 'mu4e-headers-search))
+(add-hook 'mu4e-main-mode-hook 'wasa-mu4e-remap-search)
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
