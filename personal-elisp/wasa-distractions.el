@@ -122,6 +122,11 @@ static char *noname[] = {
       '((text-properties . (face default message t))))))
 (add-hook 'circe-message-option-functions 'wasa-circe-message-option-highlight)
 
+(defun wasa-irc ()
+  "Connect to all my IRC servers"
+  (interactive)
+  (circe "Bitlbee")
+  (circe "Freenode"))
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
