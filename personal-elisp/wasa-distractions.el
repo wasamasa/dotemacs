@@ -69,11 +69,13 @@ static char *noname[] = {
       circe-default-quit-message "Bye"
       circe-use-cycle-completion t
       circe-reduce-lurker-spam t
-      circe-nickserv-ghost-style 'immediate
+      circe-nickserv-ghost-style 'after-auth
       circe-format-self-say "<{nick}> {body}"
       circe-format-server-topic "*** Topic Change by {origin}: {topic-diff}"
       circe-highlight-nick-type 'message
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
+      circe-server-auto-join-default-type :after-nick
+      circe-new-buffer-behavior-ignore-auto-joins t
       circe-network-options `(("Freenode"
                                :channels ("#archlinux" "#archlinux.de" "#emacs")
                                :nickserv-password ,freenode-password)
