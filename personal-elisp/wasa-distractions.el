@@ -127,6 +127,22 @@ static char *noname[] = {
   (interactive)
   (circe "Bitlbee")
   (circe "Freenode"))
+
+;; mu4e
+(autoload 'mu4e "mu4e" "Main function of mu4e" t)
+(setq mu4e-maildir (concat user-directory ".mail")
+      user-full-name "Vasilij Schneidermann"
+      user-mail-address "v.schneidermann@gmail.com"
+      mu4e-drafts-folder "/public/drafts"
+      mu4e-sent-folder "/public/sent"
+      mu4e-trash-folder "/public/trash"
+      mu4e-refile-folder "/public/archive"
+      mu4e-get-mail-command "checkmail"
+      mu4e-view-show-images t
+      mu4e-view-prefer-html t
+      ;mu4e-html2text-command "lynx -hiddenlinks=merge -display_charset=utf-8 -dump -stdin"
+      mu4e-html2text-command "lynx -display_charset=utf-8 -dump -stdin"
+      mu4e-confirm-quit nil)
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"
                      "http://fluxmachine.tumblr.com/rss"
