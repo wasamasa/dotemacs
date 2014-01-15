@@ -5,11 +5,7 @@
 (setq toe-highscore-file (concat user-emacs-directory "etc/toe.score"))
 
 ;; tetris
-(require 'tetris)
-;(autoload 'tetris-mode-map "tetris" "Enable tetris keymap" nil 'keymap)
-(define-key tetris-mode-map "z" 'tetris-rotate-next)
-(define-key tetris-mode-map "x" 'tetris-rotate-prev)
-(defun tetris-move-down ()
+(defun wasa-tetris-move-down ()
   (interactive)
   (unless tetris-paused
     (tetris-erase-shape)
@@ -17,8 +13,16 @@
     (if (tetris-test-shape)
         (setq tetris-pos-y (1- tetris-pos-y)))
     (tetris-draw-shape)))
-(define-key tetris-mode-map [down] 'tetris-move-down)
-(setq tetris-score-file (concat user-emacs-directory "etc/tetris.score"))
+
+(defun wasa-fix-tetris-mode ()
+  (wasa-define-keys tetris-mode-map
+                    (kbd "z") 'tetris-rotate-next
+                    (kbd "x") 'tetris-rotate-prev
+                    (kbd "<down>") 'wasa-tetris-move-down)
+  (setq tetris-score-file (concat user-emacs-directory "etc/tetris.score")))
+
+(add-hook 'tetris-mode-hook 'wasa-fix-tetris-mode)
+
 (defadvice tetris-end-game (around zap-scores activate)
   (save-window-excursion ad-do-it)
   (kill-buffer))
