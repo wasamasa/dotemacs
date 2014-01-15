@@ -8,7 +8,7 @@
 (evil-set-initial-state 'package-menu-mode 'motion)
 (evil-set-initial-state 'Custom-mode 'motion)
 ;; for some reason (evil-set-initial-state 'org-capture-mode 'insert) does not work
-(add-hook 'org-capture-mode-hook (lambda () (evil-insert-state)))
+(add-hook 'org-capture-mode-hook 'evil-insert-state)
 (evil-set-initial-state 'tumblesocks-compose-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 (evil-set-initial-state 'nrepl-mode 'emacs)
