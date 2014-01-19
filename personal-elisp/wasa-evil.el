@@ -21,6 +21,12 @@
 (evil-set-initial-state 'woman-mode 'emacs)
 (evil-set-initial-state 'tetris-mode 'emacs)
 
+(define-key evil-motion-state-map (kbd "SPC") nil)
+(define-key evil-visual-state-map (kbd "SPC") nil)
+(define-key evil-motion-state-map (kbd "RET") nil)
+(define-key evil-visual-state-map (kbd "RET") nil)
+(define-key evil-motion-state-map (kbd "TAB") nil)
+(define-key evil-visual-state-map (kbd "TAB") nil)
 (define-key evil-motion-state-map ";" 'evil-ex) ; nnoremap ; :
 (define-key evil-visual-state-map ";" 'evil-ex) ; vnoremap ; :
 (key-chord-mode 1)
