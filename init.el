@@ -8,6 +8,7 @@
 (require 'ac-company)
 ;; load own elisp
 (add-to-list 'load-path (concat user-emacs-directory "personal-elisp"))
+(setq initial-buffer-choice t)
 (setq wasa-packages
       '(wasa-ui
         wasa-hooks
