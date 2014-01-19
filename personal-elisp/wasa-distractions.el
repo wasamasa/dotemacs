@@ -89,6 +89,9 @@ static char *noname[] = {
       lui-fill-column 69
       lui-max-buffer-size 50000)
 (autoload 'lui-fool-toggle-display "lui" "Toggle fools" t)
+(autoload 'enable-lui-logging "lui-logging" t)
+(setq lui-logging-directory (concat user-emacs-directory "logs"))
+(enable-lui-logging)
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
 (defun wasa-circe-nick-next (oldnick)
     (cond ((string= oldnick "wasamasa") "wasa")
