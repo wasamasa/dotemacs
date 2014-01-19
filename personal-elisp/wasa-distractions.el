@@ -92,6 +92,8 @@ static char *noname[] = {
 (autoload 'enable-lui-logging "lui-logging" t)
 (setq lui-logging-directory (concat user-emacs-directory "logs"))
 (enable-lui-logging)
+(add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
+
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
 (defun wasa-circe-nick-next (oldnick)
     (cond ((string= oldnick "wasamasa") "wasa")
