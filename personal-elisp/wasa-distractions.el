@@ -86,7 +86,6 @@ static char *noname[] = {
 (setq circe-color-nicks-everywhere t)
 (circe-lagmon-mode)
 (setq lui-highlight-keywords '("webspid0r" "wubspider" "wasamasa" "wasa")
-      lui-fill-column 69
       lui-max-buffer-size 50000)
 (autoload 'lui-fool-toggle-display "lui" "Toggle fools" t)
 (autoload 'enable-lui-logging "lui-logging" t)
@@ -94,7 +93,18 @@ static char *noname[] = {
 (enable-lui-logging)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
+(setq lui-time-stamp-position 'right-margin
+      lui-fill-type nil)
+(defun wasa-lui-fluid-width-setup ()
+  (setq fringes-outside-margins t
+        right-margin-width 7
+        visual-line-fringe-indicators '(nil nil)
+        wrap-prefix "    ")
+  (visual-line-mode t))
+
+(add-hook 'lui-mode-hook 'wasa-lui-fluid-width-setup)
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
+
 (defun wasa-circe-nick-next (oldnick)
     (cond ((string= oldnick "wasamasa") "wasa")
           ((string= oldnick "wasa") "wasamasa")
