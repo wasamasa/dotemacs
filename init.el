@@ -22,6 +22,8 @@
         wasa-org
         wasa-ibuffer
         wasa-helm
+        wasa-comint
+        wasa-flycheck
         helm-smex
         helm-fkeys
         wasa-cc
