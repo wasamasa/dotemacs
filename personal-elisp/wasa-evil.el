@@ -7,6 +7,7 @@
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'package-menu-mode 'motion)
 (evil-set-initial-state 'Custom-mode 'motion)
+(evil-set-initial-state 'special-mode 'motion)
 ;; for some reason (evil-set-initial-state 'org-capture-mode 'insert) does not work
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 (evil-set-initial-state 'tumblesocks-compose-mode 'insert)
