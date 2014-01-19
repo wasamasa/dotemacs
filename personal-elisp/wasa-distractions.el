@@ -116,8 +116,9 @@ static char *noname[] = {
 (defun wasa-circe-message-option-highlight (nick user host command args)
   (let ((irc-message (second args)))
     (when (and irc-message
+               (not (equal nick circe-default-nick))
                (or (wasa-any-regex-in-string lui-highlight-keywords irc-message)
-                   (eq major-mode 'circe-query-mode)))
+                   (equal major-mode 'circe-query-mode)))
       (wasa-x-urgency-hint)
       '((text-properties . (face default message t))))))
 (add-hook 'circe-message-option-functions 'wasa-circe-message-option-highlight)
