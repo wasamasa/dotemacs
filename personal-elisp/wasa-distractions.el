@@ -98,9 +98,11 @@ static char *noname[] = {
 (defun wasa-lui-fluid-width-setup ()
   (setq fringes-outside-margins t
         right-margin-width 7
-        visual-line-fringe-indicators '(nil nil)
-        wrap-prefix "    ")
-  (visual-line-mode t))
+        word-wrap t
+        fringe-indicator-alist (cons (cons 'continuation
+                                           '(nil nil))
+                                     fringe-indicator-alist)
+        wrap-prefix "    "))
 
 (add-hook 'lui-mode-hook 'wasa-lui-fluid-width-setup)
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
