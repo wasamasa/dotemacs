@@ -12,12 +12,14 @@
       org-agenda-files '("~/org/")
       org-directory "~/org/"
       org-default-notes-file (concat org-directory "inbox.org")
+      org-journal-file (concat org-directory "journal.org")
       org-capture-templates
             '(("n" "Note" entry (file+headline org-default-notes-file "Inbox")
-                        "* TODO %<%Y-%m-%d %H:%M:%S>\n\n%?" :empty-lines 1)))
+               "* TODO %<%Y-%m-%d %H:%M:%S>\n\n%?" :empty-lines 1)
+              ("j" "Journal" entry (file+datetree org-journal-file)
+               "* %<%H:%M>\n\n%?" :empty-lines 1)))
 (setq which-func-modes '(org-mode))
 (which-function-mode)
-;(global-set-key (kbd "<f11>") 'org-capture)
-(global-set-key (kbd "<f11>") (lambda () (interactive) (org-capture nil "n")))
+(global-set-key (kbd "<f11>") 'org-capture)
 
 (provide 'wasa-org)
