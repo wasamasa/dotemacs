@@ -46,4 +46,16 @@
     (when (s-contains? regex string)
       (cl-return t))))
 
+(defun wasa-kill-word (arg)
+  "Kill characters forward until encountering the end of a word.
+With argument ARG, do this that many times.  Do not move."
+  (interactive "p")
+  (kill-region (point) (save-excursion (forward-word arg) (point))))
+
+(defun wasa-backward-kill-word (arg)
+  "Kill characters backward until encountering the end of a word.
+With argument ARG, do this that many times.  Do not move."
+  (interactive "p")
+  (wasa-kill-word (- arg)))
+
 (provide 'wasa-defuns)
