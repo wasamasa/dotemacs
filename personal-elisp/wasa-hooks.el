@@ -9,8 +9,10 @@
 (add-hook 'text-mode-hook 'wasa-turn-on-indicate-buffer-boundaries)
 (add-hook 'text-mode-hook 'wasa-turn-on-indicate-empty-lines)
 (add-hook 'text-mode-hook 'wasa-turn-on-fill-mode)
+(add-hook 'text-mode-hook 'column-enforce-mode)
 (add-hook 'prog-mode-hook 'wasa-turn-on-indicate-buffer-boundaries)
 (add-hook 'prog-mode-hook 'wasa-turn-on-indicate-empty-lines)
+(add-hook 'prog-mode-hook 'column-enforce-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
 
 (provide 'wasa-hooks)
