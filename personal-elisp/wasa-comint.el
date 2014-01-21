@@ -17,5 +17,7 @@
   (propertize text 'read-only t))
 
 (add-hook 'comint-preoutput-filter-functions 'wasa-comint-preoutput-turn-buffer-read-only)
+(define-key comint-mode-map [remap kill-word] 'wasa-kill-word)
+(define-key comint-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
 
 (provide 'wasa-comint)
