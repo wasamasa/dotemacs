@@ -105,6 +105,9 @@ static char *noname[] = {
         wrap-prefix "    "))
 
 (add-hook 'lui-mode-hook 'wasa-lui-fluid-width-setup)
+(define-key lui-mode-map [remap kill-word] 'wasa-kill-word)
+(define-key lui-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
+
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
 
 (defun wasa-circe-nick-next (oldnick)
