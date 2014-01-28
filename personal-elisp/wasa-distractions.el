@@ -87,9 +87,6 @@ static char *noname[] = {
 (circe-lagmon-mode)
 (setq lui-highlight-keywords '("webspid0r" "wubspider" "wasamasa" "wasa")
       lui-max-buffer-size 50000)
-(autoload 'enable-lui-logging "lui-logging" t)
-(setq lui-logging-directory (concat user-emacs-directory "logs"))
-(enable-lui-logging)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
 (setq lui-time-stamp-position 'right-margin
