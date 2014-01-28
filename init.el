@@ -6,6 +6,7 @@
 ;; load foreign stuff
 (add-to-list 'load-path (concat user-emacs-directory "foreign-elisp"))
 (require 'ac-company)
+(require 'wc-mode)
 ;; load own elisp
 (add-to-list 'load-path (concat user-emacs-directory "personal-elisp"))
 (setq initial-buffer-choice t)

@@ -21,5 +21,6 @@
 (setq which-func-modes '(org-mode))
 (which-function-mode)
 (global-set-key (kbd "<f11>") 'org-capture)
+(add-hook 'org-capture-mode-hook 'wc-mode)
 
 (provide 'wasa-org)
