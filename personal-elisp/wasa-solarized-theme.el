@@ -58,7 +58,7 @@
    `(default ((t (:foreground ,solarized-fg :background ,solarized-bg))))
    `(shadow ((t (:foreground ,solarized-comments))))
    `(match ((t (:background ,solarized-hl :foreground ,solarized-emph :weight bold))))
-   `(cursor ((t (:foreground ,solarized-bg :background ,solarized-fg :inverse-video t))))
+   `(cursor ((t (:background ,base2))))
    `(mouse ((t (:foreground ,solarized-bg :background ,solarized-fg :inverse-video t))))
    `(escape-glyph-face ((t (:foreground ,red))))
    `(fringe ((t (:foreground ,solarized-fg :background ,s-fringe-bg))))
