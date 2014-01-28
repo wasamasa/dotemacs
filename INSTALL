@@ -1,0 +1,6 @@
+1. Clone the repository
+2. Install cask
+3. Run cask in ~/.emacs.d
+4. Install the jedi python dependencies (python-jedi from the regular repositories, python-epc and python-sexpdata from the AUR)
+5. Create the directory ~/.emacs.d/etc.
+6. Write '(setq freenode-pass "secret" bitlbee-pass "secret") into ~/.emacs.d/private/private.el.
