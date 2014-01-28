@@ -19,4 +19,8 @@
 (define-key comint-mode-map [remap kill-word] 'wasa-kill-word)
 (define-key comint-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
 
+(defun wasa-shell-turn-echo-off ()
+  (setq comint-process-echoes t))
+(add-hook 'shell-mode-hook 'wasa-shell-turn-echo-off)
+
 (provide 'wasa-comint)
