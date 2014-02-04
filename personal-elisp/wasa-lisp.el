@@ -2,6 +2,7 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (add-to-list 'ac-sources 'ac-source-company-elisp)))
+(add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
 (cl-lib-highlight-initialize)
 (cl-lib-highlight-warn-cl-initialize)
 (add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
