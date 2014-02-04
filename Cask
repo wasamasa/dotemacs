@@ -12,7 +12,6 @@
 (depends-on "surround")
 
 (depends-on "auto-complete")
-(depends-on "ac-helm")
 (depends-on "ac-nrepl")
 (depends-on "company")
 (depends-on "helm")

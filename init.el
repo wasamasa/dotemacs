@@ -17,7 +17,6 @@
         wasa-annoyances
         wasa-defuns
         wasa-pretty-symbols
-        wasa-autocomplete
         wasa-company
         wasa-popwin
         wasa-calendar
