@@ -30,8 +30,6 @@
 (define-key evil-visual-state-map (kbd "TAB") nil)
 (define-key evil-motion-state-map ";" 'evil-ex) ; nnoremap ; :
 (define-key evil-visual-state-map ";" 'evil-ex) ; vnoremap ; :
-(key-chord-mode 1)
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 (setq undo-tree-auto-save-history t)
 (setq undo-tree-history-directory-alist
       `((".*" . ,(concat user-emacs-directory "undo"))))
