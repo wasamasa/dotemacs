@@ -21,6 +21,7 @@
 (evil-set-initial-state 'Man-mode 'emacs)
 (evil-set-initial-state 'woman-mode 'emacs)
 (evil-set-initial-state 'tetris-mode 'emacs)
+(evil-set-initial-state 'comint-mode 'emacs)
 
 (define-key evil-motion-state-map (kbd "SPC") nil)
 (define-key evil-visual-state-map (kbd "SPC") nil)
