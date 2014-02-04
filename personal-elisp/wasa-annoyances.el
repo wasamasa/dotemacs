@@ -55,9 +55,6 @@
     (kill-buffer)
     (when (> (length (window-list)) 1)
       (delete-window))))
-(defun wasa-fix-help-mode-keymap ()
-  (define-key help-mode-map (kbd "q") 'wasa-quit-help))
-(add-hook 'help-mode-hook 'wasa-fix-help-mode-keymap)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
 
