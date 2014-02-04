@@ -2,7 +2,7 @@
   "Cycle backwards through input history, saving input."
   (interactive "*p")
   (unless (and (eq comint-input-ring-index nil)
-           (< arg 0))
+               (< arg 0))
     (if (and (eq comint-input-ring-index 0)
              (< arg 0)
              comint-stored-incomplete-input)
