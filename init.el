@@ -16,6 +16,7 @@
         wasa-hooks
         wasa-annoyances
         wasa-defuns
+        wasa-tramp
         wasa-pretty-symbols
         wasa-company
         wasa-popwin
