@@ -53,10 +53,8 @@
 
 (evil-define-key 'normal org-mode-map
   (kbd "RET") 'org-open-at-point)
-(global-set-key (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
-(global-set-key (kbd "C-.") 'elisp-slime-nav-describe-elisp-thing-at-point)
-(global-set-key (kbd "M-,") 'pop-tag-mark)
-(global-set-key (kbd "C-,") 'pop-tag-mark)
+(define-key evil-normal-state-map (kbd "C-.") nil)
+(define-key evil-normal-state-map (kbd "M-.") nil)
 
 (setq ace-jump-mode-move-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
 (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-char-mode)
