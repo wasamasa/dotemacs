@@ -1,6 +1,5 @@
 ;; annoyances
 (setq inhibit-splash-screen t)
-;(set-default-font "DejaVu Sans Mono-7")
 (setq default-frame-alist '((font . "DejaVu Sans Mono-7")))
 (set-fontset-font "fontset-default" '(#x10000 . #x1ffff) "Symbola")
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font "fontset-default" '(#x10000 . #x1ffff) "Symbola" frame)))
