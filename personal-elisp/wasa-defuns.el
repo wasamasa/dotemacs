@@ -58,4 +58,10 @@ With argument ARG, do this that many times.  Do not move."
   (interactive "p")
   (wasa-kill-word (- arg)))
 
+(defun wasa-log (str)
+  (save-current-buffer
+    (set-buffer (get-buffer-create "*log*"))
+    (goto-char (point-max))
+    (insert (format "%s\n" str))))
+
 (provide 'wasa-defuns)
