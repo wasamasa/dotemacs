@@ -7,6 +7,6 @@
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
   (remove-hook 'kill-emacs-query-functions 'server-kill-emacs-query-function)
   (save-buffers-kill-emacs))
-(global-set-key (kbd "M-<f4>") (lambda () (interactive) (wasa-quit-emacs)))
+(global-set-key (kbd "M-<f4>") 'wasa-quit-emacs)
 
 (provide 'wasa-keybinds)
