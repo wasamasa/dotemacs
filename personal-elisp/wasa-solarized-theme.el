@@ -53,6 +53,7 @@
    `(comint-highlight-input ((t (:inherit default))))
    `(helm-fkey-key-face ((t (:foreground ,red :weight bold))))
    `(helm-fkey-bracket-face ((t (:weight bold))))
+   `(makefile-space ((t (:background ,magenta))))
 
    ;; basic coloring
    `(default ((t (:foreground ,solarized-fg :background ,solarized-bg))))
