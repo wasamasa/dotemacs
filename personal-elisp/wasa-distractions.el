@@ -79,11 +79,9 @@ static char *noname[] = {
       circe-network-options `(("ZNC" :host "127.0.0.1" :port 65432
                                :pass ,znc-password)
                               ("Bitlbee" :port 6667
-                               :lagmon-disabled t
                                :nickserv-password ,bitlbee-password)))
 (enable-circe-color-nicks)
 (setq circe-color-nicks-everywhere t)
-(circe-lagmon-mode)
 (setq lui-highlight-keywords '("webspid0r" "wubspider" "wasamasa" "wasa")
       lui-max-buffer-size 50000)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
