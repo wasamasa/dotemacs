@@ -9,8 +9,8 @@
       org-M-RET-may-split-line nil
       org-enforce-todo-dependencies t
       org-enforce-todo-checkbox-dependencies t
-      org-agenda-files '("~/org/")
       org-directory "~/org/"
+      org-agenda-files `(,org-directory)
       org-default-notes-file (concat org-directory "inbox.org")
       org-journal-file (concat org-directory "journal.org")
       org-capture-templates
