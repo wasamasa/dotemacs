@@ -17,4 +17,8 @@
 (add-hook 'sgml-mode-hook 'wasa-turn-on-rainbow-mode)
 (add-hook 'css-mode-hook 'wasa-turn-on-rainbow-mode)
 
+(skewer-setup)
+
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
 (provide 'wasa-web)
