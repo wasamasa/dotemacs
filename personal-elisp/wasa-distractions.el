@@ -86,18 +86,6 @@ static char *noname[] = {
       lui-max-buffer-size 50000)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
-(setq lui-time-stamp-position 'right-margin
-      lui-fill-type nil)
-(defun wasa-lui-fluid-width-setup ()
-  (setq fringes-outside-margins t
-        right-margin-width 7
-        word-wrap t
-        fringe-indicator-alist (cons (cons 'continuation
-                                           '(nil nil))
-                                     fringe-indicator-alist)
-        wrap-prefix "    "))
-
-(add-hook 'lui-mode-hook 'wasa-lui-fluid-width-setup)
 (define-key lui-mode-map [remap kill-word] 'wasa-kill-word)
 (define-key lui-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
 
