@@ -42,6 +42,7 @@
 (depends-on "clojure-mode")
 (depends-on "el-spice")
 (depends-on "elisp-slime-nav")
+(depends-on "skewer-mode")
 (depends-on "js2-mode")
 (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
@@ -57,6 +58,7 @@
 (depends-on "crontab-mode")
 
 (depends-on "circe")
+(depends-on "highlight-tail")
 (depends-on "elfeed")
 (depends-on "lui")
 (depends-on "nyan-mode")
