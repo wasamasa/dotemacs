@@ -76,9 +76,8 @@ static char *noname[] = {
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
       circe-server-auto-join-default-type :after-nick
       circe-new-buffer-behavior-ignore-auto-joins t
-      circe-network-options `(("Freenode"
-                               :channels ("#archlinux" "#archlinux.de" "#emacs")
-                               :nickserv-password ,freenode-password)
+      circe-network-options `(("ZNC" :host "127.0.0.1" :port 65432
+                               :pass ,znc-password)
                               ("Bitlbee" :port 6667
                                :lagmon-disabled t
                                :nickserv-password ,bitlbee-password)))
@@ -105,6 +104,7 @@ static char *noname[] = {
 (define-key lui-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
 
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
+(setq tracking-ignored-buffers '("*hl*"))
 
 (defun wasa-circe-nick-next (oldnick)
     (cond ((string= oldnick "wasamasa") "wasa")
@@ -143,7 +143,7 @@ static char *noname[] = {
   "Connect to all my IRC servers"
   (interactive)
   (circe "Bitlbee")
-  (circe "Freenode"))
+  (circe "ZNC"))
 
 ;; mu4e
 (autoload 'mu4e "mu4e" "Main function of mu4e" t)
