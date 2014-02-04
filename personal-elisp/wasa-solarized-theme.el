@@ -302,10 +302,14 @@
      `(company-tooltip ((t (:background ,solarized-hl :foreground ,cyan))))
      `(company-tooltip-selection ((t (:background ,cyan-d :foreground ,cyan-l))))
      `(company-tooltip-mouse ((t (:background ,cyan-l :foreground ,cyan-d))))
-     `(company-tooltip-common ((t (:foreground ,solarized-emph :background ,solarized-hl))))
-     `(company-tooltip-common-selection ((t (:foreground ,solarized-emph :background ,solarized-hl))))
+     `(company-tooltip-common ((t (:foreground ,cyan :background ,solarized-hl :weight bold))))
+     `(company-tooltip-common-selection ((t (:foreground ,cyan-l :background ,cyan-d :weight bold))))
      `(company-preview ((t (:background ,solarized-hl :foreground ,cyan))))
      `(company-preview-common ((t (:foreground ,solarized-emph :underline t))))
+     `(company-echo-common ((t (:foreground ,red))))
+     `(company-preview-search ((t (:foreground ,solarized-fg :background ,blue-d))))
+     `(company-scrollbar-bg ((t (:background ,cyan-l))))
+     `(company-scrollbar-fg ((t (:background ,cyan-d))))
 
      ;; cscope
      `(cscope-file-face ((t (:foreground ,green :weight bold))))
