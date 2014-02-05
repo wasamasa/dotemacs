@@ -3,6 +3,7 @@
 (defun company-ac-prefix (backend)
   (let ((prefix (cdr (assq 'prefix backend))))
     (if (stringp prefix)
+        ;; TODO deal with this case
         (ignore)
       (buffer-substring (point) (funcall prefix)))))
 
