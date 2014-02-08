@@ -88,6 +88,10 @@ static char *noname[] = {
 
 (define-key lui-mode-map [remap kill-word] 'wasa-kill-word)
 (define-key lui-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
+(defun wasa-window-C-l ()
+  (interactive)
+  (recenter-top-bottom -1))
+(define-key lui-mode-map (kbd "C-l") 'wasa-window-C-l)
 
 (setq tracking-faces-priorities '(circe-highlight-nick-face))
 (setq tracking-ignored-buffers '("*hl*"))
