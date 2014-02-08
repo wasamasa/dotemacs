@@ -3,11 +3,11 @@
       company-selection-wrap-around t
       company-show-numbers t)
 (setq company-backends
-      '(company-elisp company-nxml company-css company-capf
-                      (company-gtags company-etags
-                                     company-dabbrev-code company-keywords)
-                      company-files company-dabbrev))
-(add-hook 'prog-mode-hook 'company-mode-on)
+      '(company-jedi company-elisp company-nxml company-css
+                     company-capf
+                     (company-gtags company-etags company-dabbrev-code company-keywords)
+                     company-files company-dabbrev))
+(setq company-jedi-python-bin "python")
 (define-key company-active-map (kbd "C-:") 'helm-company)
 
 (provide 'wasa-company)
