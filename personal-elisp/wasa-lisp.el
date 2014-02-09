@@ -1,7 +1,3 @@
-;; lisp settings
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-company-elisp)))
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
 (defun wasa-eval-region-or-buffer ()
   (interactive)
