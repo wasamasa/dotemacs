@@ -72,7 +72,6 @@ static char *noname[] = {
       circe-nickserv-ghost-style 'after-auth
       circe-format-self-say "<{nick}> {body}"
       circe-format-server-topic "*** Topic Change by {origin}: {topic-diff}"
-      circe-highlight-nick-type 'message
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
       circe-server-auto-join-default-type :after-nick
       circe-new-buffer-behavior-ignore-auto-joins t
@@ -82,8 +81,7 @@ static char *noname[] = {
                                :nickserv-password ,bitlbee-password)))
 (enable-circe-color-nicks)
 (setq circe-color-nicks-everywhere t)
-(setq lui-highlight-keywords '("webspid0r" "wubspider" "wasamasa" "wasa")
-      lui-max-buffer-size 50000)
+(setq lui-max-buffer-size 50000)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
 (define-key lui-mode-map [remap kill-word] 'wasa-kill-word)
@@ -119,14 +117,18 @@ static char *noname[] = {
                        (logior flags #x00000100)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
+(defface wasa-circe-highlight-notification-face '((t (:weight bold)))
+  "Face for circe notifications")
 (defun wasa-circe-message-option-highlight (nick user host command args)
-  (let ((irc-message (second args)))
-    (when (and irc-message
-               (not (equal nick circe-default-nick))
-               (or (wasa-any-regex-in-string lui-highlight-keywords irc-message)
-                   (equal major-mode 'circe-query-mode)))
-      (wasa-x-urgency-hint)
-      '((text-properties . (face default message t))))))
+  (let* ((highlight-regexps '("webspid0r" "wubspider" "wasamasa" "wasa"))
+         (irc-message (second args))
+         (highlight-match (wasa-any-regex-in-string highlight-regexps irc-message)))
+    (when irc-message
+      (when (not (equal nick circe-default-nick))
+        (when (or highlight-match (equal major-mode 'circe-query-mode))
+          (wasa-x-urgency-hint))
+        (when highlight-match
+          '((text-properties . (face wasa-circe-highlight-notification-face message t))))))))
 (add-hook 'circe-message-option-functions 'wasa-circe-message-option-highlight)
 
 (defun wasa-irc ()

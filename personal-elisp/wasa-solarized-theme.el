@@ -54,6 +54,8 @@
    `(helm-fkey-key-face ((t (:foreground ,red :weight bold))))
    `(helm-fkey-bracket-face ((t (:weight bold))))
    `(makefile-space ((t (:background ,magenta))))
+   `(wasa-circe-highlight-notification-face ((t (:foreground ,base2 :weight bold))))
+   `(circe-originator-face ((t (:foreground ,base2))))
 
    ;; basic coloring
    `(default ((t (:foreground ,solarized-fg :background ,solarized-bg))))
