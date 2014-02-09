@@ -42,9 +42,10 @@
 
 (defun wasa-any-regex-in-string (regexes string)
   "Tests whether any of the given regular expressions is present in the given string."
-  (cl-dolist (regex regexes)
-    (when (s-contains? regex string)
-      (cl-return t))))
+  (when string
+    (cl-dolist (regex regexes)
+      (when (s-contains? regex string)
+        (cl-return t)))))
 
 (defun wasa-kill-word (arg)
   "Kill characters forward until encountering the end of a word.
