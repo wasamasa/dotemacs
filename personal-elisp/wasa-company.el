@@ -8,6 +8,6 @@
                      (company-gtags company-etags company-dabbrev-code company-keywords)
                      company-files company-dabbrev))
 (setq company-jedi-python-bin "python")
-(define-key company-active-map (kbd "C-:") 'helm-company)
+(eval-after-load "company" '(define-key company-active-map (kbd "C-:") 'helm-company))
 
 (provide 'wasa-company)
