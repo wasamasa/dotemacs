@@ -109,7 +109,7 @@ static char *noname[] = {
     (nth (random (length solarized-colors)) solarized-colors)))
 
 (defun wasa-x-urgency-hint (&optional frame arg source)
-  (let* ((wm-hints (append (x-window-property 
+  (let* ((wm-hints (append (x-window-property
                             "WM_HINTS" frame "WM_HINTS" source nil t) nil))
          (flags (car wm-hints)))
     (setcar wm-hints (if arg
