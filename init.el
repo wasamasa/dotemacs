@@ -5,7 +5,6 @@
 
 ;; load foreign stuff
 (add-to-list 'load-path (concat user-emacs-directory "foreign-elisp"))
-(require 'php-boris-minor-mode)
 (require 'wc-mode)
 
 ;; load own elisp

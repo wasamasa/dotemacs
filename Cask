@@ -58,6 +58,7 @@
 (depends-on "js2-mode")
 (depends-on "php-mode")
 (depends-on "php-boris")
+(depends-on "php-boris-minor-mode")
 (depends-on "highlight")
 (depends-on "web-mode")
 

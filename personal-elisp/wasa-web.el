@@ -21,6 +21,8 @@
 (add-hook 'sgml-mode-hook 'company-mode-on)
 (add-hook 'css-mode-hook 'company-mode-on)
 
+(add-hook 'php-mode-hook 'php-boris-minor-mode)
+
 (skewer-setup)
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
