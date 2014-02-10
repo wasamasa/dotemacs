@@ -14,6 +14,7 @@
 (column-number-mode t)
 (setq-default indent-tabs-mode nil)
 (setq uniquify-buffer-name-style 'forward)
+(require 'uniquify)
 (setq apropos-do-all t)
 (setq recentf-save-file (concat user-emacs-directory "etc/recentf")
       recentf-max-menu-items 25
