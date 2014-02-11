@@ -132,6 +132,10 @@ static char *noname[] = {
           '((text-properties . (face wasa-circe-highlight-notification-face message t))))))))
 (add-hook 'circe-message-option-functions 'wasa-circe-message-option-highlight)
 
+(defun wasa-circe-disable-highlight-nick ()
+  (remove-hook 'lui-pre-output-hook 'circe-highlight-nick t))
+(add-hook 'circe-chat-mode-hook 'wasa-circe-disable-highlight-nick)
+
 (defun wasa-irc ()
   "Connect to all my IRC servers"
   (interactive)
