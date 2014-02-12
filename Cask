@@ -39,6 +39,7 @@
 (depends-on "unicode-whitespace")
 (depends-on "cl-lib-highlight")
 (depends-on "column-enforce-mode")
+(depends-on "smart-mode-line")
 
 (depends-on "yasnippet")
 (depends-on "smartparens")
