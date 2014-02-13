@@ -1017,4 +1017,25 @@
      `(vc-annotate-background nil)
    ))
 
+   ;; smart-mode-line
+   `(sml/global ((t (:foreground ,solarized-fg))))
+   `(sml/modes ((t (:foreground ,base2))))
+   `(sml/filename ((t (:foreground ,green :weight bold))))
+   `(sml/prefix ((t (:foreground ,yellow :weight bold))))
+   `(sml/read-only ((t (:foreground ,cyan))))
+   `(sml/outside-modified ((t (:foreground ,base2 :background ,red))))
+   `(sml/modified ((t (:foreground ,red :weight bold))))
+   `(sml/charging ((t (:foreground ,green-d))))
+   `(sml/discharging ((t (:foreground ,red-d))))
+
+
+   ;; smart-mode-line
+   `(sml/active-foreground-color ,s-mode-line-fg)
+   `(sml/active-background-color ,s-mode-line-bg)
+   `(sml/inactive-foreground-color ,s-mode-line-inactive-fg)
+   `(sml/inactive-background-color ,s-mode-line-inactive-bg)
+   `(sml/persp-selected-color ,green)
+   `(sml/new-mail-background-color ,solarized-hl)
+
+
 (provide-theme 'wasa-solarized)

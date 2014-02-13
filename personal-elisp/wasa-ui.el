@@ -17,4 +17,11 @@
 	     (concat user-emacs-directory "personal-elisp/"))
 (load-theme 'wasa-solarized t)
 
+(setq sml/override-theme nil
+      sml/mode-width 'full
+      sml/replacer-regexp-list
+      '(("^~/org/" ":O:")
+        ("^~/\\.emacs\\.d/" ":ED:")))
+(sml/setup)
+
 (provide 'wasa-ui)
