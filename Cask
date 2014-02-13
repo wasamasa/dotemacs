@@ -17,6 +17,7 @@
 
 (depends-on "company")
 (depends-on "company-jedi")
+(depends-on "company-cider")
 (depends-on "helm")
 (depends-on "helm-company")
 (depends-on "helm-cmd-t")
