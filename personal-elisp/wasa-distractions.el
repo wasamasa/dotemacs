@@ -121,7 +121,7 @@ static char *noname[] = {
 (defface wasa-circe-highlight-notification-face '((t (:weight bold)))
   "Face for circe notifications")
 (defun wasa-circe-message-option-highlight (nick user host command args)
-  (let* ((highlight-regexps '("webspid0r" "wubspider" "wasamasa" "wasa"))
+  (let* ((highlight-regexps '("webspid0r" "wubspider" "wasamasa" "wasa\\>"))
          (irc-message (second args))
          (highlight-match (wasa-any-regex-in-string highlight-regexps irc-message)))
     (when irc-message
