@@ -75,6 +75,8 @@ static char *noname[] = {
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
       circe-server-auto-join-default-type :after-nick
       circe-new-buffer-behavior-ignore-auto-joins t
+      circe-track-faces-priorities '(wasa-circe-highlight-notification-face
+                                     circe-my-message-face circe-server-face)
       circe-network-options `(("ZNC" :host "127.0.0.1" :port 65432
                                :pass ,znc-password)
                               ("Bitlbee" :port 6667
@@ -92,7 +94,6 @@ static char *noname[] = {
   (recenter-top-bottom -1))
 (define-key lui-mode-map (kbd "C-l") 'wasa-window-C-l)
 
-(setq tracking-faces-priorities '(circe-highlight-nick-face))
 (setq tracking-ignored-buffers '("*hl*"))
 
 (defun wasa-circe-nick-next (oldnick)
