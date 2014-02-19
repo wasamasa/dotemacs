@@ -5,11 +5,14 @@
   "Position of the mode line indicator.
 It can be either 'left or 'right")
 
-(defcustom eyebrowse-display-mode-line-when-only-one-slot-p t
-  "Show mode line indicator when there's only one window
-configuration?
-If t, hide.
-If nil, show.")
+(defcustom eyebrowse-mode-line-style 'auto-hide
+  "The mode line style may be one of the following:
+
+'ninja: Don't show at all.
+
+'auto-hide: Hide when only one window config.
+
+'always: Always show.")
 
 (defcustom eyebrowse-restore-point-p t
   "Restore point, too?
