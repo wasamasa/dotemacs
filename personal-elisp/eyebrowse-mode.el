@@ -94,38 +94,60 @@ If t, switch back and forth.")
   ;; TODO
 )
 
+;; --- public functions ------------------------------------------------------
 
 (defun eyebrowse-switch-to-window-config (slot)
   "Switch to the window config SLOT.  This will save the current
 window config to `eyebrowse-current-slot' first, then switch. If
-`eyebrowse-switch-back-and-forth-p' is t, this will switch to the
-last window config.")
+`eyebrowse-switch-back-and-forth-p' is t and
+`eyebrowse-current-slot' equals SLOT, this will switch to the
+last window config."
+  (interactive)
+  ;; FIXME make (interactive) do something
+  (when (or (and eyebrowse-switch-back-and-forth-p (= eyebrowse-current-slot slot))
+          (/= eyebrowse-current-slot slot))
+    (eyebrowse-save-window-config eyebrowse-current-slot)
+    (eyebrowse-load-window-config slot)
+    (setq eyebrowse-last-slot eyebrowse-current-slot)
+    (setq eyebrowse-current-slot slot)))
 
 (defun eyebrowse-next-window-config ()
-  (interactive)
   "Switch to the next available window config.  If
 `eyebrowse-wrap-around-p' is t, this will switch from the last to
-the first one.")
+the first one."
+  (interactive)
+  ;; TODO
+)
 
 (defun eyebrowse-prev-window-config ()
-  (interactive)
   "Switch to the previous available window config.  If
 `eyebrowse-wrap-around-p' is t, this will switch from the first
-to the last one.")
+to the last one."
+  (interactive)
+  ;; TODO
+)
 
 (defun eyebrowse-last-window-config ()
+  "Switch to the last window config."
   (interactive)
-  "Switch to the last window config.")
-
-(defun eyebrowse-delete-window-config (slot)
-  "Remove the window config at SLOT.")
+  (eyebrowse-switch-to-window-config eyebrowse-last-slot))
 
 (defun eyebrowse-close-window-config ()
-  (interactive)
   "Close the current window config and remove it from
-`eyebrowse-window-configs'")
+`eyebrowse-window-configs'"
+  (interactive)
+  ;; TODO
+)
 
-(defun eyebrowse-update-mode-line ()
-  "Redraw the relevant part of the mode line.")
+(defun eyebrowse-setup-keys (variant)
+  "Set up the key bindings for using eyebrowse. VARIANT is one of
+the following:
 
-;; bind M-1..9 to (lambda () (interactive) (eyebrowse-switch-to-window-config 1..9))
+'opinionated
+
+'default"
+  (interactive)
+  ;; TODO
+)
+
+(provide 'eyebrowse)
