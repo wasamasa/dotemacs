@@ -58,11 +58,42 @@ If t, switch back and forth.")
   ;; TODO
 )
 
+;; --- internal functions ----------------------------------------------------
+
 (defun eyebrowse-save-window-config (slot)
-  "Save the current window config to SLOT.")
+  "Save the current window config to SLOT."
+  ;; FIXME clean up this mess, if possible with the two helper functions
+  (let* ((element (list slot (current-window-configuration) (point)))
+         (match (assq slot eyebrowse-window-configs))
+         (match-index (-find-index
+                       (lambda (element) (equal element match))
+                       eyebrowse-window-configs)))
+    (if match
+        (setq eyebrowse-window-configs
+              (-replace-at match-index element eyebrowse-window-configs))
+      (setq eyebrowse-window-configs
+            (-sort (lambda (a b) (< (car a) (car b)))
+                   (cons element eyebrowse-window-configs))))))
 
 (defun eyebrowse-load-window-config (slot)
-  "Restore the window config from SLOT.")
+  "Restore the window config from SLOT."
+  (let ((match (assq slot eyebrowse-window-configs)))
+    (when match
+      (let ((window-config (cadr match))
+            (point (caddr match)))
+        (set-window-configuration window-config)
+        (goto-char point)))))
+
+(defun eyebrowse-delete-window-config (slot)
+  "Remove the window config at SLOT."
+  ;; TODO
+)
+
+(defun eyebrowse-update-mode-line ()
+  "Redraw the relevant part of the mode line."
+  ;; TODO
+)
+
 
 (defun eyebrowse-switch-to-window-config (slot)
   "Switch to the window config SLOT.  This will save the current
