@@ -46,6 +46,18 @@ If t, switch back and forth.")
 (defvar eyebrowse-window-configs nil
   "Internal variable storing all window configs.")
 
+;; --- helpers ---------------------------------------------------------------
+
+(defun eyebrowse-insert-in-sorted-list (element list)
+  "Insert ELEMENT in LIST without disrupting its sortedness."
+  ;; TODO
+)
+
+(defun eyebrowse-update-list-element (old-element new-element list)
+  "Replace OLD-ELEMENT in LIST with NEW-ELEMENT"
+  ;; TODO
+)
+
 (defun eyebrowse-save-window-config (slot)
   "Save the current window config to SLOT.")
 
