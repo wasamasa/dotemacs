@@ -1,3 +1,7 @@
+(require 'dash)
+
+;; --- variables -------------------------------------------------------------
+
 (defcustom eyebrowse-lighter "¬_¬"
   "Lighter for the `eyebrowse-minor-mode'")
 
@@ -33,15 +37,10 @@ If t, wrap around.")
 `eyebrowse-last-window-config' or not?
 If t, switch back and forth.")
 
-;; (defcustom eyebrowse-undo-p nil
-;;   "Use a simplistic undo system?
-;; If t, the last window config will be restored in its killed
-;; slot.")
-
-(defvar eyebrowse-last-slot nil
+(defvar eyebrowse-last-slot 1
   "Internal variable storing the last window config slot.")
 
-(defvar eyebrowse-current-slot nil
+(defvar eyebrowse-current-slot 1
   "Internal variable storing the current window config slot.")
 
 (defvar eyebrowse-window-configs nil
