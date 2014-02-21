@@ -275,6 +275,7 @@
 
    ;; company-mode
    `(company-tooltip ((t (:background ,solarized-hl :foreground ,cyan))))
+   `(company-tooltip-annotation ((t (:background ,solarized-hl :foreground ,cyan-l))))
    `(company-tooltip-selection ((t (:background ,cyan-d :foreground ,cyan-l))))
    `(company-tooltip-mouse ((t (:background ,cyan-l :foreground ,cyan-d))))
    `(company-tooltip-common ((t (:foreground ,cyan :background ,solarized-hl :weight bold))))
