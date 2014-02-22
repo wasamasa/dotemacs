@@ -5,27 +5,20 @@
 (defcustom eyebrowse-lighter "¬_¬"
   "Lighter for the `eyebrowse-minor-mode'")
 
-(defcustom eyebrowse-mode-line-position 'right
-  "Position of the mode line indicator.
-It can be either 'left or 'right")
-
-(defcustom eyebrowse-mode-line-style 'auto-hide
+(defcustom eyebrowse-mode-line-style 'smart
   "The mode line style may be one of the following:
 
-'ninja: Don't show at all.
+'hide: Don't show at all.
 
-'auto-hide: Hide when only one window config.
+'smart: Hide when only one window config.
 
-'always: Always show.")
+'always: Always show."
+  ;; FIXME actually use this
+  )
 
 (defcustom eyebrowse-restore-point-p t
   "Restore point, too?
 If t, restore point.")
-
-(defcustom eyebrowse-frame-local-p nil
-  "Should eyebrowse use an indicator per frame?
-If t, use an indicator per frame.
-If nil, use one indicator for all frames.")
 
 (defcustom eyebrowse-wrap-around-p nil
   "Wrap around when switching to the next/previous window config?
