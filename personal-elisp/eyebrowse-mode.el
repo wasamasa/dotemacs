@@ -147,12 +147,14 @@ window config."
     (eyebrowse-delete-window-config eyebrowse-last-slot)))
 
 (defun eyebrowse-setup-keys (variant)
-  "Set up the key bindings for using eyebrowse. VARIANT is one of
+  "Set up the key bindings for using eyebrowse.  VARIANT is one of
 the following:
 
-'opinionated
+'opinionated: Uses M-1..M-9, C-< / C->, C-`and C-\" for switching.
+If evil is detected, it will bind gt, gT, gc and zx, too.
 
-'default"
+'default: More careful setup.  Uses C-\" as prefix.  No evil
+configuration is done."
   (interactive)
   ;; TODO
 )
