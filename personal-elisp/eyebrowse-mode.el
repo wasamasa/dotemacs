@@ -39,34 +39,29 @@ If t, switch back and forth.")
 (defvar eyebrowse-window-configs nil
   "Internal variable storing all window configs.")
 
-;; --- helpers ---------------------------------------------------------------
-
-(defun eyebrowse-insert-in-sorted-list (element list)
-  "Insert ELEMENT in LIST without disrupting its sortedness."
-  ;; TODO
-)
-
-(defun eyebrowse-update-list-element (old-element new-element list)
-  "Replace OLD-ELEMENT in LIST with NEW-ELEMENT"
-  ;; TODO
-)
-
 ;; --- internal functions ----------------------------------------------------
+
+(defun eyebrowse-insert-in-window-config-list (element)
+  "Insert ELEMENT in the list of window configs without
+disrupting its sortedness."
+  (setq eyebrowse-window-configs
+        (-sort (lambda (a b) (< (car a) (car b)))
+               (cons element eyebrowse-window-configs))))
+
+(defun eyebrowse-update-window-config-element (old-element new-element)
+  "Replace OLD-ELEMENT in the list of window configs with
+NEW-ELEMENT"
+  (setq eyebrowse-window-configs
+        (-replace-at (-elem-index old-element eyebrowse-window-configs)
+                     new-element eyebrowse-window-configs)))
 
 (defun eyebrowse-save-window-config (slot)
   "Save the current window config to SLOT."
-  ;; FIXME clean up this mess, if possible with the two helper functions
   (let* ((element (list slot (current-window-configuration) (point)))
-         (match (assq slot eyebrowse-window-configs))
-         (match-index (-find-index
-                       (lambda (element) (equal element match))
-                       eyebrowse-window-configs)))
+         (match (assq slot eyebrowse-window-configs)))
     (if match
-        (setq eyebrowse-window-configs
-              (-replace-at match-index element eyebrowse-window-configs))
-      (setq eyebrowse-window-configs
-            (-sort (lambda (a b) (< (car a) (car b)))
-                   (cons element eyebrowse-window-configs))))))
+        (eyebrowse-update-window-config-element match element)
+      (eyebrowse-insert-in-window-config-list element))))
 
 (defun eyebrowse-load-window-config (slot)
   "Restore the window config from SLOT."
