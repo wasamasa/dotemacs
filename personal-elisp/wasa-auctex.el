@@ -1,4 +1,6 @@
+(setq TeX-engine 'luatex)
 (setq TeX-quote-after-quote t
+      TeX-auto-save t
       TeX-parse-self t
       TeX-view-program-list '(("llpp" "llpp %o"))
       TeX-view-program-selection '(((output-dvi style-pstricks)
