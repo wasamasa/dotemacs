@@ -53,6 +53,8 @@
    `(helm-fkey-key-face ((t (:foreground ,red :weight bold))))
    `(helm-fkey-bracket-face ((t (:weight bold))))
    `(wasa-circe-highlight-notification-face ((t (:foreground ,base2 :weight bold))))
+   `(comint-highlight-input ((t (:foreground nil))))
+   `(comint-highlight-prompt ((t (:foreground nil))))
 
    ;; basic coloring
    `(default ((t (:foreground ,solarized-fg :background ,solarized-bg))))
