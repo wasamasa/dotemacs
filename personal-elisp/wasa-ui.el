@@ -15,13 +15,14 @@
 (setq x-gtk-use-system-tooltips nil)
 (add-to-list 'custom-theme-load-path
 	     (concat user-emacs-directory "personal-elisp/"))
-(load-theme 'wasa-solarized t)
 
-(setq sml/override-theme nil
+(setq sml/theme 'respectful
       sml/mode-width 'full
       sml/replacer-regexp-list
       '(("^~/org/" ":O:")
         ("^~/\\.emacs\\.d/" ":ED:")))
 (sml/setup)
+
+(load-theme 'wasa-solarized t)
 
 (provide 'wasa-ui)
