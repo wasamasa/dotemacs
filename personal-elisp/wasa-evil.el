@@ -22,6 +22,10 @@
 (evil-set-initial-state 'woman-mode 'emacs)
 (evil-set-initial-state 'tetris-mode 'emacs)
 (evil-set-initial-state 'comint-mode 'emacs)
+(evil-set-initial-state 'eshell-mode 'emacs)
+(evil-set-initial-state 'shell-mode 'emacs)
+(evil-set-initial-state 'term-mode 'emacs)
+(evil-set-initial-state 'inferior-python-mode 'emacs)
 
 (define-key evil-motion-state-map (kbd "SPC") nil)
 (define-key evil-visual-state-map (kbd "SPC") nil)
