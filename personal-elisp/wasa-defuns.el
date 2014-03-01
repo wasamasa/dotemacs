@@ -29,19 +29,9 @@
   (interactive)
   (wasa-replace-in-region-or-buffer '(("\n\n" "\n"))))
 
-(defun wasa-replace-tex-umlauts ()
-  (interactive)
-  (wasa-replace-in-region-or-buffer
-   '(("Ä" "\"A")
-     ("Ö" "\"O")
-     ("Ü" "\"U")
-     ("ä" "\"a")
-     ("ö" "\"o")
-     ("ü" "\"u")
-     ("ß" "\"s"))))
-
 (defun wasa-any-regex-in-string (regexes string)
-  "Tests whether any of the given regular expressions is present in the given string."
+  "Tests whether any of the given regular expressions is present
+in the given string."
   (when string
     (cl-dolist (regex regexes)
       (when (s-contains? regex string)
