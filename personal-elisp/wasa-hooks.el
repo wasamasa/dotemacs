@@ -17,8 +17,6 @@
 (add-hook 'prog-mode-hook 'wasa-turn-on-indicate-empty-lines)
 (add-hook 'prog-mode-hook 'column-enforce-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
-(autoload 'company-mode-on "company" "Enable company")
-(add-hook 'prog-mode-hook 'company-mode-on)
 (add-hook 'prog-mode-hook 'wasa-show-trailing-whitespace)
 
 (provide 'wasa-hooks)

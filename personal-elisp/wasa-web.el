@@ -17,10 +17,6 @@
 (add-hook 'sgml-mode-hook 'wasa-turn-on-rainbow-mode)
 (add-hook 'css-mode-hook 'wasa-turn-on-rainbow-mode)
 
-(add-hook 'nxml-mode-hook 'company-mode-on)
-(add-hook 'sgml-mode-hook 'company-mode-on)
-(add-hook 'css-mode-hook 'company-mode-on)
-
 (add-hook 'php-mode-hook 'php-boris-minor-mode)
 
 (skewer-setup)

@@ -11,7 +11,6 @@
 
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'ielm-mode-hook 'company-mode-on)
 
 (cl-lib-highlight-initialize)
 (cl-lib-highlight-warn-cl-initialize)
