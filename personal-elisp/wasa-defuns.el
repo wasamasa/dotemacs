@@ -3,16 +3,20 @@
 (require 's)
 (require 'dash)
 
+(defmacro wasa-eval-after (feature &rest body)
+  (cl-declare (indent 1))
+  `(eval-after-load ',feature '(progn ,@body)))
+
 (defun wasa-define-keys (keymap &rest binds)
   (cl-dolist (pair (-partition 2 binds))
-    (let ((key (first pair))
-          (func (second pair)))
+    (let ((key (car pair))
+          (func (cadr pair)))
       (define-key keymap key func))))
 
 (defun wasa-global-set-keys (&rest binds)
   (cl-dolist (pair (-partition 2 binds))
-    (let ((key (first pair))
-          (func (second pair)))
+    (let ((key (car pair))
+          (func (cadr pair)))
       (define-key key func))))
 
 (defun wasa-replace-in-region-or-buffer (search-replace-list)
