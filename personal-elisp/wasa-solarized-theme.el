@@ -55,6 +55,7 @@
    `(wasa-circe-highlight-notification-face ((t (:foreground ,base2 :weight bold))))
    `(comint-highlight-input ((t (:foreground nil))))
    `(comint-highlight-prompt ((t (:foreground nil))))
+   `(eyebrowse-mode-line-active ((t (:foreground ,base2))))
 
    ;; basic coloring
    `(default ((t (:foreground ,solarized-fg :background ,solarized-bg))))
