@@ -1,5 +1,4 @@
-(setq org-modules '(org-habit)
-      org-indent-mode t
+(setq org-indent-mode t
       org-catch-invisible-edits 'error
       org-startup-indented t
       org-cycle-include-plain-lists 'integrate
