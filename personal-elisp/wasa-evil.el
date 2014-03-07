@@ -27,6 +27,11 @@
 (evil-set-initial-state 'term-mode 'emacs)
 (evil-set-initial-state 'inferior-python-mode 'emacs)
 
+(setq eyebrowse-switch-back-and-forth-p t
+      eyebrowse-wrap-around-p t)
+(eyebrowse-mode)
+(eyebrowse-setup-opinionated-keys)
+
 (define-key evil-motion-state-map (kbd "SPC") nil)
 (define-key evil-visual-state-map (kbd "SPC") nil)
 (define-key evil-motion-state-map (kbd "RET") nil)
