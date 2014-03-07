@@ -94,6 +94,16 @@ static char *noname[] = {
   (recenter-top-bottom -1))
 (define-key lui-mode-map (kbd "C-l") 'wasa-window-C-l)
 
+(setq lui-buttons-list
+      `((,(concat
+           "\\<\\(http\\|https\\|ftp\\)"
+           ;; taken from thingatpt.el
+           "[^]\t\n \"'<>[^`{}]*[^]\t\n \"'<>[^`{}.,;]+")
+         0 browse-url 0)
+        ("`\\([A-Za-z0-9+=*/-]+\\)'" 1 lui-button-elisp-symbol 1)
+        ("RFC ?\\([0-9]+\\)" 0 lui-button-rfc 1)
+        ("SRFI[- ]?\\([0-9]+\\)" 0 lui-button-srfi 1)))
+
 (setq tracking-ignored-buffers '("*hl*"))
 
 (defun wasa-circe-nick-next (oldnick)
