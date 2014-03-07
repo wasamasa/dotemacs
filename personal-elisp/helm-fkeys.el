@@ -106,8 +106,18 @@ enclosed glyph get a distinct face"
              ("t" "ANSI [T]erm" ansi-term)
              ("x" "Calculate E[x]pression" helm-calcul-expression)))
 
+(defun my-info-emacs-lisp-intro ()
+  (interactive)
+  (info "eintr"))
+
+(defun my-info-emacs-lisp-manual ()
+  (interactive)
+  (info "elisp"))
+
 (helm-fkey "Doc" "f6" "<f6>"
            '(("e" "[E]macs manual" info-emacs-manual)
+             ("i" "Emacs Lisp [I]ntro" my-info-emacs-lisp-intro)
+             ("l" "Emacs [L]isp manual" my-info-emacs-lisp-manual)
              ("m" "[M]an" helm-man-woman)
              ("o" "[O]rgcard" helm-orgcard)
              ("p" "[P]ydoc" helm-pydoc)))
