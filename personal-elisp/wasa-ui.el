@@ -10,7 +10,7 @@
 (setq echo-keystrokes 0.5)
 
 ;; theme and faces
-(setq custom-file (concat user-emacs-directory "custom/custom"))
+(setq custom-file (concat user-emacs-directory "etc/custom.el"))
 (load custom-file)
 (setq x-gtk-use-system-tooltips nil)
 (add-to-list 'custom-theme-load-path

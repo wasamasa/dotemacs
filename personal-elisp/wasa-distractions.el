@@ -1,5 +1,5 @@
 ;; load private data
-(load (concat user-emacs-directory "private/private"))
+(load (concat user-emacs-directory "etc/private.el"))
 
 ;; typing of emacs
 (setq toe-highscore-file (concat user-emacs-directory "etc/toe.score"))
