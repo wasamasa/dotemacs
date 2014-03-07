@@ -9,7 +9,7 @@
       org-enforce-todo-dependencies t
       org-enforce-todo-checkbox-dependencies t
       org-directory "~/org/"
-      org-agenda-files `(,org-directory)
+      org-agenda-files (list org-directory)
       org-default-notes-file (concat org-directory "inbox.org")
       org-journal-file (concat org-directory "journal.org")
       org-capture-templates
