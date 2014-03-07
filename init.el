@@ -1,11 +1,8 @@
-;; cask
-(add-to-list 'load-path "~/.cask")
-(autoload 'cask-initialize "cask")
-(cask-initialize)
+(package-initialize)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 ;; load foreign stuff
 (add-to-list 'load-path (concat user-emacs-directory "foreign-elisp"))
-(require 'wc-mode)
 
 ;; load own elisp
 (add-to-list 'load-path (concat user-emacs-directory "personal-elisp"))
