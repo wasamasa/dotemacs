@@ -23,4 +23,16 @@
   (setq comint-process-echoes t))
 (add-hook 'shell-mode-hook 'wasa-shell-turn-echo-off)
 
+(defun my-shell-kill-buffer-sentinel (process event)
+  (when (memq (process-status process) '(exit signal))
+    (kill-buffer)))
+
+(defun my-kill-process-buffer-on-exit ()
+  (set-process-sentinel (get-buffer-process (current-buffer))
+                        #'my-shell-kill-buffer-sentinel))
+
+(add-hook 'ielm-mode-hook 'my-kill-process-buffer-on-exit)
+(add-hook 'term-exec-hook 'my-kill-process-buffer-on-exit)
+(add-hook 'comint-exec-hook 'my-kill-process-buffer-on-exit)
+
 (provide 'wasa-comint)
