@@ -694,12 +694,12 @@
      ((t (:foreground ,solarized-fg :background ,solarized-bg :inverse-video t))))
 
    ;; rst-mode
-   `(rst-level-1-face ((t (:background ,yellow :foreground ,solarized-bg))))
-   `(rst-level-2-face ((t (:background ,cyan :foreground ,solarized-bg))))
-   `(rst-level-3-face ((t (:background ,blue :foreground ,solarized-bg))))
-   `(rst-level-4-face ((t (:background ,violet :foreground ,solarized-bg))))
-   `(rst-level-5-face ((t (:background ,magenta :foreground ,solarized-bg))))
-   `(rst-level-6-face ((t (:background ,red :foreground ,solarized-bg))))
+   `(rst-level-1 ((t (:background ,solarized-hl :foreground ,solarized-fg))))
+   `(rst-level-2 ((t (:background ,solarized-hl :foreground ,solarized-fg))))
+   `(rst-level-3 ((t (:background ,solarized-hl :foreground ,solarized-fg))))
+   `(rst-level-4 ((t (:background ,solarized-hl :foreground ,solarized-fg))))
+   `(rst-level-5 ((t (:background ,solarized-hl :foreground ,solarized-fg))))
+   `(rst-level-6 ((t (:background ,solarized-hl :foreground ,solarized-fg))))
 
    ;; sh-mode
    `(sh-quoted-exec ((t (:foreground ,violet :weight bold))))
