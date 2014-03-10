@@ -16,8 +16,9 @@
   (propertize text 'read-only t))
 
 (add-hook 'comint-preoutput-filter-functions 'wasa-comint-preoutput-turn-buffer-read-only)
-(define-key comint-mode-map [remap kill-word] 'wasa-kill-word)
-(define-key comint-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
+(wasa-define-keys comint-mode-map
+                  [remap kill-word] 'wasa-kill-word
+                  [remap backward-kill-word] 'wasa-backward-kill-word)
 
 (defun wasa-shell-turn-echo-off ()
   (setq comint-process-echoes t))

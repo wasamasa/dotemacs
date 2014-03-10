@@ -86,13 +86,14 @@ static char *noname[] = {
 (setq lui-max-buffer-size 50000)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
-(define-key lui-mode-map [remap kill-word] 'wasa-kill-word)
-(define-key lui-mode-map [remap backward-kill-word] 'wasa-backward-kill-word)
 (defun wasa-window-C-l ()
   (interactive)
   (goto-char (point-max))
   (recenter-top-bottom -1))
-(define-key lui-mode-map (kbd "C-l") 'wasa-window-C-l)
+(wasa-define-keys lui-mode-map
+                  [remap kill-word] 'wasa-kill-word
+                  [remap backward-kill-word] 'wasa-backward-kill-word
+                  (kbd "C-l") 'wasa-window-C-l)
 
 (setq lui-buttons-list
       `((,(concat

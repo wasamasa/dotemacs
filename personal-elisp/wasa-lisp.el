@@ -4,10 +4,11 @@
   (if (region-active-p)
       (eval-region (region-beginning) (region-end))
     (eval-buffer)))
-(define-key emacs-lisp-mode-map (kbd "C-c C-c") 'wasa-eval-region-or-buffer)
-(define-key emacs-lisp-mode-map (kbd "C-c C-k") 'eval-buffer)
-(define-key emacs-lisp-mode-map (kbd "C-c C-r") 'eval-region)
-(define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm)
+(wasa-define-keys emacs-lisp-mode-map
+                  (kbd "C-c C-c") 'wasa-eval-region-or-buffer
+                  (kbd "C-c C-k") 'eval-buffer
+                  (kbd "C-c C-r") 'eval-region
+                  (kbd "C-c C-z") 'ielm)
 
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
