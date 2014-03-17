@@ -1,4 +1,4 @@
-(deftheme wasa-solarized "Fork of bbatsov's dark solarized theme")
+(deftheme my-solarized "Fork of bbatsov's dark solarized theme")
 
 (let* ((base03    "#002b36")
        (base02    "#073642")
@@ -48,7 +48,7 @@
        (s-mode-line-inactive-bc solarized-hl))
 
   (custom-theme-set-faces
-   'wasa-solarized
+   'my-solarized
 
    `(helm-fkey-key-face ((t (:foreground ,red :weight bold))))
    `(helm-fkey-bracket-face ((t (:weight bold))))
@@ -844,7 +844,7 @@
    `(zencoding-preview-input ((t (:background ,solarized-hl :box ,solarized-emph)))))
 
   (custom-theme-set-variables
-   'wasa-solarized
+   'my-solarized
    `(ansi-color-names-vector [,solarized-bg ,red ,green ,yellow ,blue ,magenta ,cyan ,solarized-fg])
 
    ;; compilation
@@ -884,4 +884,4 @@
    `(vc-annotate-very-old-color nil)
    `(vc-annotate-background nil)))
 
-(provide-theme 'wasa-solarized)
+(provide-theme 'my-solarized)
