@@ -1,37 +1,40 @@
+;; setup package autoloads
 (package-initialize)
+;; enable GNU/ELPA and Org repository only
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+;; make package setup files loadable
+(add-to-list 'load-path (concat user-emacs-directory "setup"))
+;; make unpublished packages loadable
+(add-to-list 'load-path (concat user-emacs-directory "unpublished"))
 
-;; load foreign stuff
-(add-to-list 'load-path (concat user-emacs-directory "foreign-elisp"))
+;; load safe setup files
+(require 'setup-ui)
+(require 'setup-hooks)
+(require 'setup-annoyances)
+(require 'setup-defuns)
+(require 'setup-keybinds)
 
-;; load own elisp
-(add-to-list 'load-path (concat user-emacs-directory "personal-elisp"))
-(setq initial-buffer-choice t)
-(setq wasa-packages
-      '(wasa-ui
-        wasa-hooks
-        wasa-annoyances
-        wasa-defuns
-        wasa-tramp
-        wasa-pretty-symbols
-        wasa-company
-        wasa-popwin
-        wasa-calendar
-        wasa-org
-        wasa-ibuffer
-        wasa-helm
-        wasa-comint
-        wasa-flycheck
-        helm-smex
-        helm-fkeys
-        wasa-cc
-        wasa-lisp
-        wasa-web
-        wasa-python
-        wasa-auctex
-        wasa-smartparens
-        wasa-keybinds
-        wasa-evil
-        wasa-distractions))
-(dolist (package-name wasa-packages)
-  (require package-name))
+;; load unpublished packages
+(require 'helm-smex)
+(require 'helm-fkeys)
+
+;; load remaining setup files
+(require 'setup-tramp)
+(require 'setup-pretty-symbols)
+(require 'setup-company)
+(require 'setup-popwin)
+(require 'setup-calendar)
+(require 'setup-org)
+(require 'setup-ibuffer)
+(require 'setup-helm)
+(require 'setup-comint)
+(require 'setup-flycheck)
+(require 'setup-helm-fkeys)
+(require 'setup-cc)
+(require 'setup-lisp)
+(require 'setup-web)
+(require 'setup-python)
+(require 'setup-auctex)
+(require 'setup-smartparens)
+(require 'setup-evil)
+(require 'setup-distractions)
