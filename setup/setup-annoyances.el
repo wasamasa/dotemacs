@@ -53,6 +53,7 @@
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (setq bookmark-default-file (concat user-emacs-directory "etc/bookmarks"))
 (modify-syntax-entry ?_ "w" (standard-syntax-table))
+(setq tumblesocks-token-file (concat user-emacs-directory "etc/tumblr-oauth-token"))
 (defun wasa-quit-help ()
   (interactive)
   (when (equal major-mode 'help-mode)
@@ -62,4 +63,4 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
 
-(provide 'wasa-annoyances)
+(provide 'setup-annoyances)

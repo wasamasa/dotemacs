@@ -370,4 +370,4 @@
           (?≐ math "\\(\\\\doteq\\)[^a-z0-9A-Z]" (,@tex) 1)
           (?¬ math "\\(\\\\neg\\)[^a-z0-9A-Z]" (,@tex) 1))))
 
-(provide 'wasa-pretty-symbols)
+(provide 'setup-pretty-symbols)

@@ -2,4 +2,4 @@
                         (awk-mode . "awk")
                         (other . "user")))
 
-(provide 'wasa-cc)
+(provide 'setup-cc)

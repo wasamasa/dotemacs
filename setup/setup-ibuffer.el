@@ -11,4 +11,4 @@
 (setq ibuffer-auto-mode 1)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(provide 'wasa-ibuffer)
+(provide 'setup-ibuffer)

@@ -106,4 +106,4 @@
 (global-set-key (kbd "<S-insert>") 'evil-paste-from-primary)
 (global-set-key (kbd "<mouse-2>") 'evil-paste-from-primary)
 
-(provide 'wasa-evil)
+(provide 'setup-evil)

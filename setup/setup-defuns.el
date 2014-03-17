@@ -59,4 +59,4 @@ With argument ARG, do this that many times.  Do not move."
     (goto-char (point-max))
     (insert (format "%s\n" str))))
 
-(provide 'wasa-defuns)
+(provide 'setup-defuns)

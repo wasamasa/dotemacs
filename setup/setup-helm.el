@@ -1,6 +1,8 @@
+;; the function below takes 0.421 seconds, probably because it checks for features?
 (helm-mode t)
 (setq helm-ff-ido-style-backspace 'always
       helm-ff-auto-update-initial-value t
+      helm-ff-auto-update-flag t
       helm-ff-newfile-prompt-p nil
       helm-ff-skip-boring-files t)
 (setq helm-adaptive-history-file (concat user-emacs-directory "etc/helm-adaptive")
@@ -30,4 +32,4 @@
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "<f10>") 'helm-resume)
 
-(provide 'wasa-helm)
+(provide 'setup-helm)

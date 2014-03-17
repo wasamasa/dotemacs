@@ -23,4 +23,4 @@
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-(provide 'wasa-web)
+(provide 'setup-web)

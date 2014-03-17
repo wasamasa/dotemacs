@@ -14,7 +14,7 @@
 (load custom-file)
 (setq x-gtk-use-system-tooltips nil)
 (add-to-list 'custom-theme-load-path
-	     (concat user-emacs-directory "personal-elisp/"))
+             (concat user-emacs-directory "theme/"))
 
 (setq sml/theme 'respectful
       sml/mode-width 'full
@@ -23,6 +23,6 @@
         ("^~/\\.emacs\\.d/" ":ED:")))
 (sml/setup)
 
-(load-theme 'wasa-solarized t)
+(load-theme 'my-solarized t)
 
-(provide 'wasa-ui)
+(provide 'setup-ui)

@@ -24,4 +24,4 @@
                          company-files company-dabbrev))
 (setq company-jedi-python-bin "python")
 
-(provide 'wasa-company)
+(provide 'setup-company)

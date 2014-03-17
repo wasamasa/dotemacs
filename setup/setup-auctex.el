@@ -137,4 +137,4 @@ depend on it being positive instead of the entry in `TeX-command-list'."
   (local-set-key (kbd "C-c C-c") 'wasa-TeX-command-master))
 (add-hook 'LaTeX-mode-hook 'wasa-LaTeX-hook)
 
-(provide 'wasa-auctex)
+(provide 'setup-auctex)

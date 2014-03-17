@@ -3,4 +3,4 @@
 
 (add-hook 'python-mode-hook 'company-jedi-start)
 
-(provide 'wasa-python)
+(provide 'setup-python)

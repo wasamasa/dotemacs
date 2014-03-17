@@ -43,4 +43,4 @@
 
 (global-set-key (kbd "<f12>") 'cfw:open-org-calendar)
 
-(provide 'wasa-calendar)
+(provide 'setup-calendar)

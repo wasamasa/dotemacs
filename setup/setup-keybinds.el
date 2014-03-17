@@ -8,4 +8,4 @@
   (kill-emacs))
 (global-set-key (kbd "M-<f4>") 'wasa-quit-emacs)
 
-(provide 'wasa-keybinds)
+(provide 'setup-keybinds)

@@ -20,4 +20,4 @@
 (setq show-paren-delay 0.05)
 (setq eldoc-idle-delay 0.1)
 
-(provide 'wasa-lisp)
+(provide 'setup-lisp)

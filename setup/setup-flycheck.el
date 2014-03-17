@@ -1,3 +1,3 @@
 (setq flycheck-disabled-checkers '(tex-chktex))
 
-(provide 'wasa-flycheck)
+(provide 'setup-flycheck)

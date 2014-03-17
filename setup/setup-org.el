@@ -23,4 +23,4 @@
 (autoload 'wc-mode "wc-mode" "Enable wc-mode" t)
 (add-hook 'org-capture-mode-hook 'wc-mode)
 
-(provide 'wasa-org)
+(provide 'setup-org)

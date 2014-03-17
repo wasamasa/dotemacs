@@ -19,4 +19,4 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
 (add-hook 'prog-mode-hook 'wasa-show-trailing-whitespace)
 
-(provide 'wasa-hooks)
+(provide 'setup-hooks)

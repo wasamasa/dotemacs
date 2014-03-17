@@ -36,4 +36,4 @@
 (add-hook 'term-exec-hook 'my-kill-process-buffer-on-exit)
 (add-hook 'comint-exec-hook 'my-kill-process-buffer-on-exit)
 
-(provide 'wasa-comint)
+(provide 'setup-comint)

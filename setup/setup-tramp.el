@@ -7,4 +7,4 @@
 (defadvice tramp-maybe-open-connection (before no-hist activate)
   (setenv "HISTFILE" ""))
 
-(provide 'wasa-tramp)
+(provide 'setup-tramp)

@@ -53,4 +53,4 @@
 ;; list of modes and pairs to apply this to
 (sp-local-pair 'c-mode "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
 
-(provide 'wasa-smartparens)
+(provide 'setup-smartparens)

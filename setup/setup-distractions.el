@@ -284,4 +284,4 @@ clicked."
                      "http://blog.fefe.de/rss.xml?html"
                      "file:///home/wasa/rss/yahoo.atom"))
 
-(provide 'wasa-distractions)
+(provide 'setup-distractions)
