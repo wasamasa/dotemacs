@@ -5,7 +5,7 @@
 (setq toe-highscore-file (concat user-emacs-directory "etc/toe.score"))
 
 ;; tetris
-(defun wasa-tetris-move-down ()
+(defun my-tetris-move-down ()
   (interactive)
   (unless tetris-paused
     (tetris-erase-shape)
@@ -14,14 +14,14 @@
         (setq tetris-pos-y (1- tetris-pos-y)))
     (tetris-draw-shape)))
 
-(defun wasa-fix-tetris-mode ()
-  (wasa-define-keys tetris-mode-map
+(defun my-fix-tetris-mode ()
+  (my-define-keys tetris-mode-map
                     (kbd "z") 'tetris-rotate-next
                     (kbd "x") 'tetris-rotate-prev
-                    (kbd "<down>") 'wasa-tetris-move-down)
+                    (kbd "<down>") 'my-tetris-move-down)
   (setq tetris-score-file (concat user-emacs-directory "etc/tetris.score")))
 
-(add-hook 'tetris-mode-hook 'wasa-fix-tetris-mode)
+(add-hook 'tetris-mode-hook 'my-fix-tetris-mode)
 
 (defadvice tetris-end-game (around zap-scores activate)
   (save-window-excursion ad-do-it)
@@ -75,7 +75,7 @@ static char *noname[] = {
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face)
       circe-server-auto-join-default-type :after-nick
       circe-new-buffer-behavior-ignore-auto-joins t
-      circe-track-faces-priorities '(wasa-circe-highlight-notification-face
+      circe-track-faces-priorities '(my-circe-highlight-notification-face
                                      circe-my-message-face circe-server-face)
       circe-network-options `(("ZNC" :host "127.0.0.1" :port 65432
                                :pass ,znc-password)
@@ -86,14 +86,14 @@ static char *noname[] = {
 (setq lui-max-buffer-size 50000)
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
-(defun wasa-window-C-l ()
+(defun my-window-C-l ()
   (interactive)
   (goto-char (point-max))
   (recenter-top-bottom -1))
-(wasa-define-keys lui-mode-map
-                  [remap kill-word] 'wasa-kill-word
-                  [remap backward-kill-word] 'wasa-backward-kill-word
-                  (kbd "C-l") 'wasa-window-C-l)
+(my-define-keys lui-mode-map
+                  [remap kill-word] 'my-kill-word
+                  [remap backward-kill-word] 'my-backward-kill-word
+                  (kbd "C-l") 'my-window-C-l)
 
 (setq lui-buttons-list
       `((,(concat
@@ -107,11 +107,11 @@ static char *noname[] = {
 
 (setq tracking-ignored-buffers '("*hl*"))
 
-(defun wasa-circe-nick-next (oldnick)
+(defun my-circe-nick-next (oldnick)
     (cond ((string= oldnick "wasamasa") "wasa")
           ((string= oldnick "wasa") "wasamasa")
           (t "wubspider")))
-(setq circe-nick-next-function 'wasa-circe-nick-next)
+(setq circe-nick-next-function 'my-circe-nick-next)
 
 (defun circe-generate-nick-color ()
   "Patched version which only returns theme colors"
@@ -121,7 +121,7 @@ static char *noname[] = {
                             "#69b7f0" "#00736f" "#69cabf" "#546e00" "#b4c342")))
     (nth (random (length solarized-colors)) solarized-colors)))
 
-(defun wasa-x-urgency-hint (&optional frame arg source)
+(defun my-x-urgency-hint (&optional frame arg source)
   (let* ((wm-hints (append (x-window-property
                             "WM_HINTS" frame "WM_HINTS" source nil t) nil))
          (flags (car wm-hints)))
@@ -130,25 +130,25 @@ static char *noname[] = {
                        (logior flags #x00000100)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
-(defface wasa-circe-highlight-notification-face '((t (:weight bold)))
+(defface my-circe-highlight-notification-face '((t (:weight bold)))
   "Face for circe notifications")
-(defun wasa-circe-message-option-highlight (nick user host command args)
+(defun my-circe-message-option-highlight (nick user host command args)
   (let* ((highlight-regexps '("webspid0r" "wubspider" "wasamasa" "wasa\\>"))
          (irc-message (second args))
-         (highlight-match (wasa-any-regex-in-string highlight-regexps irc-message)))
+         (highlight-match (my-any-regex-in-string highlight-regexps irc-message)))
     (when irc-message
       (when (not (equal nick circe-default-nick))
         (when (or highlight-match (equal major-mode 'circe-query-mode))
-          (wasa-x-urgency-hint))
+          (my-x-urgency-hint))
         (when highlight-match
-          '((text-properties . (face wasa-circe-highlight-notification-face message t))))))))
-(add-hook 'circe-message-option-functions 'wasa-circe-message-option-highlight)
+          '((text-properties . (face my-circe-highlight-notification-face message t))))))))
+(add-hook 'circe-message-option-functions 'my-circe-message-option-highlight)
 
-(defun wasa-circe-disable-highlight-nick ()
+(defun my-circe-disable-highlight-nick ()
   (remove-hook 'lui-pre-output-hook 'circe-highlight-nick t))
-(add-hook 'circe-chat-mode-hook 'wasa-circe-disable-highlight-nick)
+(add-hook 'circe-chat-mode-hook 'my-circe-disable-highlight-nick)
 
-(defun wasa-irc ()
+(defun my-irc ()
   "Connect to all my IRC servers"
   (interactive)
   (circe "Bitlbee")
@@ -169,13 +169,13 @@ static char *noname[] = {
       ;mu4e-html2text-command "lynx -hiddenlinks=merge -display_charset=utf-8 -dump -stdin"
       mu4e-html2text-command "lynx -display_charset=utf-8 -dump -stdin"
       mu4e-confirm-quit nil)
-(defun wasa-mu4e-remap-search ()
-  (wasa-define-keys 'mu4e-main-mode-map
+(defun my-mu4e-remap-search ()
+  (my-define-keys 'mu4e-main-mode-map
                     (kbd "s") nil
                     (kbd "/") 'mu4e-headers-search))
-(add-hook 'mu4e-main-mode-hook 'wasa-mu4e-remap-search)
+(add-hook 'mu4e-main-mode-hook 'my-mu4e-remap-search)
 
-(setq wasa-mu4e-account-alist
+(setq my-mu4e-account-alist
       '(("private"
          (user-full-name . "Hurrus Durrus")
          (user-mail-address . "hurrus.durrus@gmail.com")
@@ -191,7 +191,7 @@ static char *noname[] = {
          (mu4e-trash-folder . "/public/trash")
          (mu4e-refile-folder . "/public/archive"))))
 
-(defun wasa-mu4e-set-account ()
+(defun my-mu4e-set-account ()
        "Set the account for composing a message."
        (let* ((account
                (if mu4e-compose-parent-message
@@ -199,17 +199,17 @@ static char *noname[] = {
                      (string-match "/\\(.*?\\)/" maildir)
                      (match-string 1 maildir))
                  (completing-read (format "Compose with account: (%s) "
-                                          (mapconcat #'(lambda (var) (car var)) wasa-mu4e-account-alist "/"))
-                                  (mapcar #'(lambda (var) (car var)) wasa-mu4e-account-alist)
-                                  nil t nil nil (caar wasa-mu4e-account-alist))))
-              (account-vars (cdr (assoc account wasa-mu4e-account-alist))))
+                                          (mapconcat #'(lambda (var) (car var)) my-mu4e-account-alist "/"))
+                                  (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+                                  nil t nil nil (caar my-mu4e-account-alist))))
+              (account-vars (cdr (assoc account my-mu4e-account-alist))))
          (message "%s" account)
          (if account-vars
              (mapc #'(lambda (var)
                        (set (car var) (cdr var)))
                    account-vars)
            (error "No email account found"))))
-(add-hook 'mu4e-compose-pre-hook 'wasa-mu4e-set-account)
+(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
 (setq message-send-mail-function 'message-send-mail-with-sendmail
       sendmail-program "msmtp")
@@ -254,7 +254,7 @@ clicked."
        (put-text-property (string-match "\\[.+" newstr)
                           (- (length newstr) 1) 'mouse-face 'highlight newstr) newstr)))
 
-(defun wasa-mu4e-main-view-fix ()
+(defun my-mu4e-main-view-fix ()
   (with-current-buffer (get-buffer mu4e~main-buffer-name)
     (save-excursion
       (let ((inhibit-read-only t))
@@ -263,7 +263,7 @@ clicked."
           (set-text-properties (match-beginning 0) (match-end 0) nil)
           (replace-match "" t t)
           (insert (mu4e~main-action-str "\t* [?] enter a search query\n" 'mu4e-search)))))))
-(add-hook 'mu4e-main-mode-hook 'wasa-mu4e-main-view-fix)
+(add-hook 'mu4e-main-mode-hook 'my-mu4e-main-view-fix)
 
 ;; elfeed
 (setq elfeed-feeds '("http://iwdrm.tumblr.com/rss"

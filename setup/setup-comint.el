@@ -12,17 +12,17 @@
                (> arg 0))
         (comint-previous-matching-input "." arg)))))
 
-(defun wasa-comint-preoutput-turn-buffer-read-only (text)
+(defun my-comint-preoutput-turn-buffer-read-only (text)
   (propertize text 'read-only t))
 
-(add-hook 'comint-preoutput-filter-functions 'wasa-comint-preoutput-turn-buffer-read-only)
-(wasa-define-keys comint-mode-map
-                  [remap kill-word] 'wasa-kill-word
-                  [remap backward-kill-word] 'wasa-backward-kill-word)
+(add-hook 'comint-preoutput-filter-functions 'my-comint-preoutput-turn-buffer-read-only)
+(my-define-keys comint-mode-map
+                  [remap kill-word] 'my-kill-word
+                  [remap backward-kill-word] 'my-backward-kill-word)
 
-(defun wasa-shell-turn-echo-off ()
+(defun my-shell-turn-echo-off ()
   (setq comint-process-echoes t))
-(add-hook 'shell-mode-hook 'wasa-shell-turn-echo-off)
+(add-hook 'shell-mode-hook 'my-shell-turn-echo-off)
 
 (defun my-shell-kill-buffer-sentinel (process event)
   (when (memq (process-status process) '(exit signal))

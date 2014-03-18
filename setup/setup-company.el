@@ -1,4 +1,4 @@
-(wasa-eval-after company
+(my-eval-after company
   (defun company-mode-on ()
     (when (and (not (or noninteractive (eq (aref (buffer-name) 0) ?\s)))
                (cond ((eq company-global-modes t)

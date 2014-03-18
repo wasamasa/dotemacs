@@ -3,23 +3,23 @@
 (require 's)
 (require 'dash)
 
-(defmacro wasa-eval-after (feature &rest body)
+(defmacro my-eval-after (feature &rest body)
   (cl-declare (indent 1))
   `(eval-after-load ',feature '(progn ,@body)))
 
-(defun wasa-define-keys (keymap &rest binds)
+(defun my-define-keys (keymap &rest binds)
   (cl-dolist (pair (-partition 2 binds))
     (let ((key (car pair))
           (func (cadr pair)))
       (define-key keymap key func))))
 
-(defun wasa-global-set-keys (&rest binds)
+(defun my-global-set-keys (&rest binds)
   (cl-dolist (pair (-partition 2 binds))
     (let ((key (car pair))
           (func (cadr pair)))
       (define-key key func))))
 
-(defun wasa-replace-in-region-or-buffer (search-replace-list)
+(defun my-replace-in-region-or-buffer (search-replace-list)
   (let ((beg (if (region-active-p) (region-beginning) (point-min)))
         (end (if (region-active-p) (region-end) (point-max)))
         (case-fold-search nil))
@@ -29,11 +29,11 @@
         (while (re-search-forward (car sr) end t)
           (replace-match (cadr sr) t t))))))
 
-(defun wasa-replace-paragraphs ()
+(defun my-replace-paragraphs ()
   (interactive)
-  (wasa-replace-in-region-or-buffer '(("\n\n" "\n"))))
+  (my-replace-in-region-or-buffer '(("\n\n" "\n"))))
 
-(defun wasa-any-regex-in-string (regexes string)
+(defun my-any-regex-in-string (regexes string)
   "Tests whether any of the given regular expressions is present
 in the given string."
   (when string
@@ -41,19 +41,19 @@ in the given string."
       (when (s-contains? regex string)
         (cl-return t)))))
 
-(defun wasa-kill-word (arg)
+(defun my-kill-word (arg)
   "Kill characters forward until encountering the end of a word.
 With argument ARG, do this that many times.  Do not move."
   (interactive "p")
   (kill-region (point) (save-excursion (forward-word arg) (point))))
 
-(defun wasa-backward-kill-word (arg)
+(defun my-backward-kill-word (arg)
   "Kill characters backward until encountering the end of a word.
 With argument ARG, do this that many times.  Do not move."
   (interactive "p")
-  (wasa-kill-word (- arg)))
+  (my-kill-word (- arg)))
 
-(defun wasa-log (str)
+(defun my-log (str)
   (save-current-buffer
     (set-buffer (get-buffer-create "*log*"))
     (goto-char (point-max))

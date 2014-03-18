@@ -78,14 +78,14 @@
 (define-key evil-window-map (kbd "u") 'winner-undo)
 (define-key evil-window-map (kbd "b") 'helm-mini)
 
-(defun wasa-evil-unimpaired-insert-newline-above (count)
+(defun my-evil-unimpaired-insert-newline-above (count)
   "Insert an empty line below point"
   (interactive "p")
   (save-excursion
     (dotimes (i count)
       (evil-insert-newline-above))))
 
-(defun wasa-evil-unimpaired-insert-newline-below (count)
+(defun my-evil-unimpaired-insert-newline-below (count)
   "Insert an empty line below point"
   (interactive "p")
   (save-excursion
@@ -93,10 +93,10 @@
       (evil-insert-newline-below))))
 
 (define-key evil-normal-state-map (kbd "[ SPC")
-  'wasa-evil-unimpaired-insert-newline-above)
+  'my-evil-unimpaired-insert-newline-above)
 
 (define-key evil-normal-state-map (kbd "] SPC")
-  'wasa-evil-unimpaired-insert-newline-below)
+  'my-evil-unimpaired-insert-newline-below)
 
 (defun evil-paste-from-primary ()
   "Paste text from PRIMARY/Selection"

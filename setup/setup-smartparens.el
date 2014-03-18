@@ -1,17 +1,17 @@
 (require 'smartparens)
 ; hook functions
-(defun wasa-turn-on-sp-mode ()
+(defun my-turn-on-sp-mode ()
   (smartparens-mode t))
-(defun wasa-turn-on-show-sp-mode ()
+(defun my-turn-on-show-sp-mode ()
   (show-smartparens-mode t))
 
 ;; hooks
-(add-hook 'text-mode-hook 'wasa-turn-on-sp-mode)
-(add-hook 'text-mode-hook 'wasa-turn-on-show-sp-mode)
-(add-hook 'prog-mode-hook 'wasa-turn-on-sp-mode)
-(add-hook 'prog-mode-hook 'wasa-turn-on-show-sp-mode)
-(add-hook 'minibuffer-setup-hook 'wasa-turn-on-sp-mode)
-(add-hook 'minibuffer-setup-hook 'wasa-turn-on-show-sp-mode)
+(add-hook 'text-mode-hook 'my-turn-on-sp-mode)
+(add-hook 'text-mode-hook 'my-turn-on-show-sp-mode)
+(add-hook 'prog-mode-hook 'my-turn-on-sp-mode)
+(add-hook 'prog-mode-hook 'my-turn-on-show-sp-mode)
+(add-hook 'minibuffer-setup-hook 'my-turn-on-sp-mode)
+(add-hook 'minibuffer-setup-hook 'my-turn-on-show-sp-mode)
 
 ;; we're using evil, thus we can't move the cursor beyond the end of
 ;; the line and have to show the matching paren with this setting

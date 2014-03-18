@@ -54,7 +54,7 @@
 (setq bookmark-default-file (concat user-emacs-directory "etc/bookmarks"))
 (modify-syntax-entry ?_ "w" (standard-syntax-table))
 (setq tumblesocks-token-file (concat user-emacs-directory "etc/tumblr-oauth-token"))
-(defun wasa-quit-help ()
+(defun my-quit-help ()
   (interactive)
   (when (equal major-mode 'help-mode)
     (kill-buffer)

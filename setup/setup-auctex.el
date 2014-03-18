@@ -8,30 +8,30 @@
                                    (output-dvi "xdvi")
                                    (output-pdf "llpp")
                                    (output-html "xdg-open")))
-(defun wasa-enable-auctex-pdf-mode ()
+(defun my-enable-auctex-pdf-mode ()
   (TeX-global-PDF-mode 1))
-(add-hook 'LaTeX-mode-hook 'wasa-enable-auctex-pdf-mode)
+(add-hook 'LaTeX-mode-hook 'my-enable-auctex-pdf-mode)
 (add-hook 'LaTeX-mode-hook 'latex/setup-keybinds)
 (autoload 'latex/section-regexp "latex-extra" "LaTeX section regexp" t)
-(defun wasa-extend-hs-modes-alist ()
+(defun my-extend-hs-modes-alist ()
   (add-to-list 'hs-special-modes-alist
                `(latex-mode ,(latex/section-regexp) nil "%"
                             (lambda (arg) (latex/next-section 1)
                               (skip-chars-backward " \t\n")) nil)))
-(add-hook 'LaTeX-mode-hook 'wasa-extend-hs-modes-alist)
+(add-hook 'LaTeX-mode-hook 'my-extend-hs-modes-alist)
 
-(defun wasa-turn-on-pretty-symbols-mode ()
+(defun my-turn-on-pretty-symbols-mode ()
   (pretty-symbols-mode 1)
   (font-latex-setup)
   (font-lock-fontify-buffer))
-(setq TeX-install-font-lock 'wasa-turn-on-pretty-symbols-mode)
-(add-hook 'LaTeX-mode-hook 'wasa-turn-on-pretty-symbols-mode)
+(setq TeX-install-font-lock 'my-turn-on-pretty-symbols-mode)
+(add-hook 'LaTeX-mode-hook 'my-turn-on-pretty-symbols-mode)
 
-(setq LaTeX-section-hook '(wasa-LaTeX-section-heading
+(setq LaTeX-section-hook '(my-LaTeX-section-heading
                            LaTeX-section-title
                            LaTeX-section-section))
 
-(defun wasa-LaTeX-section-heading ()
+(defun my-LaTeX-section-heading ()
   "Hook to prompt for LaTeX section name.
 Insert this hook into `LaTeX-section-hook' to allow the user to change
 the name of the sectioning command inserted with `\\[LaTeX-section]'."
@@ -45,7 +45,7 @@ the name of the sectioning command inserted with `\\[LaTeX-section]'."
     ; Update level
     (setq level (LaTeX-section-level name))))
 
-(defun wasa-LaTeX-environment (arg)
+(defun my-LaTeX-environment (arg)
   "Make LaTeX environment (\\begin{...}-\\end{...} pair).
 With optional ARG, modify current environment.
 
@@ -86,17 +86,17 @@ It may be customized with the following variables:
 	  (LaTeX-modify-environment environment)
 	(LaTeX-environment-menu environment)))))
 
-(defun wasa-TeX-command-master (&optional override-confirm)
+(defun my-TeX-command-master (&optional override-confirm)
   "Run command on the current document.
 
 If a prefix argument OVERRIDE-CONFIRM is given, confirmation will
 depend on it being positive instead of the entry in `TeX-command-list'."
   (interactive "P")
-  (TeX-command (wasa-TeX-command-query (TeX-master-file)) 'TeX-master-file
+  (TeX-command (my-TeX-command-query (TeX-master-file)) 'TeX-master-file
 	       override-confirm))
 
 
-(defun wasa-TeX-command-query (name)
+(defun my-TeX-command-query (name)
   "Query the user for what TeX command to use."
   (let* ((default
 	   (cond ((if (string-equal name TeX-region)
@@ -132,9 +132,9 @@ depend on it being positive instead of the entry in `TeX-command-list'."
         answer
       default)))
 
-(defun wasa-LaTeX-hook ()
-  (local-set-key (kbd "C-c C-e") 'wasa-LaTeX-environment)
-  (local-set-key (kbd "C-c C-c") 'wasa-TeX-command-master))
-(add-hook 'LaTeX-mode-hook 'wasa-LaTeX-hook)
+(defun my-LaTeX-hook ()
+  (local-set-key (kbd "C-c C-e") 'my-LaTeX-environment)
+  (local-set-key (kbd "C-c C-c") 'my-TeX-command-master))
+(add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
 
 (provide 'setup-auctex)

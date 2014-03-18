@@ -18,7 +18,7 @@
              ("f" "[F]ind Library" find-library)
              ("g" "Customize [G]roup" customize-group)
              ("i" "Package [I]nstall" package-install)
-             ;;("r" "Package [R]emove" wasa-package-remove)
+             ;;("r" "Package [R]emove" my-package-remove)
              ("p" "[P]ackage List" package-list-packages)
              ("t" "Load [T]heme" helm-themes)
              ("v" "Customize [V]ariable" customize-variable)))
@@ -78,7 +78,7 @@
 (helm-fkey "Distractions" "f9" "<f9>"
            '(("d" "Tumblr [D]ashboard" tumblesocks-view-dashboard)
              ("f" "News [F]eeds" elfeed)
-             ("i" "[I]RC" wasa-irc)
+             ("i" "[I]RC" my-irc)
              ("m" "E-[M]ail" mu4e)
              ("t" "[T]etris" tetris)))
 
