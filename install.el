@@ -23,7 +23,7 @@
 (quelpa 'ace-jump-mode)
 (quelpa 'surround)
 
-(quelpa 'company)
+(quelpa 'company :upgrade t)
 (quelpa 'company-jedi)
 (quelpa 'company-cider)
 (quelpa 'helm)
@@ -61,6 +61,8 @@
 
 (quelpa 'ix)
 (quelpa 'crontab-mode)
+(quelpa 'esup)
+(quelpa 'eyebrowse)
 (quelpa '(wc-mode :fetcher git :url "https://github.com/bnbeckwith/wc-mode"))
 (quelpa '(zone-matrix :fetcher git :url "https://github.com/ober/zone-matrix"))
 
