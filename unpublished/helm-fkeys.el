@@ -4,8 +4,7 @@
 (defvar helm-fkey-keymap
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (dolist (key (number-sequence ?! ?~))
-      (define-key map (kbd (string key)) 'exit-minibuffer))
+    (define-key map [remap self-insert-command] 'exit-minibuffer)
     map))
 
 (defun helm-fkey-call-function (data)
