@@ -1,6 +1,5 @@
 ;; -*- lexical-binding: t -*-
 (require 'helm)
-(require 's)
 
 (defvar helm-fkey-keymap
   (let ((map (make-sparse-keymap)))
@@ -24,17 +23,16 @@ looking up DATA"
 (defun helm-fkey-propertize-candidate (str)
   "Propertizes a helm-fkey candidate, both brackets and the
 enclosed glyph get a distinct face"
-  (let* ((split-str (s-split "\\(\\[\\|\\]\\)" str))
-         (beg (first split-str))
+  (let* ((split-str (split-string str "\\(\\[\\|\\]\\)"))
          (opening-bracket "[")
          (key (second split-str))
          (closing-bracket "]")
          (rest (third split-str)))
-    (s-concat beg
               (propertize opening-bracket 'face 'helm-fkey-bracket-face)
               (propertize key 'face 'helm-fkey-key-face)
               (propertize closing-bracket 'face 'helm-fkey-bracket-face)
               rest)))
+    (concat beg
 
 (defun helm-fkey-prettify (candidates)
   "Applies `helm-fkey-propertize-candidate' to CANDIDATES"
