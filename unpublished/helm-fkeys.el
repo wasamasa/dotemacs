@@ -48,8 +48,11 @@ enclosed glyph get a distinct face"
                 (source '((name . ,label)
                           (candidates . (lambda () (mapcar 'cadr ,data)))
                           (candidate-transformer helm-fkey-prettify)
-                          (action ("Execute" . (lambda (_) (helm-fkey-call-function ,data)))))))
-           (helm :sources source :keymap helm-fkey-keymap :prompt "Key: " :buffer ,(concat "*helm-" key))))
+                          (action ("Execute" .
+                                   (lambda (_) (helm-fkey-call-function
+                                                ,data)))))))
+           (helm :sources source :keymap helm-fkey-keymap :prompt "Key: "
+                 :buffer ,(concat "*helm-" key))))
        (global-set-key (kbd ,bind) ',func-name))))
 
 (provide 'helm-fkeys)
