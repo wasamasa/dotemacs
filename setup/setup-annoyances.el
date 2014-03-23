@@ -62,5 +62,6 @@
       (delete-window))))
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
+(setq quelpa-upgrade-p t)
 
 (provide 'setup-annoyances)
