@@ -12,17 +12,17 @@
 
 (setq helm-cmd-t-default-repo (concat user-directory "code/dotfiles"))
 
+(define-key helm-read-file-map (kbd "<backspace>")
+  'helm-find-files-down-one-level)
+(define-key helm-find-files-map (kbd "<backspace>")
+  'helm-find-files-down-one-level)
+
 ;; helm ack-grep hacks
 (setq helm-ack-grep-executable "ag")
 (setq helm-grep-default-command
       (concat helm-ack-grep-executable " --nogroup --nocolor --nopager --smart-case -z %p %f")
       helm-grep-default-recurse-command
       (concat helm-ack-grep-executable " --nogroup --nocolor --nopager --smart-case -z %p %f"))
-
-;; helm grep hacks
-(when helm-ff-ido-style-backspace
-  (define-key helm-read-file-map (kbd "<backspace>")
-    'helm-find-files-down-one-level))
 
 ;; helm completing read functions
 (add-to-list 'helm-completing-read-handlers-alist
