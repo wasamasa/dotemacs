@@ -10,6 +10,8 @@
     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
     (eval-buffer)))
 
+(setq quelpa-upgrade-p t)
+
 (quelpa 'f)
 (quelpa 's)
 (quelpa 'dash)
@@ -23,7 +25,7 @@
 (quelpa 'ace-jump-mode)
 (quelpa 'surround)
 
-(quelpa 'company :upgrade t)
+(quelpa 'company)
 (quelpa 'company-jedi)
 (quelpa 'company-cider)
 (quelpa 'helm)
@@ -36,14 +38,15 @@
 (quelpa 'popwin)
 (quelpa 'smex)
 
-(package-install 'org)
+(quelpa '(org :url "git://orgmode.org/org-mode.git" :fetcher git
+              :files ("lisp/*.el" "contrib/lisp/*.el" "doc/dir" "doc/*.texi")))
 (quelpa 'calfw)
 
-(package-install 'auctex)
+(unless (package-installed-p 'auctex) (package-install 'auctex))
 (quelpa 'latex-extra)
 
 (quelpa 'pretty-symbols)
-(package-install 'rainbow-mode)
+(unless (package-installed-p 'rainbow-mode) (package-install 'rainbow-mode))
 (quelpa 'rainbow-delimiters)
 (quelpa 'unicode-whitespace)
 (quelpa 'cl-lib-highlight)
@@ -65,6 +68,7 @@
 (quelpa 'eyebrowse)
 (quelpa '(wc-mode :fetcher git :url "https://github.com/bnbeckwith/wc-mode"))
 (quelpa '(zone-matrix :fetcher git :url "https://github.com/ober/zone-matrix"))
+(quelpa 'esxml)
 
 (quelpa 'skewer-mode)
 (quelpa 'js2-mode)
