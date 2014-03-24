@@ -3,8 +3,8 @@
 (require 's)
 (require 'dash)
 
+(put 'my-eval-after 'lisp-indent-function 1)
 (defmacro my-eval-after (feature &rest body)
-  (cl-declare (indent 1))
   `(eval-after-load ',feature '(progn ,@body)))
 
 (defun my-define-keys (keymap &rest binds)
