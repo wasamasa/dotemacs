@@ -564,7 +564,7 @@
    `(mu4e-flagged-face ((t (:foreground ,magenta :weight bold))))
    `(mu4e-view-url-number-face ((t (:foreground ,yellow :weight normal))))
    `(mu4e-warning-face ((t (:foreground ,red :slant normal :weight bold))))
-   `(mu4e-header-highlight-face ((t (:inherit unspecified :foreground unspecified :background ,solarized-hl :weight normal))))
+   `(mu4e-header-highlight-face ((t (:foreground unspecified :background ,solarized-hl :weight normal))))
 
    ;; `(mu4e-draft-face ((t (:inherit font-lock-string-face))))
    ;; `(mu4e-footer-face ((t (:inherit font-lock-comment-face))))
@@ -862,14 +862,6 @@
    ;; highlight-tail
    `(highlight-tail-colors '((,solarized-hl . 0)(,green-d . 20)(,cyan-d . 30)(,blue-d . 50) (,yellow-d . 60)(,orange-d . 70)(,magenta-d . 85)(,solarized-hl . 100)))
 
-   ;; smart-mode-line
-   `(sml/active-foreground-color ,s-mode-line-fg)
-   `(sml/active-background-color ,s-mode-line-bg)
-   `(sml/inactive-foreground-color ,s-mode-line-inactive-fg)
-   `(sml/inactive-background-color ,s-mode-line-inactive-bg)
-   `(sml/persp-selected-color ,green)
-   `(sml/new-mail-background-color ,solarized-hl)
-
    ;; syslog-mode
    `(syslog-ip-face '((t :background unspecified :foreground ,yellow)))
    `(syslog-hour-face '((t :background unspecified :foreground ,green)))
@@ -882,6 +874,13 @@
    ;; vc
    `(vc-annotate-color-map '((20 . ,red) (40 . "#CF4F1F") (60 . "#C26C0F") (80 . ,yellow) (100 . "#AB8C00") (120 . "#A18F00") (140 . "#989200") (160 . "#8E9500") (180 . ,green) (200 . "#729A1E") (220 . "#609C3C") (240 . "#4E9D5B") (260 . "#3C9F79") (280 . ,cyan) (300 . "#299BA6") (320 . "#2896B5") (340 . "#2790C3") (360 . ,blue)))
    `(vc-annotate-very-old-color nil)
-   `(vc-annotate-background nil)))
+   `(vc-annotate-background nil))
+
+  (when (fboundp 'sml/set-face-color)
+    (sml/set-face-color 'sml/active-foreground-color s-mode-line-fg)
+    (sml/set-face-color 'sml/active-background-color s-mode-line-bg)
+    (sml/set-face-color 'sml/inactive-foreground-color s-mode-line-inactive-fg)
+    (sml/set-face-color 'sml/inactive-background-color s-mode-line-inactive-bg)))
+
 
 (provide-theme 'my-solarized)
