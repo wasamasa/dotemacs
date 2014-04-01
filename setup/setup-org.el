@@ -8,6 +8,7 @@
       org-M-RET-may-split-line nil
       org-enforce-todo-dependencies t
       org-enforce-todo-checkbox-dependencies t
+      org-link-frame-setup '((file . find-file))
       org-directory "~/org/"
       org-agenda-files (list org-directory)
       org-default-notes-file (concat org-directory "inbox.org")
