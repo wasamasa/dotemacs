@@ -510,6 +510,8 @@
    ;; magit
    `(magit-section-title ((t (:foreground ,yellow :weight bold))))
    `(magit-branch ((t (:foreground ,orange :weight bold))))
+   `(magit-diff-add ((t (:background unspecified :foreground ,green))))
+   `(magit-diff-del ((t (:background unspecified :foreground ,red))))
    `(magit-item-highlight ((t (:background ,solarized-hl :weight unspecified))))
    `(magit-log-author ((t (:foreground ,cyan))))
    `(magit-log-graph ((t (:foreground ,solarized-comments))))
@@ -854,7 +856,7 @@
    `(fci-rule-color ,solarized-hl)
 
    ;; magit
-   `(magit-diff-use-overlays nil)
+   `(magit-use-overlays nil)
 
    ;; highlight-changes
    `(highlight-changes-colors '(,magenta ,violet))
