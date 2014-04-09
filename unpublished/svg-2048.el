@@ -93,10 +93,9 @@
   (interactive)
   (message "%s" (string last-command-event)))
 
-(my-define-keys svg-2048-mode-map
-                (kbd "w") 'message-last-key
-                (kbd "a") 'message-last-key
-                (kbd "s") 'message-last-key
-                (kbd "d") 'message-last-key)
+(define-key svg-2048-mode-map (kbd "w") 'message-last-key)
+(define-key svg-2048-mode-map (kbd "a") 'message-last-key)
+(define-key svg-2048-mode-map (kbd "s") 'message-last-key)
+(define-key svg-2048-mode-map (kbd "d") 'message-last-key)
 
 (provide 'svg-2048)
