@@ -9,15 +9,6 @@
 (defvar svg-2048-board-color "#bbada0")
 (defvar svg-2048-tile-color "#eee4da")
 
-(defun alist-put (alist key value)
-  (let ((match (alist-get alist key))
-        (item (cons key value)))
-    (if match
-        (-replace-at (-elem-index (alist-get alist key) alist)
-                     item alist)
-      (cons item alist))))
-
-
 (defvar svg-2048-board
   (cl-loop for i from 0 to 3
            nconc
