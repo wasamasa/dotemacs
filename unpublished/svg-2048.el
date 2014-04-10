@@ -13,7 +13,7 @@
   (cl-loop for i from 0 to 3
            nconc
            (cl-loop for j from 0 to 3 collect
-                    (cons (cons i j) 2))))
+                    (cons (cons i j) nil))))
 
 (defun svg-2048-create-svg ()
   (let* ((field-width (+ (* 5 svg-2048-padding) (* 4 svg-2048-box-size)))
