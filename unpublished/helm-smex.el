@@ -21,5 +21,6 @@
   (helm :sources 'helm-smex-source :buffer "*helm-smex*"))
 
 (global-set-key (kbd "M-x") 'helm-smex)
+(global-set-key (kbd "C-c M-x") 'execute-extended-command)
 
 (provide 'helm-smex)
