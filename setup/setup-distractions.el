@@ -77,8 +77,10 @@ static char *noname[] = {
       circe-new-buffer-behavior-ignore-auto-joins t
       circe-track-faces-priorities '(my-circe-highlight-notification-face
                                      circe-my-message-face circe-server-face)
-      circe-network-options `(("ZNC" :host "127.0.0.1" :port 65432
-                               :pass ,znc-password)
+      circe-network-options `(("ZNC/Freenode" :host "127.0.0.1" :port 65432
+                               :user "wasamasa/freenode" :pass ,znc-password)
+                              ("ZNC/f0o" :host "127.0.0.1" :port 65432
+                               :user "wasamasa/f0o" :pass ,znc-password)
                               ("Bitlbee" :port 6667
                                :nickserv-password ,bitlbee-password)))
 (enable-circe-color-nicks)
@@ -152,7 +154,8 @@ static char *noname[] = {
   "Connect to all my IRC servers"
   (interactive)
   (circe "Bitlbee")
-  (circe "ZNC"))
+  (circe "ZNC/Freenode")
+  (circe "ZNC/f0o"))
 
 ;; mu4e
 (autoload 'mu4e "mu4e" "Main function of mu4e" t)
