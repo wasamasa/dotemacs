@@ -140,7 +140,8 @@ static char *noname[] = {
          (highlight-match (my-any-regex-in-string highlight-regexps irc-message)))
     (when irc-message
       (when (not (equal nick circe-default-nick))
-        (when (or highlight-match (equal major-mode 'circe-query-mode))
+        (when (and (not (equal major-mode 'circe-server-mode))
+                   (or highlight-match (equal major-mode 'circe-query-mode)))
           (my-x-urgency-hint))
         (when highlight-match
           '((text-properties . (face my-circe-highlight-notification-face message t))))))))
