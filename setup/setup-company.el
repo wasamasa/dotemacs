@@ -5,9 +5,9 @@
         company-show-numbers t
         company-global-modes '(nxml-mode sgml-mode css-mode
                                          inferior-emacs-lisp-mode)
-        company-backends '(company-jedi company-elisp company-nxml company-css
-                                        company-capf (company-gtags company-etags
-                                        company-dabbrev-code company-keywords)
+        company-backends '(company-jedi company-elisp company-nxml
+                                        company-css company-capf
+                                        (company-dabbrev-code company-keywords)
                                         company-files company-dabbrev)
         company-jedi-python-bin "python")
   (defun company-mode-on ()
