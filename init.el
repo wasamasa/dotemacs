@@ -8,10 +8,10 @@
 (add-to-list 'load-path (concat user-emacs-directory "unpublished"))
 
 ;; load safe setup files
+(require 'setup-defuns)
 (require 'setup-ui)
 (require 'setup-hooks)
 (require 'setup-annoyances)
-(require 'setup-defuns)
 (require 'setup-keybinds)
 
 ;; load unpublished packages
@@ -30,11 +30,12 @@
 (require 'setup-comint)
 (require 'setup-flycheck)
 (require 'setup-helm-fkeys)
-(require 'setup-cc)
+(require 'setup-cc-mode)
 (require 'setup-lisp)
 (require 'setup-web)
 (require 'setup-python)
 (require 'setup-auctex)
 (require 'setup-smartparens)
 (require 'setup-evil)
+(require 'setup-yasnippet)
 (require 'setup-distractions)
