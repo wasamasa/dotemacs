@@ -63,4 +63,6 @@
       ediff-split-window-function 'split-window-horizontally)
 (setq quelpa-upgrade-p t)
 
+(add-hook 'eshell-load-hook 'nyan-prompt-enable)
+
 (provide 'setup-annoyances)
