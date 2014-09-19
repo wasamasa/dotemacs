@@ -201,6 +201,14 @@ static char *noname[] = {
   (my-circe-truncate-fools))
 
 (add-hook 'circe-channel-mode-hook 'my-circe-load-fools)
+(defun my-circe-count-nicks ()
+  (interactive)
+  (when (eq major-mode 'circe-channel-mode)
+    (message "%i entities are online on %s."
+             (hash-table-count circe-channel-users)
+             (buffer-name))))
+(define-key circe-channel-mode-map (kbd "C-c n") 'my-circe-count-nicks)
+
 (defun my-irc ()
   "Connect to all my IRC servers"
   (interactive)
