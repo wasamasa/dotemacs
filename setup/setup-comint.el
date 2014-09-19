@@ -16,9 +16,15 @@
   (propertize text 'read-only t))
 
 (add-hook 'comint-preoutput-filter-functions 'my-comint-preoutput-turn-buffer-read-only)
+
+(defun my-comint-clear-buffer ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
 (my-define-keys comint-mode-map
                   [remap kill-word] 'my-kill-word
-                  [remap backward-kill-word] 'my-backward-kill-word)
+                  [remap backward-kill-word] 'my-backward-kill-word
+                  (kbd "C-L") 'my-comint-clear-buffer)
 
 (defun my-shell-turn-echo-off ()
   (setq comint-process-echoes t))
