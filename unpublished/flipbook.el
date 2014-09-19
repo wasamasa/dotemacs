@@ -22,9 +22,12 @@
     (setq buffer-read-only t)))
 
 (defun flipbook-advance-frames (frames)
-  (when (<= flipbook-frame flipbook-last-frame)
+  (when (and (<= flipbook-frame flipbook-last-frame)
+             (>= flipbook-frame flipbook-first-frame))
     (flipbook-redraw)
-    (setq flipbook-frame (+ flipbook-frame frames))))
+    (setq flipbook-frame
+          (min flipbook-last-frame
+               (max flipbook-first-frame (+ flipbook-frame frames))))))
 
 (defun flipbook-next-frame ()
   (interactive)
