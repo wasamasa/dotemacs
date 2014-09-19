@@ -60,12 +60,22 @@
   (interactive)
   (info "elisp"))
 
+(defun my-info-cl ()
+  (interactive)
+  (info "cl"))
+
+(defun my-info-cl-loop ()
+  (interactive)
+  (info "(cl) Loop facility"))
+
 (helm-fkey "Doc" "f6" "<f6>"
-           '(("e" "[E]macs manual" info-emacs-manual)
+           '(("c" "[C]L" my-info-cl)
+             ("e" "[E]macs manual" info-emacs-manual)
              ("i" "Emacs Lisp [I]ntro" my-info-emacs-lisp-intro)
              ("l" "Emacs [L]isp manual" my-info-emacs-lisp-manual)
              ("m" "[M]an" helm-man-woman)
-             ("o" "[O]rgcard" helm-orgcard)
+             ("o" "L[O]OP" my-info-cl-loop)
+             ;("o" "[O]rgcard" helm-orgcard)
              ("p" "[P]ydoc" helm-pydoc)))
 
 (helm-fkey "Insert" "f7" "<f7>"
