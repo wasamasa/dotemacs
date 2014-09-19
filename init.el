@@ -34,6 +34,7 @@
 (require 'setup-lisp)
 (require 'setup-web)
 (require 'setup-python)
+(require 'setup-ruby)
 (require 'setup-auctex)
 (require 'setup-smartparens)
 (require 'setup-evil)
