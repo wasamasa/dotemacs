@@ -63,6 +63,13 @@
       ediff-split-window-function 'split-window-horizontally)
 (setq quelpa-upgrade-p t)
 
+(setq csv-separators '(";" "	" ",")
+      csv-separator-chars '(?\; ?	 ?,)
+      csv--skip-regexp "^
+;	,"
+      csv-separator-regexp "[;	,]"
+      csv-font-lock-keywords '(("[;	,]" (0 'csv-separator-face))))
+
 (defun my-startup-greeter ()
   (message "Let the hacking begin!"))
 (defalias 'display-startup-echo-area-message 'my-startup-greeter)
