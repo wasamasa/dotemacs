@@ -61,6 +61,7 @@
       (delete-window))))
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
+(mapatoms (lambda (s) (when (get s 'disabled) (put s 'disabled nil))))
 (setq quelpa-upgrade-p t)
 
 ;; great candidate for a patch that enables a more convenient option
