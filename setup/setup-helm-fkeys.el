@@ -38,14 +38,18 @@
              ("l" "[L]ocate" helm-locate)
              ("t" "Cmd-[T]" helm-cmd-t)))
 
+(defun my-zsh ()
+  (interactive)
+  (ansi-term "zsh"))
+
 (helm-fkey "Eval" "f5" "<f5>"
            '(("c" "[C]alc" calc)
-             ("e" "[E]val Expression" helm-eval-expression-with-eldoc)
+             ("e" "[E]shell" eshell)
              ("g" "Ma[g]it" magit-status)
              ("i" "[I]ELM" ielm)
              ("r" "[R]egexp" helm-regexp)
              ("s" "[S]hell" shell)
-             ("t" "ANSI [T]erm" ansi-term)
+             ("t" "[T]erm" my-zsh)
              ("x" "Calculate E[x]pression" helm-calcul-expression)))
 
 (defun my-info-emacs-lisp-intro ()
