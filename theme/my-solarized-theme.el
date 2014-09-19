@@ -864,6 +864,9 @@
    ;; highlight-tail
    `(highlight-tail-colors '((,solarized-hl . 0)(,green-d . 20)(,cyan-d . 30)(,blue-d . 50) (,yellow-d . 60)(,orange-d . 70)(,magenta-d . 85)(,solarized-hl . 100)))
 
+   ;; org-mode
+   `(org-todo-keyword-faces '(("DEAD" . (:foreground ,violet :weight bold))))
+
    ;; syslog-mode
    `(syslog-ip-face '((t :background unspecified :foreground ,yellow)))
    `(syslog-hour-face '((t :background unspecified :foreground ,green)))
