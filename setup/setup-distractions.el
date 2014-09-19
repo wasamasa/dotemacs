@@ -77,11 +77,11 @@ static char *noname[] = {
       circe-new-buffer-behavior-ignore-auto-joins t
       circe-track-faces-priorities '(my-circe-highlight-notification-face
                                      circe-my-message-face circe-server-face)
-      circe-network-options `(("ZNC/Freenode" :host "127.0.0.1" :port 65432
+      circe-network-options `(("ZNC/freenode" :host "brause.cc" :port 30832
                                :user "wasamasa/freenode" :pass ,znc-password)
-                              ("ZNC/f0o" :host "127.0.0.1" :port 65432
+                              ("ZNC/f0o" :host "brause.cc" :port 30833
                                :user "wasamasa/f0o" :pass ,znc-password)
-                              ("Bitlbee" :port 6667
+                              ("Bitlbee" :port 6667 :lagmon-disabled t
                                :nickserv-password ,bitlbee-password)))
 (enable-circe-color-nicks)
 (setq circe-color-nicks-everywhere t)
