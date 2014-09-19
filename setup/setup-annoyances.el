@@ -40,6 +40,7 @@
 ;; primitive vcs and uncluttering
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backup"))))
+(setq tramp-backup-directory-alist backup-directory-alist)
 (setq auto-save-list-file-prefix (concat user-emacs-directory "autosave/"))
 (setq auto-save-file-name-transforms
       `((".*" ,(concat user-emacs-directory "autosave/\\1") t)))
