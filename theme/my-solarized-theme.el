@@ -338,6 +338,15 @@
    `(ediff-even-diff-C ((t (:background ,solarized-comments :foreground ,solarized-fg ))))
    `(ediff-odd-diff-C ((t (:background ,solarized-comments :foreground ,solarized-bg ))))
 
+   ;; enh-ruby-mode
+   `(enh-ruby-heredoc-delimiter-face ((t (:foreground ,cyan-l :weight bold))))
+   `(enh-ruby-op-face ((t (:foreground ,violet))))
+   `(enh-ruby-regexp-face ((t (:foreground ,cyan))))
+   `(enh-ruby-regexp-delimiter-face ((t (:foreground ,cyan-l :weight bold))))
+   `(enh-ruby-string-delimiter-face ((t (:foreground ,cyan))))
+   `(erm-syn-errline ((t (:foreground ,red))))
+   `(erm-syn-warnline ((t (:foreground ,orange))))
+
    ;; diff-hl
    `(diff-hl-change ((t (:background ,blue-d :foreground ,blue-l))))
    `(diff-hl-delete ((t (:background ,red-d :foreground ,red-l))))
