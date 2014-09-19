@@ -4,6 +4,7 @@
       org-ellipsis " […]"
       org-return-follows-link t
       org-M-RET-may-split-line nil
+      org-src-fontify-natively t
       org-enforce-todo-dependencies t
       org-enforce-todo-checkbox-dependencies t
       org-link-frame-setup '((file . find-file))
