@@ -3,6 +3,9 @@
         company-minimum-prefix-length 2
         company-selection-wrap-around t
         company-show-numbers t
+        company-require-match 'never
+        company-dabbrev-downcase nil
+        company-dabbrev-ignore-case t
         company-global-modes '(nxml-mode sgml-mode css-mode
                                          inferior-emacs-lisp-mode)
         company-backends '(company-jedi company-elisp company-nxml
