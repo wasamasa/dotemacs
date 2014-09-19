@@ -8,6 +8,7 @@
   (rainbow-mode 1))
 
 (setq nxml-slash-auto-complete-flag t)
+(setq css-indent-offset 2)
 
 (add-hook 'nxml-mode-hook 'rainbow-delimiters-mode-enable)
 (add-hook 'sgml-mode-hook 'rainbow-delimiters-mode-enable)
