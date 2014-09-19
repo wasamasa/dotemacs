@@ -2,6 +2,7 @@
 (package-initialize)
 ;; enable GNU/ELPA and Org repository only
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;; make package setup files loadable
 (add-to-list 'load-path (concat user-emacs-directory "setup"))
 ;; make unpublished packages loadable
