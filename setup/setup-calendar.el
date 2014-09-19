@@ -1,5 +1,4 @@
 ;; calendar
-(autoload 'cfw:open-org-calendar "calfw-org" "Open Org calendar" t)
 (setq calendar-week-start-day 1
       calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
                                "Donnerstag" "Freitag" "Samstag"]
@@ -40,7 +39,5 @@
       holiday-bahai-holidays nil
       holiday-islamic-holidays nil
       holiday-hebrew-holidays nil)
-
-(global-set-key (kbd "<f12>") 'cfw:open-org-calendar)
 
 (provide 'setup-calendar)
