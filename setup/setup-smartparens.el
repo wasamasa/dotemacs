@@ -15,7 +15,9 @@
 
 ;; we're using evil, thus we can't move the cursor beyond the end of
 ;; the line and have to show the matching paren with this setting
-(setq sp-show-pair-from-inside t)
+(setq sp-show-pair-from-inside t
+      sp-autoescape-string-quote nil
+      sp-cancel-autoskip-on-backward-movement nil)
 
 ;; no single quotes for elisp
 (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
