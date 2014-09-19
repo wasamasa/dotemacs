@@ -3,7 +3,6 @@
       org-cycle-include-plain-lists 'integrate
       org-ellipsis " […]"
       org-return-follows-link t
-      org-log-done t
       org-M-RET-may-split-line nil
       org-enforce-todo-dependencies t
       org-enforce-todo-checkbox-dependencies t
