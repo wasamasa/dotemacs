@@ -167,6 +167,40 @@ static char *noname[] = {
   (remove-hook 'lui-pre-output-hook 'circe-highlight-nick t))
 (add-hook 'circe-chat-mode-hook 'my-circe-disable-highlight-nick)
 
+;; (defun my-circe-show-fools-by-default ()
+;;   (setq buffer-invisibility-spec '(t)))
+;; (add-hook 'circe-chat-mode-hook 'my-circe-show-fools-by-default)
+
+(defvar my-circe-fool-file "~/.emacs.d/etc/fools"
+  "File to store persistent fools in.")
+
+(defun my-circe-serialize-fools (fools)
+  (with-temp-file my-circe-fool-file
+    (insert (prin1-to-string fools))))
+
+(defun my-circe-deserialize-fools ()
+  (when (file-exists-p my-circe-fool-file)
+    (with-temp-buffer
+      (insert-file-contents-literally my-circe-fool-file)
+      (read (buffer-substring-no-properties (point-min) (point-max))))))
+
+(defun my-circe-load-fools ()
+  (setq circe-fool-list (my-circe-deserialize-fools)))
+
+(defun my-circe-update-fools ()
+  (my-circe-serialize-fools
+   (-union (my-circe-deserialize-fools) circe-fool-list)))
+
+(defun my-circe-truncate-fools ()
+  (my-circe-serialize-fools circe-fool-list))
+
+(defadvice circe-command-FOOL (after persistent-fools activate)
+  (my-circe-update-fools))
+
+(defadvice circe-command-UNFOOL (after persistent-fools activate)
+  (my-circe-truncate-fools))
+
+(add-hook 'circe-channel-mode-hook 'my-circe-load-fools)
 (defun my-irc ()
   "Connect to all my IRC servers"
   (interactive)
