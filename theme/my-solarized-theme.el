@@ -898,3 +898,8 @@
 
 
 (provide-theme 'my-solarized)
+
+;; Local Variables:
+;; eval: (show-smartparens-mode -1)
+;; eval: (rainbow-mode)
+;; End:
