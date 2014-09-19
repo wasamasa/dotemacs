@@ -83,6 +83,7 @@ static char *noname[] = {
                                :user "wasamasa/f0o" :pass ,znc-password)
                               ("Bitlbee" :port 6667 :lagmon-disabled t
                                :nickserv-password ,bitlbee-password)))
+(circe-lagmon-mode)
 (enable-circe-color-nicks)
 (setq circe-color-nicks-everywhere t)
 (setq lui-max-buffer-size 50000)
@@ -136,12 +137,15 @@ static char *noname[] = {
   "Face for circe notifications")
 (defun my-circe-message-option-highlight (nick user host command args)
   (let* ((highlight-regexps '("webspid0r" "wubspider" "wasamasa" "wasa\\>"))
-         (irc-message (second args))
+         (irc-message (cadr args))
          (highlight-match (my-any-regex-in-string highlight-regexps irc-message)))
     (when irc-message
       (when (not (equal nick circe-default-nick))
         (when (and (not (equal major-mode 'circe-server-mode))
-                   (or highlight-match (equal major-mode 'circe-query-mode)))
+                   (and (not (s-matches? "LAGMON" irc-message))
+                        (equal major-mode 'circe-query-mode))
+                   (or highlight-match
+                       (equal major-mode 'circe-query-mode)))
           (my-x-urgency-hint))
         (when highlight-match
           '((text-properties . (face my-circe-highlight-notification-face message t))))))))
@@ -201,6 +205,20 @@ static char *noname[] = {
   (my-circe-truncate-fools))
 
 (add-hook 'circe-channel-mode-hook 'my-circe-load-fools)
+
+(defun my-circe-display-PRIVMSG (nick user host command args)
+  (when (and (string= nick "***") (string= user "znc"))
+    (let ((message (cadr args)))
+      (cond
+       ((string= message "Buffer Playback...")
+        (circe-lagmon-mode -1))
+       ((string= message "Playback Complete.")
+        (circe-lagmon-mode t)))))
+  (circe-display-PRIVMSG nick user host command args))
+
+(my-eval-after circe
+  (circe-set-display-handler "PRIVMSG" 'my-circe-display-PRIVMSG))
+
 (defun my-circe-count-nicks ()
   (interactive)
   (when (eq major-mode 'circe-channel-mode)
@@ -213,7 +231,7 @@ static char *noname[] = {
   "Connect to all my IRC servers"
   (interactive)
   (circe "Bitlbee")
-  (circe "ZNC/Freenode")
+  (circe "ZNC/freenode")
   (circe "ZNC/f0o"))
 
 ;; mu4e
