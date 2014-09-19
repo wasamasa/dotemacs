@@ -63,6 +63,10 @@
       ediff-split-window-function 'split-window-horizontally)
 (setq quelpa-upgrade-p t)
 
+(defun my-startup-greeter ()
+  (message "Let the hacking begin!"))
+(defalias 'display-startup-echo-area-message 'my-startup-greeter)
+
 (add-hook 'eshell-load-hook 'nyan-prompt-enable)
 
 (provide 'setup-annoyances)
