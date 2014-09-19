@@ -1,7 +1,8 @@
 (defvar flipbook-format-string nil)
 (defvar flipbook-frame 1)
-(defvar flipbook-last-frame 7780)
-(defvar flipbook-interval (/ 1.0 30))
+(defvar flipbook-first-frame 1)
+(defvar flipbook-last-frame 817)
+(defvar flipbook-interval (/ 1.0 23.976))
 (defvar flipbook-playing nil)
 (defvar flipbook-timer nil)
 
@@ -85,11 +86,10 @@
     (flipbook-init)
     (flipbook-redraw)))
 
-(defun flipbook (format-string fps &optional last-frame)
+(defun flipbook ()
   "Start the player"
-  ;; format-string fps &optional last-frame
-  (interactive "sHurr: \nsDurr: ")
-  (setq flipbook-format-string "~/tmp/v-rage/frames/img%05d.png")
+  (interactive)
+  (setq flipbook-format-string "~/tmp/keyboardcat/frames/img%05d.png")
   (switch-to-buffer "*flipbook*")
   (flipbook-mode)
   (goto-char (point-max)))
