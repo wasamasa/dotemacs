@@ -14,13 +14,22 @@
 
 (defun my-comint-preoutput-turn-buffer-read-only (text)
   (propertize text 'read-only t))
-
 (add-hook 'comint-preoutput-filter-functions 'my-comint-preoutput-turn-buffer-read-only)
 
 (defun my-comint-clear-buffer ()
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
+
+;; TODO use this to implement CIDER-style buffer clearing
+;; see https://github.com/clojure-emacs/cider/blob/cb3509eb54d3c3369681d73f3218a1493b977e99/cider-repl.el#L640-L655
+(defun my-comint-goto-last-prompt ()
+  (interactive)
+  (comint-goto-process-mark)
+  (goto-char (previous-char-property-change (point)))
+  (while (not (looking-back comint-prompt-regexp))
+    (goto-char (previous-char-property-change (point)))))
+
 (my-define-keys comint-mode-map
                   [remap kill-word] 'my-kill-word
                   [remap backward-kill-word] 'my-backward-kill-word
