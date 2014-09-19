@@ -52,5 +52,6 @@
 
 ;; list of modes and pairs to apply this to
 (sp-local-pair 'c-mode "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
+(sp-local-pair 'java-mode "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
 
 (provide 'setup-smartparens)
