@@ -7,15 +7,15 @@
       helm-ff-skip-boring-files t)
 (setq helm-adaptive-history-file (concat user-emacs-directory "etc/helm-adaptive")
       helm-adaptive-history-length 100)
-(helm-adaptative-mode t)
+;(helm-adaptative-mode t)
 (setq helm-mp-highlight-delay 0.3)
 
 (setq helm-cmd-t-default-repo (concat user-directory "code/dotfiles"))
 
 (define-key helm-read-file-map (kbd "<backspace>")
-  'helm-find-files-down-one-level)
+  'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "<backspace>")
-  'helm-find-files-down-one-level)
+  'helm-find-files-up-one-level)
 
 ;; helm ack-grep hacks
 (setq helm-ack-grep-executable "ag")
