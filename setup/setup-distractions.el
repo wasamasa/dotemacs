@@ -147,6 +147,22 @@ static char *noname[] = {
           '((text-properties . (face my-circe-highlight-notification-face message t))))))))
 (add-hook 'circe-message-option-functions 'my-circe-message-option-highlight)
 
+(defface my-circe-greentext-face '((t (:foreground "spring green")))
+  "Face for greentext detected in circe.")
+
+(defun my-circe-color-greentext ()
+  (when (memq major-mode '(circe-channel-mode circe-query-mode))
+    (let ((body-beg (text-property-any (point-min) (point-max)
+                                       'lui-format-argument 'body))
+          (greentext-regex "\\([^[:space:]]+?: \\)?\\(>[[:word:][:space:]]\\)"))
+      (when body-beg
+        (goto-char body-beg)
+        (when (looking-at greentext-regex)
+          (add-text-properties (match-beginning 2) (point-max)
+                               '(face my-circe-greentext-face)))))))
+
+(add-hook 'lui-pre-output-hook 'my-circe-color-greentext)
+
 (defun my-circe-disable-highlight-nick ()
   (remove-hook 'lui-pre-output-hook 'circe-highlight-nick t))
 (add-hook 'circe-chat-mode-hook 'my-circe-disable-highlight-nick)
