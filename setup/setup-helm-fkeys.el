@@ -96,6 +96,59 @@
              ("m" "E-[M]ail" mu4e)
              ("t" "[T]etris" tetris)))
 
+(defun my-capture-journal ()
+  (interactive)
+  (org-capture nil "j"))
+
+(defun my-capture-note ()
+  (interactive)
+  (org-capture nil "n"))
+
+(defun my-capture-pw ()
+  (interactive)
+  (org-capture nil "p"))
+
+(defun my-capture-work ()
+  (interactive)
+  (org-capture nil "w"))
+
+(helm-fkey "Org Capture" "f11" "<f11>"
+           '(("c" "[C]apture" org-capture)
+             ("j" "[J]ournal" my-capture-journal)
+             ("n" "[N]ote" my-capture-note)
+             ("p" "[P]W" my-capture-pw)
+             ("w" "[W]ork" my-capture-work)))
+
+(put 'my-defcmd 'lisp-indent-function 1)
+(defmacro my-defcmd (name &rest body)
+  `(defun ,name () (interactive) ,@body))
+
+(defun my-open-habits ()
+  (interactive)
+  (find-file "~/org/habits.org"))
+
+(defun my-open-inbox ()
+  (interactive)
+  (find-file "~/org/inbox.org"))
+
+(defun my-open-journal ()
+  (interactive)
+  (find-file "~/org/journal.org"))
+
+(my-defcmd my-open-pw
+  (find-file "~/org/pw.org")
+  (message "hurr"))
+
+(autoload 'cfw:open-org-calendar "calfw-org" "Open Org calendar" t)
+
+;; habits, main, urgent, journal, note, karl, calendar, projects, ...
+(helm-fkey "Org Lookup" "f12" "<f12>"
+           '(("c" "[C]alendar" cfw:open-org-calendar)
+             ("h" "[H]abits" my-open-habits)
+             ("i" "[I]nbox" my-open-inbox)
+             ("j" "[J]ournal" my-open-journal)
+             ("p" "[P]W" my-open-pw)))
+
 ;; helm-pacman, helm-aur (compare helm-apt)
 ;; helm-dictionary
 ;; helm-project-persist, helm-projectile
