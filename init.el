@@ -1,4 +1,5 @@
 ;; setup package autoloads
+(setq package-enable-at-startup nil)
 (package-initialize)
 ;; enable GNU/ELPA and Org repository only
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
