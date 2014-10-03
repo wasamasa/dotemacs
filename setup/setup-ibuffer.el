@@ -1,3 +1,6 @@
+(my-eval-after ibuf-ext
+  (add-to-list 'ibuffer-never-show-predicates "^\\*"))
+
 (defun my-setup-ibuffer-vc ()
   (ibuffer-vc-set-filter-groups-by-vc-root)
   (unless (eq ibuffer-sorting-mode 'alphabetic)
