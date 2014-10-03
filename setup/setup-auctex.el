@@ -14,8 +14,8 @@
                               (skip-chars-backward " \t\n")) nil)))
 
 (my-eval-after tex
-  (setq TeX-engine 'luatex
-        TeX-quote-after-quote t
+  (setq-default TeX-engine 'luatex)
+  (setq TeX-quote-after-quote t
         TeX-auto-save t
         TeX-parse-self t
         TeX-view-program-list '(("llpp" "llpp %o"))
