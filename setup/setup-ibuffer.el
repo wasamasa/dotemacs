@@ -1,14 +1,9 @@
-;; buffer grouping
-(setq ibuffer-saved-filter-groups
-            (quote (("default"
-                     ("Org" (mode . org-mode))
-                     ("Emacs" (or (name . "^\\*scratch\\*$") (name . "^\\*Messages\\*$")))
-                     ("Python" (mode . python-mode))
-                     ("Elisp" (mode . emacs-lisp-mode))))))
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")))
-(setq ibuffer-auto-mode 1)
+(defun my-setup-ibuffer-vc ()
+  (ibuffer-vc-set-filter-groups-by-vc-root)
+  (unless (eq ibuffer-sorting-mode 'alphabetic)
+    (ibuffer-do-sort-by-alphabetic)))
+(add-hook 'ibuffer-hook 'my-setup-ibuffer-vc)
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (provide 'setup-ibuffer)
