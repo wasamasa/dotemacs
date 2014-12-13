@@ -54,12 +54,6 @@
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (setq bookmark-default-file (concat user-emacs-directory "etc/bookmarks"))
 (setq tumblesocks-token-file (concat user-emacs-directory "etc/tumblr-oauth-token"))
-(defun my-quit-help ()
-  (interactive)
-  (when (equal major-mode 'help-mode)
-    (kill-buffer)
-    (when (> (length (window-list)) 1)
-      (delete-window))))
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
 (mapatoms (lambda (s) (when (get s 'disabled) (put s 'disabled nil))))
