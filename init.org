@@ -1,0 +1,741 @@
+* Preface
+
+This is an experiment to find out whether literate configurations in a
+single monolithic org-mode file actually have a perceivable benefit.
+
+I'm using this configuration on a system running Arch Linux and Emacs
+24.4, that's why this configuration will be using the latest and
+greatest features and /not/ check for the system it's running on.
+While I do use =emacsclient= for most of my editing needs, I
+occasionally open =emacs= instances for things like IRC or testing
+purposes.
+
+* Init
+
+** User Interface
+
+Emacs comes with a set of pretty wonky defaults, since the UI is what
+we'll see first, we'll deal with it swiftly.  Part of its
+configuration can be set up in =~/.Xresources= and has the effect to
+be used before any frame is displayed for the price of less
+flexibility (complex forms are unsupported).  For experimentation,
+reload such configuration with =xrdb ~/.Xresources=.
+
+*** Superfluous UI elements
+
+I prefer not dealing with menu bars, tool bars and scroll bars and
+deactivate them in =~/.Xresources=:
+
+#+BEGIN_SRC conf
+Emacs.menuBar: off
+Emacs.toolBar: off
+Emacs.verticalScrollBars: off
+#+END_SRC
+
+*** Stop cursor blinking
+
+This used to give me nightmares, especially with the 24.4 addition
+that made the cursor blink ten times, then stops blinking until moving
+it again.
+
+#+BEGIN_SRC conf
+Emacs.cursorBlink: off
+#+END_SRC
+
+*** Less jarring background change
+
+The default background color chosen is white, however I'm using a dark
+theme.  Changing the background color after frame creation results in
+flashing, therefore I modify the background color to equal the one of
+the theme I'm going to load later.
+
+#+BEGIN_SRC conf
+Emacs.background: #002b36
+#+END_SRC
+
+The only other UI element left that stays visible throughout the
+entire init time would be the mode line.  It took me a bit of puzzling
+to figure out the right format for making it look the same as in my
+theme, but I eventually figured out from reading the last paragraph of
+the =(emacs) Table of Resources= info node that it does read in a list
+from a string by studying the sources of =faces.el= and =xfaces.c=.
+While this sounds kind of obvious, it means one can debug errors for
+more complex values like the one for the box by simply invoking
+~read-from-string~ on them.
+
+#+BEGIN_SRC conf
+Emacs.mode-line.attributeForeground: #93a1a1
+Emacs.mode-line.attributeBackground: #002b36
+Emacs.mode-line.attributeBox: (:line-width 1 :color "#073642")
+#+END_SRC
+
+*** Load theme
+
+My theme is a heavily customized Solarized Dark, originally taken from
+Bozhidar Batsov, later rewritten to support additional modes, the
+16-color palette in terminals and variant toggling.  It's stored in a
+separate file, to accomodate for that we need to customize a variable
+for user-made themes.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-theme-directory "~/.emacs.d/theme")
+(load-theme 'my-solarized t)
+#+END_SRC
+
+Let's disable questions about theme loading while we're at it.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-safe-themes t)
+#+END_SRC
+
+Tooltips can be themed as well.
+
+#+BEGIN_SRC emacs-lisp
+(setq x-gtk-use-system-tooltips nil)
+#+END_SRC
+
+*** Improve modeline
+
+=smart-mode-line= is pretty awesome!
+
+#+BEGIN_SRC emacs-lisp
+(setq sml/theme 'automatic
+      sml/mode-width 'full
+      sml/replacer-regexp-list
+      '(("^~/org/" ":O:")
+        ("^~/\\.emacs\\.d/" ":ED:")))
+#+END_SRC
+
+However I prefer hiding minor modes by default.
+
+#+BEGIN_SRC emacs-lisp
+(setq rm-blacklist ".*")
+#+END_SRC
+
+*** Disable advertisements
+
+The first obvious thing one notices upon launching an uncustomized
+Emacs is a rather fancy splash screen that informs you about the usage
+and advertises for the GNU project.  I did eventually grew annoyed by
+it.
+
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-screen t)
+#+END_SRC
+
+A less obvious one is the advertisement message displayed after
+successful startup in the echo area.  The culprit behind it is
+~display-startup-echo-area-message~ and goes great lengths to make
+sure it's seen by first checking whether the
+~inhibit-startup-echo-area-message~ has been set by the =customize=
+system to your user name, then scanning your init file with a regular
+expression for it.  Considering I dislike using the =customize=
+system, don't have a conventional init file and find this pretty
+silly, I disable this behaviour entirely by redefining the function to
+display a bit more encouraging message instead.
+
+#+BEGIN_SRC emacs-lisp
+(defun display-startup-echo-area-message ()
+  (message "Let the hacking begin!"))
+#+END_SRC emacs-lisp
+
+*** Fix the display of Emoji
+
+After starting to use Emacs for IRC I've discovered that unlike
+everything else on my system using the excellent =fontconfig= software
+it fails displaying Emoji such as the infamous PILE OF POO (💩) out of
+the box.  I'm afraid I will never find out the exact details of its
+font fallback mechanism which might be for the better.  To fix this
+for both Emacs and Emacsclient for all font sizes I had to set up a
+fontset consisting of my favourite monospaced and a suitable fallback
+font in both X resources and my init file.
+
+#+BEGIN_SRC conf
+Emacs.Fontset-0: -*-DejaVu Sans Mono-*-*-*-*-14-*-*-*-*-*-fontset-dejavu14, symbol:-*-DejaVu Sans-*-*-*-*-14-*-*-*-*-*-*, symbol:-*-Symbola-*-*-*-*-14-*-*-*-*-*-*
+Emacs.font: fontset-dejavu14
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq default-frame-alist '((font . "DejaVu Sans Mono-10.5")))
+(defun my-fix-emojis (&optional frame)
+  (set-fontset-font "fontset-default" '(#x10000 . #x1ffff) "Symbola" frame))
+(my-fix-emojis)
+(add-hook 'after-make-frame-functions 'my-fix-emojis)
+#+END_SRC
+
+*** Adjust keystroke echo timeout
+
+This is a built-in feature I didn't expect to be useful.  If you type
+part of keybind, Emacs will display this part in the echo area after a
+timeout.  One second is a bit too long though for my taste.
+
+#+BEGIN_SRC emacs-lisp
+(setq echo-keystrokes 0.5)
+#+END_SRC
+
+** TODO Packages
+
+Emacs Lisp files can be easily turned into packages one can load and
+install via =package.el=.  While initialization is done, it only
+happens /after/ successful startup.  Now that it's not 2007 anymore
+and =package.el= has become a defacto standard, this might be a
+legitimate topic to discuss on the =emacs-devel= mailing list.
+
+Both my setup files and unpublished packages reside in their
+respective directories and need to be added to the ~load-path~.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/setup")
+(add-to-list 'load-path "~/.emacs.d/unpublished")
+#+END_SRC
+
+** Emacs annoyances
+
+Every file stating "This file is part of GNU Emacs." is more often
+than not a source of code that may be crufty, nausea-inducing or just
+having weird defaults that I need to correct.
+
+*** Memory Management
+
+Let's allow more than 800 KiB cache before starting garbage collection.
+
+#+BEGIN_SRC emacs-lisp
+(setq gc-cons-threshold 50000000)
+#+END_SRC
+
+*** Fix line-number-mode
+
+~line-number-mode~ displays the current line number in the mode line,
+however it stops doing that in buffers when encountering at least one
+overly long line and displays two question marks instead.  This is
+pretty unhelpful, the only workaround I've been able to find was to
+increase ~line-number-display-width~ to a substantially higher value.
+
+#+BEGIN_SRC emacs-lisp
+(setq line-number-display-limit-width 10000)
+#+END_SRC
+
+See also [[http://emacs.stackexchange.com/questions/3824/what-piece-of-code-in-emacs-makes-line-number-mode-print-as-line-number-i][this question]] on the Emacs SE.
+
+*** GnuTLS
+
+I have no idea why, but apparently you get nasty warnings by the
+GnuTLS library upon using https with the default settings.  Increasing
+the minimum prime bits size alleviates that.
+
+#+BEGIN_SRC emacs-lisp
+(setq gnutls-min-prime-bits 1024)
+#+END_SRC
+
+*** Scratch
+
+Since the =*scratch*= buffer is pretty hard-wired into Emacs (see
+=buffer.c=), the least we could do is getting rid of its initial
+message.
+
+#+BEGIN_SRC emacs-lisp
+(setq initial-scratch-message "")
+(setq initial-major-mode 'emacs-lisp-mode)
+#+END_SRC
+
+*** Initial buffer
+
+However I don't want to see the scratch buffer, let's display our
+notes file instead as daily reminder what's left to do.
+
+#+BEGIN_SRC emacs-lisp
+(setq remember-notes-initial-major-mode 'org-mode)
+(setq initial-buffer-choice 'remember-notes)
+#+END_SRC
+
+*** Find C functions
+
+There's a fair number of Emacs functions that aren't written in Emacs
+Lisp.  To be able to locate them, it's necessary to grab a tarball of
+the sources and put it into a specific location.  To recreate these,
+grab the latest tarball from http://ftp.gnu.org/gnu/emacs/, extract
+its contents and put the =src= directory into =~/.emacs.d=, then
+customize the following variable.
+
+#+BEGIN_SRC emacs-lisp
+(setq find-function-C-source-directory "~/.emacs.d/src")
+#+END_SRC
+
+*** Shorten Yes/No prompts
+
+Per default you're required to type out a full "yes" or "no" whenever
+the function ~yes-or-no-p~ is invoked, let's substitute its function
+definition to allow a "y" or "n" without even requiring confirmation.
+
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+*** TODO Open URLs with =xdg-open=
+
+I've set up =xdg-open= to use my prefered browser for HTTP and HTTPS
+URLs.  Emacs claims to detect whether my system can use it, however
+this fails because I don't have a popular DE up and running (I kid you
+not, look at ~browse-url-can-use-xdg~ and how it replicates that part
+from the =xdg-open= script).  Could be worth handing in a bug, I
+guess.
+
+#+BEGIN_SRC emacs-lisp
+(setq browse-url-browser-function 'browse-url-xdg-open)
+#+END_SRC
+
+*** Zero out default splitting tresholds
+
+I have no idea how this actually works, but it seems to make Emacs
+prefer doing a horizontal split over a vertical split on wide screens.
+
+#+BEGIN_SRC emacs-lisp
+(setq split-height-threshold 0
+      split-width-threshold 0)
+#+END_SRC
+
+*** Unique buffer names
+
+This shouldn't be necessary since I'm already using =smart-mode-line=,
+however it's better to use a less confusing style than the default
+that puts brackets around the buffer names shared in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+(setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
+*** Inhibit custom littering my init file
+
+For whatever reason the customization system will write into your init
+file which is especially annoying if you have it in version control
+like I do.  It's reasonably simple to deactivate this behaviour by
+customizing customize into using a dedicated file, however you'll need
+to both delete the lines it wrote and load it afterwards to make it
+aware it has already been loaded successfully.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-file "~/.emacs.d/etc/custom.el")
+(load custom-file)
+#+END_SRC
+
+*** Display .nfo files with appropriate codepage
+
+Since Emacs auto-detection of encodings is quite good, but not
+omniscient, we'll give it a nudge to display these files the way
+they're supposed to be.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-coding-alist '("\\.nfo\\'" . ibm437))
+#+END_SRC
+
+*** Fix scrolling
+
+Half-page scrolling is great at reducing bandwidth, but is very
+jarring when done automatically.  The following settings will make
+Emacs scroll line by line, without scrolloff and try to keep point at
+the same visual place when scrolling by page.
+
+#+BEGIN_SRC emacs-lisp
+(setq scroll-conservatively 10000
+      scroll-preserve-screen-position t)
+#+END_SRC
+
+*** Indent with spaces by default
+
+Most programming languages I work with prefer spaces over tabs.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
+*** Manage Backup and autosave files
+
+Backup files are created on save in the same directory as the file and
+end in =~=.  They can be numbered which makes most sense combined with
+a different save location and automatic pruning.  If TRAMP makes
+backup files, they should better be kept locally than remote.
+
+#+BEGIN_SRC emacs-lisp
+(setq backup-directory-alist '((".*" . "~/.emacs.d/backup")))
+(setq version-control t)
+(setq delete-old-versions t)
+(setq tramp-backup-directory-alist backup-directory-alist)
+#+END_SRC
+
+Autosave files are created between saves after a sufficient timeout in
+the current directory for crash detection, they begin and end with
+=#=.  Let's change their save location as well.
+
+#+BEGIN_SRC emacs-lisp
+(setq auto-save-list-file-prefix "~/.emacs.d/autosave/")
+(setq auto-save-file-name-transforms
+      '((".*" "~/.emacs.d/autosave/" t)))
+#+END_SRC
+
+Keep in mind that there is nothing you can do regarding lock files
+except deactivating them completely (which robs you of the ability to
+detect session clashes).  They are symlinks that are created upon
+modification of the file in question in its directory and are prefixed
+by =.#=.  Saving the file makes them disappear (unlike autosave
+files).
+
+*** Allow for multiple Emacs daemons
+
+Although I'm pretty sure I won't make use of this, I prefer using
+local TCP connections over socket files.  Another benefit of this
+setting is that it would allow me to make use of =emacsclient=
+to access a remote Emacs daemon.
+
+#+BEGIN_SRC emacs-lisp
+(setq server-use-tcp t)
+#+END_SRC
+
+*** Stop pasting at the mouse click point
+
+Middle-clicking is nice to paste, however it should not adjust point
+and paste at the then adjusted point.
+
+#+BEGIN_SRC emacs-lisp
+(setq mouse-yank-at-point t)
+#+END_SRC
+
+*** Display buffer name in frame titles
+
+The default is to display the invocation name and host.  Changing that
+to use a different separator and the buffer name is trivial, however
+there's still an annoying space in front when using =M-:=.  Regular
+expressions to the rescue!
+
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format
+      '("" invocation-name ": " (:eval (replace-regexp-in-string
+                                        "^ +" "" (buffer-name)))))
+#+END_SRC
+
+*** Disable parentheses blinking on entering a match
+
+This will be done by a different package anyways, therefore we don't
+need it.
+
+#+BEGIN_SRC emacs-lisp
+(setq blink-matching-paren nil)
+#+END_SRC
+
+*** Display fringe indicators in visual-line-mode
+
+It's pretty nice to have the option to display words in a buffer as if
+they were hardwrapped around the word boundaries, however it's
+confusing to not have any fringe indicators.
+
+#+BEGIN_SRC emacs-lisp
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+#+END_SRC
+
+*** Enable every deactivated command
+
+The rationale for this default seems to be to avoid confusion for
+beginners, I personally find it kind of annoying that Emacs of all
+editors does this kind of thing and doesn't offer a straightforward
+option to disable it even.
+
+#+BEGIN_SRC emacs-lisp
+(mapatoms (lambda (s) (when (get s 'disabled) (put s 'disabled nil))))
+#+END_SRC
+
+*** Save clipboard data of other programs in the kill ring when possible
+
+I hope the necessity of this will be gone once Wayland is a viable
+option for me.
+
+#+BEGIN_SRC emacs-lisp
+(setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+*** Make recentering behave more similiar to other programs
+
+Try it out yourself by hitting =C-l=, it will start with the top
+instead of the middle row.
+
+#+BEGIN_SRC emacs-lisp
+(setq recenter-positions '(top middle bottom))
+#+END_SRC
+
+** Packages bundled with Emacs
+
+*** TODO recentf
+
+~recentf-mode~ allows you to access the list of recent files which can
+be used by =ido= and =helm=.  Let's save its file somewhere else and
+change the size of its history while we're at it.
+
+#+BEGIN_SRC emacs-lisp
+(setq recentf-save-file "~/.emacs.d/etc/recentf"
+      recentf-max-saved-items 50)
+#+END_SRC
+
+Ideally it should prune the list the same way shells do when disabling
+duplicates, something about it feels off.  I should investigate in it.
+
+*** savehist
+
+The history of prompts like =M-:= can be saved, but let's change its
+save file and history length first.
+
+#+BEGIN_SRC emacs-lisp
+(setq savehist-file "~/.emacs.d/etc/savehist"
+      history-length 150)
+#+END_SRC
+
+*** save-place
+
+I didn't expect to like this functionality, but it's pretty neat to
+start from the last place you were in a file the next time you visit
+it.  Asides from putting the save file somewhere else, I have to
+enable this behaviour for every buffer since it's buffer-local.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default save-place t)
+(setq save-place-file "~/.emacs.d/etc/saveplace")
+#+END_SRC
+
+*** windmove
+
+The =windmove= provides useful commands for moving window focus by
+direction, I prefer having wraparound instead of getting errors
+though.
+
+#+BEGIN_SRC emacs-lisp
+(setq windmove-wrap-around t)
+#+END_SRC
+
+*** bookmark
+
+Yet another file that I prefer being saved somewhere else.
+
+#+BEGIN_SRC emacs-lisp
+(setq bookmark-default-file "~/.emacs.d/etc/bookmarks")
+#+END_SRC
+
+*** ediff
+
+Anything else than =emacsclient= spawning frames is pretty much
+useless for me with =i3=.  I assume the vertical split is not done
+because I've customized horizontal splits to be prefered.  The name of
+the alternative splitting function is not a mistake, what Emacs calls
+"horizontal" in =window.el= is called vertical in anything else.
+
+#+BEGIN_SRC emacs-lisp
+(setq ediff-window-setup-function 'ediff-setup-windows-plain
+      ediff-split-window-function 'split-window-horizontally)
+#+END_SRC
+
+*** TODO debug
+
+The debugger does display only the position of point when evaluating
+buffers, the following rendition of =debug-setup-buffer= displays a
+line number as well.
+
+This is a great candidate for a patch that enables a more convenient
+option, perhaps even a mailing list discussion about it.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'debug
+  (defun debugger-setup-buffer (debugger-args)
+    "Initialize the `*Backtrace*' buffer for entry to the debugger.
+That buffer should be current already."
+    (setq buffer-read-only nil)
+    (erase-buffer)
+    (set-buffer-multibyte t)		;Why was it nil ?  -stef
+    (setq buffer-undo-list t)
+    (let ((standard-output (current-buffer))
+          (print-escape-newlines t)
+          (print-level 8)
+          (print-length 50))
+      (backtrace))
+    (goto-char (point-min))
+    (delete-region (point)
+                   (progn
+                     (search-forward "\n  debug(")
+                     (forward-line (if (eq (car debugger-args) 'debug)
+                                       2	; Remove implement-debug-on-entry frame.
+                                     1))
+                     (point)))
+    (insert "Debugger entered")
+    ;; lambda is for debug-on-call when a function call is next.
+    ;; debug is for debug-on-entry function called.
+    (pcase (car debugger-args)
+      ((or `lambda `debug)
+       (insert "--entering a function:\n"))
+      ;; Exiting a function.
+      (`exit
+       (insert "--returning value: ")
+       (setq debugger-value (nth 1 debugger-args))
+       (prin1 debugger-value (current-buffer))
+       (insert ?\n)
+       (delete-char 1)
+       (insert ? )
+       (beginning-of-line))
+      ;; Debugger entered for an error.
+      (`error
+       (insert "--Lisp error: ")
+       (prin1 (nth 1 debugger-args) (current-buffer))
+       (insert ?\n))
+      ;; debug-on-call, when the next thing is an eval.
+      (`t
+       (insert "--beginning evaluation of function call form:\n"))
+      ;; User calls debug directly.
+      (_
+       (insert ": ")
+       (prin1 (if (eq (car debugger-args) 'nil)
+                  (cdr debugger-args) debugger-args)
+              (current-buffer))
+       (insert ?\n)))
+    ;; After any frame that uses eval-buffer,
+    ;; insert a line that states the buffer position it's reading at.
+    (save-excursion
+      (let ((tem eval-buffer-list))
+        (while (and tem
+                    (re-search-forward "^  eval-\\(buffer\\|region\\)(" nil t))
+          (beginning-of-line)
+          (insert (format "Error at line %d in %s: "
+                          (with-current-buffer (car tem)
+                            (line-number-at-pos (point)))
+                          (with-current-buffer (car tem)
+                            (buffer-name))))
+          (pop tem))))
+    (debugger-make-xrefs)))
+#+END_SRC
+
+*** Dired
+
+For the few times I'm using Dired, I prefer it not spawning an endless
+amount of buffers.  In fact, I'd prefer it using one buffer unless
+another one is explicitly created, but you can't have everything.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+#+END_SRC
+
+** Packages outside Emacs
+
+Welcome to the blind spot of =emacs-devel=.  Unlike the people on
+there, I'll not pretend external packages are something to speak of in
+hushed tones.
+
+*** CSV
+
+After installing =csv-mode= from GNU ELPA, I found out it's using a
+=:set= form in its customization option for the separators, therefore
+I had to figure out what "internal" variables they were setting and
+customized them.
+
+#+BEGIN_SRC emacs-lisp
+(setq csv-separators '(";" "	" ",")
+      csv-separator-chars '(?\; ?	 ?,)
+      csv--skip-regexp "^
+;	,"
+      csv-separator-regexp "[;	,]"
+      csv-font-lock-keywords '(("[;	,]" (0 'csv-separator-face))))
+#+END_SRC
+
+*** Quelpa
+
+This is necessary to have updates going on.
+
+#+BEGIN_SRC emacs-lisp
+(setq quelpa-upgrade-p t)
+#+END_SRC
+
+*** Shackle
+
+The only thing to configure is its rules.
+
+#+BEGIN_SRC emacs-lisp
+(setq shackle-rules
+      '((svg-2048-mode :same t)
+        ("*Help*" :align t :select t)
+        ("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4 :defer t)
+        (compilation-mode :noselect t)
+        (inferior-scheme-mode :popup t)
+        (t :select t)))
+#+END_SRC
+
+** Other
+
+#+BEGIN_SRC emacs-lisp
+(defun my-toggle-mode-line-minor-modes ()
+  (interactive)
+  (if rm-blacklist
+      (setq rm-blacklist nil)
+    (setq rm-blacklist ".*"))
+  (force-mode-line-update))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(package-initialize)
+#+END_SRC
+
+** TODO Unfinished
+
+https://github.com/purcell/emacs.d/blob/168cd09e01518cde9af72df09ea54fd396b88b47/lisp/init-lisp.el#L147-L176
+
+#+BEGIN_SRC emacs-lisp
+;; load safe setup files
+(require 'setup-defuns)
+(require 'setup-hooks)
+(require 'setup-keybinds)
+
+;; load unpublished packages
+(require 'helm-smex)
+(require 'helm-fkeys)
+
+;; load remaining setup files
+(require 'setup-tramp)
+(require 'setup-pretty-symbols)
+(require 'setup-company)
+(require 'setup-popwin)
+(require 'setup-calendar)
+(require 'setup-org)
+(require 'setup-ibuffer)
+(require 'setup-helm)
+;; TODO figure out how to disable TRAMP once and for all without
+;; making helm barf
+(require 'setup-comint)
+(require 'setup-flycheck)
+(require 'setup-helm-fkeys)
+(require 'setup-cc-mode)
+(require 'setup-lisp)
+(require 'setup-web)
+(require 'setup-python)
+(require 'setup-ruby)
+(require 'setup-auctex)
+(require 'setup-smartparens)
+(require 'setup-evil)
+(require 'setup-yasnippet)
+(require 'setup-distractions)
+#+END_SRC
+
+** Post-Init
+
+While packages were prematurely initialized, the following is
+unconditionally run after init has finished.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-after-init ()
+  (sml/setup)
+  (recentf-mode)
+  (savehist-mode)
+  (require 'saveplace)
+  (winner-mode)
+  (shackle-mode)
+  (electric-indent-mode -1)
+  (unicode-whitespace-setup)
+  (line-number-mode)
+  (column-number-mode))
+(add-hook 'after-init-hook 'my-after-init)
+#+END_SRC
+
+* Epilogue
+
+That's all, folks!

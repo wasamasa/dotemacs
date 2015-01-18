@@ -1,44 +1,19 @@
-;; setup package autoloads
-(setq package-enable-at-startup nil)
-(package-initialize)
-;; enable GNU/ELPA and Org repository only
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;; make package setup files loadable
-(add-to-list 'load-path (concat user-emacs-directory "setup"))
-;; make unpublished packages loadable
-(add-to-list 'load-path (concat user-emacs-directory "unpublished"))
-
-;; load safe setup files
-(require 'setup-defuns)
-(require 'setup-ui)
-(require 'setup-hooks)
-(require 'setup-annoyances)
-(require 'setup-keybinds)
-
-;; load unpublished packages
-(require 'helm-smex)
-(require 'helm-fkeys)
-
-;; load remaining setup files
-(require 'setup-tramp)
-(require 'setup-pretty-symbols)
-(require 'setup-company)
-(require 'setup-popwin)
-(require 'setup-calendar)
-(require 'setup-org)
-(require 'setup-ibuffer)
-(require 'setup-helm)
-(require 'setup-comint)
-(require 'setup-flycheck)
-(require 'setup-helm-fkeys)
-(require 'setup-cc-mode)
-(require 'setup-lisp)
-(require 'setup-web)
-(require 'setup-python)
-(require 'setup-ruby)
-(require 'setup-auctex)
-(require 'setup-smartparens)
-(require 'setup-evil)
-(require 'setup-yasnippet)
-(require 'setup-distractions)
+;; see http://endlessparentheses.com/init-org-Without-org-mode.html
+(with-temp-buffer
+  (insert-file "~/.emacs.d/init.org")
+  (goto-char (point-min))
+  (search-forward "\n* Init")
+  (while (not (eobp))
+    (forward-line 1)
+    (cond
+     ;; Report Headers
+     ((looking-at (format "\\*\\{2,3\\} +.*$" my-init-headline-message-depth))
+      (message "%s" (match-string 0)))
+     ;; Evaluate Code Blocks
+     ((looking-at "^#\\+BEGIN_SRC +emacs-lisp.*$")
+      (let ((l (match-end 0)))
+        (search-forward "\n#+END_SRC")
+        (eval-region l (match-beginning 0))))
+     ;; Finish on the next level-1 header
+     ((looking-at "^\\* ")
+      (goto-char (point-max))))))
