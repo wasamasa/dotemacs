@@ -217,12 +217,12 @@ combinations remain unchanged."
    ;; misc faces
    (menu :foreground fg-0 :background bg-3)
    (minibuffer-prompt :foreground fg-0)
-   (mode-line :foreground fg-0 :background bg-2 :box (:line-width 1 :color bg-2))
+   (mode-line :foreground fg-0 :background bg-2 :box (:line-width -1 :color bg-2))
    (mode-line-buffer-id :foreground fg-1 :weight bold)
    ;; TODO does that work?
-   (mode-line-highlight :box (:style border))
-   (mode-line-inactive :foreground bg-1 :background bg-3 :box (:line-width 1 :color bg-2))
-   (header-line :foreground fg-1 :background bg-2 :box (:line-width 1 :color bg-2))
+   (mode-line-highlight :box (:line-width -1))
+   (mode-line-inactive :foreground bg-1 :background bg-3 :box (:line-width -1 :color bg-2))
+   (header-line :foreground fg-1 :background bg-2 :box (:line-width -1 :color bg-2))
    (region :foreground bg-3 :background fg-1)
    (secondary-selection :background bg-2)
 
@@ -589,7 +589,7 @@ combinations remain unchanged."
    (js2-magic-paren :underline t)
    (js2-private-function-call :foreground yellow)
    (js2-private-member :foreground blue)
-   (js2-warning :underline orange)
+   (js2-warning :underline (:color orange))
 
    ;; jedi
    (jedi:highlight-function-argument :inherit bold)
@@ -605,13 +605,13 @@ combinations remain unchanged."
    (magit-item-highlight :background bg-2 :weight unspecified)
    (magit-log-author :foreground cyan)
    (magit-log-graph :foreground bg-1)
-   (magit-log-head-label-bisect-bad :background red-l :foreground red-d :box t)
-   (magit-log-head-label-bisect-good :background green-l :foreground green-d :box t)
-   (magit-log-head-label-default :background bg-2 :box 1)
-   (magit-log-head-label-local :background blue-d :foreground blue-l :box t)
-   (magit-log-head-label-patches :background red-d :foreground red-l :box t)
-   (magit-log-head-label-remote :background green-d :foreground green-l :box t)
-   (magit-log-head-label-tags :background yellow-d :foreground yellow-l :box t)
+   (magit-log-head-label-bisect-bad :background red-l :foreground red-d :box (:line-width -1))
+   (magit-log-head-label-bisect-good :background green-l :foreground green-d :box (:line-width -1))
+   (magit-log-head-label-default :background bg-2 :box (:line-width -1))
+   (magit-log-head-label-local :background blue-d :foreground blue-l :box (:line-width -1))
+   (magit-log-head-label-patches :background red-d :foreground red-l :box (:line-width -1))
+   (magit-log-head-label-remote :background green-d :foreground green-l :box (:line-width -1))
+   (magit-log-head-label-tags :background yellow-d :foreground yellow-l :box (:line-width -1))
    (magit-log-sha1 :foreground yellow)
 
    ;; markdown-mode
@@ -688,10 +688,10 @@ combinations remain unchanged."
    (nav-face-hfile :foreground red)
 
    ;; org-mode
-   (org-agenda-structure :foreground fg-1 :background bg-2 :weight bold :slant normal :inverse-video nil :underline nil :box (:line-width 2 :color bg-3))
+   (org-agenda-structure :foreground fg-1 :background bg-2 :weight bold :slant normal :inverse-video nil :underline nil :box (:line-width -1 :color bg-3))
    (org-agenda-calendar-event :foreground fg-1)
    (org-agenda-calendar-sexp :foreground fg-0 :slant italic)
-   (org-agenda-date :foreground bg-1 :background bg-3 :weight normal :inverse-video nil :overline nil :slant normal :height 1.0 :box (:line-width 2 :color bg-3) t)
+   (org-agenda-date :foreground bg-1 :background bg-3 :weight normal :inverse-video nil :overline nil :slant normal :height 1.0 :box (:line-width -1 :color bg-3) t)
    (org-agenda-date-weekend :inherit org-agenda-date :inverse-video nil :background unspecified :foreground bg-1 :weight unspecified :underline t :overline nil :box unspecified t)
    (org-agenda-date-today :inherit org-agenda-date :inverse-video t :weight bold :underline unspecified :overline nil :box unspecified :foreground blue :background bg-3 t)
    (org-agenda-done :foreground bg-1 :slant italic t)
@@ -896,7 +896,7 @@ combinations remain unchanged."
    (web-mode-block-control-face :inherit font-lock-preprocessor-face)
    (web-mode-block-face :background unspecified)
    (web-mode-block-string-face :inherit web-mode-string-face)
-   (web-mode-comment-keyword-face :box 1 :weight bold)
+   (web-mode-comment-keyword-face :box (:line-width -1) :weight bold)
    (web-mode-css-color-face :inherit font-lock-builtin-face)
    (web-mode-css-function-face :inherit font-lock-builtin-face)
    (web-mode-css-priority-face :inherit font-lock-builtin-face)
@@ -930,10 +930,7 @@ combinations remain unchanged."
    (which-func :foreground orange)
 
    ;; window-number-mode
-   (window-number-face :foreground green)
-
-   ;; zencoding
-   (zencoding-preview-input :background bg-2 :box fg-1)))
+   (window-number-face :foreground green)))
 
 (custom-theme-set-variables
  'my-solarized
