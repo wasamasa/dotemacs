@@ -52,7 +52,7 @@ enclosed glyph get a distinct face"
                                    (lambda (_) (helm-fkey-call-function
                                                 ,data)))))))
            (helm :sources source :keymap helm-fkey-keymap :prompt "Key: "
-                 :buffer ,(concat "*helm-" key))))
+                 :buffer ,(concat "*helm-" key "*"))))
        (global-set-key (kbd ,bind) ',func-name))))
 
 (provide 'helm-fkeys)
