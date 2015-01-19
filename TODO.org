@@ -1,3 +1,13 @@
 * Fix Emacs' selection after window quit/close
+
+Repro: C-x 3 C-x o C-x o C-x 2 C-x 0
+
+Result: Switches focus to the other split side instead of the parent
+window.
+
+Very likely to be something with ~delete-window-internal~.
+
 * Rewrite a sane subset of helm
+
 * Rewrite a sane subset of dired (rind?)
+
