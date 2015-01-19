@@ -806,7 +806,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-pretty-symbols)
 (require 'setup-company)
 (require 'setup-popwin)
 (require 'setup-calendar)
