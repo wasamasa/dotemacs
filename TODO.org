@@ -9,5 +9,11 @@ Very likely to be something with ~delete-window-internal~.
 
 * Rewrite a sane subset of helm
 
-* Rewrite a sane subset of dired (rind?)
+Let's call it union (since there's unite and it's one char shorter,
+also there's this very pretty kind of segment LEDs of which I happen
+to have an appropriate animated GIF).
+
+* Rewrite a sane subset of dired
+
+Let's call it RIND (for RIND Is Not Dired or Ranger-INspired Dired).
 
