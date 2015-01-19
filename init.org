@@ -710,7 +710,8 @@ hook afterwards.
   (setq indicate-empty-lines t)
   (setq indicate-buffer-boundaries '((top . left) (bottom . left)))
   (setq show-trailing-whitespace t)
-  (modify-syntax-entry ?_ "w"))
+  (modify-syntax-entry ?_ "w")
+  (goto-address-mode))
 
 (dolist (hook my-non-special-mode-hooks)
   (add-hook hook 'my-non-special-modes-setup))
