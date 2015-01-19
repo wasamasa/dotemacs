@@ -809,7 +809,6 @@ without.
 (require 'setup-company)
 (require 'setup-calendar)
 (require 'setup-org)
-(require 'setup-ibuffer)
 (require 'setup-helm)
 (require 'setup-comint)
 (require 'setup-flycheck)
