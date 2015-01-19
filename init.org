@@ -666,6 +666,43 @@ The only thing to configure is its rules.
         (t :select t)))
 #+END_SRC
 
+*** TODO Company
+
+The following sets up a good amount of UI tweaks and everything
+necessary for the global backends.  It's possible to make
+~company-backends~ buffer-local and allow mixing backends as most fit
+per mode to allow for something like =yasnippet= integration.
+
+#+BEGIN_SRC emacs-lisp
+(setq company-idle-delay 0.1
+      company-minimum-prefix-length 2
+      company-selection-wrap-around t
+      company-show-numbers t
+      company-require-match 'never
+      company-dabbrev-downcase nil
+      company-dabbrev-ignore-case t
+      company-backends '(company-jedi company-elisp company-nxml
+                                      company-css company-capf
+                                      (company-dabbrev-code company-keywords)
+                                      company-files company-dabbrev)
+      company-jedi-python-bin "python")
+#+END_SRC
+
+Sometimes it's useful to narrow down the candidate list if it's overly
+long with something better than =C-s=.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "C-:") 'helm-company))
+#+END_SRC
+
+I've got a bunch of other things to do than figuring out what other
+REPL modes to activate it for, like making the UI behave like
+~auto-complete-mode~ (should be done by deactivating common prefix
+completion and overloading TAB), porting existing backends to make use
+of =company-capf= and writing a completion style that feels like
+=YouCompleteMe=, ideally with a binary component to make it fast.
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -759,6 +796,18 @@ Same deal with programming-related hooks and text-related hooks.
   (add-hook hook 'my-prog-modes-setup))
 #+END_SRC
 
+To fine tune completion behavior, I'll prefer ~company-mode~ over
+~global-company-mode~.  I should add more hooks for REPLs, too.
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-completion-mode-hooks
+  '(prog-mode-hook css-mode-hook nxml-mode-hook sgml-mode-hook
+    css-mode-hook ielm-mode-hook))
+
+(dolist (hook my-completion-mode-hooks)
+  (add-hook hook 'company-mode))
+#+END_SRC
+
 ** Other
 
 #+BEGIN_SRC emacs-lisp
@@ -806,7 +855,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-company)
 (require 'setup-calendar)
 (require 'setup-org)
 (require 'setup-helm)
