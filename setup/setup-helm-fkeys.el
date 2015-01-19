@@ -3,15 +3,16 @@
              ("b" "Describe [B]indings" describe-bindings)
              ("c" "Describe [C]har" describe-char)
              ("d" "[D]ocumentation" apropos-documentation)
-             ("f" "Describe [F]unction" describe-function)
-             ("F" "Find [F]unction" find-function)
+             ("f" "Find [F]unction" find-function)
+             ("F" "Describe [F]unction" describe-function)
              ("i" "[I]nfo" info)
              ("k" "Describe [K]ey" describe-key)
              ("l" "[L]ossage" view-lossage)
              ("m" "Describe [M]odes" describe-mode)
              ("p" "[P]ackages by category" finder-by-keyword)
-             ("v" "Describe [V]ariable" describe-variable)
-             ("V" "Find [V]ariable" find-variable)))
+             ("v" "Find [V]ariable" find-variable)
+             ("V" "Describe [V]ariable" describe-variable)
+             ))
 
 (helm-fkey "Packages" "f2" "<f2>"
            '(("c" "[C]olors" helm-colors)
@@ -90,8 +91,7 @@
              ("w" "[W]orld time" helm-world-time)))
 
 (helm-fkey "Distractions" "f9" "<f9>"
-           '(("d" "Tumblr [D]ashboard" tumblesocks-view-dashboard)
-             ("f" "News [F]eeds" elfeed)
+           '(("f" "News [F]eeds" elfeed)
              ("i" "[I]RC" my-irc)
              ("m" "E-[M]ail" mu4e)
              ("t" "[T]etris" tetris)))

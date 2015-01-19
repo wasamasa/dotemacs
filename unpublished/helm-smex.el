@@ -1,7 +1,3 @@
-(setq smex-save-file (concat user-emacs-directory "etc/smex")
-      smex-history-length 50)
-(smex-initialize)
-
 (defun helm-smex-items ()
   (smex-rebuild-cache)
   (smex-convert-for-ido smex-cache))
@@ -19,8 +15,5 @@
 (defun helm-smex ()
   (interactive)
   (helm :sources 'helm-smex-source :buffer "*helm-smex*"))
-
-(global-set-key (kbd "M-x") 'helm-smex)
-(global-set-key (kbd "C-c M-x") 'execute-extended-command)
 
 (provide 'helm-smex)

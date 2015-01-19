@@ -607,6 +607,13 @@ Welcome to the blind spot of =emacs-devel=.  Unlike the people on
 there, I'll not pretend external packages are something to speak of in
 hushed tones.
 
+*** Smex
+
+#+BEGIN_SRC emacs-lisp
+(setq smex-save-file (concat user-emacs-directory "etc/smex")
+      smex-history-length 50)
+#+END_SRC
+
 *** CSV
 
 After installing =csv-mode= from GNU ELPA, I found out it's using a
@@ -672,6 +679,14 @@ the daemon) on =M-<f4>=.
   (kill-emacs))
 
 (global-set-key (kbd "M-<f4>") 'my-quit-emacs)
+#+END_SRC
+
+Make =M-x= more useful, put its original functionality on =C-c M-x=
+instead.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-x") 'helm-smex)
+(global-set-key (kbd "C-c M-x") 'execute-extended-command)
 #+END_SRC
 
 ** TODO Hooks
@@ -760,38 +775,43 @@ respective directories and need to be added to the ~load-path~.
 (package-initialize)
 #+END_SRC
 
+** Unpublished
+
+I have a bunch of stuff I'm working on.  Some of it I can't live
+without.
+
+#+BEGIN_SRC emacs-lisp
+(require 'helm-smex)
+(require 'helm-fkeys)
+#+END_SRC
+
 ** TODO Unfinished
 
 #+BEGIN_SRC emacs-lisp
-  ;; load safe setup files
-  (require 'setup-defuns)
+(require 'setup-defuns)
 
-  ;; load unpublished packages
-  (require 'helm-smex)
-  (require 'helm-fkeys)
-
-  ;; load remaining setup files
-  (require 'setup-tramp)
-  (require 'setup-pretty-symbols)
-  (require 'setup-company)
-  (require 'setup-popwin)
-  (require 'setup-calendar)
-  (require 'setup-org)
-  (require 'setup-ibuffer)
-  (require 'setup-helm)
-  (require 'setup-comint)
-  (require 'setup-flycheck)
-  (require 'setup-helm-fkeys)
-  (require 'setup-cc-mode)
-  (require 'setup-lisp)
-  (require 'setup-web)
-  (require 'setup-python)
-  (require 'setup-ruby)
-  (require 'setup-auctex)
-  (require 'setup-smartparens)
-  (require 'setup-evil)
-  (require 'setup-yasnippet)
-  (require 'setup-distractions)
+;; load remaining setup files
+(require 'setup-tramp)
+(require 'setup-pretty-symbols)
+(require 'setup-company)
+(require 'setup-popwin)
+(require 'setup-calendar)
+(require 'setup-org)
+(require 'setup-ibuffer)
+(require 'setup-helm)
+(require 'setup-comint)
+(require 'setup-flycheck)
+(require 'setup-helm-fkeys)
+(require 'setup-cc-mode)
+(require 'setup-lisp)
+(require 'setup-web)
+(require 'setup-python)
+(require 'setup-ruby)
+(require 'setup-auctex)
+(require 'setup-smartparens)
+(require 'setup-evil)
+(require 'setup-yasnippet)
+(require 'setup-distractions)
 #+END_SRC
 
 ** Post-Init
@@ -801,13 +821,13 @@ unconditionally run after init has finished.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-after-init ()
-  ""
   (sml/setup)
   (recentf-mode)
   (savehist-mode)
   (require 'saveplace)
   (winner-mode)
   (shackle-mode)
+  (smex-initialize)
   (electric-indent-mode -1)
   (unicode-whitespace-setup)
   (line-number-mode)
