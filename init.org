@@ -807,7 +807,6 @@ without.
 
 ;; load remaining setup files
 (require 'setup-company)
-(require 'setup-popwin)
 (require 'setup-calendar)
 (require 'setup-org)
 (require 'setup-ibuffer)
