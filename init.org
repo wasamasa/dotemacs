@@ -336,14 +336,12 @@ Most programming languages I work with prefer spaces over tabs.
 
 Backup files are created on save in the same directory as the file and
 end in =~=.  They can be numbered which makes most sense combined with
-a different save location and automatic pruning.  If TRAMP makes
-backup files, they should better be kept locally than remote.
+a different save location and automatic pruning.
 
 #+BEGIN_SRC emacs-lisp
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backup")))
 (setq version-control t)
 (setq delete-old-versions t)
-(setq tramp-backup-directory-alist backup-directory-alist)
 #+END_SRC
 
 Autosave files are created between saves after a sufficient timeout in
@@ -601,6 +599,22 @@ another one is explicitly created, but you can't have everything.
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 #+END_SRC
 
+*** TRAMP
+
+If TRAMP makes backup files, they should better be kept locally than
+remote.
+
+#+BEGIN_SRC emacs-lisp
+(setq tramp-backup-directory-alist backup-directory-alist)
+#+END_SRC
+
+As usual I want to fix up the file it's storing its history in.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'tramp-cache
+  (setq tramp-persistency-file-name "~/.emacs.d/etc/tramp"))
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
@@ -792,7 +806,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-tramp)
 (require 'setup-pretty-symbols)
 (require 'setup-company)
 (require 'setup-popwin)
