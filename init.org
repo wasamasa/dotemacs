@@ -674,6 +674,61 @@ the daemon) on =M-<f4>=.
 (global-set-key (kbd "M-<f4>") 'my-quit-emacs)
 #+END_SRC
 
+** TODO Hooks
+
+First of all, let's define a list of hooks for everything that's not a
+special mode.  This will inevitably contain modes that have not been
+properly derived, might be worth reporting those.
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-non-special-mode-hooks
+  '(text-mode-hook prog-mode-hook css-mode-hook))
+#+END_SRC
+
+Then define a function to set up all non-special modes by enabling
+fringe indicators, showing trailing whitespace and making underscores
+a word character.  This function is added to all of those modes as
+hook afterwards.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-non-special-modes-setup ()
+  (setq indicate-empty-lines t)
+  (setq indicate-buffer-boundaries '((top . left) (bottom . left)))
+  (setq show-trailing-whitespace t)
+  (modify-syntax-entry ?_ "w"))
+
+(dolist (hook my-non-special-mode-hooks)
+  (add-hook hook 'my-non-special-modes-setup))
+#+END_SRC
+
+Same deal with programming-related hooks and text-related hooks.
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-text-mode-hooks
+  '(text-mode-hook css-mode-hook))
+
+(defun my-text-modes-setup ()
+  (auto-fill-mode))
+
+(dolist (hook my-text-mode-hooks)
+  (add-hook hook 'my-text-modes-setup))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-prog-mode-hooks
+  '(prog-mode-hook))
+
+(defun my-prog-modes-setup ()
+  (make-local-variable 'comment-auto-fill-only-comments)
+  (setq comment-auto-fill-only-comments t)
+  (auto-fill-mode)
+  (column-enforce-mode)
+  (rainbow-delimiters-mode))
+
+(dolist (hook my-prog-mode-hooks)
+  (add-hook hook 'my-prog-modes-setup))
+#+END_SRC
+
 ** Other
 
 #+BEGIN_SRC emacs-lisp
@@ -710,10 +765,6 @@ respective directories and need to be added to the ~load-path~.
 #+BEGIN_SRC emacs-lisp
   ;; load safe setup files
   (require 'setup-defuns)
-  ;; go over a list of hooks and add a function to them doing everything
-  ;; specific to that list
-  (require 'setup-hooks)
-  (require 'setup-keybinds)
 
   ;; load unpublished packages
   (require 'helm-smex)
