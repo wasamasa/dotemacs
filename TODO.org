@@ -1,0 +1,3 @@
+* Fix Emacs' selection after window quit/close
+* Rewrite a sane subset of helm
+* Rewrite a sane subset of dired (rind?)
