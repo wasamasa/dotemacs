@@ -173,22 +173,6 @@ timeout.  One second is a bit too long though for my taste.
 (setq echo-keystrokes 0.5)
 #+END_SRC
 
-** TODO Packages
-
-Emacs Lisp files can be easily turned into packages one can load and
-install via =package.el=.  While initialization is done, it only
-happens /after/ successful startup.  Now that it's not 2007 anymore
-and =package.el= has become a defacto standard, this might be a
-legitimate topic to discuss on the =emacs-devel= mailing list.
-
-Both my setup files and unpublished packages reside in their
-respective directories and need to be added to the ~load-path~.
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/setup")
-(add-to-list 'load-path "~/.emacs.d/unpublished")
-#+END_SRC
-
 ** Emacs annoyances
 
 Every file stating "This file is part of GNU Emacs." is more often
@@ -661,6 +645,35 @@ The only thing to configure is its rules.
         (t :select t)))
 #+END_SRC
 
+** Keybinds
+
+We already have =F1= for help, so let's turn =C-h= and =M-h= more
+readline-like.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+#+END_SRC
+
+Deactivate all other uses of insert than =Shift-Insert=.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<insert>") nil)
+(global-set-key (kbd "S-<insert>") nil)
+#+END_SRC
+
+Install a keybind that saves all buffers, then kills Emacs (including
+the daemon) on =M-<f4>=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-quit-emacs ()
+  (interactive)
+  (save-some-buffers nil t)
+  (kill-emacs))
+
+(global-set-key (kbd "M-<f4>") 'my-quit-emacs)
+#+END_SRC
+
 ** Other
 
 #+BEGIN_SRC emacs-lisp
@@ -672,48 +685,62 @@ The only thing to configure is its rules.
   (force-mode-line-update))
 #+END_SRC
 
+** TODO Packages
+
+Emacs Lisp files can be easily turned into packages one can load and
+install via =package.el=.  While initialization is done, it only
+happens /after/ successful startup.  Now that it's not 2007 anymore
+and =package.el= has become a defacto standard, this might be a
+legitimate topic to discuss on the =emacs-devel= mailing list.
+
+Both my setup files and unpublished packages reside in their
+respective directories and need to be added to the ~load-path~.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/setup")
+(add-to-list 'load-path "~/.emacs.d/unpublished")
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (package-initialize)
 #+END_SRC
 
 ** TODO Unfinished
 
-https://github.com/purcell/emacs.d/blob/168cd09e01518cde9af72df09ea54fd396b88b47/lisp/init-lisp.el#L147-L176
-
 #+BEGIN_SRC emacs-lisp
-;; load safe setup files
-(require 'setup-defuns)
-(require 'setup-hooks)
-(require 'setup-keybinds)
+  ;; load safe setup files
+  (require 'setup-defuns)
+  ;; go over a list of hooks and add a function to them doing everything
+  ;; specific to that list
+  (require 'setup-hooks)
+  (require 'setup-keybinds)
 
-;; load unpublished packages
-(require 'helm-smex)
-(require 'helm-fkeys)
+  ;; load unpublished packages
+  (require 'helm-smex)
+  (require 'helm-fkeys)
 
-;; load remaining setup files
-(require 'setup-tramp)
-(require 'setup-pretty-symbols)
-(require 'setup-company)
-(require 'setup-popwin)
-(require 'setup-calendar)
-(require 'setup-org)
-(require 'setup-ibuffer)
-(require 'setup-helm)
-;; TODO figure out how to disable TRAMP once and for all without
-;; making helm barf
-(require 'setup-comint)
-(require 'setup-flycheck)
-(require 'setup-helm-fkeys)
-(require 'setup-cc-mode)
-(require 'setup-lisp)
-(require 'setup-web)
-(require 'setup-python)
-(require 'setup-ruby)
-(require 'setup-auctex)
-(require 'setup-smartparens)
-(require 'setup-evil)
-(require 'setup-yasnippet)
-(require 'setup-distractions)
+  ;; load remaining setup files
+  (require 'setup-tramp)
+  (require 'setup-pretty-symbols)
+  (require 'setup-company)
+  (require 'setup-popwin)
+  (require 'setup-calendar)
+  (require 'setup-org)
+  (require 'setup-ibuffer)
+  (require 'setup-helm)
+  (require 'setup-comint)
+  (require 'setup-flycheck)
+  (require 'setup-helm-fkeys)
+  (require 'setup-cc-mode)
+  (require 'setup-lisp)
+  (require 'setup-web)
+  (require 'setup-python)
+  (require 'setup-ruby)
+  (require 'setup-auctex)
+  (require 'setup-smartparens)
+  (require 'setup-evil)
+  (require 'setup-yasnippet)
+  (require 'setup-distractions)
 #+END_SRC
 
 ** Post-Init
@@ -723,6 +750,7 @@ unconditionally run after init has finished.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-after-init ()
+  ""
   (sml/setup)
   (recentf-mode)
   (savehist-mode)

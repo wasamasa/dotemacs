@@ -1,13 +1,10 @@
-;; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
-
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-refresh-contents)
 (if (require 'quelpa nil t)
     (quelpa '(quelpa :repo "quelpa/quelpa" :fetcher github) :upgrade t)
   (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+    (url-insert-file-contents
+     "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
     (eval-buffer)))
 
 (setq quelpa-upgrade-p t)
