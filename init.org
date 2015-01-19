@@ -623,6 +623,9 @@ hushed tones.
 
 *** Smex
 
+Nice improvement over vanilla =M-x= that gives you persistency and
+better matching.  Let's give it more history and a different file.
+
 #+BEGIN_SRC emacs-lisp
 (setq smex-save-file (concat user-emacs-directory "etc/smex")
       smex-history-length 50)
