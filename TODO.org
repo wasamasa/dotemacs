@@ -65,7 +65,7 @@ Stuff like IELM would qualify.  Perhaps some textual modes, too.
 
 There are a few corner cases (with =company-elisp=, check whether they
 are still present in =company-capf=), fix those (TODO list them).
-Additionally to aht it would be very cool to have contextual
+Additionally to that it would be very cool to have contextual
 completion inside macros, like ~loop~ to get the loop keywords as
 candidates.
 
@@ -256,3 +256,11 @@ Marmalade/MELPA.  So, why not cater for it and remove the surprise
 element considering how often it crops up?   The ensuing discussion on
 the mailing list might be fun.
 
+* Rediscover =org-mode= again after having learned elisp
+
+I've stayed away from =org-mode= from everything else asides note
+taking and keeping track of things in README-style files since the
+configuration and elisp involved scared me off.  However I'm armed
+with everything necessary to embark this part of my Emacs journey
+again, so why not go through the agenda, refiling, clocking and many
+more to keep track of things again?

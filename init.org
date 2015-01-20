@@ -443,6 +443,10 @@ instead of the middle row.
 
 ** Packages bundled with Emacs
 
+This includes stuff that is bundled with Emacs and can be obtained
+from a more recent source as well, such as =org-mode=.  I'm mostly
+refering to smaller packages though.
+
 *** recentf
 
 ~recentf-mode~ allows you to access the list of recent files which can
@@ -658,6 +662,62 @@ live in Germany, d'uh).
       holiday-hebrew-holidays nil)
 #+END_SRC
 
+*** wc-mode
+
+#+BEGIN_SRC emacs-lisp
+(setq which-func-modes '(org-mode))
+#+END_SRC
+
+*** Org-mode
+
+First some UI and editing tweaks.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-catch-invisible-edits 'error
+      org-startup-indented t
+      org-cycle-include-plain-lists 'integrate
+      org-ellipsis " […]"
+      org-return-follows-link t
+      org-M-RET-may-split-line nil
+      org-src-fontify-natively t
+      org-enforce-todo-dependencies t
+      org-enforce-todo-checkbox-dependencies t
+      org-link-frame-setup '((file . find-file)))
+#+END_SRC
+
+I like taking notes and sometimes even take a look at the agenda.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/org/"
+      org-agenda-files (list org-directory)
+      org-default-notes-file "~/org/inbox.org"
+      org-capture-templates
+      '(("n" "Note" entry (file+headline "~/org/inbox.org" "Inbox")
+         "* TODO %<%Y-%m-%d %H:%M:%S>\n\n%?" :empty-lines 1)
+        ("p" "PW" entry (file+headline "~/org/pw.org" "PW")
+         "* TODO %<%Y-%m-%d %H:%M:%S>\n\n%?" :empty-lines 1)
+        ("w" "Work" entry (file+datetree "~/org/work.org")
+         "* %<%H:%M>\n\n%?" :empty-lines 1)
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %<%H:%M>\n\n%?" :empty-lines 1)))
+#+END_SRC
+
+To keep track how much I wrote when taking a note, I enable a word
+counting minor mode.  Upstream didn't autoload its entry point for
+Reasons™ which is why I do that myself.
+
+#+BEGIN_SRC emacs-lisp
+(autoload 'wc-mode "wc-mode" "Enable wc-mode" t)
+(add-hook 'org-capture-mode-hook 'wc-mode)
+#+END_SRC
+
+The export functionality is very handy, but some of the stuff I like
+using is deactivated by default :<
+
+#+BEGIN_SRC emacs-lisp
+(setq org-export-backends '(ascii beamer html latex md))
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
@@ -779,6 +839,12 @@ instead.
 (global-set-key (kbd "C-c M-x") 'execute-extended-command)
 #+END_SRC
 
+Org-mode capturing on =<F11>= mirrors inbox look-up on =<F12>=.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<f11>") 'org-capture)
+#+END_SRC
+
 ** Hooks
 
 First of all, let's define a list of hooks for everything that's not a
@@ -892,7 +958,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-org)
 (require 'setup-helm)
 (require 'setup-comint)
 (require 'setup-flycheck)
@@ -924,6 +989,7 @@ unconditionally run after init has finished.
   (shackle-mode)
   (smex-initialize)
   (electric-indent-mode -1)
+  (which-function-mode)
   (unicode-whitespace-setup)
   (line-number-mode)
   (column-number-mode))
