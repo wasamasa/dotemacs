@@ -255,14 +255,13 @@ definition to allow a "y" or "n" without even requiring confirmation.
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-*** TODO Open URLs with =xdg-open=
+*** Open URLs with =xdg-open=
 
 I've set up =xdg-open= to use my prefered browser for HTTP and HTTPS
 URLs.  Emacs claims to detect whether my system can use it, however
 this fails because I don't have a popular DE up and running (I kid you
 not, look at ~browse-url-can-use-xdg~ and how it replicates that part
-from the =xdg-open= script).  Could be worth handing in a bug, I
-guess.
+from the =xdg-open= script).
 
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-xdg-open)
@@ -444,7 +443,7 @@ instead of the middle row.
 
 ** Packages bundled with Emacs
 
-*** TODO recentf
+*** recentf
 
 ~recentf-mode~ allows you to access the list of recent files which can
 be used by =ido= and =helm=.  Let's save its file somewhere else and
@@ -454,9 +453,6 @@ change the size of its history while we're at it.
 (setq recentf-save-file "~/.emacs.d/etc/recentf"
       recentf-max-saved-items 50)
 #+END_SRC
-
-Ideally it should prune the list the same way shells do when disabling
-duplicates, something about it feels off.  I should investigate in it.
 
 *** savehist
 
@@ -511,14 +507,11 @@ the alternative splitting function is not a mistake, what Emacs calls
       ediff-split-window-function 'split-window-horizontally)
 #+END_SRC
 
-*** TODO debug
+*** debug
 
 The debugger does display only the position of point when evaluating
 buffers, the following rendition of =debug-setup-buffer= displays a
 line number as well.
-
-This is a great candidate for a patch that enables a more convenient
-option, perhaps even a mailing list discussion about it.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'debug
@@ -719,7 +712,7 @@ The only thing to configure is its rules.
         (t :select t)))
 #+END_SRC
 
-*** TODO Company
+*** Company
 
 The following sets up a good amount of UI tweaks and everything
 necessary for the global backends.  It's possible to make
@@ -734,7 +727,7 @@ per mode to allow for something like =yasnippet= integration.
       company-require-match 'never
       company-dabbrev-downcase nil
       company-dabbrev-ignore-case t
-      company-backends '(company-jedi company-elisp company-nxml
+      company-backends '(company-jedi company-nxml
                                       company-css company-capf
                                       (company-dabbrev-code company-keywords)
                                       company-files company-dabbrev)
@@ -748,13 +741,6 @@ long with something better than =C-s=.
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "C-:") 'helm-company))
 #+END_SRC
-
-I've got a bunch of other things to do than figuring out what other
-REPL modes to activate it for, like making the UI behave like
-~auto-complete-mode~ (should be done by deactivating common prefix
-completion and overloading TAB), porting existing backends to make use
-of =company-capf= and writing a completion style that feels like
-=YouCompleteMe=, ideally with a binary component to make it fast.
 
 ** Keybinds
 
@@ -793,7 +779,7 @@ instead.
 (global-set-key (kbd "C-c M-x") 'execute-extended-command)
 #+END_SRC
 
-** TODO Hooks
+** Hooks
 
 First of all, let's define a list of hooks for everything that's not a
 special mode.  This will inevitably contain modes that have not been
@@ -843,7 +829,7 @@ Same deal with programming-related hooks and text-related hooks.
   (setq comment-auto-fill-only-comments t)
   (auto-fill-mode)
   (column-enforce-mode)
-  (rainbow-delimiters-mode))
+  (rainbow-delimiters-mode)) ; TODO move to lispy modes
 
 (dolist (hook my-prog-mode-hooks)
   (add-hook hook 'my-prog-modes-setup))
@@ -872,13 +858,11 @@ To fine tune completion behavior, I'll prefer ~company-mode~ over
   (force-mode-line-update))
 #+END_SRC
 
-** TODO Packages
+** Packages
 
 Emacs Lisp files can be easily turned into packages one can load and
 install via =package.el=.  While initialization is done, it only
-happens /after/ successful startup.  Now that it's not 2007 anymore
-and =package.el= has become a defacto standard, this might be a
-legitimate topic to discuss on the =emacs-devel= mailing list.
+happens /after/ successful startup.
 
 Both my setup files and unpublished packages reside in their
 respective directories and need to be added to the ~load-path~.

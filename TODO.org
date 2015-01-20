@@ -1,19 +1,206 @@
 * Fix Emacs' selection after window quit/close
 
+So very annoying.  Apparently switching window focus after creating
+window splits somehow causes a window kill to not select the window's
+parent anymore, but instead selects a different window.
+
 Repro: C-x 3 C-x o C-x o C-x 2 C-x 0
 
 Result: Switches focus to the other split side instead of the parent
 window.
 
-Very likely to be something with ~delete-window-internal~.
+Very likely to be something within ~delete-window-internal~.
+
+* Fix Emacs' window quitting behaviour
+
+This seems to pose a significant issue for implementing interfaces
+that pop up buffers and need quitting to just work.  It would be
+obvious to implement a FIFO-like structure (see
+http://sprunge.us/aGHM), but that's not how it works.  =(info "(elisp)
+Window Parameters")= should have the relevant information on
+influencing this behaviour.
+
+* Investigate in =recentf= truncation behaviour
+
+Something about it feels off.  It's supposed to remove duplicate
+entries first, then truncate if it's still too long, but it feels like
+despite a fairly high history length it truncates too many recent
+files.  In other words, I want a behaviour comparable to =zsh= and its
+history pruning.
 
 * Rewrite a sane subset of helm
 
 Let's call it union (since there's unite and it's one char shorter,
-also there's this very pretty kind of segment LEDs of which I happen
-to have an appropriate animated GIF).
+also there's this very pretty kind of union-jack segment LEDs of which
+I happen to have an appropriate animated GIF for).
 
 * Rewrite a sane subset of dired
 
 Let's call it RIND (for RIND Is Not Dired or Ranger-INspired Dired).
+The reason why should be obvious, dired's method of getting file
+information by parsing =ls= output is brittle and it's surprisingly
+hard to extend.  I really like =ranger=, but it does neither live
+within Emacs nor is it able to be extended with elisp.  Fuco's etable
+looks like a good starting place for writing the UI.
+
+* Rewrite a sane subset of TRAMP
+
+I'm not even sure whether that's a good idea at all, let alone how to
+test such a thing considering I don't have many remote boxes to try it
+on (or to be more precise, just a single one).  It could very well be
+that my issues with it arise from its implicit integration into Emacs.
+
+* Rewrite calfw
+
+It is pretty much impossible to understand and has bizarre bugs (like,
+quitting fucks up position of the window point in the last buffer).
+Also, writing your own calendar seems to be good tradition to
+experience the many falsehoods programmers believe in yourself.
+
+* Make a list of (REPL) modes to enable company for
+
+Stuff like IELM would qualify.  Perhaps some textual modes, too.
+
+* TODO Improve elisp completion in company
+
+There are a few corner cases (with =company-elisp=, check whether they
+are still present in =company-capf=), fix those (TODO list them).
+Additionally to aht it would be very cool to have contextual
+completion inside macros, like ~loop~ to get the loop keywords as
+candidates.
+
+* Learn how company-capf works
+
+The elisp backend was replaced by it in 24.4, its code should tell me
+enough about the effort involved in getting other backends to use it.
+Porting the other ones over will give me completion styles.
+
+* Write a flx-like completion style
+
+While there's already flx code, I need to find out how completion
+styles are implemented and check how slow they'd be with flx as is.
+If it's not fast enough, write a binary component in CHICKEN and make
+it flexible enough for more than just that.
+
+* Reuse binary component from above for helm/ido matching
+
+This would solve the problem of not having nice and fast flex matching
+à la Sublime Text.  The key to this is the combination of fast
+submatching (heatmap + optimization that makes use of the reuse of the
+string since you usually append a glyph at a time and therefore don't
+need to start all over again) as in
+http://hergert.me/blog/2013/09/13/fuzzy-searching.html and sorting of
+the candidates by criteria that make matches for word boundaries
+appear at the top.  I'm afraid the hard part would be rather
+integrating it in these tools than writing it.
+
+* Write a pure elisp torrent client
+
+Sounds like a pretty hefty exercise considering a network process that
+errors out can cause Emacs to hang up and it doesn't have the
+facilities required for writing sparse files exposed (yet).  It would
+probably be more useful to write a proper frontend to an existing
+torrent client.
+
+* Help out holomorph with his transmission UI
+
+Unlike the previous entry this sounds very doable and profitable.
+
+* Write some more graphical games
+
+I've had enough fun with SVG (although I should at least finish up the
+animation part in =svg-2048=), XPM would be the next thing I'd tackle
+(for something like Conway's Game of Life).  By then I should have a
+good idea what's better to use and could proceed with other fun games,
+such as clones of =xeyes=, =breakout=, =tetris= (replicating TGM3 would
+be very cool), something like Tower Defense.  Maybe something
+demo-like with procedural graphics.  Maybe go more abstract and whip
+up everything necessary to do more advanced games, like stuff
+reminiscent of visual novels (although, would they work without
+sound?), platformers, bullethell shmups, etc.  Who knows whether one
+of those might become the next Emacs killer app.
+
+* Write graphical demos
+
+So far I had a flipbook, this could be abstracted into a video player
+(which converts the video into frames beforehand, mind you).  A
+pixelart editor would be very cool, especially for things like my demo
+on http://brause.cc/.  GIF editing by wrapping gifsicle and inserting
+the created previews could be better than what Photoshop and GIMP
+offer.  A fully-featured SVG/Bitmap editor would be more utopian, but
+the groundwork for that is laid with the svg.el package (which could
+become a fast canvas-like) and proper bitmap embedding support in
+Emacs 25.1.
+
+* Bump bug reports without replies
+
+According to Eli Zaretskii this should be alright to do after a week
+without replies.
+
+* Hand in a bug for ~browse-url-can-use-xdg~
+
+This function is not reliable as it only works on a few select Desktop
+Environments and essentially replicates what =xdg-open= is doing
+already in a less complete fashion.  Before handing in the bug I've
+got to find out how to detect it working in a better fashion.  My
+rather naïve assumption would be that if there is such a binary, the
+Xorg session is running and executing it gives me a return code of
+zero, everything's fine.
+
+* Send in a patch for ~debug-setup-buffer~
+
+I've figured out that when evaluating a buffer, this function inserts
+the buffer position where the error occurs.  It is possible to turn
+that into a line number, making it a button that takes you to the file
+would be pretty cool and surely a good candidate for a patch and
+mailing list discussion since it makes the =--debug-init= option more
+useful.
+
+* Discuss =--debug-init= and why it's not a default
+
+Another candidate for the mailing list.  I am still dumbfounded how
+one starts Emacs, gets an error at start, then is told to quit and
+start it again with that option to get a backtrace.  Why isn't this
+option made default?  There doesn't seem to be any performance
+penalty, it can be deactivated after successful init and for the very
+unlikely situation that there is stuff relying on it not spawning the
+debugger (instead of a generic error window) like batch processing, a
+new option to deactivate it could be introduced instead (and the
+option itself be deprecated by making it a no-op).
+
+* Investigate into the debugger to make it better
+
+I don't know much about the keybindings yet and am much more
+acquainted with =edebug= unfortunately.  Finding out how the =debug=
+works would be very cool since it seems to always work, there have
+been a few posts about stackframes on the stackexchange.
+
+There is a wonderful screenshot of a Lisp machine where the debugger
+runs into a division by zero and displays the faulty expression with
+the form causing the error highlighted in bold.  That sounds even
+better than displaying a line number and button to jump to since
+evaluation does not necessarily happen to a file.
+
+Another thing I'd like to see would be backtraces with less bytecode
+in them, for both aesthetical (they take up loads more screen estate)
+and practical (they break copy-paste on a null byte for me) reasons.
+It is possible to re-evaluate a function to obtain prettier display of
+its forms, with byte-compilation most of these are lost.
+
+The not so S-Expression-like display of the stackframes isn't ideal
+either, it looks more like functions in other languages than something
+lispy.  Why they did that is beyond me.
+
+* Report bugs for not properly derived modes
+
+There are a bunch of modes that ought to be derived from ~text-mode~
+and ~prog-mode~, but aren't.  All of those should be reported to make
+my hooks section cleaner.
+
+* Discuss why ~package-initialize~ is used after init
+
+It's very likely to be the first line in the dotemacs of anyone using
+Marmalade/MELPA.  So, why not cater for it and remove the surprise
+element considering how often it crops up?   The ensuing discussion on
+the mailing list might be fun.
 
