@@ -106,6 +106,24 @@ torrent client.
 
 Unlike the previous entry this sounds very doable and profitable.
 
+* Fix long lines bug
+
+Oh boy.  My main idea how to fix this properly relies on section 6.3
+of
+http://soft-dev.org/pubs/html/diekmann_tratt__eco_a_language_composition_editor/.
+In other words, keeping track of visual line breaks, using them to
+speed up rendering and keeping them up to date.  This will obviously
+require hacking on the buffer data structure.
+
+* Write a proper CSV viewer/editor
+
+Until that long lines bug is fixed, viewing CSV is no fun.  To remedy
+it for now I thought of writing something like a mixture of =tabview=
+and =sc= (and call it =sv-mode=).  In other words this displays a
+truncated viewport where you can scroll through cells and offers
+keybinds to edit rows and columns or change the view to something more
+useful.
+
 * Write some more graphical games
 
 I've had enough fun with SVG (although I should at least finish up the
@@ -131,6 +149,40 @@ offer.  A fully-featured SVG/Bitmap editor would be more utopian, but
 the groundwork for that is laid with the svg.el package (which could
 become a fast canvas-like) and proper bitmap embedding support in
 Emacs 25.1.
+
+* Create my own starter kit
+
+HollywoodOS™ with SVG and something terminal-looking with lots of text
+over it would be a really silly one.  So would be a 1984 one that
+makes Emacs look and behave even more arcane than usual (with reduced
+colors and all that).
+
+* Write a fast terminal emulator
+
+Perhaps with FFI (not sure whether the official one or skeeto's
+approach) and libtsm one could write something considerably faster
+than ansi-term, probably not though.
+
+* Write audio demos
+
+This doesn't work very well with external processes at the moment,
+though my demo with Overtone showed promise.  FFI might solve it (or
+not).  It would be super-cool to have something like a keyboard to
+play melodies, ideally by driving CSound instead of Supercollider.  It
+would be even more cool to turn it into a keyboard-driven tracker to
+compose music and tweak synths or create samples to play.
+
+* Work on helm packages
+
+I'm mostly happy with =helm-fkeys=, maybe it could be turned into a
+minor mode though.  =helm-smex= not so much.  It would be a lot better
+to add a helm interface to smex directly instead of hacking something
+that reuses the data the ido one creates.
+
+As for new packages using =helm=, I'd like having something slightly
+better than my current setup with =dmenu= driving =mpd=.  Another
+thing that would be cool to have would be an interface to
+http://dict.cc/ and its offline dictionaries with history.
 
 * Bump bug reports without replies
 
