@@ -4,7 +4,7 @@ So very annoying.  Apparently switching window focus after creating
 window splits somehow causes a window kill to not select the window's
 parent anymore, but instead selects a different window.
 
-Repro: C-x 3 C-x o C-x o C-x 2 C-x 0
+Repro: =C-x 3 C-x o C-x o C-x 2 C-x 0=
 
 Result: Switches focus to the other split side instead of the parent
 window.
@@ -26,42 +26,44 @@ Something about it feels off.  It's supposed to remove duplicate
 entries first, then truncate if it's still too long, but it feels like
 despite a fairly high history length it truncates too many recent
 files.  In other words, I want a behaviour comparable to =zsh= and its
-history pruning.
+history pruning.  In case that's not the reason for it, I'll probably
+just increase the history limit to a ridiculously large number.
 
-* Rewrite a sane subset of helm
+* Rewrite a sane subset of =helm=
 
-Let's call it union (since there's unite and it's one char shorter,
-also there's this very pretty kind of union-jack segment LEDs of which
-I happen to have an appropriate animated GIF for).
+Let's call it =union= (since there's =unite= for Vim and it's one char
+shorter, also there's this very pretty kind of union-jack segment LEDs
+of which I happen to have an appropriate animated GIF for).
 
-* Rewrite a sane subset of dired
+* Rewrite a sane subset of =dired=
 
-Let's call it RIND (for RIND Is Not Dired or Ranger-INspired Dired).
-The reason why should be obvious, dired's method of getting file
-information by parsing =ls= output is brittle and it's surprisingly
-hard to extend.  I really like =ranger=, but it does neither live
-within Emacs nor is it able to be extended with elisp.  Fuco's etable
-looks like a good starting place for writing the UI.
+Let's call it =rind= (for =rind= Is Not =dired= or =ranger=-INspired
+=dired=).  The reason why should be obvious, =dired='s method of
+getting file information by parsing =ls= output is brittle and it's
+surprisingly hard to extend.  I really like =ranger=, but it does
+neither live within Emacs nor is it able to be extended with elisp.
+Fuco's =etable= looks like a good starting place for writing the UI.
 
-* Rewrite a sane subset of TRAMP
+* Rewrite a sane subset of =tramp=
 
 I'm not even sure whether that's a good idea at all, let alone how to
 test such a thing considering I don't have many remote boxes to try it
 on (or to be more precise, just a single one).  It could very well be
 that my issues with it arise from its implicit integration into Emacs.
 
-* Rewrite calfw
+* Rewrite =calfw=
 
 It is pretty much impossible to understand and has bizarre bugs (like,
 quitting fucks up position of the window point in the last buffer).
 Also, writing your own calendar seems to be good tradition to
-experience the many falsehoods programmers believe in yourself.
+experience the many falsehoods programmers believe in about time and
+dates yourself.
 
-* Make a list of (REPL) modes to enable company for
+* Make a list of (REPL) modes to enable =company= for
 
-Stuff like IELM would qualify.  Perhaps some textual modes, too.
+Stuff like =ielm= would qualify.  Perhaps some textual modes, too.
 
-* TODO Improve elisp completion in company
+* TODO Improve elisp completion in =company=
 
 There are a few corner cases (with =company-elisp=, check whether they
 are still present in =company-capf=), fix those (TODO list them).
@@ -69,20 +71,43 @@ Additionally to that it would be very cool to have contextual
 completion inside macros, like ~loop~ to get the loop keywords as
 candidates.
 
-* Learn how company-capf works
+* Learn how =company-capf= works
 
 The elisp backend was replaced by it in 24.4, its code should tell me
 enough about the effort involved in getting other backends to use it.
 Porting the other ones over will give me completion styles.
 
-* Write a flx-like completion style
+* Integrate =yasnippet= into =company=
 
-While there's already flx code, I need to find out how completion
-styles are implemented and check how slow they'd be with flx as is.
+=company-yasnippet= looks pretty snazzy, the only thing preventing me
+from using it is that the official documentation suggests making
+=company-backends= buffer-local and change its value in every mode
+making use of snippets.
+
+* Write own snippets
+
+I've installed =yasnippet= because at that time I had to write Java
+code in a course and didn't feel like using Eclipse.  The default
+snippets are a bit problematic though, especially the ones used for
+elisp code because they're very short and get triggered even if I
+hadn't inserted the text beforehand, so hitting TAB in an already
+written line at an arbitrary position where the text before point
+makes up a valid snippet abbreviation triggers it.  That's definitely
+not ok, part of the solution would be writing my own, the other would
+be giving them longer names suitable for tab-completion via =company=.
+
+* Learn the =yasnippet= syntax
+
+http://capitaomorte.github.io/yasnippet/snippet-development.html
+
+* Write a =flx=-like completion style
+
+While there's already =flx= code, I need to find out how completion
+styles are implemented and check how slow they'd be with =flx= as is.
 If it's not fast enough, write a binary component in CHICKEN and make
 it flexible enough for more than just that.
 
-* Reuse binary component from above for helm/ido matching
+* Reuse binary component from above for =helm= / =ido= matching
 
 This would solve the problem of not having nice and fast flex matching
 à la Sublime Text.  The key to this is the combination of fast
@@ -98,11 +123,12 @@ integrating it in these tools than writing it.
 
 Sounds like a pretty hefty exercise considering a network process that
 errors out can cause Emacs to hang up and it doesn't have the
-facilities required for writing sparse files exposed (yet).  It would
-probably be more useful to write a proper frontend to an existing
-torrent client.
+facilities required for writing sparse files exposed (yet, I've found
+internal C functions for advancing to arbitrary positions in files,
+see =fileio.c= when searching for =lseek=).  It would probably be more
+useful to write a proper frontend to an existing torrent client.
 
-* Help out holomorph with his transmission UI
+* Help out holomorph with his =transmission= UI
 
 Unlike the previous entry this sounds very doable and profitable.
 
@@ -117,12 +143,13 @@ require hacking on the buffer data structure.
 
 * Write a proper CSV viewer/editor
 
-Until that long lines bug is fixed, viewing CSV is no fun.  To remedy
-it for now I thought of writing something like a mixture of =tabview=
-and =sc= (and call it =sv-mode=).  In other words this displays a
-truncated viewport where you can scroll through cells and offers
-keybinds to edit rows and columns or change the view to something more
-useful.
+Until that long lines bug is fixed, viewing CSV files is no fun.  To
+remedy it for now I thought of writing something like a mixture of
+=tabview= and =sc= (and call it =sv-mode= because it's for separated
+values).  In other words this displays a truncated viewport where you
+can scroll through cells and offers keybinds to edit rows and columns
+or change the view to something more useful (such as sorting,
+filtering, etc.).
 
 * Write some more graphical games
 
@@ -140,15 +167,15 @@ of those might become the next Emacs killer app.
 
 * Write graphical demos
 
-So far I had a flipbook, this could be abstracted into a video player
-(which converts the video into frames beforehand, mind you).  A
-pixelart editor would be very cool, especially for things like my demo
-on http://brause.cc/.  GIF editing by wrapping gifsicle and inserting
-the created previews could be better than what Photoshop and GIMP
-offer.  A fully-featured SVG/Bitmap editor would be more utopian, but
-the groundwork for that is laid with the svg.el package (which could
-become a fast canvas-like) and proper bitmap embedding support in
-Emacs 25.1.
+So far I had a flipbook (see the Quasiconf 2014 files), this could be
+abstracted into a video player (which converts the video into frames
+beforehand, mind you).  A pixelart editor would be very cool,
+especially for things like my demo on http://brause.cc/.  GIF editing
+by wrapping =gifsicle= and inserting the created previews could be
+better than what Photoshop and GIMP offer.  A fully-featured
+SVG/Bitmap editor would be more utopian, but the groundwork for that
+is laid with the =svg.el= package (which could become a fast
+canvas-like) and proper bitmap embedding support in Emacs 25.1.
 
 * Create my own starter kit
 
@@ -161,16 +188,17 @@ colors and all that).
 
 Perhaps with FFI (not sure whether the official one or skeeto's
 approach) and libtsm one could write something considerably faster
-than ansi-term, probably not though.
+than ~ansi-term~, probably not though.
 
 * Write audio demos
 
 This doesn't work very well with external processes at the moment,
-though my demo with Overtone showed promise.  FFI might solve it (or
-not).  It would be super-cool to have something like a keyboard to
-play melodies, ideally by driving CSound instead of Supercollider.  It
-would be even more cool to turn it into a keyboard-driven tracker to
-compose music and tweak synths or create samples to play.
+though my demo with Overtone for Quasiconf 2014 showed promise.  FFI
+might solve it (or not).  It would be super-cool to have something
+like a keyboard to play melodies, ideally by driving CSound instead of
+Supercollider.  It would be even more cool to turn it into a
+keyboard-driven tracker to compose music and tweak synths or create
+samples to play.
 
 * Work on helm packages
 
@@ -264,3 +292,109 @@ configuration and elisp involved scared me off.  However I'm armed
 with everything necessary to embark this part of my Emacs journey
 again, so why not go through the agenda, refiling, clocking and many
 more to keep track of things again?
+
+* Figure out how =evil= works
+
+All I know so far from cursory glances at the sources is that it does
+black magic on keymaps, appears to have implemented a type system for
+editing commands with elisp macros and has an actually proper looking
+parser for ex commands.  This is kind of intriguing and surely a good
+chance to learn advanced concepts.
+
+However the documentation is a bit lacking when it comes to extending
+it.  Another issue is that several critical variables are empty at
+definition, but filled after startup.  Therefore combined reading of
+the sources and inspection of variables while it's running are
+necessary to gain understanding in its inner workings.
+
+* Fix =evil-surround=
+
+Its commands are not repeatable which sucks since they are
+comparatively long.  Another annoying one is how lines are wrapped by
+introducing more lines.  There doesn't seem to be support for HTML
+tags either.
+
+* Fix =evil-matchit=
+
+Its author doesn't seem to be aware of idiomatic elisp at all, let
+alone making it integrate properly into =evil=.  I could of course NIH
+my own and replicate =matchit.vim= as closely as possible, but I'll
+try out just how far I can go to make upstream improve it since these
+complaints are fairly minor compared to the wrongdoings of =ace-jump=
+for instance.
+
+* Figure out how to break out of =evil='s type system
+
+While it is convenient to have operators and motions to just work with
+everything, some Vim plugins intentionally break the grammar to use
+lesser common or nonsensical command sequences for their own
+commands.  One of the better known examples would be =ysiw`= which
+would normally do a yank operation, however in this context =ys=
+introduces wrapping of a text object, in this case it's inside a word
+and the wrapping is done with backquotes around it.
+
+In Vim this kind of trick is done by carefully thinking up all key
+sequences and binding the appropriate functions to them, essentially
+overwriting the parts of the default bindings as necessary.  In =evil=
+however there is no proper solution yet, so far upstream suggested
+replacing an operator with a wrapper that calls the original one
+unless one of the bindings is the one belonging to the nefarious
+package.  It would be a lot better to have official access to this to
+avoid endless cascades of wrappers outsmarting each other (it's not as
+bad as in Win32 yet, but who knows how bad it will become).
+
+* Discover worthwhile Vim plugins to turn into =evil= packages
+
+Should be mostly editing-related hacks, such as replacing the =t=,
+=T=, =f=, =F=, =,= , =;= motions with more powerful ones that are
+between one-letter jumps and =ace-jump= style motion to arbitrary
+one-letter jumps by allowing one to do two-letter jumps instead.
+
+The rest is mostly improving Vim idiosyncracies (just like there's
+stuff improving Emacs idiosyncracies) and packages that come somewhat
+close to what already exists for Emacs (compare =fugitive= to =magit=
+for instance).  Some exceptions are there though, such as the
+excellent =yunocommit.vim= (see =company= for possible approaches to
+overlays with images), a Flappy Bird clone and the powerline that
+works in terminal emulators (the many Emacs ports only support
+graphical instances since they actually draw bitmaps into the
+modeline).
+
+An =evil= state for ASCII drawing would be fun, much better than
+arcane keybinds or ex commands.  Instead you'd have operators and
+motions to edit and draw plus some commands to toggle stuff.
+
+* Get rid of =evil-leader=
+
+It didn't occur me back then that I don't need it at all.  The only
+benefit is configurability in case should I ever change the leader
+prefix, but that's rather unlikely and can already be done with a
+variable.
+
+* Configure =smartparens= to start out with way less pairs
+
+It's annoying to fix quotes for every Lisp-related mode (text-related
+ones, too).  I'd prefer a default auto-indent function for braces.
+
+* Integrate =smartparens= into =evil=
+
+A separate =evil= state sounds best,
+https://github.com/syl20bnr/evil-lisp-state demonstrates how it could
+be done, however it regressed to accomodate for Lisp coding with
+https://github.com/syl20bnr/evil-lisp-state/commit/fdddd81806ccbcad8cdf04edeb47816314bda8ae.
+
+* Learn =smartparens= actions, do GIFcasts
+
+There's a ton of them, but GIFcasts only for =paredit=.  Would be very
+nice to have visual reminders for them, presumably lots of work, too.
+=byzanz-record= to the rescue!
+
+* Set up an Emacs mail client
+
+=mu4e= looks great, however the PKGBUILD on the AUR isn't updated
+since the change that makes threading usable.  Another problem is
+figuring out everything necessary to make mailing lists acceptable and
+multiple accounts for /sending/ mail.  I'll need to keep it running
+parallel to mutt for a good while to figure it all out, but then I'll
+hopefully be able to reap the rewards such as no more encoding issues
+and templates for mails (like, daily reports).
