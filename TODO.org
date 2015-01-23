@@ -29,6 +29,15 @@ files.  In other words, I want a behaviour comparable to =zsh= and its
 history pruning.  In case that's not the reason for it, I'll probably
 just increase the history limit to a ridiculously large number.
 
+* Join forces with Fuco and think up better names for the projects to hack on
+
+The plan is to do a Github organization and to learn useful stuff
+along the way, such as advanced =dash= usage, EIEIO (an undebuggable
+partial implementation of the infamous CLOS) and more abstractions.
+The general plan is to reimplement sane subsets of popular packages
+since those are assumed to be unfixable with a few pull requests, such
+as =helm=, =ace-jump= and many more.
+
 * Rewrite a sane subset of =helm=
 
 Let's call it =union= (since there's =unite= for Vim and it's one char
@@ -398,3 +407,75 @@ multiple accounts for /sending/ mail.  I'll need to keep it running
 parallel to mutt for a good while to figure it all out, but then I'll
 hopefully be able to reap the rewards such as no more encoding issues
 and templates for mails (like, daily reports).
+
+* Hack more on =circe=
+
+There's plenty on the issue tracker, asides from that I want to make
+nick coloring more flexible by incorporating
+https://github.com/TaylanUB/circe/commits/nick-colors/lisp/circe-color-nicks.el.
+
+* Configure =elfeed=
+
+Now that I've configured =newsbeuter= to resemble other newsreaders
+with grouped feeds, using =elfeed= should make a lot more sense for
+me, especially after customizing it to be more flexible than it, like
+by automatically marking everything older than a month as read.
+
+* Hack on my own packages
+
+=shackle= looks pretty much ok (except one open issue), =form-feed=
+needs discussion on =emacs-devel= for figuring out the cursor kicking
+issue, =gotham-theme= could use a lot more faces, =eyebrowse= is kind
+of stalled and can get new features.
+
+* Make =eshell= and its completion more usable
+
+There's apparently no completion of arguments like in =zsh=.  Perhaps
+a parser of its files could be built in, alternatively for =bash=.
+Combined with =company-capf= this should make for very awesome
+argument completion.
+
+* Write tool for grepping Lisp code
+
+The idea is that since Lisp code parses easily into a tree, one could
+read in a file (and when necessary, uncompress it on the fly with
+something like libarchive), parse it, then apply a shorthand
+graph/tree querying language to find the interesting bits.
+
+I don't know what kind of language though, possible inspirations are
+CSS selectors, jQuery selectors, XPath/SXPath, Git/Mercurial Changeset
+specifications, Gremlin, possibly many more.
+
+It would be pretty snazzy to write it in CHICKEN, although there's
+only separate eggs per decompression algorithm, like [[http://wiki.call-cc.org/eggref/4/z3][z3]].
+
+* Write tool for analysis of Emacs sources
+
+Would be very useful to be able to find function usage with something
+a lot more usable than Regex-based solutions (like, tags), perhaps the
+previously mentioned hypothetical tool would work.  Other stuff to
+look for is library usage and making sure it can parse both libraries
+and configurations for dependencies.
+
+* Write a web UI to allow comparing differences between the library parts between Emacs releases
+
+It would be very cool to find out what exactly breaks/improves between
+Emacs releases and have an useful UI for browsing over it, sort of
+like RDoc where you see docstrings and can fold out sources to peek at
+the implementation.  Add diffing and a good overview and that should
+be it.
+
+* Write a web UI that unifies all popular package archives
+
+It sucks that neither Marmalade nor MELPA are particularly good at
+browsing and finding stuff easily.  Something like Vimawesome with
+usage statistics would be very nice to have.
+
+* Make news feeds for MELPA and Marmalade releases
+
+There's currently twitter feeds that are mixed, not sure whether
+there's anything for Marmalade even.  It would be useful to have one
+for newly released packages and a separate one for their updates,
+maybe even with Changelog links (either a commit summary or a file if
+it exists with diffs).
+
