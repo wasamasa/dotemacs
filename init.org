@@ -802,6 +802,103 @@ long with something better than =C-s=.
   (define-key company-active-map (kbd "C-:") 'helm-company))
 #+END_SRC
 
+*** Dash
+
+Very useful library, too bad I don't know how to properly use it yet.
+Since it's sprinkled all over in code I'd like to have extra syntax
+highlighting for it.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'dash
+  (dash-enable-font-lock))
+#+END_SRC
+
+*** Helm
+
+A polarizing package to say the least.  The good part of it is that it
+actually tries enabling abstractions over complex selection UI.  The
+bad part is that it's overly complex, hard to debug and prone to
+bizarre behaviour.  I've handed in ten bugs for it already and don't
+expect those to be the last.  With that being said I find it essential
+to quickly find your way through Emacs, I just wish it were less
+idiosyncratic and with developer documentation.
+
+The default navigation isn't as fast as it could be.  Automatically
+switching directories is a must for me.  Note the hack with
+~helm-ff--auto-update-state~, it's supposedly internal, but only set
+after using ~helm-find-files~ which essentially means that everything
+using the file selector won't get the auto-switching goodies unless a
+file has been found before.  With this hack however it will.  The
+other hack goes beyond the ~helm-ff-ido-style-backspace~ customization
+and unconditionally enables backspace going up one level in both kinds
+of file selectors.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-ff-ido-style-backspace 'always
+      helm-ff-auto-update-initial-value t
+      helm-ff--auto-update-state t)
+
+(with-eval-after-load 'helm-files
+  (define-key helm-read-file-map (kbd "<backspace>")
+    'helm-find-files-up-one-level)
+  (define-key helm-find-files-map (kbd "<backspace>")
+    'helm-find-files-up-one-level))
+#+END_SRC
+
+There are more idiosyncracies to be resolved with file selection.  I
+don't want to see boring files and not get prompted for creating a new
+file either.  The creation of a new directory however is kept as is.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-ff-newfile-prompt-p nil
+      helm-ff-skip-boring-files t)
+#+END_SRC
+
+Highlighting of token matches is a tad slow, let's speed it up.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-mp-highlight-delay 0.3)
+#+END_SRC
+
+=grep= is very fast, but not the best tool for code search, especially
+not within compressed files.  That's why I'll go for =ag= instead, its
+=-z= option enables the usage of the very great libarchive.  For
+=helm= to recognize the matches properly I need to enable line numbers
+and columns in its output, something the =--vimgrep== option (the
+irony) does.  Another subtle hack hidden in here is deliberately using
+the recursing variant for both types of searches, this might break
+something, but so far hasn't shown any obvious side-effects
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-grep-default-command "ag --vimgrep -z %p %f"
+      helm-grep-default-recurse-command "ag --vimgrep -z %p %f")
+#+END_SRC
+
+For whatever reason ~find-library~ isn't used properly with
+~helm-mode~ enabled, adding a read handler fixes this.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'helm-mode
+  (add-to-list 'helm-completing-read-handlers-alist
+               '(find-library . helm-completing-read-with-cands-in-buffer)))
+#+END_SRC
+
+I like having my dotfiles repo as default when using =helm-cmd-t= on a
+directory that's not under version-control.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-cmd-t-default-repo "~/code/dotfiles")
+#+END_SRC
+
+I dislike =helm= taking over tab-completion in my IRC client.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-mode-no-completion-in-region-in-modes
+      '(circe-channel-mode
+        circe-query-mode
+        circe-server-mode))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -837,6 +934,14 @@ instead.
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-x") 'helm-smex)
 (global-set-key (kbd "C-c M-x") 'execute-extended-command)
+#+END_SRC
+
+Helm stuff
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "<f10>") 'helm-resume)
 #+END_SRC
 
 Org-mode capturing on =<F11>= mirrors inbox look-up on =<F12>=.
@@ -958,7 +1063,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-helm)
 (require 'setup-comint)
 (require 'setup-flycheck)
 (require 'setup-helm-fkeys)
@@ -988,6 +1092,7 @@ unconditionally run after init has finished.
   (winner-mode)
   (shackle-mode)
   (smex-initialize)
+  (helm-mode)
   (electric-indent-mode -1)
   (which-function-mode)
   (unicode-whitespace-setup)
