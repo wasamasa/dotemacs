@@ -18,8 +18,10 @@ Emacs comes with a set of pretty wonky defaults, since the UI is what
 we'll see first, we'll deal with it swiftly.  Part of its
 configuration can be set up in =~/.Xresources= and has the effect to
 be used before any frame is displayed for the price of less
-flexibility (complex forms are unsupported).  For experimentation,
-reload such configuration with =xrdb ~/.Xresources=.
+flexibility.  For experimentation, reload such configuration with
+=xrdb ~/.Xresources=.  Keep in mind that this hack might not do
+anything for you on a sufficiently fast machine that loads themes
+faster than you can notice.
 
 *** Superfluous UI elements
 
@@ -74,8 +76,8 @@ Emacs.mode-line.attributeBox: (:line-width 1 :color "#073642")
 My theme is a heavily customized Solarized Dark, originally taken from
 Bozhidar Batsov, later rewritten to support additional modes, the
 16-color palette in terminals and variant toggling.  It's stored in a
-separate file, to accomodate for that we need to customize a variable
-for user-made themes.
+separate file, to accomodate for that fact we need to customize a
+variable for user-made themes.
 
 #+BEGIN_SRC emacs-lisp
 (setq custom-theme-directory "~/.emacs.d/theme")
@@ -94,7 +96,7 @@ Tooltips can be themed as well.
 (setq x-gtk-use-system-tooltips nil)
 #+END_SRC
 
-*** Improve modeline
+*** Improve the mode line
 
 =smart-mode-line= is pretty awesome!
 
@@ -187,7 +189,7 @@ Let's allow more than 800 KiB cache before starting garbage collection.
 (setq gc-cons-threshold 50000000)
 #+END_SRC
 
-*** Fix line-number-mode
+*** Fix ~line-number-mode~
 
 ~line-number-mode~ displays the current line number in the mode line,
 however it stops doing that in buffers when encountering at least one
@@ -205,10 +207,10 @@ See also [[http://emacs.stackexchange.com/questions/3824/what-piece-of-code-in-e
 
 I have no idea why, but apparently you get nasty warnings by the
 GnuTLS library upon using https with the default settings.  Increasing
-the minimum prime bits size alleviates that.
+the minimum prime bits size to something safer alleviates that.
 
 #+BEGIN_SRC emacs-lisp
-(setq gnutls-min-prime-bits 1024)
+(setq gnutls-min-prime-bits 4096)
 #+END_SRC
 
 *** Scratch
@@ -287,7 +289,7 @@ that puts brackets around the buffer names shared in Emacs.
 (setq uniquify-buffer-name-style 'forward)
 #+END_SRC
 
-*** Inhibit custom littering my init file
+*** Inhibit =custom= littering my init file
 
 For whatever reason the customization system will write into your init
 file which is especially annoying if you have it in version control
@@ -301,7 +303,7 @@ aware it has already been loaded successfully.
 (load custom-file)
 #+END_SRC
 
-*** Display .nfo files with appropriate codepage
+*** Display .nfo files with appropriate code page
 
 Since Emacs auto-detection of encodings is quite good, but not
 omniscient, we'll give it a nudge to display these files the way
@@ -402,7 +404,7 @@ need it.
 (setq blink-matching-paren nil)
 #+END_SRC
 
-*** Display fringe indicators in visual-line-mode
+*** Display fringe indicators in ~visual-line-mode~
 
 It's pretty nice to have the option to display words in a buffer as if
 they were hardwrapped around the word boundaries, however it's
@@ -447,7 +449,7 @@ This includes stuff that is bundled with Emacs and can be obtained
 from a more recent source as well, such as =org-mode=.  I'm mostly
 refering to smaller packages though.
 
-*** recentf
+*** =recentf=
 
 ~recentf-mode~ allows you to access the list of recent files which can
 be used by =ido= and =helm=.  Let's save its file somewhere else and
@@ -458,7 +460,7 @@ change the size of its history while we're at it.
       recentf-max-saved-items 50)
 #+END_SRC
 
-*** savehist
+*** =savehist=
 
 The history of prompts like =M-:= can be saved, but let's change its
 save file and history length first.
@@ -468,7 +470,7 @@ save file and history length first.
       history-length 150)
 #+END_SRC
 
-*** save-place
+*** =save-place=
 
 I didn't expect to like this functionality, but it's pretty neat to
 start from the last place you were in a file the next time you visit
@@ -480,7 +482,7 @@ enable this behaviour for every buffer since it's buffer-local.
 (setq save-place-file "~/.emacs.d/etc/saveplace")
 #+END_SRC
 
-*** windmove
+*** =windmove=
 
 The =windmove= provides useful commands for moving window focus by
 direction, I prefer having wraparound instead of getting errors
@@ -490,7 +492,7 @@ though.
 (setq windmove-wrap-around t)
 #+END_SRC
 
-*** bookmark
+*** =bookmark=
 
 Yet another file that I prefer being saved somewhere else.
 
@@ -498,7 +500,7 @@ Yet another file that I prefer being saved somewhere else.
 (setq bookmark-default-file "~/.emacs.d/etc/bookmarks")
 #+END_SRC
 
-*** ediff
+*** =ediff=
 
 Anything else than =emacsclient= spawning frames is pretty much
 useless for me with =i3=.  I assume the vertical split is not done
@@ -511,7 +513,7 @@ the alternative splitting function is not a mistake, what Emacs calls
       ediff-split-window-function 'split-window-horizontally)
 #+END_SRC
 
-*** debug
+*** =debug=
 
 The debugger does display only the position of point when evaluating
 buffers, the following rendition of =debug-setup-buffer= displays a
@@ -585,7 +587,7 @@ That buffer should be current already."
     (debugger-make-xrefs)))
 #+END_SRC
 
-*** Dired
+*** =dired=
 
 For the few times I'm using Dired, I prefer it not spawning an endless
 amount of buffers.  In fact, I'd prefer it using one buffer unless
@@ -596,7 +598,7 @@ another one is explicitly created, but you can't have everything.
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 #+END_SRC
 
-*** TRAMP
+*** =tramp=
 
 If TRAMP makes backup files, they should better be kept locally than
 remote.
@@ -662,13 +664,13 @@ live in Germany, d'uh).
       holiday-hebrew-holidays nil)
 #+END_SRC
 
-*** wc-mode
+*** =which-func-mode=
 
 #+BEGIN_SRC emacs-lisp
 (setq which-func-modes '(org-mode))
 #+END_SRC
 
-*** Org-mode
+*** =org-mode=
 
 First some UI and editing tweaks.
 
@@ -716,6 +718,198 @@ using is deactivated by default :<
 
 #+BEGIN_SRC emacs-lisp
 (setq org-export-backends '(ascii beamer html latex md))
+#+END_SRC
+
+*** =comint=
+
+Here comes another particularly interesting Emacs package.  It allows
+one to define major modes interacting with a REPL-style process.  In
+other words, it gives you all kinds of shell and interpreter
+interaction with common keybindings, be it for SQL, your favourite
+programming language or your shell.  Even Emacs itself can be used,
+try out =M-x ielm=.
+
+However there's a couple things that could be improved.  One of them
+is the fact that by default such buffers are editable.  The prompt can
+be customized easily to be read-only, the remaining output needs a bit
+more work.
+
+#+BEGIN_SRC emacs-lisp
+(setq comint-prompt-read-only t)
+
+(defun my-comint-preoutput-read-only (text)
+  (propertize text 'read-only t))
+
+(add-hook 'comint-preoutput-filter-functions
+          'my-comint-preoutput-read-only)
+#+END_SRC
+
+While it would be better to patch ~comint-previous-input~ (which is
+used by ~comint-next-input~ with a negative argument, so don't worry)
+to take a customizable value that determines whether to wrap around or
+not, I've hacked it into just wrapping around for simplicity's sake.
+
+#+BEGIN_SRC emacs-lisp
+(defun comint-previous-input (arg)
+  "Cycle backwards with wrap-around through input history, saving input."
+  (interactive "*p")
+  (unless (and (eq comint-input-ring-index nil)
+               (< arg 0))
+    (if (and (eq comint-input-ring-index 0)
+             (< arg 0)
+             comint-stored-incomplete-input)
+        (comint-restore-input)
+      (unless (and (eq comint-input-ring-index
+                       (- (ring-length comint-input-ring) 1))
+               (> arg 0))
+        (comint-previous-matching-input "." arg)))))
+#+END_SRC
+
+It's trivial to clear the entire =comint= buffer by temporarily
+binding ~comint-buffer-maximum-size~ to zero and calling
+~comint-truncate-buffer~, however that's not what I really want.
+Usually it's just the output of the last expression that's been
+faulty and needs to be cleared by replacing it with a comment.  The
+idea itself is taken from [[https://github.com/clojure-emacs/cider/blob/cb3509eb54d3c3369681d73f3218a1493b977e99/cider-repl.el#L640-L655][CIDER]].
+
+#+BEGIN_SRC emacs-lisp
+(defun my-comint-last-output-beg ()
+  (save-excursion
+    (comint-goto-process-mark)
+    (while (not (or (eq (get-char-property (point) 'field) 'boundary)
+                    (= (point) (point-min))))
+      (goto-char (previous-char-property-change (point) (point-min))))
+    (if (= (point) (point-min))
+        (point)
+      (1+ (point)))))
+
+(defun my-comint-last-output-end ()
+  (save-excursion
+    (comint-goto-process-mark)
+    (while (not (or (eq (get-char-property (point) 'font-lock-face)
+                        'comint-highlight-prompt)
+                    (= (point) (point-min))))
+      (goto-char (previous-char-property-change (point) (point-min))))
+    (let ((overlay (car (overlays-at (point)))))
+      (when (and overlay (eq (overlay-get overlay 'font-lock-face)
+                             'comint-highlight-prompt))
+        (goto-char (overlay-start overlay))))
+    (1- (point))))
+
+(defun my-comint-clear-last-output ()
+  (interactive)
+  (let ((start (my-comint-last-output-beg))
+        (end (my-comint-last-output-end)))
+    (let ((inhibit-read-only t))
+      (delete-region start end)
+      (save-excursion
+        (goto-char start)
+        (insert (propertize "output cleared"
+                            'font-lock-face 'font-lock-comment-face))))))
+#+END_SRC
+
+Killed =comint= processes tend to leave an useless buffer around.
+Let's kill it after noticing such an event with a process sentinel.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-shell-kill-buffer-sentinel (process event)
+  (when (memq (process-status process) '(exit signal))
+    (kill-buffer)))
+
+(defun my-kill-process-buffer-on-exit ()
+  (set-process-sentinel (get-buffer-process (current-buffer))
+                        #'my-shell-kill-buffer-sentinel))
+
+(dolist (hook '(ielm-mode-hook term-exec-hook comint-exec-hook))
+  (add-hook hook 'my-kill-process-buffer-on-exit))
+#+END_SRC
+
+Recentering feels a bit unintuitive since it goes by the middle
+first.  I only need top and bottom commands, for that I'll define my
+own command and bind it later.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-recenter-top-bottom ()
+  (interactive)
+  (goto-char (point-max))
+  (let ((recenter-positions '(top bottom)))
+    (recenter-top-bottom)))
+#+END_SRC
+
+Another thing annoying me in comint buffers is that when text is
+read-only, both cursor movement and appending to kill ring still
+happen.  This is less useful since if you keep holding the keys to
+delete words, you end up traversing the entire buffer instead of
+stopping at the read-only boundaries and pollute the kill ring.  To
+remedy that I'll write my own word killing commands in the typical
+Emacs user fashion, however I'll not advise the built-ins since who
+knows what might possibly be relying on this default behaviour.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-kill-word (arg)
+  (interactive "p")
+  (unless buffer-read-only
+    (let ((beg (point))
+          (end (save-excursion (forward-word arg) (point)))
+          (point (save-excursion (goto-char (next-single-char-property-change
+                                             (point) 'read-only))
+                                 (point))))
+      (unless (get-char-property (point) 'read-only)
+        (if (< point end)
+            (kill-region beg point)
+          (kill-region beg end))))))
+
+(defun my-backward-kill-word (arg)
+  (interactive "p")
+  (my-kill-word (- arg)))
+#+END_SRC
+
+The new functionality introduced has to be bound to keys for
+convenient use.  Note the remapping of commands.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'comint
+  (define-key comint-mode-map [remap kill-word] 'my-kill-word)
+  (define-key comint-mode-map [remap backward-kill-word] 'my-backward-kill-word)
+  (define-key comint-mode-map (kbd "C-S-l") 'my-comint-clear-last-output)
+  (define-key comint-mode-map (kbd "C-l") 'my-recenter-top-bottom))
+#+END_SRC
+
+*** =shell=
+
+For unknown reasons I get my input echoed back to me.  In other words,
+sending =ls= to =shell= echoes my input twice, then the output.
+=comint= has a setting that can filter these echoes.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-shell-turn-echo-off ()
+  (setq comint-process-echoes t))
+
+(add-hook 'shell-mode-hook 'my-shell-turn-echo-off)
+#+END_SRC
+
+*** =eshell=
+
+I want =C-d= to not unconditionally delete the character, but to quit
+on an empty prompt, too.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-eshell-quit-or-delete-char (arg)
+  (interactive "p")
+  (if (and (eolp) (looking-back eshell-prompt-regexp))
+      (eshell-life-is-too-much) ; wtf
+    (delete-forward-char arg)))
+
+(defun my-eshell-setup ()
+  (define-key eshell-mode-map (kbd "C-d") 'my-eshell-quit-or-delete-char))
+
+(add-hook 'eshell-mode-hook 'my-eshell-setup)
+#+END_SRC
+
+For silly reasons I like having a rainbow-colored prompt.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'eshell-load-hook 'nyan-prompt-enable)
 #+END_SRC
 
 ** Packages outside Emacs
@@ -1063,7 +1257,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-comint)
 (require 'setup-flycheck)
 (require 'setup-helm-fkeys)
 (require 'setup-cc-mode)

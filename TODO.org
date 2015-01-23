@@ -469,7 +469,7 @@ be it.
 
 It sucks that neither Marmalade nor MELPA are particularly good at
 browsing and finding stuff easily.  Something like Vimawesome with
-usage statistics would be very nice to have.
+usage statistics would be very nice to have.  Discoverability FTW.
 
 * Make news feeds for MELPA and Marmalade releases
 
@@ -478,4 +478,28 @@ there's anything for Marmalade even.  It would be useful to have one
 for newly released packages and a separate one for their updates,
 maybe even with Changelog links (either a commit summary or a file if
 it exists with diffs).
+
+* Bring =comint= hacks upstream
+
+Despite =comint= feeling somewhat arcane, it is surprisingly useful
+for anything REPL-like derived from it.  I have a few hacks in my
+config that could very well make it upstream, such as history
+wrap-around or partial buffer clearing.
+
+There's other stuff I'd still like to do, such as persistent history
+per buffer name/mode, similiar to what =rlwrap= does.  Maybe an
+extension of that one hack started on the Stackexchange where I
+truncated overly long lines and added an overlay to display the
+original ones.
+
+* Port major modes that ought to use =comint= to it
+
+I'm not sure how much sense it would make for =eshell=.  But then I'd
+at least not have to redo my hacks for it again.  Another candidate I
+have in mind is =inf-ruby=.  Perhaps the interaction modes for
+Clojure, CL and Scheme would benefit from it, too.
+
+* Find =comint=-derived modes that could make use of syntax-highlighting
+
+See http://emacs.stackexchange.com/questions/2293/change-syntax-highlighting-without-changing-major-mode
 
