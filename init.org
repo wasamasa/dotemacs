@@ -443,6 +443,22 @@ instead of the middle row.
 (setq recenter-positions '(top middle bottom))
 #+END_SRC
 
+*** Make =kill -USR1= do something useful
+
+A lesser known fact is that sending the =USR2= signal to an Emacs
+process makes it proceed as soon as possible to a debug window.
+=USR1= is ignored however, so let's bind it to an alternative
+desirable function that can be used on an Emacs instance that has
+locked up.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-quit-emacs-unconditionally ()
+  (interactive)
+  (my-quit-emacs '(4)))
+
+(define-key special-event-map (kbd "<sigusr2>") 'my-quit-emacs-unconditionally)
+#+END_SRC
+
 ** Packages bundled with Emacs
 
 This includes stuff that is bundled with Emacs and can be obtained
@@ -1110,13 +1126,14 @@ Deactivate all other uses of insert than =Shift-Insert=.
 (global-set-key (kbd "S-<insert>") nil)
 #+END_SRC
 
-Install a keybind that saves all buffers, then kills Emacs (including
-the daemon) on =M-<f4>=.
+Install a keybind that saves all buffers with asking (use a prefix
+argument to inhibit the questions), then kills Emacs (including the
+daemon) on =M-<f4>=.
 
 #+BEGIN_SRC emacs-lisp
-(defun my-quit-emacs ()
-  (interactive)
-  (save-some-buffers nil t)
+(defun my-quit-emacs (arg)
+  (interactive "P")
+  (save-some-buffers (when (consp arg) t) t)
   (kill-emacs))
 
 (global-set-key (kbd "M-<f4>") 'my-quit-emacs)
