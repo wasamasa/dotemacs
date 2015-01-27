@@ -934,7 +934,7 @@ Welcome to the blind spot of =emacs-devel=.  Unlike the people on
 there, I'll not pretend external packages are something to speak of in
 hushed tones.
 
-*** Smex
+*** =smex=
 
 Nice improvement over vanilla =M-x= that gives you persistency and
 better matching.  Let's give it more history and a different file.
@@ -968,7 +968,7 @@ This is necessary to have updates going on.
 (setq quelpa-upgrade-p t)
 #+END_SRC
 
-*** Shackle
+*** =shackle=
 
 The only thing to configure is its rules.
 
@@ -982,7 +982,7 @@ The only thing to configure is its rules.
         (t :select t)))
 #+END_SRC
 
-*** Company
+*** =company-mode=
 
 The following sets up a good amount of UI tweaks and everything
 necessary for the global backends.  It's possible to make
@@ -1023,7 +1023,7 @@ highlighting for it.
   (dash-enable-font-lock))
 #+END_SRC
 
-*** Helm
+*** =helm=
 
 A polarizing package to say the least.  The good part of it is that it
 actually tries enabling abstractions over complex selection UI.  The
