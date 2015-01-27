@@ -408,6 +408,8 @@ parallel to mutt for a good while to figure it all out, but then I'll
 hopefully be able to reap the rewards such as no more encoding issues
 and templates for mails (like, daily reports).
 
+http://cmacr.ae/blog/2015/01/25/email-in-emacs/
+
 * Hack more on =circe=
 
 There's plenty on the issue tracker, asides from that I want to make
@@ -427,6 +429,8 @@ by automatically marking everything older than a month as read.
 needs discussion on =emacs-devel= for figuring out the cursor kicking
 issue, =gotham-theme= could use a lot more faces, =eyebrowse= is kind
 of stalled and can get new features.
+
+=quelpa= however could need love.
 
 * Make =eshell= and its completion more usable
 
@@ -502,4 +506,8 @@ Clojure, CL and Scheme would benefit from it, too.
 * Find =comint=-derived modes that could make use of syntax-highlighting
 
 See http://emacs.stackexchange.com/questions/2293/change-syntax-highlighting-without-changing-major-mode
+
+* Make =savehist= save more
+
+See ~savehist-additional-variables~.
 
