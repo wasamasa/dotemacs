@@ -38,6 +38,11 @@ The general plan is to reimplement sane subsets of popular packages
 since those are assumed to be unfixable with a few pull requests, such
 as =helm=, =ace-jump= and many more.
 
+As for the name of this organization, I plead for =tetracat= and
+either http://brause.cc/tetracat.jpg or a derived work.  Should be
+only a matter of time with a graphics tablet and either Inkscape or
+Krita.
+
 * Rewrite a sane subset of =helm=
 
 Let's call it =union= (since there's =unite= for Vim and it's one char
@@ -219,7 +224,12 @@ that reuses the data the ido one creates.
 As for new packages using =helm=, I'd like having something slightly
 better than my current setup with =dmenu= driving =mpd=.  Another
 thing that would be cool to have would be an interface to
-http://dict.cc/ and its offline dictionaries with history.
+http://dict.cc/ and its offline dictionaries with history.  Searching
+the package archives and AUR would be better than the Web UI.  Perhaps
+replacing all of my search engine usage if it proves to be better
+(incremental completion is the problem).  Oh and full-text search on
+info manuals, it would be enough to be able to it on the currently
+open node and its children.
 
 * Bump bug reports without replies
 
@@ -511,3 +521,39 @@ See http://emacs.stackexchange.com/questions/2293/change-syntax-highlighting-wit
 
 See ~savehist-additional-variables~.
 
+* Improve =package=
+
+When it comes to its adherence to MVC, it's pretty terrible (you need
+to open the view before you're able to do anything beyond installing a
+package blindly) and lacks a good amount of functionality you'd just
+expect to be there (nothing to view changelogs, previewing packages,
+removing packages outside the view, searching dependencies, etc.).
+There's plenty other problems lurking in there including installation
+bugs.
+
+* Write package for hacking on keymaps
+
+There's nothing just previewing them properly or more than the bare
+minimum for creating them.  Just doing some research on those and
+nice-to-haves would be nice for a blog.
+
+* Start an Emacs Blog
+
+I've always wanted to do a technical blog, but it will very likely be
+mostly about Emacs which is totally fine.  Interludes about other Lisp
+dialects, Arch Linux and general Software Engineering would be pretty
+cool.  I have a 90% finished blog engine, completing it would solve
+the technical issues, as domain I've chosen http://emacsninja.com/
+(because there's this one fun article about ninjas and pirates using
+Vim and Emacs at
+http://philosecurity.org/2009/03/23/pirates-and-ninjas-emacs-or-vi
+which I will of course elaborate upon in its About page).  The design
+is something I'm less sure about, but I'd love incorporating modelines
+or just flatout stealing from http://emacsrocks.com/.
+
+* Start an Emacs Microblog
+
+This is slightly different from above.  I keep encountering really
+weird/scary code in Emacs' codebase and would like to have something
+like http://whattheemacsd.com/ or the http://opensslrampage.org/ or
+http://geoff.greer.fm/vim/#realwaitforchar.
