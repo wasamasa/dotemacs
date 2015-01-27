@@ -928,6 +928,22 @@ For silly reasons I like having a rainbow-colored prompt.
 (add-hook 'eshell-load-hook 'nyan-prompt-enable)
 #+END_SRC
 
+*** CC-Mode
+
+In their ingenuity the Emacs developers decided to make the GNU style
+the default style for C code written with it.  While this is a
+decision that helps making contribution to GNU projects still adhering
+to this style (including Emacs itself) a fair bit easier, I'd hate
+using it for anything else.  I don't know my exact preferences yet,
+but for the time being the "user" style is good enough and can still
+be customized into something more sophisticated.
+
+#+BEGIN_SRC emacs-lisp
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "user")))
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
@@ -1454,7 +1470,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-cc-mode)
 (require 'setup-lisp)
 (require 'setup-web)
 (require 'setup-python)
