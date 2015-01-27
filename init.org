@@ -1109,6 +1109,19 @@ I dislike =helm= taking over tab-completion in my IRC client.
         circe-server-mode))
 #+END_SRC
 
+*** =flycheck=
+
+There's a few languages I like having linting for, see [[Hooks]].
+Additionally to that there's few things to tweak.  For one I prever
+the =tex-lacheck= linter over the default =tex-chktex= linter, another
+thing is that I don't want linting to start on an idle timer, but
+rather on opening the buffer and saving it to disk.
+
+#+BEGIN_SRC emacs-lisp
+(setq flycheck-disabled-checkers '(tex-chktex)
+      flycheck-check-syntax-automatically '(mode-enabled save))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -1229,6 +1242,20 @@ To fine tune completion behavior, I'll prefer ~company-mode~ over
   (add-hook hook 'company-mode))
 #+END_SRC
 
+Enable linting for a few select modes by default.  The rest is
+programming languages I don't happen to use, languages I don't have a
+linter installed for or that would be too annoying to always check.
+Like, the default =emacs-lisp= (and =emacs-lisp-checkdoc=, too) linter
+which always assumes I'm writing an Emacs package.
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-flycheck-mode-hooks
+  '(python-mode-hook ruby-mode-hook LaTeX-mode-hook))
+
+(dolist (hook my-flycheck-mode-hooks)
+  (add-hook hook 'flycheck-mode))
+#+END_SRC
+
 ** Other
 
 #+BEGIN_SRC emacs-lisp
@@ -1274,7 +1301,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-flycheck)
 (require 'setup-helm-fkeys)
 (require 'setup-cc-mode)
 (require 'setup-lisp)
