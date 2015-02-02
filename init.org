@@ -944,6 +944,69 @@ be customized into something more sophisticated.
                         (other . "user")))
 #+END_SRC
 
+*** =eldoc-mode=
+
+The default idle delay is way too long.
+
+#+BEGIN_SRC emacs-lisp
+(setq eldoc-idle-delay 0.1)
+#+END_SRC
+
+*** Emacs Lisp
+
+Cask files are just Emacs Lisp.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
+#+END_SRC
+
+Additionally to the =F1= keybindings I'd like to have two extra
+keybinds for evaluation and a REPL.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-eval-region-or-buffer ()
+  (interactive)
+  (if (region-active-p)
+      (eval-region (region-beginning) (region-end))
+    (eval-buffer)))
+
+(with-eval-after-load 'lisp-mode
+  (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'my-eval-region-or-buffer)
+  (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm))
+#+END_SRC
+
+=eldoc= is a nice helper to avoid looking up function signatures in
+function documentation.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+#+END_SRC
+
+*** Scheme
+
+I like CHICKEN.
+
+#+BEGIN_SRC emacs-lisp
+(setq scheme-program-name "csi")
+(add-to-list 'interpreter-mode-alist '("chicken-scheme" . scheme-mode))
+#+END_SRC
+
+To avoid typing =M-x run-scheme=, I define another useful keybinding.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'scheme
+  (define-key scheme-mode-map (kbd "C-c C-z") 'run-scheme))
+#+END_SRC
+
+*** Common Lisp
+
+I like SBCL.
+
+#+BEGIN_SRC emacs-lisp
+(setq inferior-lisp-program "/usr/bin/sbcl")
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
@@ -1291,6 +1354,24 @@ Then define a setup function used in ~after-init-hook~.
                ("t" "[T]racking" my-open-tracking))))
 #+END_SRC
 
+*** CIDER
+
+I like =eldoc= for function signatures, hiding less interesting
+buffers is also nice to have.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+(setq nrepl-hide-special-buffers t)
+#+END_SRC
+
+*** SLIME
+
+Let's fancy things up.
+
+#+BEGIN_SRC emacs-lisp
+(setq slime-contribs '(slime-fancy))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -1343,7 +1424,7 @@ Org-mode capturing on =<F11>= mirrors inbox look-up on =<F12>=.
 (global-set-key (kbd "<f11>") 'org-capture)
 #+END_SRC
 
-** Hooks
+** TODO Hooks
 
 First of all, let's define a list of hooks for everything that's not a
 special mode.  This will inevitably contain modes that have not been
@@ -1425,6 +1506,21 @@ which always assumes I'm writing an Emacs package.
   (add-hook hook 'flycheck-mode))
 #+END_SRC
 
+Rainbow-colored delimiters still work best in Lisp modes.
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-lisp-mode-hooks
+  '(emacs-lisp-mode-hook ielm-mode-hook scheme-mode-hook
+    inferior-scheme-mode-hook lisp-mode-hook lisp-interaction-mode-hook
+    clojure-mode-hook nrepl-interaction-mode-hook))
+
+(dolist (hook my-lisp-mode-hooks)
+  (add-hook hook 'rainbow-delimiters-mode))
+#+END_SRC
+
+After doing this five times in a row I should be able to figure out a
+boiler-plate reducing macro.
+
 ** Other
 
 #+BEGIN_SRC emacs-lisp
@@ -1470,7 +1566,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-lisp)
 (require 'setup-web)
 (require 'setup-python)
 (require 'setup-ruby)
@@ -1499,6 +1594,8 @@ unconditionally run after init has finished.
   (electric-indent-mode -1)
   (which-function-mode)
   (my-setup-helm-fkeys)
+  (cl-lib-highlight-initialize)
+  (cl-lib-highlight-warn-cl-initialize)
   (unicode-whitespace-setup)
   (line-number-mode)
   (column-number-mode))
