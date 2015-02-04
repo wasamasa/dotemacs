@@ -155,6 +155,16 @@ In other words, keeping track of visual line breaks, using them to
 speed up rendering and keeping them up to date.  This will obviously
 require hacking on the buffer data structure.
 
+* Bring pixel-level smooth scrolling to Emacs
+
+This is part of the railwaycat OS X Emacs port.  To my surprise the
+code enabling it is 99% elisp and a few lines of C in =xdisp.c=.  It
+would be very cool if it could be done in 100% elisp, but a small
+patch wouldn't hurt either.
+
+https://github.com/railwaycat/emacs-mac-port/blob/dbf18e1269297e3a6ff5441c59419ad234449c16/lisp/term/mac-win.el#L2007-L2402
+https://github.com/railwaycat/emacs-mac-port/blob/2e5ff4921e4474713878c587965b7e45a0cd12bf/src/xdisp.c#L16227-L16229
+
 * Write a proper CSV viewer/editor
 
 Until that long lines bug is fixed, viewing CSV files is no fun.  To
@@ -389,6 +399,12 @@ benefit is configurability in case should I ever change the leader
 prefix, but that's rather unlikely and can already be done with a
 variable.
 
+* Do a better job with the =C-i= hack for evil
+
+It seems to work out initially, but is somehow reset to normal tab key
+behaviour.  Re-evaluating it temporarily fixes it.  This is pretty
+weird, I've got to find out what the hell is happening there.
+
 * Configure =smartparens= to start out with way less pairs
 
 It's annoying to fix quotes for every Lisp-related mode (text-related
@@ -424,6 +440,13 @@ http://cmacr.ae/blog/2015/01/25/email-in-emacs/
 There's plenty on the issue tracker, asides from that I want to make
 nick coloring more flexible by incorporating
 https://github.com/TaylanUB/circe/commits/nick-colors/lisp/circe-color-nicks.el.
+
+Another fun hack is displaying fools as XPM piggies instead of hiding
+them, ideally with the toggle function doing a bit more work (by
+traversing all circe buffers by looking for property changes involving
+=lui-raw-text=) on every toggle.  The idea could be explored by
+another hack that retroactively applies fool (maybe ignore, too?)
+information.
 
 * Configure =elfeed=
 
