@@ -1400,24 +1400,6 @@ Let's fancy things up.
 (setq slime-contribs '(slime-fancy))
 #+END_SRC
 
-*** CIDER
-
-I like =eldoc= for function signatures, hiding less interesting
-buffers is also nice to have.
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-(setq nrepl-hide-special-buffers t)
-#+END_SRC
-
-*** SLIME
-
-Let's fancy things up.
-
-#+BEGIN_SRC emacs-lisp
-(setq slime-contribs '(slime-fancy))
-#+END_SRC
-
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
