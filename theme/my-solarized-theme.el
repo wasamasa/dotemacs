@@ -125,9 +125,7 @@ combinations remain unchanged."
     output))
 
 (my-apply-faces
- '((helm-fkey-key-face :foreground red :weight bold)
-   (helm-fkey-bracket-face :weight bold)
-   (my-circe-greentext-face :foreground green)
+ '((my-circe-greentext-face :foreground green)
    (my-circe-highlight-notification-face :foreground fg-2 :weight bold)
    (comint-highlight-input :foreground unspecified)
    (comint-highlight-prompt :foreground unspecified)
@@ -567,6 +565,10 @@ combinations remain unchanged."
    ;; hl-line-mode
    (hl-line :background bg-2)
    (hl-line-face :background bg-2)
+
+   ;; hydra
+   (hydra-face-red :foreground red :weight bold)
+   (hydra-face-blue :foreground blue :weight bold)
 
    ;; ido-mode
    (ido-first-match :foreground yellow :weight normal)

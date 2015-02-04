@@ -216,10 +216,9 @@ samples to play.
 
 * Work on helm packages
 
-I'm mostly happy with =helm-fkeys=, maybe it could be turned into a
-minor mode though.  =helm-smex= not so much.  It would be a lot better
-to add a helm interface to smex directly instead of hacking something
-that reuses the data the ido one creates.
+I'm less happy about =helm-smex=.  It would be a lot better to add a
+helm interface to smex directly instead of hacking something that
+reuses the data the ido interface creates.
 
 As for new packages using =helm=, I'd like having something slightly
 better than my current setup with =dmenu= driving =mpd=.  Another
@@ -228,7 +227,7 @@ http://dict.cc/ and its offline dictionaries with history.  Searching
 the package archives and AUR would be better than the Web UI.  Perhaps
 replacing all of my search engine usage if it proves to be better
 (incremental completion is the problem).  Oh and full-text search on
-info manuals, it would be enough to be able to it on the currently
+info manuals, it would be enough to be able to use it on the currently
 open node and its children.
 
 * Bump bug reports without replies
@@ -536,6 +535,19 @@ bugs.
 There's nothing just previewing them properly or more than the bare
 minimum for creating them.  Just doing some research on those and
 nice-to-haves would be nice for a blog.
+
+* Explore Hydra a bit more
+
+I've replaced my =helm-fkeys= package successfully with it, however
+its aspect of repeatable actions definitely sounds interesting, too.
+Obvious candidates would be window resizing and font size changes,
+perhaps other stuff like =macrostep= as well.
+
+* Integrate =macrostep= into =evil=
+
+For yet unknown reasons =macrostep= can only be used in Emacs state.
+Figuring out its hook and using ~evil-normalize-keymaps~ should do the
+trick, but it doesn't.
 
 * Start an Emacs Blog
 

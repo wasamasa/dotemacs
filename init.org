@@ -1201,7 +1201,7 @@ rather on opening the buffer and saving it to disk.
       flycheck-check-syntax-automatically '(mode-enabled save))
 #+END_SRC
 
-*** =helm-fkeys=
+*** Hydra
 
 Define a few utility functions first.
 
@@ -1263,95 +1263,123 @@ Define a few utility functions first.
 Then define a setup function used in ~after-init-hook~.
 
 #+BEGIN_SRC emacs-lisp
-(defun my-setup-helm-fkeys ()
-  (helm-fkey "Help" "f1" "<f1>"
-             '(("a" "[A]propos" helm-apropos)
-               ("b" "Describe [B]indings" describe-bindings)
-               ("c" "Describe [C]har" describe-char)
-               ("d" "[D]ocumentation" apropos-documentation)
-               ("f" "Find [F]unction" find-function)
-               ("F" "Describe [F]unction" describe-function)
-               ("i" "[I]nfo" info)
-               ("k" "Describe [K]ey" describe-key)
-               ("l" "[L]ossage" view-lossage)
-               ("m" "Describe [M]odes" describe-mode)
-               ("p" "[P]ackages by category" finder-by-keyword)
-               ("v" "Find [V]ariable" find-variable)
-               ("V" "Describe [V]ariable" describe-variable)))
+(defun my-setup-hydra ()
+  (global-set-key
+   (kbd "<f1>")
+   (defhydra hydra-help (:color blue)
+     "Help"
+     ("a" helm-apropos "Apropos")
+     ("c" describe-char "Describe Char")
+     ("f" find-function "Find Function")
+     ("F" describe-function "Describe Function")
+     ("k" describe-key "Describe Key")
+     ("m" describe-mode "Describe Modes")
+     ("v" find-variable "Find Variable")
+     ("V" describe-variable "Describe Variable")))
 
-  (helm-fkey "Packages" "f2" "<f2>"
-             '(("c" "[C]olors" helm-colors)
-               ("f" "[F]ind Library" find-library)
-               ("g" "Customize [G]roup" customize-group)
-               ("i" "Package [I]nstall" package-install)
-               ("p" "[P]ackage List" package-list-packages)
-               ("t" "Load [T]heme" helm-themes)
-               ("v" "Customize [V]ariable" customize-variable)))
+  (global-set-key
+   (kbd "<f2>")
+   (defhydra hydra-packages (:color blue)
+     "Packages"
+     ("c" helm-colors "Colors")
+     ("f" find-library "Find Library")
+     ("g" customize-group "Customize Group")
+     ("i" package-install "Package Install")
+     ("p" package-list-packages "Package List")
+     ("q" quelpa "Quelpa")
+     ("t" helm-themes "Load Theme")
+     ("v" customize-variable "Customize Variable")))
 
-  (helm-fkey "Search" "f3" "<f3>"
-             '(("a" "Imenu [A]nywhere" helm-imenu-anywhere)
-               ("g" "[G]rep" helm-do-grep)
-               ("h" "Org [H]eadlines" helm-org-headlines)
-               ("i" "[I]menu" helm-imenu)
-               ("m" "[M]ulti-occur" helm-multi-occur)
-               ("o" "[O]ccur" helm-occur)))
+  (global-set-key
+   (kbd "<f3>")
+   (defhydra hydra-search (:color blue)
+     "Search"
+     ("a" helm-imenu-anywhere "Imenu Anywhere")
+     ("g" helm-do-grep "Grep")
+     ("h" helm-org-headlines "Org Headlines")
+     ("i" helm-imenu "Imenu")
+     ("m" helm-multi-occur "Multi-occur")
+     ("o" helm-occur "Occur")))
 
-  (helm-fkey "Find" "f4" "<f4>"
-             '(("b" "[B]uffers" helm-buffers-list)
-               ("f" "[F]ind" helm-find)
-               ("i" "Find F[i]les" helm-find-files)
-               ("l" "[L]ocate" helm-locate)
-               ("t" "Cmd-[T]" helm-cmd-t)))
+  (global-set-key
+   (kbd "<f4>")
+   (defhydra hydra-find (:color blue)
+     "Find"
+     ("b" helm-buffers-list "Buffers")
+     ("f" helm-find "Find")
+     ("i" helm-find-files "Find Files")
+     ("l" helm-locate "Locate")
+     ("t" helm-cmd-t "Cmd-T")))
 
-  (helm-fkey "Eval" "f5" "<f5>"
-             '(("c" "[C]alc" calc)
-               ("e" "[E]shell" eshell)
-               ("g" "Ma[g]it" magit-status)
-               ("i" "[I]ELM" ielm)
-               ("r" "[R]egexp" helm-regexp)
-               ("s" "[S]hell" shell)
-               ("t" "[T]erm" my-zsh)
-               ("x" "Calculate E[x]pression" helm-calcul-expression)))
+  (global-set-key
+   (kbd "<f5>")
+   (defhydra hydra-eval (:color blue)
+     "Eval"
+     ("c" calc "Calc")
+     ("e" eshell "Eshell")
+     ("g" magit-status "Magit")
+     ("i" ielm "IELM")
+     ("r" helm-regexp "Regexp")
+     ("s" shell "Shell")
+     ("t" my-zsh "Term")
+     ("x" helm-calcul-expression "Calculate Expression")))
 
-  (helm-fkey "Doc" "f6" "<f6>"
-             '(("c" "[C]L" my-info-cl)
-               ("e" "[E]macs manual" info-emacs-manual)
-               ("i" "Emacs Lisp [I]ntro" my-info-emacs-lisp-intro)
-               ("l" "Emacs [L]isp manual" my-info-emacs-lisp-manual)
-               ("m" "[M]an" helm-man-woman)
-               ("o" "L[O]OP" my-info-cl-loop)
-               ("p" "[P]ydoc" helm-pydoc)))
+  (global-set-key
+   (kbd "<f6>")
+   (defhydra hydra-doc (:color blue)
+     "Doc"
+     ("c" my-info-cl "CL")
+     ("e" info-emacs-manual "Emacs manual")
+     ("i" info "Info")
+     ("l" my-info-emacs-lisp-manual "Emacs Lisp manual")
+     ("m" helm-man-woman "Man")
+     ("o" my-info-cl-loop "LOOP")))
 
-  (helm-fkey "Insert" "f7" "<f7>"
-             '(("l" "[L]aTeX Math" helm-insert-latex-math)
-               ("u" "[U]CS" helm-ucs)))
+  (global-set-key
+   (kbd "<f7>")
+   (defhydra hydra-zoom (:color blue)
+     "zoom"
+     ("l" helm-insert-latex-math "LaTeX Math")
+     ("u" helm-ucs "UCS")))
 
-  (helm-fkey "Misc" "f8" "<f8>"
-             '(("g" "[G]oogle Suggest" helm-google-suggest)
-               ("p" "Emacs [P]rocess List" helm-list-emacs-process)
-               ("s" "[S]urfraw" helm-surfraw)
-               ("t" "[T]op" helm-top)
-               ("w" "[W]orld time" helm-world-time)))
+  (global-set-key
+   (kbd "<f8>")
+   (defhydra hydra-misc (:color blue)
+     "Misc"
+     ("g" helm-google-suggest "Google Suggest")
+     ("p" helm-list-emacs-process "Emacs Process List")
+     ("s" helm-surfraw "Surfraw")
+     ("t" helm-top "Top")
+     ("w" helm-world-time "World time")))
 
-  (helm-fkey "Distractions" "f9" "<f9>"
-             '(("f" "News [F]eeds" elfeed)
-               ("i" "[I]RC" my-irc)
-               ("m" "E-[M]ail" mu4e)
-               ("t" "[T]etris" tetris)))
+  (global-set-key
+   (kbd "<f9>")
+   (defhydra hydra-distractions (:color blue)
+     "Distractions"
+     ("f" elfeed "News Feeds")
+     ("i" my-irc "IRC")
+     ("m" mu4e "E-Mail")
+     ("t" tetris "Tetris")))
 
-  (helm-fkey "Org Capture" "f11" "<f11>"
-             '(("c" "[C]apture" org-capture)
-               ("j" "[J]ournal" my-capture-journal)
-               ("n" "[N]ote" my-capture-note)
-               ("p" "[P]W" my-capture-pw)
-               ("w" "[W]ork" my-capture-work)))
+  (global-set-key
+   (kbd "<f11>")
+   (defhydra hydra-capture (:color blue)
+     "Org Capture"
+     ("c" org-capture "Capture")
+     ("j" my-capture-journal "Journal")
+     ("n" my-capture-note "Note")
+     ("p" my-capture-pw "PW")
+     ("w" my-capture-work "Work")))
 
-  (helm-fkey "Org Lookup" "f12" "<f12>"
-             '(("c" "[C]alendar" cfw:open-org-calendar)
-               ("i" "[I]nbox" my-open-inbox)
-               ("j" "[J]ournal" my-open-journal)
-               ("p" "[P]W" my-open-pw)
-               ("t" "[T]racking" my-open-tracking))))
+  (global-set-key
+   (kbd "<f12>")
+   (defhydra hydra-lookup (:color blue)
+     "Org Lookup"
+     ("c" cfw:open-org-calendar "Calendar")
+     ("i" my-open-inbox "Inbox")
+     ("j" my-open-journal "Journal")
+     ("p" my-open-pw "PW")
+     ("t" my-open-tracking "Tracking"))))
 #+END_SRC
 
 *** CIDER
@@ -1556,7 +1584,6 @@ without.
 
 #+BEGIN_SRC emacs-lisp
 (require 'helm-smex)
-(require 'helm-fkeys)
 #+END_SRC
 
 ** TODO Unfinished
@@ -1592,7 +1619,7 @@ unconditionally run after init has finished.
   (helm-mode)
   (electric-indent-mode -1)
   (which-function-mode)
-  (my-setup-helm-fkeys)
+  (my-setup-hydra)
   (cl-lib-highlight-initialize)
   (cl-lib-highlight-warn-cl-initialize)
   (unicode-whitespace-setup)
