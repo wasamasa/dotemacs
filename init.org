@@ -1007,6 +1007,22 @@ I like SBCL.
 (setq inferior-lisp-program "/usr/bin/sbcl")
 #+END_SRC
 
+*** NXML
+
+Let's automatically complete closing tags.
+
+#+BEGIN_SRC emacs-lisp
+(setq nxml-slash-auto-complete-flag t)
+#+END_SRC
+
+*** CSS
+
+Indentation could be a bit more narrow.
+
+#+BEGIN_SRC emacs-lisp
+(setq css-indent-offset 2)
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
@@ -1400,6 +1416,40 @@ Let's fancy things up.
 (setq slime-contribs '(slime-fancy))
 #+END_SRC
 
+*** =rainbow-mode=
+
+For not yet explained reasons I need to use =M-x
+font-lock-fontify-buffer= always after both enabling and disabling
+this minor mode to see changes.  A bit of advice can do this
+automatically for you.
+
+#+BEGIN_SRC emacs-lisp
+(defadvice rainbow-turn-on (after fontify-buffer activate)
+  (font-lock-fontify-buffer))
+(defadvice rainbow-turn-off (after fontify-buffer activate)
+  (font-lock-fontify-buffer))
+#+END_SRC
+
+*** =js2-mode=
+
+Not only CSS is using a low indentation width these days.
+
+#+BEGIN_SRC emacs-lisp
+(setq js2-basic-offset 2)
+#+END_SRC
+
+*** =web-mode=
+
+Deals with all kinds of templates and other files with multiple modes
+one encounters in web development.  Other than templates, I prefer
+using it for HTML these days.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tmpl\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -1454,19 +1504,19 @@ Org-mode capturing on =<F11>= mirrors inbox look-up on =<F12>=.
 
 ** TODO Hooks
 
-First of all, let's define a list of hooks for everything that's not a
-special mode.  This will inevitably contain modes that have not been
-properly derived, might be worth reporting those.
+First of all, let's define a helper function that does the boilerplate
+for us.
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-non-special-mode-hooks
-  '(text-mode-hook prog-mode-hook css-mode-hook))
+(defun my-add-function-to-hooks (function hooks)
+  (dolist (hook hooks)
+    (add-hook hook function)))
 #+END_SRC
 
-Then define a function to set up all non-special modes by enabling
-fringe indicators, showing trailing whitespace and making underscores
-a word character.  This function is added to all of those modes as
-hook afterwards.
+I'll start with a list of hooks for everything that's not a special
+mode or in other words, related to programming and text editing.  This
+will inevitably contain modes that have not been properly derived,
+might be worth reporting those.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-non-special-modes-setup ()
@@ -1476,47 +1526,39 @@ hook afterwards.
   (modify-syntax-entry ?_ "w")
   (goto-address-mode))
 
-(dolist (hook my-non-special-mode-hooks)
-  (add-hook hook 'my-non-special-modes-setup))
+(my-add-function-to-hooks
+  'my-non-special-modes-setup
+  '(text-mode-hook prog-mode-hook css-mode-hook))
 #+END_SRC
 
 Same deal with programming-related hooks and text-related hooks.
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-text-mode-hooks
+(my-add-function-to-hooks
+  'auto-fill-mode
   '(text-mode-hook css-mode-hook))
-
-(defun my-text-modes-setup ()
-  (auto-fill-mode))
-
-(dolist (hook my-text-mode-hooks)
-  (add-hook hook 'my-text-modes-setup))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-prog-mode-hooks
-  '(prog-mode-hook))
-
 (defun my-prog-modes-setup ()
   (make-local-variable 'comment-auto-fill-only-comments)
   (setq comment-auto-fill-only-comments t)
   (auto-fill-mode)
   (column-enforce-mode))
 
-(dolist (hook my-prog-mode-hooks)
-  (add-hook hook 'my-prog-modes-setup))
+(my-add-function-to-hooks
+  'my-prog-modes-setup
+  '(prog-mode-hook))
 #+END_SRC
 
 To fine tune completion behavior, I'll prefer ~company-mode~ over
 ~global-company-mode~.  I should add more hooks for REPLs, too.
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-completion-mode-hooks
+(my-add-function-to-hooks
+  'company-mode
   '(prog-mode-hook css-mode-hook nxml-mode-hook sgml-mode-hook
     css-mode-hook ielm-mode-hook))
-
-(dolist (hook my-completion-mode-hooks)
-  (add-hook hook 'company-mode))
 #+END_SRC
 
 Enable linting for a few select modes by default.  The rest is
@@ -1526,27 +1568,28 @@ Like, the default =emacs-lisp= (and =emacs-lisp-checkdoc=, too) linter
 which always assumes I'm writing an Emacs package.
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-flycheck-mode-hooks
-  '(python-mode-hook ruby-mode-hook LaTeX-mode-hook))
-
-(dolist (hook my-flycheck-mode-hooks)
-  (add-hook hook 'flycheck-mode))
+(my-add-function-to-hooks
+ 'flycheck-mode
+ '(python-mode-hook ruby-mode-hook LaTeX-mode-hook))
 #+END_SRC
 
 Rainbow-colored delimiters still work best in Lisp modes.
 
 #+BEGIN_SRC emacs-lisp
-(defvar my-lisp-mode-hooks
+(my-add-function-to-hooks
+  'rainbow-delimiters-mode
   '(emacs-lisp-mode-hook ielm-mode-hook scheme-mode-hook
     inferior-scheme-mode-hook lisp-mode-hook lisp-interaction-mode-hook
     clojure-mode-hook nrepl-interaction-mode-hook))
-
-(dolist (hook my-lisp-mode-hooks)
-  (add-hook hook 'rainbow-delimiters-mode))
 #+END_SRC
 
-After doing this five times in a row I should be able to figure out a
-boiler-plate reducing macro.
+Colored color codes however only make sense for CSS, HTML and XML.
+
+#+BEGIN_SRC emacs-lisp
+(my-add-function-to-hooks
+  'rainbow-mode
+  '(css-mode-hook sgml-mode-hook nxml-mode-hook web-mode-hook))
+#+END_SRC
 
 ** Other
 
@@ -1592,7 +1635,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-web)
 (require 'setup-python)
 (require 'setup-ruby)
 (require 'setup-auctex)
