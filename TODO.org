@@ -553,6 +553,14 @@ removing packages outside the view, searching dependencies, etc.).
 There's plenty other problems lurking in there including installation
 bugs.
 
+* Fix spamming bugs for =rcirc= (and ERC?)
+
+There's at the very least a bug making RET RET on the nicklist in
+=rcirc= send the entire nicklist to the channel.  One possible
+solution would be special-casing the nicklist, a more general one
+would involve a paste protection for both long messages and messages
+containing newlines with tresholds for both.
+
 * Write package for hacking on keymaps
 
 There's nothing just previewing them properly or more than the bare
