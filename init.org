@@ -1241,6 +1241,12 @@ Define a few utility functions first.
 (defun my-info-cl-loop ()
   (interactive)
   (info "(cl) Loop facility"))
+
+(defun my-open-r5rs ()
+  (interactive)
+  (eww-open-file
+   "~/.usr/local/share/chicken/doc/manual/The R5RS standard.html"))
+
 (defun my-capture-journal ()
   (interactive)
   (org-capture nil "j"))
@@ -1349,7 +1355,8 @@ Then define a setup function used in ~after-init-hook~.
      ("i" info "Info")
      ("l" my-info-emacs-lisp-manual "Emacs Lisp manual")
      ("m" helm-man-woman "Man")
-     ("o" my-info-cl-loop "LOOP")))
+     ("o" my-info-cl-loop "LOOP")
+     ("r" my-open-r5rs "R5RS")))
 
   (global-set-key
    (kbd "<f7>")
