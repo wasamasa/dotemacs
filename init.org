@@ -1011,6 +1011,14 @@ To avoid typing =M-x run-scheme=, I define another useful keybinding.
   (define-key scheme-mode-map (kbd "C-c C-z") 'run-scheme))
 #+END_SRC
 
+Indentation hints fortunately seem to work for other languages than
+Emacs Lisp.
+
+#+BEGIN_SRC emacs-lisp
+(put 'match-let 'scheme-indent-function 1)
+(put 'match-let* 'scheme-indent-function 1)
+#+END_SRC
+
 *** Common Lisp
 
 I like SBCL.
