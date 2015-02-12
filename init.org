@@ -630,6 +630,18 @@ As usual I want to fix up the file it's storing its history in.
   (setq tramp-persistency-file-name "~/.emacs.d/etc/tramp"))
 #+END_SRC
 
+But to be honest, I prefer it not automatically interfering with
+everything.  Unloading it entirely causes packages to break that
+assume it's enabled, therefore I'm going for its main entry point and
+dike it out.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-disable-tramp-file-handlers ()
+  (setq file-name-handler-alist
+        (--remove (string-match-p "^tramp" (symbol-name (cdr it)))
+                  file-name-handler-alist)))
+#+END_SRC
+
 *** Calendar
 
 General functionality for calendars inside Emacs, split up in a lot of
@@ -1709,6 +1721,7 @@ unconditionally run after init has finished.
 #+BEGIN_SRC emacs-lisp
 (defun my-after-init ()
   (sml/setup)
+  (require 'dash)
   (recentf-mode)
   (savehist-mode)
   (require 'saveplace)
@@ -1719,6 +1732,7 @@ unconditionally run after init has finished.
   (electric-indent-mode -1)
   (which-function-mode)
   (my-setup-hydra)
+  (my-disable-tramp-file-handlers)
   (company-quickhelp-mode)
   (cl-lib-highlight-initialize)
   (cl-lib-highlight-warn-cl-initialize)
