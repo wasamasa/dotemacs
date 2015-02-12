@@ -1023,6 +1023,15 @@ Indentation could be a bit more narrow.
 (setq css-indent-offset 2)
 #+END_SRC
 
+*** Python
+
+Emacs is not aware of version-dependent shebangs.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'interpreter-mode-alist '("python2" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python3" . python-mode))
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
@@ -1457,6 +1466,49 @@ using it for HTML these days.
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 #+END_SRC
 
+*** =company-jedi=
+
+Bootstrap =jedi= automatically per file for completion.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'python-mode-hook 'company-jedi-start)
+#+END_SRC
+
+*** TODO =enh-ruby-mode=
+
+I'll use this mode for everything the stock =ruby-mode= would be used
+for because it provides better syntax highlighting and indentation.  I
+still need to test though how it compares to vanilla =ruby-mode= now
+that it's using SMIE for the latter.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . enh-ruby-mode))
+#+END_SRC
+
+For deep indentation, allow bouncing towards a less deep level.
+
+#+BEGIN_SRC emacs-lisp
+(setq enh-ruby-bounce-deep-indent t)
+#+END_SRC
+
+To work around a bug present in the package I'm explicitly telling it
+to use a less recent Ruby executable I've obtained from the AUR.
+
+#+BEGIN_SRC emacs-lisp
+(setq enh-ruby-program "ruby-2.1")
+#+END_SRC
+
+*** =inf-ruby=
+
+=pry= is awesome.
+
+#+BEGIN_SRC emacs-lisp
+(setq inf-ruby-default-implementation "pry")
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -1642,8 +1694,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-python)
-(require 'setup-ruby)
 (require 'setup-auctex)
 (require 'setup-smartparens)
 (require 'setup-evil)
