@@ -456,7 +456,7 @@ locked up.
   (interactive)
   (my-quit-emacs '(4)))
 
-(define-key special-event-map (kbd "<sigusr2>") 'my-quit-emacs-unconditionally)
+(define-key special-event-map (kbd "<sigusr1>") 'my-quit-emacs-unconditionally)
 #+END_SRC
 
 ** Packages bundled with Emacs
