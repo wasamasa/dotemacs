@@ -1514,13 +1514,6 @@ For deep indentation, allow bouncing towards a less deep level.
 (setq enh-ruby-bounce-deep-indent t)
 #+END_SRC
 
-To work around a bug present in the package I'm explicitly telling it
-to use a less recent Ruby executable I've obtained from the AUR.
-
-#+BEGIN_SRC emacs-lisp
-(setq enh-ruby-program "ruby-2.1")
-#+END_SRC
-
 *** =inf-ruby=
 
 =pry= is awesome.
