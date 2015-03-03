@@ -459,6 +459,15 @@ locked up.
 (define-key special-event-map (kbd "<sigusr1>") 'my-quit-emacs-unconditionally)
 #+END_SRC
 
+*** Don't use dialog boxes
+
+Clicking on an install button for instance makes Emacs spawn dialog
+boxes from that point on.
+
+#+BEGIN_SRC emacs-lisp
+(setq use-dialog-box nil)
+#+END_SRC
+
 ** Packages bundled with Emacs
 
 This includes stuff that is bundled with Emacs and can be obtained
