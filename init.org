@@ -1113,6 +1113,11 @@ necessary for the global backends.  It's possible to make
 ~company-backends~ buffer-local and allow mixing backends as most fit
 per mode to allow for something like =yasnippet= integration.
 
+Alternatively, use the relatively new =:with= keyword to always use a
+backend along the previously listed ones.
+
+https://github.com/company-mode/company-mode/issues/79
+
 #+BEGIN_SRC emacs-lisp
 (setq company-idle-delay 0.1
       company-minimum-prefix-length 2
