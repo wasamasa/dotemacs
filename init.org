@@ -1692,6 +1692,96 @@ It may be customized with the following variables:
           (LaTeX-environment-menu environment))))))
 #+END_SRC
 
+*** TODO =smartparens=
+
+Promises to go beyond =paredit= by supporting other languages than
+Lisp-likes with arbitrary kinds of pairs.  I only use its autopairing
+feature, pair highlighting and a bit of auto-indent though.
+
+First of all, no long pair mismatch messages please, they're reserved
+for debugging purposes.
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-message-width nil)
+#+END_SRC
+
+Because I'm using =evil=, funny things are happening with my cursor,
+like it not going beyond the end of the line in normal state.  To
+emulate a bit more Vim-like paren highlighting, pairs should be shown
+from inside, too.
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-show-pair-from-inside t)
+#+END_SRC
+
+Automatic quote escaping feels like a mistake to me (and to its author
+as well ._.).
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-autoescape-string-quote nil)
+#+END_SRC
+
+This curiously named variable controls whether the overlay spanning
+the pair's content disappears on backwards motions, something entirely
+different than its name suggests.
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-cancel-autoskip-on-backward-movement nil)
+#+END_SRC
+
+The following wall of code disables pairs for Lisp- and TeX-like modes
+that make absolutely no sense, it would be a lot better to include
+default configs for that upstream since I cannot imagine who would
+disagree with those.  Note how ~show-smartparens-mode~ breaks on a few
+of these lines in the TeX block.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'smartparens
+  (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+  (sp-local-pair 'minibuffer-inactive-mode "`" nil :actions nil)
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
+  (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+  (sp-local-pair 'lisp-interaction-mode "`" nil :actions nil)
+  (sp-local-pair 'scheme-mode "'" nil :actions nil)
+  (sp-local-pair 'scheme-mode "`" nil :actions nil)
+  (sp-local-pair 'inferior-scheme-mode "'" nil :actions nil)
+  (sp-local-pair 'inferior-scheme-mode "`" nil :actions nil)
+
+  (sp-local-pair 'LaTeX-mode "\"" nil :actions nil)
+  (sp-local-pair 'LaTeX-mode "'" nil :actions nil)
+  (sp-local-pair 'LaTeX-mode "`" nil :actions nil)
+  (sp-local-pair 'latex-mode "\"" nil :actions nil)
+  (sp-local-pair 'latex-mode "'" nil :actions nil)
+  (sp-local-pair 'latex-mode "`" nil :actions nil)
+  (sp-local-pair 'TeX-mode "\"" nil :actions nil)
+  (sp-local-pair 'TeX-mode "'" nil :actions nil)
+  (sp-local-pair 'TeX-mode "`" nil :actions nil)
+  (sp-local-pair 'tex-mode "\"" nil :actions nil)
+  (sp-local-pair 'tex-mode "'" nil :actions nil)
+  (sp-local-pair 'tex-mode "`" nil :actions nil))
+#+END_SRC
+
+Finally, working on college assignments in both C and Java made me
+wish for an interesting feature I've seen in IDEs: Automatic insertion
+of a correctly indented newline before the closing brace which allows
+you to enter its content right away.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-create-newline-and-enter-sexp (&rest _ignored)
+  "Open a new brace or bracket expression, with relevant newlines and indent."
+  (newline)
+  (indent-according-to-mode)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(with-eval-after-load 'smartparens
+  (sp-local-pair 'c-mode "{" nil :post-handlers
+                 '((my-create-newline-and-enter-sexp "RET")))
+  (sp-local-pair 'java-mode "{" nil :post-handlers
+                 '((my-create-newline-and-enter-sexp "RET"))))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -1766,7 +1856,9 @@ might be worth reporting those.
   (setq indicate-buffer-boundaries '((top . left) (bottom . left)))
   (setq show-trailing-whitespace t)
   (modify-syntax-entry ?_ "w")
-  (goto-address-mode))
+  (goto-address-mode)
+  (smartparens-mode)
+  (show-smartparens-mode))
 
 (my-add-function-to-hooks
   'my-non-special-modes-setup
@@ -1833,6 +1925,13 @@ Colored color codes however only make sense for CSS, HTML and XML.
   '(css-mode-hook sgml-mode-hook nxml-mode-hook web-mode-hook))
 #+END_SRC
 
+=smartparens= ought to be enabled in the minibuffer, too.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'minibuffer-setup-hook 'smartparens-mode)
+(add-hook 'minibuffer-setup-hook 'show-smartparens-mode)
+#+END_SRC
+
 ** Other
 
 #+BEGIN_SRC emacs-lisp
@@ -1877,7 +1976,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-smartparens)
 (require 'setup-evil)
 (require 'setup-yasnippet)
 (require 'setup-distractions)
