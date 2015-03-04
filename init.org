@@ -1782,6 +1782,23 @@ you to enter its content right away.
                  '((my-create-newline-and-enter-sexp "RET"))))
 #+END_SRC
 
+*** =yasnippet=
+
+Snippets are quite useful for boilerplatey languages.  Like, Java.
+Although, if you take it far enough, even something as =org-mode=
+qualifies considering I can never remember the proper syntax for code
+blocks.
+
+I dislike bundled snippets though and have written a few of my own.
+Anything more advanced than timestamps and said code blocks will
+require me to read its docs.
+
+#+BEGIN_SRC emacs-lisp
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(with-eval-after-load 'yasnippet
+  (yas-reload-all))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -1858,7 +1875,8 @@ might be worth reporting those.
   (modify-syntax-entry ?_ "w")
   (goto-address-mode)
   (smartparens-mode)
-  (show-smartparens-mode))
+  (show-smartparens-mode)
+  (yas-minor-mode))
 
 (my-add-function-to-hooks
   'my-non-special-modes-setup
@@ -1977,7 +1995,6 @@ without.
 
 ;; load remaining setup files
 (require 'setup-evil)
-(require 'setup-yasnippet)
 (require 'setup-distractions)
 #+END_SRC
 
