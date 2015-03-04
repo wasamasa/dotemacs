@@ -1877,7 +1877,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-auctex)
 (require 'setup-smartparens)
 (require 'setup-evil)
 (require 'setup-yasnippet)
