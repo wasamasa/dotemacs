@@ -1115,6 +1115,16 @@ The only thing to configure is its rules.
         (t :select t)))
 #+END_SRC
 
+*** =eyebrowse=
+
+Switch back and forth just like my i3wm configuration, wrap around,
+too.
+
+#+BEGIN_SRC emacs-lisp
+(setq eyebrowse-switch-back-and-forth-p t
+      eyebrowse-wrap-around-p t)
+#+END_SRC
+
 *** =company-mode=
 
 The following sets up a good amount of UI tweaks and everything
@@ -1782,6 +1792,370 @@ you to enter its content right away.
                  '((my-create-newline-and-enter-sexp "RET"))))
 #+END_SRC
 
+*** TODO Evil
+
+Here comes the set of sane text editing keybindings I can't live
+without.  Both implementation and execution are excellent and reuse as
+much from Emacs as possible, resulting in very high compatibility and
+feature coverage.  The only thing I can complain about is that its
+sources are pretty much incomprehensible to me.
+
+Despite that weakness I've managed writing my own additions to improve
+integration a good bit more according to my own tastes.
+
+First of all, there are plenty of special modes where neither insert
+state nor motion state suffice.  I've instead decided to do away with
+motion state and going for Emacs state whenever it makes sense.  To
+aid Evil with this, I've modified its function that decides upon the
+initial state for a major mode to look up derived modes and aliases,
+an improvement I should really propose to upstream, simply because it
+would cut down their oversized whitelists.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-real-function (fun)
+  "Figure out the actual symbol behind a function.
+Returns a different symbol if FUN is an alias, otherwise FUN."
+  (let ((symbol-function (symbol-function fun)))
+    (if (symbolp symbol-function)
+        symbol-function
+      fun)))
+
+(defun my-derived-mode-p (mode modes)
+  "Non-nil if MODE is derived from one of MODES.
+Uses the `derived-mode-parent' property of the symbol to trace backwards."
+  (let ((parent mode))
+    (while (and (not (memq (my-real-function parent) modes))
+		(setq parent (get (my-real-function parent)
+                                  'derived-mode-parent))))
+    (my-real-function parent)))
+
+(with-eval-after-load 'evil-core
+  (defun evil-initial-state (mode &optional default)
+    "Return the Evil state to use for MODE.
+Returns DEFAULT if no initial state is associated with MODE.
+The initial state for a mode can be set with
+`evil-set-initial-state'."
+    (let (state modes)
+      (catch 'done
+        (dolist (entry (nreverse (evil-state-property t :modes)) default)
+          (setq state (car entry)
+                modes (symbol-value (cdr entry)))
+          (when (or (memq mode modes)
+                    (my-derived-mode-p mode modes))
+            (throw 'done state)))))))
+
+(setq evil-default-state 'emacs
+      evil-insert-state-modes '(git-commit-mode)
+      evil-emacs-state-modes '()
+      evil-normal-state-modes '(text-mode prog-mode fundamental-mode
+                                          css-mode conf-mode
+                                          TeX-mode LaTeX-mode)
+      evil-motion-state-modes '())
+#+END_SRC
+
+for some reason ~org-capture-mode~ ignores an initial state, that's
+why I use a mode hook instead.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-capture-mode-hook 'evil-insert-state)
+#+END_SRC
+
+Go for a bit more Emacs-like feel for movement, undo, search.
+
+#+BEGIN_SRC emacs-lisp
+(setq evil-cross-lines t
+      evil-move-cursor-back nil
+      evil-want-fine-undo t
+      evil-symbol-word-search t)
+#+END_SRC
+
+However, I want =C-w= to still be the window map prefix in Emacs state
+(instead of the standard ~kill-region~ command).  As the customization
+setting for that is applied in =evil-maps.el= which is loaded by
+=evil.el=, I need to load it before enabling ~evil-mode~.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-vars
+  (setq evil-want-C-w-in-emacs-state t)
+  (setq evil-want-C-i-jump t))
+#+END_SRC
+
+Some minor modes come with keymaps reminiscent of special major modes,
+these get overridden by Evil.  These can be fixed by using
+~evil-normalize-keymaps~, at least for ~edebug-mode~.  For yet unknown
+reasons it doesn't work for ~macrostep-mode~.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'edebug-mode-hook 'evil-normalize-keymaps)
+(add-hook 'macrostep-mode-hook 'evil-normalize-keymaps)
+#+END_SRC
+
+Let's poke some holes into its keymaps.  Anything not bound will be
+passed through to Emacs other keymaps.  Because =SPC=, =RET= and =TAB=
+are bound to rather silly commands in Vim I'm unbinding them to allow
+for much more useful Emacs commands (such as context-aware indentation, following
+links, scrolling a page down, etc.).
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-visual-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-visual-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil)
+  (define-key evil-visual-state-map (kbd "TAB") nil))
+#+END_SRC
+
+Same story with =C-.= and =M-.=, the latter is usually bound to lookup
+of symbol at point.  The former is unbound because I'm fat-fingering
+often.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "C-.") nil)
+  (define-key evil-normal-state-map (kbd "M-.") nil))
+#+END_SRC
+
+The hole poking continues, this time for the insert state keymap.
+Everything except the keys to exit insert state and toggle to Emacs
+state has to go.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (setq evil-insert-state-map
+        (cons 'keymap
+              (let ((key-number (string-to-char (kbd evil-toggle-key))))
+                (--select
+                 (memq (car-safe it) `(escape ,key-number))
+                 (cdr evil-insert-state-map))))))
+#+END_SRC
+
+=C-w= works in Emacs state, but not in insert state.  Let's fix that.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-insert-state-map (kbd "C-w") 'evil-window-map))
+#+END_SRC
+
+=C-i= is used in Vim as counterpart to =C-o= for going back and forth
+in the jump list.  It also happens to be interpreted as =TAB=, simply
+because terminals are a nightmare.  Fortunately GUI Emacs can be told
+to not resolve =C-i= to indentation.  This should be done by default
+(check the value of ~evil-want-C-i-jump~), but for whatever reason, it
+doesn't work properly.  To avoid errors about unbound keys, =C-i= is
+otherwise bound to a keyboard macro that triggers whatever =TAB= would
+do.
+
+#+BEGIN_SRC emacs-lisp
+(define-key input-decode-map [?\C-i] [C-i])
+(global-set-key (kbd "<C-i>") (kbd "TAB"))
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
+#+END_SRC
+
+=C-u= is bound to a scroll up command in Vim, in Emacs however it's
+used for the prefix argument.  This feels pretty weird to me after
+having bothered learning =C-u= as command for killing a whole line in
+everything using the readline library.  I consider =M-u= as a good
+replacement considering it's bound to the rather useless ~upcase-word~
+command by default which I most definitely will not miss.
+
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "C-u") 'kill-whole-line)
+(define-key global-map (kbd "M-u") 'universal-argument)
+(define-key universal-argument-map (kbd "C-u") 'kill-whole-line)
+(define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
+#+END_SRC
+
+Emacs 24.4 introduced ~electric-indent-mode~ as default which happens
+to be a global mode.  I'm not particularly fond of it (and anything
+starting with =electric-=), that's why I disable it later after
+initialization is done and instead bind ~newline-and-indent~ in insert
+state.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-insert-state-map (kbd "RET") 'newline-and-indent))
+#+END_SRC
+
+Let's get rid of =;= for the questionable benefit of having a modifier
+less to hit for entering ex state.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map ";" 'evil-ex)
+  (define-key evil-visual-state-map ";" 'evil-ex))
+#+END_SRC
+
+I want =Y= to yank to the end of line.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-evil-yank-to-eol ()
+  (interactive)
+  (evil-yank (point) (line-end-position)))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map "Y" 'my-evil-yank-to-eol))
+#+END_SRC
+
+=U= is a much more fit key for redoing than =C-r=.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "U") 'undo-tree-redo))
+#+END_SRC
+
+The =evil-numbers= package is pretty nice, but I don't want to use the
+standard Vim keybinds (=C-a= and =C-x=) for its commands.  Instead I'm
+going for the much more mnemonic =+= and =-=.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
+  (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt))
+#+END_SRC
+
+I'm not sure what to think of the =ace-jump=.  For convenience I've
+reduced its jump keys to the homerow and bound a few commands.
+
+#+BEGIN_SRC emacs-lisp
+(setq ace-jump-mode-move-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-char-mode)
+  (define-key evil-normal-state-map (kbd "S-SPC") 'evil-ace-jump-word-mode)
+  (define-key evil-normal-state-map (kbd "C-SPC") 'evil-ace-jump-line-mode)
+  (define-key evil-operator-state-map (kbd "SPC") 'evil-ace-jump-char-mode)
+  (define-key evil-operator-state-map (kbd "S-SPC") 'evil-ace-jump-word-mode)
+  (define-key evil-operator-state-map (kbd "C-SPC") 'evil-ace-jump-line-mode))
+#+END_SRC
+
+The =z= map is full of keybindings I can never remember for dealing
+with code folding.  First of all, get rid of them.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (setq evil-normal-state-map
+        (cons 'keymap
+              (let ((key-number (string-to-char "z")))
+                (--reject
+                 (eq (car-safe it) key-number)
+                 (cdr evil-normal-state-map)))))
+
+  (setq evil-motion-state-map
+        (cons 'keymap
+              (let ((key-number (string-to-char "z")))
+                (--reject
+                 (eq (car-safe it) key-number)
+                 (cdr evil-motion-state-map))))))
+#+END_SRC
+
+Next, define a few toggling commands and bind them.
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-hs-hide nil
+  "Current state of hideshow for toggling all.")
+
+(with-eval-after-load 'evil-common
+  (evil-define-command my-evil-toggle-folds ()
+    "Open or close all folds."
+    (setq my-hs-hide (not my-hs-hide))
+    (if my-hs-hide
+        (hs-hide-all)
+      (hs-show-all))))
+
+(defun my-toggle-mode-line-minor-modes ()
+  (interactive)
+  (if rm-blacklist
+      (setq rm-blacklist nil)
+    (setq rm-blacklist ".*"))
+  (force-mode-line-update))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map "zs" 'describe-char)
+  (define-key evil-normal-state-map "ze" 'toggle-debug-on-error)
+  (define-key evil-normal-state-map "zq" 'toggle-debug-on-quit)
+  (define-key evil-normal-state-map "zt" 'my-solarized-toggle)
+  (define-key evil-normal-state-map "zm" 'my-toggle-mode-line-minor-modes)
+  (define-key evil-normal-state-map (kbd "z TAB") 'evil-toggle-fold)
+  (define-key evil-normal-state-map (kbd "z <backtab>") 'my-evil-toggle-folds))
+#+END_SRC
+
+Define my most-used helpers (stolen from =unimpaired.vim=) next.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-evil-unimpaired-insert-newline-above (count)
+  "Insert an empty line below point"
+  (interactive "p")
+  (save-excursion
+    (dotimes (i count)
+      (evil-insert-newline-above))))
+
+(defun my-evil-unimpaired-insert-newline-below (count)
+  "Insert an empty line below point"
+  (interactive "p")
+  (save-excursion
+    (dotimes (i count)
+      (evil-insert-newline-below))))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "[ SPC")
+    'my-evil-unimpaired-insert-newline-above)
+  (define-key evil-normal-state-map (kbd "] SPC")
+    'my-evil-unimpaired-insert-newline-below))
+#+END_SRC
+
+Add a few convenience bindings to the window map on =C-w=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-work-on-scratch ()
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
+  (emacs-lisp-mode))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-window-map (kbd "n") 'my-work-on-scratch)
+  (define-key evil-window-map (kbd "u") 'winner-undo)
+  (define-key evil-window-map (kbd "b") 'helm-mini)
+  (define-key evil-window-map (kbd "d") 'kill-buffer)
+  (define-key evil-window-map (kbd "D") 'kill-buffer-and-window)
+  (define-key evil-window-map (kbd "C-d") 'kill-buffer-and-window))
+#+END_SRC
+
+Then some "leader" bindings.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-switch-to-last-buffer ()
+  (interactive)
+  (switch-to-buffer (other-buffer)))
+
+(defun my-find-file-with-root-privileges (filename)
+  (interactive "F")
+  (let ((pw (concat (password-read "Enter password: ") "\n"))
+        (sudo-process (start-process "Sudo" "*sudo*" "sudo" "-Se" filename)))
+    (process-send-string sudo-process pw)))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd ", ,") 'my-switch-to-last-buffer)
+  (define-key evil-normal-state-map (kbd ", .") 'helm-mini)
+  (define-key evil-normal-state-map (kbd ", /") 'helm-find-files)
+  (define-key evil-normal-state-map (kbd ", ?") 'my-find-file-with-root-privileges))
+#+END_SRC
+
+Finally, there's a few minor modes depending on Evil being loaded
+before they are.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-after-evil ()
+  (global-surround-mode)
+  (eyebrowse-mode)
+  (eyebrowse-setup-opinionated-keys))
+
+(add-hook 'evil-mode-hook 'my-after-evil)
+#+END_SRC
+
 *** =yasnippet=
 
 Snippets are quite useful for boilerplatey languages.  Like, Java.
@@ -1813,7 +2187,24 @@ Deactivate all other uses of insert than =Shift-Insert=.
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<insert>") nil)
-(global-set-key (kbd "S-<insert>") nil)
+(global-set-key (kbd "<C-insert>") nil)
+#+END_SRC
+
+FWIW, yanking is what Emacs calls /pasting/ text.  Unlike Vim where it
+stands for /copying/ text.  Anyways, I want to rectify the curious
+default of making =S-insert= paste from the same place as =C-y=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-yank-primary ()
+  (interactive)
+  (let ((primary (or (x-get-selection-value)
+                     (x-get-selection))))
+    (unless primary
+      (error "No selection is available"))
+    (push-mark (point))
+    (insert-for-yank primary)))
+
+(global-set-key (kbd "<S-insert>") 'my-yank-primary)
 #+END_SRC
 
 Install a keybind that saves all buffers with asking (use a prefix
@@ -1950,17 +2341,6 @@ Colored color codes however only make sense for CSS, HTML and XML.
 (add-hook 'minibuffer-setup-hook 'show-smartparens-mode)
 #+END_SRC
 
-** Other
-
-#+BEGIN_SRC emacs-lisp
-(defun my-toggle-mode-line-minor-modes ()
-  (interactive)
-  (if rm-blacklist
-      (setq rm-blacklist nil)
-    (setq rm-blacklist ".*"))
-  (force-mode-line-update))
-#+END_SRC
-
 ** Packages
 
 Emacs Lisp files can be easily turned into packages one can load and
@@ -1981,8 +2361,7 @@ respective directories and need to be added to the ~load-path~.
 
 ** Unpublished
 
-I have a bunch of stuff I'm working on.  Some of it I can't live
-without.
+I have a bunch of stuff I'm working on.
 
 #+BEGIN_SRC emacs-lisp
 (require 'helm-smex)
@@ -1994,7 +2373,6 @@ without.
 (require 'setup-defuns)
 
 ;; load remaining setup files
-(require 'setup-evil)
 (require 'setup-distractions)
 #+END_SRC
 
@@ -2017,6 +2395,7 @@ unconditionally run after init has finished.
   (electric-indent-mode -1)
   (which-function-mode)
   (my-setup-hydra)
+  (evil-mode)
   (my-disable-tramp-file-handlers)
   (company-quickhelp-mode)
   (cl-lib-highlight-initialize)
