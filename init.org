@@ -1130,7 +1130,7 @@ too.
       eyebrowse-wrap-around-p t)
 #+END_SRC
 
-*** =company-mode=
+*** TODO =company-mode=
 
 The following sets up a good amount of UI tweaks and everything
 necessary for the global backends.  It's possible to make
