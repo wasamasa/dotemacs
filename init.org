@@ -910,8 +910,8 @@ convenient use.  Note the remapping of commands.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'comint
-  (define-key comint-mode-map [remap kill-word] 'my-kill-word)
-  (define-key comint-mode-map [remap backward-kill-word] 'my-backward-kill-word)
+  (define-key comint-mode-map (kbd "<remap> <kill-word>") 'my-kill-word)
+  (define-key comint-mode-map (kbd "<remap> <backward-kill-word>") 'my-backward-kill-word)
   (define-key comint-mode-map (kbd "C-S-l") 'my-comint-clear-last-output)
   (define-key comint-mode-map (kbd "C-l") 'my-recenter-top-bottom))
 #+END_SRC
@@ -1201,10 +1201,8 @@ of file selectors.
       helm-ff--auto-update-state t)
 
 (with-eval-after-load 'helm-files
-  (define-key helm-read-file-map (kbd "<backspace>")
-    'helm-find-files-up-one-level)
-  (define-key helm-find-files-map (kbd "<backspace>")
-    'helm-find-files-up-one-level))
+  (define-key helm-read-file-map (kbd "<backspace>") 'helm-find-files-up-one-level)
+  (define-key helm-find-files-map (kbd "<backspace>") 'helm-find-files-up-one-level))
 #+END_SRC
 
 There are more idiosyncracies to be resolved with file selection.  I
@@ -1951,7 +1949,7 @@ otherwise bound to a keyboard macro that triggers whatever =TAB= would
 do.
 
 #+BEGIN_SRC emacs-lisp
-(define-key input-decode-map [?\C-i] [C-i])
+(define-key input-decode-map [?\C-i] (kbd "<C-i>"))
 (global-set-key (kbd "<C-i>") (kbd "TAB"))
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
@@ -1989,8 +1987,8 @@ less to hit for entering ex state.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-maps
-  (define-key evil-motion-state-map ";" 'evil-ex)
-  (define-key evil-visual-state-map ";" 'evil-ex))
+  (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+  (define-key evil-visual-state-map (kbd ";") 'evil-ex))
 #+END_SRC
 
 I want =Y= to yank to the end of line.
@@ -2001,7 +1999,7 @@ I want =Y= to yank to the end of line.
   (evil-yank (point) (line-end-position)))
 
 (with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map "Y" 'my-evil-yank-to-eol))
+  (define-key evil-normal-state-map (kbd "Y") 'my-evil-yank-to-eol))
 #+END_SRC
 
 =U= is a much more fit key for redoing than =C-r=.
@@ -2078,11 +2076,11 @@ Next, define a few toggling commands and bind them.
   (force-mode-line-update))
 
 (with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map "zs" 'describe-char)
-  (define-key evil-normal-state-map "ze" 'toggle-debug-on-error)
-  (define-key evil-normal-state-map "zq" 'toggle-debug-on-quit)
-  (define-key evil-normal-state-map "zt" 'my-solarized-toggle)
-  (define-key evil-normal-state-map "zm" 'my-toggle-mode-line-minor-modes)
+  (define-key evil-normal-state-map (kbd "z s") 'describe-char)
+  (define-key evil-normal-state-map (kbd "ze") 'toggle-debug-on-error)
+  (define-key evil-normal-state-map (kbd "zq") 'toggle-debug-on-quit)
+  (define-key evil-normal-state-map (kbd "zt") 'my-solarized-toggle)
+  (define-key evil-normal-state-map (kbd "zm") 'my-toggle-mode-line-minor-modes)
   (define-key evil-normal-state-map (kbd "z TAB") 'evil-toggle-fold)
   (define-key evil-normal-state-map (kbd "z <backtab>") 'my-evil-toggle-folds))
 #+END_SRC
