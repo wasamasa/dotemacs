@@ -888,11 +888,15 @@ knows what might possibly be relying on this default behaviour.
   (unless buffer-read-only
     (let ((beg (point))
           (end (save-excursion (forward-word arg) (point)))
-          (point (save-excursion (goto-char (next-single-char-property-change
-                                             (point) 'read-only))
+          (point (save-excursion (goto-char
+                                  (if (> arg 0)
+                                      (next-single-char-property-change
+                                       (point) 'read-only)
+                                    (previous-single-char-property-change
+                                     (point) 'read-only)))
                                  (point))))
       (unless (get-char-property (point) 'read-only)
-        (if (< point end)
+        (if (if (> arg 0) (< point end) (> point end))
             (kill-region beg point)
           (kill-region beg end))))))
 
