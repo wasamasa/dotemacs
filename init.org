@@ -1028,6 +1028,7 @@ Indentation hints fortunately seem to work for other languages than
 Emacs Lisp.
 
 #+BEGIN_SRC emacs-lisp
+(put 'match 'scheme-indent-function 1)
 (put 'match-let 'scheme-indent-function 1)
 (put 'match-let* 'scheme-indent-function 1)
 #+END_SRC
@@ -1350,6 +1351,7 @@ Then define a setup function used in ~after-init-hook~.
      ("f" find-function "Find Function")
      ("F" describe-function "Describe Function")
      ("k" describe-key "Describe Key")
+     ("K" find-function-on-key "Find Key")
      ("m" describe-mode "Describe Modes")
      ("v" find-variable "Find Variable")
      ("V" describe-variable "Describe Variable")))
@@ -2103,10 +2105,8 @@ Define my most-used helpers (stolen from =unimpaired.vim=) next.
       (evil-insert-newline-below))))
 
 (with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map (kbd "[ SPC")
-    'my-evil-unimpaired-insert-newline-above)
-  (define-key evil-normal-state-map (kbd "] SPC")
-    'my-evil-unimpaired-insert-newline-below))
+  (define-key evil-normal-state-map (kbd "[ SPC") 'my-evil-unimpaired-insert-newline-above)
+  (define-key evil-normal-state-map (kbd "] SPC") 'my-evil-unimpaired-insert-newline-below))
 #+END_SRC
 
 Add a few convenience bindings to the window map on =C-w=.
