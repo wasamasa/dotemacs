@@ -2251,7 +2251,7 @@ before they are.
 (add-hook 'evil-mode-hook 'my-after-evil)
 #+END_SRC
 
-*** =yasnippet=
+*** TODO =yasnippet=
 
 Snippets are quite useful for boilerplatey languages.  Like, Java.
 Although, if you take it far enough, even something as =org-mode=
@@ -2262,10 +2262,26 @@ I dislike bundled snippets though and have written a few of my own.
 Anything more advanced than timestamps and said code blocks will
 require me to read its docs.
 
+There seems to be some sort of keyboard mismatch with my customization
+that makes Evil no longer jump forward after yet unknown preconditions
+which is undoubtedly due to it overloading =TAB= and =<tab>=.  I'll
+just play it safe here and define =M-o= (bound to rather useless
+commands that apparently change the appearance of text weren't it for
+syntax highlighting being a default since at least a decade) for
+triggering expansion instead.  That would normally settle it weren't
+it for this package being super smart and looking up a fallback key to
+call for expansion failure which in the case of a global binding would
+be itself leading to a recursion error.  Yay.  So, extra customization
+to disable that it is.
+
 #+BEGIN_SRC emacs-lisp
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (with-eval-after-load 'yasnippet
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
   (yas-reload-all))
+(global-set-key (kbd "M-o") 'yas-expand)
+(setq yas-fallback-behavior 'return-nil)
 #+END_SRC
 
 ** Keybinds
