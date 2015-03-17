@@ -1974,8 +1974,7 @@ setting for that is applied in =evil-maps.el= which is loaded by
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-vars
-  (setq evil-want-C-w-in-emacs-state t)
-  (setq evil-want-C-i-jump t))
+  (setq evil-want-C-w-in-emacs-state t))
 #+END_SRC
 
 Some minor modes come with keymaps reminiscent of special major modes,
@@ -2038,11 +2037,11 @@ state has to go.
 =C-i= is used in Vim as counterpart to =C-o= for going back and forth
 in the jump list.  It also happens to be interpreted as =TAB=, simply
 because terminals are a nightmare.  Fortunately GUI Emacs can be told
-to not resolve =C-i= to indentation.  This should be done by default
-(check the value of ~evil-want-C-i-jump~), but for whatever reason, it
-doesn't work properly.  To avoid errors about unbound keys, =C-i= is
-otherwise bound to a keyboard macro that triggers whatever =TAB= would
-do.
+to not resolve =C-i= to indentation.  This should be done by default,
+but I've unbound it earlier to have the tabulator key resolve to
+whatever the right Emacs command would be.  To avoid errors about
+unbound keys, =C-i= is otherwise bound to a keyboard macro that
+triggers whatever =TAB= would do.
 
 #+BEGIN_SRC emacs-lisp
 (define-key input-decode-map [?\C-i] (kbd "<C-i>"))
