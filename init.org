@@ -1530,9 +1530,7 @@ Then define a setup function used in ~after-init-hook~.
    (kbd "<f9>")
    (defhydra hydra-distractions (:color blue)
      "Distractions"
-     ("f" elfeed "News Feeds")
      ("i" my-irc "IRC")
-     ("m" mu4e "E-Mail")
      ("t" tetris "Tetris")))
 
   (global-set-key
