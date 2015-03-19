@@ -1907,6 +1907,9 @@ initial state for a major mode to look up derived modes and aliases,
 an improvement I should really propose to upstream, simply because it
 would cut down their oversized whitelists.
 
+Alternatively I could just add the respective state function to the
+corresponding hook.
+
 #+BEGIN_SRC emacs-lisp
 (defun my-real-function (fun)
   "Figure out the actual symbol behind a function.
@@ -1949,11 +1952,12 @@ The initial state for a mode can be set with
       evil-motion-state-modes '())
 #+END_SRC
 
-for some reason ~org-capture-mode~ ignores an initial state, that's
-why I use a mode hook instead.
+~org-capture-mode~ is a minor mode, that's why I need to use its hook
+instead.  Same goes for ~view-mode~.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
+(add-hook 'view-mode-hook 'evil-emacs-state)
 #+END_SRC
 
 Go for a bit more Emacs-like feel for movement, undo, search.
