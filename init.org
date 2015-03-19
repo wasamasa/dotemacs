@@ -2282,6 +2282,295 @@ to disable that it is.
 (setq yas-fallback-behavior 'return-nil)
 #+END_SRC
 
+*** Circe
+
+=rcirc= is too small, ERC is too large.  So I chose Circe as my IRC
+client living inside Emacs.  As for why IRC in Emacs in the first
+place, I wanted to leave irssi behind and didn't really like Weechat.
+So why not try something extensible?
+
+First of all, let's define who I am and change the quit/part message
+to something less advertising.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-default-nick "wasamasa"
+      circe-default-user "wasamasa"
+      circe-default-realname "wasamasa"
+      circe-default-part-message "Bye"
+      circe-default-quit-message "Bye")
+#+END_SRC
+
+I'm using [[http://wiki.znc.in/ZNC][ZNC]] to connect to both [[http://freenode.net/][Freenode]] and the [[http://www.d-t-net.de/][f0o]] network, but
+Bitlbee for Jabber.  Passwords for the [[https://en.wikipedia.org/wiki/Internet_Relay_Chat_services#NickServ][Nickserv service]] are kept in a
+private file which is read in by a password function.
+
+#+BEGIN_SRC emacs-lisp
+(setq my-credentials-file "~/.emacs.d/etc/private.el")
+
+(defun my-retrieve-irc-password (_)
+  (let ((network circe-server-network))
+    (with-temp-buffer
+      (insert-file-contents-literally my-credentials-file)
+      (let ((plist (read (buffer-string))))
+        (if (string= network "Bitlbee")
+            (plist-get plist :bitlbee-password)
+          (plist-get plist :znc-password))))))
+
+(setq circe-network-options
+      '(("ZNC/freenode" :host "brause.cc" :port 30832
+         :user "wasamasa/freenode" :pass my-retrieve-irc-password)
+        ("ZNC/f0o" :host "brause.cc" :port 30833
+         :user "wasamasa/f0o" :pass my-retrieve-irc-password)
+        ("Bitlbee" :port 6667 :lagmon-disabled t
+         :nickserv-password my-retrieve-irc-password)))
+#+END_SRC
+
+I cannot imagine why I wouldn't want to use in-line tab-completion
+with cycling just as it exists in other IRC clients.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-use-cycle-completion t)
+#+END_SRC
+
+Smart filter is like the best IRC-related invention ever!
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-reduce-lurker-spam t)
+#+END_SRC
+
+Let's customize a few format strings.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-format-self-say "<{nick}> {body}"
+      circe-format-server-topic "*** Topic Change by {origin}: {topic-diff}"
+      circe-server-buffer-name "{network}"
+      circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face))
+#+END_SRC
+
+Other entities using my nickname are not ghosted by default, that's
+why I enable it, but only after authenticating in some way.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-nickserv-ghost-style 'after-auth)
+#+END_SRC
+
+ZNC handles autojoins for me, but Circe does not recognize these.  So,
+instead I'll just ignore all buffers that are opened implicitly.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-new-buffer-behavior 'ignore)
+#+END_SRC
+
+I'm sending highlights to a =*hl*= buffer for occasionally taking a
+look at them, so please ignore tracking it.
+
+#+BEGIN_SRC emacs-lisp
+(setq tracking-ignored-buffers '("*hl*"))
+#+END_SRC
+
+When using the =circe-color-nicks= contrib module, please color
+nicknames /inside/ messages as well.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-color-nicks-everywhere t)
+#+END_SRC
+
+Let's add a few extra keybindings common in all buffers Circe spawns.
+I want word killing to behave the same as for =comint=, =C-l= to
+redraw and reposition and =C-u= to kill the whole line since there's a
+more appropriate command than the default one bound to =C-u=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-window-C-l ()
+  (interactive)
+  (goto-char (point-max))
+  (recenter-top-bottom -1))
+
+(with-eval-after-load 'lui
+  (define-key lui-mode-map (kbd "<remap> <kill-word>") 'my-kill-word)
+  (define-key lui-mode-map (kbd "<remap> <backward-kill-word>") 'my-backward-kill-word)
+  (define-key lui-mode-map (kbd "C-l") 'my-window-C-l)
+  (define-key lui-mode-map (kbd "C-u") 'lui-kill-to-beginning-of-line))
+#+END_SRC
+
+The standard nickname switching function is a bit silly.  I own a
+bunch of nicknames and will use the =wasa= one for switching.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-circe-nick-next (oldnick)
+    (cond ((string= oldnick "wasamasa") "wasa")
+          ((string= oldnick "wasa" "wasamasa"))))
+
+(setq circe-nick-next-function 'my-circe-nick-next)
+#+END_SRC
+
+Until the =circe-color-nicks= contrib module takes color buckets for
+selection, I'll monkeypatch it to use the palette of solarized colors
+as defined by bbatsov.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'circe-color-nicks
+  (defun circe-generate-nick-color ()
+    "Patched version which only returns theme colors"
+    (let ((solarized-colors
+           '("#b58900" "#cb4b16" "#dc322f" "#d33682" "#6c71c4"
+             "#268bd2" "#2aa198" "#859900" "#7b6000" "#deb542"
+             "#f2804f" "#ff6e64" "#f771ac" "#9ea0e5" "#00629d"
+             "#69b7f0" "#00736f" "#69cabf" "#546e00" "#b4c342")))
+      (nth (random (length solarized-colors)) solarized-colors))))
+#+END_SRC
+
+There isn't a highlighting function /yet/ that could do something
+useful like setting a X urgency hint, asides from that I want a bit
+more of control to treat highlights in private queries different from
+channel highlights.  The following code yanks out the default one and
+replaces it with something slightly better.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-x-urgency-hint ()
+  (let* ((wm-hints (append (x-window-property
+                            "WM_HINTS" nil "WM_HINTS" nil nil t) nil))
+         (flags (car wm-hints)))
+    (setcar wm-hints (logior flags #x00000100))
+    (x-change-window-property "WM_HINTS" wm-hints nil "WM_HINTS" 32 t)))
+
+(defun my-any-regex-in-string (regexes string)
+  (when string (--any-p (s-contains? it string) regexes)))
+
+(defface my-circe-highlight-notification-face '((t (:weight bold)))
+  "Face for circe notifications")
+
+(defun my-circe-message-option-highlight (nick user host command args)
+  (let* ((highlight-regexps '("webspid0r" "wubspider" "wasamasa" "wasa\\>"))
+         (irc-message (cadr args))
+         (highlight-match (my-any-regex-in-string highlight-regexps irc-message)))
+    (when irc-message
+      (when (not (equal nick circe-default-nick))
+        (when (and (not (equal major-mode 'circe-server-mode))
+                   (and (not (s-matches? "LAGMON" irc-message))
+                        (equal major-mode 'circe-query-mode))
+                   (or highlight-match
+                       (equal major-mode 'circe-query-mode)))
+          (my-x-urgency-hint))
+        (when highlight-match
+          '((text-properties . (face my-circe-highlight-notification-face message t))))))))
+
+(add-hook 'circe-message-option-functions 'my-circe-message-option-highlight)
+
+(setq circe-track-faces-priorities '(my-circe-highlight-notification-face
+                                     circe-my-message-face circe-server-face))
+
+(defun my-circe-disable-highlight-nick ()
+  (remove-hook 'lui-pre-output-hook 'circe-highlight-nick t))
+
+(add-hook 'circe-chat-mode-hook 'my-circe-disable-highlight-nick)
+#+END_SRC
+
+Highlight quoted text in a green color for fun and profit (or to be
+honest, to discern 4chan people from the rest).
+
+#+BEGIN_SRC emacs-lisp
+(defface my-circe-greentext-face '((t (:foreground "spring green")))
+  "Face for greentext detected in circe.")
+
+(defun my-circe-color-greentext ()
+  (when (memq major-mode '(circe-channel-mode circe-query-mode))
+    (let ((body-beg (text-property-any (point-min) (point-max)
+                                       'lui-format-argument 'body))
+          (greentext-regex "\\([^[:space:]]+?: \\)?\\(>[[:word:][:space:]]\\)"))
+      (when body-beg
+        (goto-char body-beg)
+        (when (looking-at greentext-regex)
+          (add-text-properties (match-beginning 2) (point-max)
+                               '(face my-circe-greentext-face)))))))
+
+(add-hook 'lui-pre-output-hook 'my-circe-color-greentext)
+#+END_SRC
+
+I dislike =custom=, but want persistent fools.  So, advice it is!
+
+#+BEGIN_SRC emacs-lisp
+(defvar my-circe-fool-file "~/.emacs.d/etc/fools"
+  "File to store persistent fools in.")
+
+(defun my-circe-serialize-fools (fools)
+  (with-temp-file my-circe-fool-file
+    (insert (prin1-to-string fools))))
+
+(defun my-circe-deserialize-fools ()
+  (when (file-exists-p my-circe-fool-file)
+    (with-temp-buffer
+      (insert-file-contents-literally my-circe-fool-file)
+      (read (buffer-substring-no-properties (point-min) (point-max))))))
+
+(defun my-circe-load-fools ()
+  (setq circe-fool-list (my-circe-deserialize-fools)))
+
+(defun my-circe-update-fools ()
+  (my-circe-serialize-fools
+   (-union (my-circe-deserialize-fools) circe-fool-list)))
+
+(defun my-circe-truncate-fools ()
+  (my-circe-serialize-fools circe-fool-list))
+
+(defadvice circe-command-FOOL (after persistent-fools activate)
+  (my-circe-update-fools))
+
+(defadvice circe-command-UNFOOL (after persistent-fools activate)
+  (my-circe-truncate-fools))
+
+(add-hook 'circe-channel-mode-hook 'my-circe-load-fools)
+#+END_SRC
+
+There is a pretty annoying interaction between ZNC's replay feature
+which makes the lagmon reconnect kick in if too much time is spent not
+replying to anything, here's a hack to deal with it by disabling it as
+long as it's going on.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-circe-display-PRIVMSG (nick user host command args)
+  (when (and (string= nick "***") (string= user "znc"))
+    (let ((message (cadr args)))
+      (cond
+       ((string= message "Buffer Playback...")
+        (circe-lagmon-mode -1))
+       ((string= message "Playback Complete.")
+        (circe-lagmon-mode)))))
+  (circe-display-PRIVMSG nick user host command args))
+
+(with-eval-after-load 'circe
+  (circe-set-display-handler "PRIVMSG" 'my-circe-display-PRIVMSG))
+#+END_SRC
+
+Sometimes I like knowing just how many people are online.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-circe-count-nicks ()
+  (interactive)
+  (when (eq major-mode 'circe-channel-mode)
+    (message "%i entities are online on %s."
+             (hash-table-count circe-channel-users)
+             (buffer-name))))
+
+(with-eval-after-load 'circe
+  (define-key circe-channel-mode-map (kbd "C-c n") 'my-circe-count-nicks))
+#+END_SRC
+
+And finally, the function for entering IRC.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-irc ()
+  "Connect to all my IRC servers after enabling contrib modules."
+  (interactive)
+  (circe-lagmon-mode)
+  (enable-circe-color-nicks)
+  (enable-lui-autopaste)
+  (require 'circe-chanop)
+  (circe "Bitlbee")
+  (circe "ZNC/freenode")
+  (circe "ZNC/f0o"))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -2464,25 +2753,12 @@ respective directories and need to be added to the ~load-path~.
 (add-to-list 'load-path "~/.emacs.d/unpublished")
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-(package-initialize)
-#+END_SRC
-
 ** Unpublished
 
 I have a bunch of stuff I'm working on.
 
 #+BEGIN_SRC emacs-lisp
 (require 'helm-smex)
-#+END_SRC
-
-** TODO Unfinished
-
-#+BEGIN_SRC emacs-lisp
-(require 'setup-defuns)
-
-;; load remaining setup files
-(require 'setup-distractions)
 #+END_SRC
 
 ** Post-Init
@@ -2494,6 +2770,7 @@ unconditionally run after init has finished.
 (defun my-after-init ()
   (sml/setup)
   (require 'dash)
+  (require 's)
   (recentf-mode)
   (savehist-mode)
   (require 'saveplace)
