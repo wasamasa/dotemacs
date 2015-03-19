@@ -201,6 +201,8 @@ SVG/Bitmap editor would be more utopian, but the groundwork for that
 is laid with the =svg.el= package (which could become a fast
 canvas-like) and proper bitmap embedding support in Emacs 25.1.
 
+http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
+
 * Create my own starter kit
 
 HollywoodOS™ with SVG and something terminal-looking with lots of text
