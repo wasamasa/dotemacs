@@ -326,6 +326,10 @@ jarring when done automatically.  The following settings will make
 Emacs scroll line by line, without scrolloff and try to keep point at
 the same visual place when scrolling by page.
 
+I used to have scrolloff enabled here with the ~scroll-margin~
+variable, but it introduced pretty nasty scrolling behaviour for large
+files, so I no longer do.
+
 #+BEGIN_SRC emacs-lisp
 (setq scroll-conservatively 10000
       scroll-preserve-screen-position t)
@@ -357,8 +361,7 @@ the current directory for crash detection, they begin and end with
 
 #+BEGIN_SRC emacs-lisp
 (setq auto-save-list-file-prefix "~/.emacs.d/autosave/")
-(setq auto-save-file-name-transforms
-      '((".*" "~/.emacs.d/autosave/" t)))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t)))
 #+END_SRC
 
 Keep in mind that there is nothing you can do regarding lock files
@@ -1030,6 +1033,9 @@ To avoid typing =M-x run-scheme=, I define another useful keybinding.
   (define-key scheme-mode-map (kbd "C-c C-z") 'run-scheme))
 #+END_SRC
 
+The binding is replaced though after launching the REPL, I should
+eventually fix this.  Perhaps with my very own major mode.
+
 Indentation hints fortunately seem to work for other languages than
 Emacs Lisp.
 
@@ -1114,7 +1120,9 @@ play.
 
 I should also figure out when ~with-eval-after-load~ is necessary for
 defining functions with different behaviour, but the same name and
-when it is not.
+when it is not.  It's probably about whether the function has been
+defined before and whether it might be redefined later.  If either of
+both applies, ~with-eval-after-load~ would be the better choice.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'snake
@@ -1583,7 +1591,7 @@ Let's fancy things up.
 For not yet explained reasons I need to use =M-x
 font-lock-fontify-buffer= always after both enabling and disabling
 this minor mode to see changes.  A bit of advice can do this
-automatically for you.
+automatically.
 
 #+BEGIN_SRC emacs-lisp
 (defadvice rainbow-turn-on (after fontify-buffer activate)
