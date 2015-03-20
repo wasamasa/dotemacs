@@ -7,7 +7,8 @@
     `(let ((,nowvar (current-time)))
        (prog1 ,body
          (let ((elapsed (float-time (time-subtract (current-time) ,nowvar))))
-           (message "spent (%.3fs)" elapsed))))))
+           (when (> elapsed 0.001)
+             (message "spent (%.3fs)" elapsed)))))))
 
 ;; see http://endlessparentheses.com/init-org-Without-org-mode.html
 (with-temp-buffer
