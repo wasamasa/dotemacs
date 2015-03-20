@@ -1,9 +1,9 @@
 * Preface
 
-This is an experiment to find out whether literate configurations in a
-single monolithic org-mode file actually have a perceivable benefit.
+This is an experiment to find out whether [[https://en.wikipedia.org/wiki/Literate_programming][literate configurations]] in a
+single monolithic [[http://orgmode.org/][org-mode]] file actually have a perceivable benefit.
 
-I'm using this configuration on a system running Arch Linux and Emacs
+I'm using this configuration on a system running [[https://www.archlinux.org/][Arch Linux]] and Emacs
 24.4, that's why this configuration will be using the latest and
 greatest features and /not/ check for the system it's running on.
 While I do use =emacsclient= for most of my editing needs, I
@@ -79,8 +79,8 @@ Emacs.mode-line.attributeBox: (:line-width 1 :color "#073642")
 
 *** Load theme
 
-My theme is a heavily customized Solarized Dark, originally taken from
-Bozhidar Batsov, later rewritten to support additional modes, the
+My theme is a heavily customized [[http://ethanschoonover.com/solarized][Solarized]], originally taken from
+[[https://github.com/bbatsov/solarized-emacs/][Bozhidar Batsov]], later rewritten to support additional modes, the
 16-color palette in terminals and variant toggling.  It's stored in a
 separate file, to accomodate for that fact we need to customize a
 variable for user-made themes.
@@ -104,7 +104,11 @@ Tooltips can be themed as well.
 
 *** Improve the mode line
 
-=smart-mode-line= is pretty awesome!
+The mode line is essentially a huge nested list of mode line items you
+can customize to achieve your prefered look.  The simplest way of
+getting a more useful mode line is using the [[https://github.com/Bruce-Connor/smart-mode-line][smart-mode-line]] package
+which comes with more useful and color-coded items and a few
+interesting features like shortening file names and minor modes.
 
 #+BEGIN_SRC emacs-lisp
 (setq sml/theme 'automatic
@@ -124,7 +128,7 @@ However I prefer hiding minor modes by default.
 
 The first obvious thing one notices upon launching an uncustomized
 Emacs is a rather fancy splash screen that informs you about the usage
-and advertises for the GNU project.  I did eventually grew annoyed by
+and advertises for [[https://www.gnu.org/][the GNU project]].  I did eventually grew annoyed by
 it.
 
 #+BEGIN_SRC emacs-lisp
@@ -207,12 +211,12 @@ increase ~line-number-display-width~ to a substantially higher value.
 (setq line-number-display-limit-width 10000)
 #+END_SRC
 
-See also [[http://emacs.stackexchange.com/questions/3824/what-piece-of-code-in-emacs-makes-line-number-mode-print-as-line-number-i][this question]] on the Emacs SE.
+See also [[http://emacs.stackexchange.com/questions/3824/what-piece-of-code-in-emacs-makes-line-number-mode-print-as-line-number-i][this question]] on [[http://emacs.stackexchange.com/][the Emacs SE]].
 
 *** GnuTLS
 
-I have no idea why, but apparently you get nasty warnings by the
-GnuTLS library upon using https with the default settings.  Increasing
+I have no idea why, but apparently you get nasty warnings by [[http://gnutls.org/][the
+GnuTLS library]] when using https with the default settings.  Increasing
 the minimum prime bits size to something safer alleviates that.
 
 #+BEGIN_SRC emacs-lisp
@@ -243,11 +247,11 @@ notes file instead as daily reminder what's left to do.
 *** Find C functions
 
 There's a fair number of Emacs functions that aren't written in Emacs
-Lisp.  To be able to locate them, it's necessary to grab a tarball of
-the sources and put it into a specific location.  To recreate these,
-grab the latest tarball from http://ftp.gnu.org/gnu/emacs/, extract
-its contents and put the =src= directory into =~/.emacs.d=, then
-customize the following variable.
+Lisp (see [[https://www.openhub.net/p/emacs][these statistics]]).  To be able to locate them, it's
+necessary to grab a tarball of the sources and put it into a specific
+location.  To recreate these, grab the latest tarball from
+http://ftp.gnu.org/gnu/emacs/, extract its contents and put the =src=
+directory into =~/.emacs.d=, then customize the following variable.
 
 #+BEGIN_SRC emacs-lisp
 (setq find-function-C-source-directory "~/.emacs.d/src")
@@ -623,7 +627,7 @@ That buffer should be current already."
 
 *** =dired=
 
-For the few times I'm using Dired, I prefer it not spawning an endless
+For the few times I'm using [[http://pu.inf.uni-tuebingen.de/users/sperber/software/dired/][Dired]], I prefer it not spawning an endless
 amount of buffers.  In fact, I'd prefer it using one buffer unless
 another one is explicitly created, but you can't have everything.
 
@@ -634,7 +638,7 @@ another one is explicitly created, but you can't have everything.
 
 *** =tramp=
 
-If TRAMP makes backup files, they should better be kept locally than
+If [[https://www.gnu.org/software/tramp/][TRAMP]] makes backup files, they should better be kept locally than
 remote.
 
 #+BEGIN_SRC emacs-lisp
@@ -663,7 +667,7 @@ dike it out.
 *** Calendar
 
 General functionality for calendars inside Emacs, split up in a lot of
-files.  Customizing it will affect other packages, including =calfw=.
+files.  Customizing it will affect other packages, including [[https://github.com/kiwanami/emacs-calfw][calfw]].
 The following customizations make it appear german (since I happen to
 live in Germany, d'uh).
 
@@ -982,7 +986,7 @@ The default idle delay is way too long.
 
 *** Emacs Lisp
 
-Cask files are just Emacs Lisp.
+[[https://github.com/cask/cask][Cask]] files are just Emacs Lisp.
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
@@ -1013,7 +1017,7 @@ function documentation.
 
 *** Scheme
 
-I like CHICKEN.
+I like [[http://call-cc.org/][CHICKEN]].
 
 #+BEGIN_SRC emacs-lisp
 (setq scheme-program-name "csi")
@@ -1041,7 +1045,7 @@ Emacs Lisp.
 
 *** Common Lisp
 
-I like SBCL.
+I like [[http://www.sbcl.org/][SBCL]].
 
 #+BEGIN_SRC emacs-lisp
 (setq inferior-lisp-program "/usr/bin/sbcl")
@@ -1174,7 +1178,7 @@ Welcome to the blind spot of =emacs-devel=.  Unlike the people on
 there, I'll not pretend external packages are something to speak of in
 hushed tones.
 
-*** =smex=
+*** [[https://github.com/nonsequitur/smex/][smex]]
 
 Nice improvement over vanilla =M-x= that gives you persistency and
 better matching.  Let's give it more history and a different file.
@@ -1186,7 +1190,7 @@ better matching.  Let's give it more history and a different file.
 
 *** CSV
 
-After installing =csv-mode= from GNU ELPA, I found out it's using a
+After installing [[http://elpa.gnu.org/packages/csv-mode.html][csv-mode]] from [[http://elpa.gnu.org/][GNU ELPA]], I found out it's using a
 =:set= form in its customization option for the separators, therefore
 I had to figure out what "internal" variables they were setting and
 customized them.
@@ -1200,17 +1204,23 @@ customized them.
       csv-font-lock-keywords '(("[;	,]" (0 'csv-separator-face))))
 #+END_SRC
 
-*** Quelpa
+*** [[https://github.com/quelpa/quelpa][Quelpa]]
 
-This is necessary to have updates going on.
+A client-side [[http://melpa.org/][MELPA]].  Hugely useful for development, also useful to
+obtain packages that are not there or need to be built differently
+from what it offers.  [[https://github.com/junegunn/vim-plug][vim-plug]] comes close, but the closest equivalent
+to it would be the [[https://www.archlinux.org/pacman/makepkg.8.html][makepkg]] utility.
+
+This customization is necessary to have updates of packages happen,
+even if they already exist.
 
 #+BEGIN_SRC emacs-lisp
 (setq quelpa-upgrade-p t)
 #+END_SRC
 
-*** =shackle=
+*** [[https://github.com/wasamasa/shackle][shackle]]
 
-The only thing to configure is its rules.
+Declarative popup window rules.
 
 #+BEGIN_SRC emacs-lisp
 (setq shackle-rules
@@ -1222,7 +1232,9 @@ The only thing to configure is its rules.
         (t :select t)))
 #+END_SRC
 
-*** =eyebrowse=
+*** [[https://github.com/wasamasa/eyebrowse][eyebrowse]]
+
+Less clumsy management of window configurations.
 
 Switch back and forth just like my i3wm configuration, wrap around,
 too.
@@ -1232,15 +1244,17 @@ too.
       eyebrowse-wrap-around-p t)
 #+END_SRC
 
-*** TODO =company-mode=
+*** TODO [[https://github.com/company-mode/company-mode][company-mode]]
+
+The best auto-completion mode we have out there.
 
 The following sets up a good amount of UI tweaks and everything
 necessary for the global backends.  It's possible to make
 ~company-backends~ buffer-local and allow mixing backends as most fit
 per mode to allow for something like =yasnippet= integration.
 
-Alternatively, use the relatively new =:with= keyword to always use a
-backend along the previously listed ones.
+Alternatively, I could use the relatively new =:with= keyword to
+always use a backend along the previously listed ones.
 
 https://github.com/company-mode/company-mode/issues/79
 
@@ -1267,7 +1281,7 @@ long with something better than =C-s=.
   (define-key company-active-map (kbd "C-:") 'helm-company))
 #+END_SRC
 
-*** Dash
+*** [[https://github.com/magnars/dash.el][d]]ash
 
 Very useful library, too bad I don't know how to properly use it yet.
 Since it's sprinkled all over in code I'd like to have extra syntax
@@ -1278,7 +1292,7 @@ highlighting for it.
   (dash-enable-font-lock))
 #+END_SRC
 
-*** =helm=
+*** [[https://github.com/emacs-helm/helm][helm]]
 
 A polarizing package to say the least.  The good part of it is that it
 actually tries enabling abstractions over complex selection UI.  The
@@ -1323,9 +1337,9 @@ Highlighting of token matches is a tad slow, let's speed it up.
 (setq helm-mp-highlight-delay 0.3)
 #+END_SRC
 
-=grep= is very fast, but not the best tool for code search, especially
-not within compressed files.  That's why I'll go for =ag= instead, its
-=-z= option enables the usage of the very great libarchive.  For
+[[http://www.gnu.org/software/grep/][grep]] is very fast, but not the best tool for code search, especially
+not within compressed files.  That's why I'll go for [[https://github.com/ggreer/the_silver_searcher/][ag]] instead, its
+=-z= option enables the usage of the very great [[http://libarchive.org/][libarchive]].  For
 =helm= to recognize the matches properly I need to enable line numbers
 and columns in its output, something the =--vimgrep== option (the
 irony) does.  Another subtle hack hidden in here is deliberately using
@@ -1362,7 +1376,7 @@ I dislike =helm= taking over tab-completion in my IRC client.
         circe-server-mode))
 #+END_SRC
 
-*** =flycheck=
+*** [[https://github.com/flycheck/flycheck][flycheck]]
 
 There's a few languages I like having linting for, see [[Hooks]].
 Additionally to that there's few things to tweak.  For one I prever
@@ -1375,7 +1389,11 @@ rather on opening the buffer and saving it to disk.
       flycheck-check-syntax-automatically '(mode-enabled save))
 #+END_SRC
 
-*** Hydra
+*** [[https://github.com/abo-abo/hydra][Hydra]]
+
+Not sure how to describe it.  A library for defining key-centric
+interfaces?  You use it to execute commands with single-key presses
+first and foremost, I have only come to define repetition-free ones.
 
 Define a few utility functions first.
 
@@ -1562,7 +1580,9 @@ Then define a setup function used in ~after-init-hook~.
      ("t" my-open-tracking "Tracking"))))
 #+END_SRC
 
-*** CIDER
+*** [[https://github.com/clojure-emacs/cider][CIDER]]
+
+Clojure Interactive Development Environment that Rocks.
 
 I like =eldoc= for function signatures, hiding less interesting
 buffers is also nice to have.
@@ -1572,7 +1592,9 @@ buffers is also nice to have.
 (setq nrepl-hide-special-buffers t)
 #+END_SRC
 
-*** SLIME
+*** [[https://github.com/slime/slime][SLIME]]
+
+The Superior Lisp Interaction Mode for Emacs.
 
 Let's fancy things up.
 
@@ -1580,7 +1602,9 @@ Let's fancy things up.
 (setq slime-contribs '(slime-fancy))
 #+END_SRC
 
-*** =rainbow-mode=
+*** [[http://elpa.gnu.org/packages/rainbow-mode.html][rainbow-mode]]
+
+Highlights color identifiers with their respective color.
 
 For not yet explained reasons I need to use =M-x
 font-lock-fontify-buffer= always after both enabling and disabling
@@ -1594,7 +1618,11 @@ automatically.
   (font-lock-fontify-buffer))
 #+END_SRC
 
-*** =js2-mode=
+*** [[https://github.com/mooz/js2-mode/][js2-mode]]
+
+An IDE-like mode for editing Javascript.  Due to it actually parsing
+the code for highlighting and whatnot, it is used as dependency by a
+few other ones.
 
 Not only CSS is using a low indentation width these days.
 
@@ -1602,7 +1630,7 @@ Not only CSS is using a low indentation width these days.
 (setq js2-basic-offset 2)
 #+END_SRC
 
-*** =web-mode=
+*** [[http://web-mode.org/][web-mode]]
 
 Deals with all kinds of templates and other files with multiple modes
 one encounters in web development.  Other than templates, I prefer
@@ -1618,20 +1646,28 @@ using it for HTML these days.
 (setq web-mode-code-indent-offset 2)
 #+END_SRC
 
-*** =company-jedi=
+*** TODO =company-jedi=
 
-Bootstrap =jedi= automatically per file for completion.
+Used to be part of [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] which complements the built-in
+=python.el= with code navigation, documentation lookup and
+auto-completion.  I guess I should update soon.
+
+Not to be confused with [[https://github.com/syohex/emacs-company-jedi][company-jedi]] which got factored out from
+[[https://github.com/tkf/emacs-jedi][jedi.el]].
+
+Bootstrap [[https://github.com/davidhalter/jedi][jedi]] automatically per file for completion.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'python-mode-hook 'company-jedi-start)
 #+END_SRC
 
-*** TODO =enh-ruby-mode=
+*** TODO [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]
 
-I'll use this mode for everything the stock =ruby-mode= would be used
-for because it provides better syntax highlighting and indentation.  I
-still need to test though how it compares to vanilla =ruby-mode= now
-that it's using SMIE for the latter.
+I'm using this mode for everything the stock =ruby-mode= would be used
+for because it provides better syntax highlighting and indentation by
+using an external process.  I still need to test though how it
+compares to vanilla =ruby-mode= now that it's using SMIE for the
+latter.
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
@@ -1646,17 +1682,22 @@ For deep indentation, allow bouncing towards a less deep level.
 (setq enh-ruby-bounce-deep-indent t)
 #+END_SRC
 
-*** =inf-ruby=
+*** [[https://github.com/nonsequitur/inf-ruby][inf-ruby]]
 
-=pry= is awesome.
+Because Emacs doesn't come with =M-x inf-ruby= (but has =M-x run-python=).
+
+[[https://github.com/pry/pry][pry]] is awesome and serves me as a better Ruby REPL.
 
 #+BEGIN_SRC emacs-lisp
 (setq inf-ruby-default-implementation "pry")
 #+END_SRC
 
-*** AUCTEX
+*** [[https://www.gnu.org/software/auctex/][AUCTEX]]
 
-Unicode FTW.
+Improves the standard editing facilities for all things [[http://tug.org/begin.html][TeX]] and [[http://latex-project.org/][LaTeX]].
+
+It's 2015 and I prefer a TeX engine that can deal with Unicode and use
+any font I like.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default TeX-engine 'luatex)
@@ -1806,11 +1847,12 @@ It may be customized with the following variables:
           (LaTeX-environment-menu environment))))))
 #+END_SRC
 
-*** TODO =smartparens=
+*** TODO [[https://github.com/Fuco1/smartparens/][smartparens]]
 
-Promises to go beyond =paredit= by supporting other languages than
-Lisp-likes with arbitrary kinds of pairs.  I only use its autopairing
-feature, pair highlighting and a bit of auto-indent though.
+Promises to go beyond [[http://mumble.net/~campbell/emacs/paredit.el][paredit]] (which is structured editing for Lisp
+code) by supporting other languages than Lisp-likes with arbitrary
+kinds of pairs.  I only use its autopairing feature, pair highlighting
+and a bit of auto-indent though.
 
 First of all, no long pair mismatch messages please, they're reserved
 for debugging purposes.
@@ -1879,7 +1921,8 @@ of these lines in the TeX block.
 Finally, working on college assignments in both C and Java made me
 wish for an interesting feature I've seen in IDEs: Automatic insertion
 of a correctly indented newline before the closing brace which allows
-you to enter its content right away.
+you to enter its content right away.  The following is stolen from [[https://github.com/Fuco1/smartparens/wiki/Permissions#pre-and-post-action-hooks][its
+wiki]].
 
 #+BEGIN_SRC emacs-lisp
 (defun my-create-newline-and-enter-sexp (&rest _ignored)
@@ -1896,7 +1939,7 @@ you to enter its content right away.
                  '((my-create-newline-and-enter-sexp "RET"))))
 #+END_SRC
 
-*** TODO Evil
+*** TODO [[https://bitbucket.org/lyro/evil/wiki/Home][Evil]]
 
 Here comes the set of sane text editing keybindings I can't live
 without.  Both implementation and execution are excellent and reuse as
@@ -2114,7 +2157,7 @@ I want =Y= to yank to the end of line.
   (define-key evil-normal-state-map (kbd "U") 'undo-tree-redo))
 #+END_SRC
 
-The =evil-numbers= package is pretty nice, but I don't want to use the
+The [[https://github.com/cofi/evil-numbers][evil-numbers]] package is pretty nice, but I don't want to use the
 standard Vim keybinds (=C-a= and =C-x=) for its commands.  Instead I'm
 going for the much more mnemonic =+= and =-=.
 
@@ -2124,7 +2167,7 @@ going for the much more mnemonic =+= and =-=.
   (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt))
 #+END_SRC
 
-I'm not sure what to think of the =ace-jump=.  For convenience I've
+I'm not sure what to think of the [[https://github.com/winterTTr/ace-jump-mode/][ace-jump]].  For convenience I've
 reduced its jump keys to the homerow and bound a few commands.
 
 #+BEGIN_SRC emacs-lisp
@@ -2190,7 +2233,7 @@ Next, define a few toggling commands and bind them.
   (define-key evil-normal-state-map (kbd "z <backtab>") 'my-evil-toggle-folds))
 #+END_SRC
 
-Define my most-used helpers (stolen from =unimpaired.vim=) next.
+Define my most-used helpers (stolen from [[https://github.com/tpope/vim-unimpaired][unimpaired.vim]]) next.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-evil-unimpaired-insert-newline-above (count)
@@ -2261,7 +2304,7 @@ before they are.
 (add-hook 'evil-mode-hook 'my-after-evil)
 #+END_SRC
 
-*** TODO =yasnippet=
+*** TODO [[https://github.com/capitaomorte/yasnippet][yasnippet]]
 
 Snippets are quite useful for boilerplatey languages.  Like, Java.
 Although, if you take it far enough, even something as =org-mode=
@@ -2294,9 +2337,9 @@ to disable that it is.
 (setq yas-fallback-behavior 'return-nil)
 #+END_SRC
 
-*** Circe
+*** [[https://github.com/jorgenschaefer/circe][Circe]]
 
-=rcirc= is too small, ERC is too large.  So I chose Circe as my IRC
+=rcirc= is too small, [[http://savannah.gnu.org/projects/erc/][ERC]] is too large.  So I chose Circe as my IRC
 client living inside Emacs.  As for why IRC in Emacs in the first
 place, I wanted to leave irssi behind and didn't really like Weechat.
 So why not try something extensible?
@@ -2344,7 +2387,7 @@ with cycling just as it exists in other IRC clients.
 (setq circe-use-cycle-completion t)
 #+END_SRC
 
-Smart filter is like the best IRC-related invention ever!
+[[http://www.weechat.org/files/doc/weechat_faq.en.html#filter_irc_join_part_quit][Smart filter]] is like the best IRC-related invention ever!
 
 #+BEGIN_SRC emacs-lisp
 (setq circe-reduce-lurker-spam t)
@@ -2433,10 +2476,10 @@ as defined by bbatsov.
 #+END_SRC
 
 There isn't a highlighting function /yet/ that could do something
-useful like setting a X urgency hint, asides from that I want a bit
-more of control to treat highlights in private queries different from
-channel highlights.  The following code yanks out the default one and
-replaces it with something slightly better.
+useful like setting a X urgency hint (taken from [[http://www.emacswiki.org/emacs/JabberEl][the wiki]]), asides
+from that I want a bit more of control to treat highlights in private
+queries different from channel highlights.  The following code yanks
+out the default one and replaces it with something slightly better.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-x-urgency-hint ()
@@ -2479,7 +2522,7 @@ replaces it with something slightly better.
 #+END_SRC
 
 Highlight quoted text in a green color for fun and profit (or to be
-honest, to discern 4chan people from the rest).
+honest, to discern [[https://www.4chan.org/][4chan]] people from the rest).
 
 #+BEGIN_SRC emacs-lisp
 (defface my-circe-greentext-face '((t (:foreground "spring green")))
