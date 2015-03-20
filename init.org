@@ -10,7 +10,13 @@ While I do use =emacsclient= for most of my editing needs, I
 occasionally open =emacs= instances for things like IRC or testing
 purposes.
 
+To debug it, I've added a properties drawer to the following subtree
+that exports the code blocks to =.emacs= with =M-x org-babel-tangle=.
+
 * Init
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle ../.emacs
+:END:
 
 ** User Interface
 
