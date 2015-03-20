@@ -1228,6 +1228,7 @@ Declarative popup window rules.
         ("*Help*" :align t :select t)
         ("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4 :defer t)
         (compilation-mode :noselect t)
+        ("*firestarter*" :noselect t)
         (inferior-scheme-mode :popup t)
         (t :select t)))
 #+END_SRC
