@@ -1999,7 +1999,8 @@ The initial state for a mode can be set with
       evil-emacs-state-modes '()
       evil-normal-state-modes '(text-mode prog-mode fundamental-mode
                                           css-mode conf-mode
-                                          TeX-mode LaTeX-mode)
+                                          TeX-mode LaTeX-mode
+                                          yaml-mode)
       evil-motion-state-modes '())
 #+END_SRC
 
