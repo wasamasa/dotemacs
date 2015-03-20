@@ -710,12 +710,6 @@ live in Germany, d'uh).
       holiday-hebrew-holidays nil)
 #+END_SRC
 
-*** =which-func-mode=
-
-#+BEGIN_SRC emacs-lisp
-(setq which-func-modes '(org-mode))
-#+END_SRC
-
 *** =org-mode=
 
 First some UI and editing tweaks.
@@ -2797,7 +2791,6 @@ unconditionally run after init has finished.
   (smex-initialize)
   (helm-mode)
   (electric-indent-mode -1)
-  (which-function-mode)
   (my-setup-hydra)
   (evil-mode)
   (my-disable-tramp-file-handlers)
