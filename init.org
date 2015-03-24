@@ -1303,6 +1303,8 @@ expect those to be the last.  With that being said I find it essential
 to quickly find your way through Emacs, I just wish it were less
 idiosyncratic and with developer documentation.
 
+**** Navigation
+
 The default navigation isn't as fast as it could be.  Automatically
 switching directories is a must for me.  Note the hack with
 ~helm-ff--auto-update-state~, it's supposedly internal, but only set
@@ -1332,11 +1334,7 @@ file either.  The creation of a new directory however is kept as is.
       helm-ff-skip-boring-files t)
 #+END_SRC
 
-Highlighting of token matches is a tad slow, let's speed it up.
-
-#+BEGIN_SRC emacs-lisp
-(setq helm-mp-highlight-delay 0.3)
-#+END_SRC
+**** Search
 
 [[http://www.gnu.org/software/grep/][grep]] is very fast, but not the best tool for code search, especially
 not within compressed files.  That's why I'll go for [[https://github.com/ggreer/the_silver_searcher/][ag]] instead, its
@@ -1352,6 +1350,8 @@ something, but so far hasn't shown any obvious side-effects
       helm-grep-default-recurse-command "ag --vimgrep -z %p %f")
 #+END_SRC
 
+**** ~completing-read~ behaviour
+
 For whatever reason ~find-library~ isn't used properly with
 ~helm-mode~ enabled, adding a read handler fixes this.
 
@@ -1361,13 +1361,6 @@ For whatever reason ~find-library~ isn't used properly with
                '(find-library . helm-completing-read-with-cands-in-buffer)))
 #+END_SRC
 
-I like having my dotfiles repo as default when using =helm-cmd-t= on a
-directory that's not under version-control.
-
-#+BEGIN_SRC emacs-lisp
-(setq helm-cmd-t-default-repo "~/code/dotfiles")
-#+END_SRC
-
 I dislike =helm= taking over tab-completion in my IRC client.
 
 #+BEGIN_SRC emacs-lisp
@@ -1375,6 +1368,21 @@ I dislike =helm= taking over tab-completion in my IRC client.
       '(circe-channel-mode
         circe-query-mode
         circe-server-mode))
+#+END_SRC
+
+**** Other
+
+Highlighting of token matches is a tad slow, let's speed it up.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-mp-highlight-delay 0.3)
+#+END_SRC
+
+I like having my dotfiles repo as default when using =helm-cmd-t= on a
+directory that's not under version-control.
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-cmd-t-default-repo "~/code/dotfiles")
 #+END_SRC
 
 *** [[https://github.com/flycheck/flycheck][flycheck]]
@@ -1396,7 +1404,7 @@ Not sure how to describe it.  A library for defining key-centric
 interfaces?  You use it to execute commands with single-key presses
 first and foremost, I have only come to define repetition-free ones.
 
-Define a few utility functions first.
+**** Define utility functions
 
 #+BEGIN_SRC emacs-lisp
 (defun my-zsh ()
@@ -1459,7 +1467,9 @@ Define a few utility functions first.
 (autoload 'cfw:open-org-calendar "calfw-org" "Open Org calendar" t)
 #+END_SRC
 
-Then define a setup function used in ~after-init-hook~.
+**** Define setup function
+
+This is used in ~after-init-hook~.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-setup-hydra ()
@@ -1697,6 +1707,8 @@ Because Emacs doesn't come with =M-x inf-ruby= (but has =M-x run-python=).
 
 Improves the standard editing facilities for all things [[http://tug.org/begin.html][TeX]] and [[http://latex-project.org/][LaTeX]].
 
+**** Usage tweaks
+
 It's 2015 and I prefer a TeX engine that can deal with Unicode and use
 any font I like.
 
@@ -1704,7 +1716,7 @@ any font I like.
 (setq-default TeX-engine 'luatex)
 #+END_SRC
 
-Set up viewers and a few usage tweaks
+Set up viewers and a few other things.
 
 #+BEGIN_SRC emacs-lisp
 (setq TeX-quote-after-quote t
@@ -1738,6 +1750,8 @@ viewed).
 
 (add-hook 'LaTeX-mode-hook 'my-latex-setup)
 #+END_SRC
+
+**** ~completing-read~ behaviour
 
 ~helm-mode~ enables more convenient ~completing-read~, however it's a
 bit silly that [[https://github.com/emacs-helm/helm/issues/37][candidates for common AUCTEX functions aren't required
@@ -1855,36 +1869,7 @@ code) by supporting other languages than Lisp-likes with arbitrary
 kinds of pairs.  I only use its autopairing feature, pair highlighting
 and a bit of auto-indent though.
 
-First of all, no long pair mismatch messages please, they're reserved
-for debugging purposes.
-
-#+BEGIN_SRC emacs-lisp
-(setq sp-message-width nil)
-#+END_SRC
-
-Because I'm using =evil=, funny things are happening with my cursor,
-like it not going beyond the end of the line in normal state.  To
-emulate a bit more Vim-like paren highlighting, pairs should be shown
-from inside, too.
-
-#+BEGIN_SRC emacs-lisp
-(setq sp-show-pair-from-inside t)
-#+END_SRC
-
-Automatic quote escaping feels like a mistake to me (and to its author
-as well ._.).
-
-#+BEGIN_SRC emacs-lisp
-(setq sp-autoescape-string-quote nil)
-#+END_SRC
-
-This curiously named variable controls whether the overlay spanning
-the pair's content disappears on backwards motions, something entirely
-different than its name suggests.
-
-#+BEGIN_SRC emacs-lisp
-(setq sp-cancel-autoskip-on-backward-movement nil)
-#+END_SRC
+**** Disable some default pairs
 
 The following wall of code disables pairs for Lisp- and TeX-like modes
 that make absolutely no sense, it would be a lot better to include
@@ -1919,10 +1904,12 @@ of these lines in the TeX block.
   (sp-local-pair 'tex-mode "`" nil :actions nil))
 #+END_SRC
 
-Finally, working on college assignments in both C and Java made me
-wish for an interesting feature I've seen in IDEs: Automatic insertion
-of a correctly indented newline before the closing brace which allows
-you to enter its content right away.  The following is stolen from [[https://github.com/Fuco1/smartparens/wiki/Permissions#pre-and-post-action-hooks][its
+**** Add IDE-like auto-insertion for braces
+
+Working on college assignments in both C and Java made me wish for an
+interesting feature I've seen in IDEs: Automatic insertion of a
+correctly indented newline before the closing brace which allows you
+to enter its content right away.  The following is stolen from [[https://github.com/Fuco1/smartparens/wiki/Permissions#pre-and-post-action-hooks][its
 wiki]].
 
 #+BEGIN_SRC emacs-lisp
@@ -1940,6 +1927,39 @@ wiki]].
                  '((my-create-newline-and-enter-sexp "RET"))))
 #+END_SRC
 
+**** Other
+
+First of all, no long pair mismatch messages please, they're reserved
+for debugging purposes.
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-message-width nil)
+#+END_SRC
+
+Because I'm using =evil=, funny things are happening with my cursor,
+like it not going beyond the end of the line in normal state.  To
+emulate a bit more Vim-like paren highlighting, pairs should be shown
+from inside, too.
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-show-pair-from-inside t)
+#+END_SRC
+
+Automatic quote escaping feels like a mistake to me (and to its author
+as well ._.).
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-autoescape-string-quote nil)
+#+END_SRC
+
+This curiously named variable controls whether the overlay spanning
+the pair's content disappears on backwards motions, something entirely
+different than its name suggests.
+
+#+BEGIN_SRC emacs-lisp
+(setq sp-cancel-autoskip-on-backward-movement nil)
+#+END_SRC
+
 *** TODO [[https://bitbucket.org/lyro/evil/wiki/Home][Evil]]
 
 Here comes the set of sane text editing keybindings I can't live
@@ -1950,6 +1970,8 @@ sources are pretty much incomprehensible to me.
 
 Despite that weakness I've managed writing my own additions to improve
 integration a good bit more according to my own tastes.
+
+**** Initial state
 
 First of all, there are plenty of special modes where neither insert
 state nor motion state suffice.  I've instead decided to do away with
@@ -2013,7 +2035,9 @@ instead.  Same goes for ~view-mode~.
 (add-hook 'view-mode-hook 'evil-emacs-state)
 #+END_SRC
 
-Go for a bit more Emacs-like feel for movement, undo, search.
+**** More Emacs-like feel
+
+These make movement, undo and search feel a bit less weird.
 
 #+BEGIN_SRC emacs-lisp
 (setq evil-cross-lines t
@@ -2031,6 +2055,8 @@ setting for that is applied in =evil-maps.el= which is loaded by
 (with-eval-after-load 'evil-vars
   (setq evil-want-C-w-in-emacs-state t))
 #+END_SRC
+
+**** Keymap hacking
 
 Some minor modes come with keymaps reminiscent of special major modes,
 these get overridden by Evil.  These can be fixed by using
@@ -2082,12 +2108,16 @@ state has to go.
                  (cdr evil-insert-state-map))))))
 #+END_SRC
 
+**** =C-w=
+
 =C-w= works in Emacs state, but not in insert state.  Let's fix that.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-maps
   (define-key evil-insert-state-map (kbd "C-w") 'evil-window-map))
 #+END_SRC
+
+**** =C-i=
 
 =C-i= is used in Vim as counterpart to =C-o= for going back and forth
 in the jump list.  It also happens to be interpreted as =TAB=, simply
@@ -2105,6 +2135,8 @@ triggers whatever =TAB= would do.
   (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
 #+END_SRC
 
+**** =C-u=
+
 =C-u= is bound to a scroll up command in Vim, in Emacs however it's
 used for the prefix argument.  This feels pretty weird to me after
 having bothered learning =C-u= as command for killing a whole line in
@@ -2120,6 +2152,8 @@ command by default which I most definitely will not miss.
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
 #+END_SRC
+
+**** Extra keybindings
 
 Emacs 24.4 introduced ~electric-indent-mode~ as default which happens
 to be a global mode.  I'm not particularly fond of it (and anything
@@ -2294,6 +2328,8 @@ Then some "leader" bindings.
   (define-key evil-normal-state-map (kbd ", ?") 'my-find-file-with-root-privileges))
 #+END_SRC
 
+**** Load supplementary modes
+
 Finally, there's a few minor modes depending on Evil being loaded
 before they are.
 
@@ -2346,6 +2382,8 @@ client living inside Emacs.  As for why IRC in Emacs in the first
 place, I wanted to leave irssi behind and didn't really like Weechat.
 So why not try something extensible?
 
+**** Authentication and identification
+
 First of all, let's define who I am and change the quit/part message
 to something less advertising.
 
@@ -2381,6 +2419,8 @@ private file which is read in by a password function.
         ("Bitlbee" :port 6667 :lagmon-disabled t
          :nickserv-password my-retrieve-irc-password)))
 #+END_SRC
+
+**** Basic usability tweaks
 
 I cannot imagine why I wouldn't want to use in-line tab-completion
 with cycling just as it exists in other IRC clients.
@@ -2432,6 +2472,8 @@ nicknames /inside/ messages as well.
 (setq circe-color-nicks-everywhere t)
 #+END_SRC
 
+**** Add extra keybinds
+
 Let's add a few extra keybindings common in all buffers Circe spawns.
 I want word killing to behave the same as for =comint=, =C-l= to
 redraw and reposition and =C-u= to kill the whole line since there's a
@@ -2449,6 +2491,22 @@ more appropriate command than the default one bound to =C-u=.
   (define-key lui-mode-map (kbd "C-l") 'my-window-C-l)
   (define-key lui-mode-map (kbd "C-u") 'lui-kill-to-beginning-of-line))
 #+END_SRC
+
+Sometimes I like knowing just how many people are online.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-circe-count-nicks ()
+  (interactive)
+  (when (eq major-mode 'circe-channel-mode)
+    (message "%i entities are online on %s."
+             (hash-table-count circe-channel-users)
+             (buffer-name))))
+
+(with-eval-after-load 'circe
+  (define-key circe-channel-mode-map (kbd "C-c n") 'my-circe-count-nicks))
+#+END_SRC
+
+**** Hacks
 
 The standard nickname switching function is a bit silly.  I own a
 bunch of nicknames and will use the =wasa= one for switching.
@@ -2599,19 +2657,23 @@ long as it's going on.
   (circe-set-display-handler "PRIVMSG" 'my-circe-display-PRIVMSG))
 #+END_SRC
 
-Sometimes I like knowing just how many people are online.
+Let's test having fluid-width windows, now that both Circe and Emacs
+24.4 seem to be less wonky about it.
 
 #+BEGIN_SRC emacs-lisp
-(defun my-circe-count-nicks ()
-  (interactive)
-  (when (eq major-mode 'circe-channel-mode)
-    (message "%i entities are online on %s."
-             (hash-table-count circe-channel-users)
-             (buffer-name))))
+(setq lui-time-stamp-position 'right-margin
+      lui-fill-type nil)
 
-(with-eval-after-load 'circe
-  (define-key circe-channel-mode-map (kbd "C-c n") 'my-circe-count-nicks))
+(defun my-no-fill-lui-setup ()
+  (setq fringes-outside-margins t
+        right-margin-width 7
+        wrap-prefix "    ")
+  (visual-line-mode)
+  (setf (cdr (assoc 'continuation fringe-indicator-alist)) nil))
+(add-hook 'circe-channel-mode-hook 'my-no-fill-lui-setup)
 #+END_SRC
+
+**** Entry point
 
 And finally, the function for entering IRC.
 
@@ -2708,6 +2770,8 @@ for us.
     (add-hook hook function)))
 #+END_SRC
 
+*** Basic setup
+
 I'll start with a list of hooks for everything that's not a special
 mode or in other words, related to programming and text editing.  This
 will inevitably contain modes that have not been properly derived,
@@ -2749,6 +2813,8 @@ Same deal with programming-related hooks and text-related hooks.
   '(prog-mode-hook))
 #+END_SRC
 
+*** Mode-specific setup
+
 To fine tune completion behavior, I'll prefer ~company-mode~ over
 ~global-company-mode~.  I should add more hooks for REPLs, too.
 
@@ -2768,7 +2834,7 @@ which always assumes I'm writing an Emacs package.
 #+BEGIN_SRC emacs-lisp
 (my-add-function-to-hooks
  'flycheck-mode
- '(python-mode-hook ruby-mode-hook LaTeX-mode-hook))
+ '(python-mode-hook ruby-mode-hook enh-ruby-mode-hook LaTeX-mode-hook))
 #+END_SRC
 
 Rainbow-colored delimiters still work best in Lisp modes.
