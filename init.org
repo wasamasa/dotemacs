@@ -2131,10 +2131,15 @@ unbound keys, =C-i= is otherwise bound to a keyboard macro that
 triggers whatever =TAB= would do.
 
 #+BEGIN_SRC emacs-lisp
-(define-key input-decode-map [?\C-i] (kbd "<C-i>"))
 (global-set-key (kbd "<C-i>") (kbd "TAB"))
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
+
+(defun my-fix-C-i (&optional frame)
+  (with-selected-frame (or frame (selected-frame))
+    (define-key input-decode-map [?\C-i] (kbd "<C-i>"))))
+(my-fix-C-i)
+(add-hook 'after-make-frame-functions 'my-fix-C-i)
 #+END_SRC
 
 **** =C-u=
