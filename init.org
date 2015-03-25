@@ -343,6 +343,8 @@ files, so I no longer do.
 
 Most programming languages I work with prefer spaces over tabs.
 
+Note how this is not a mode, but a buffer-local variable.
+
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+END_SRC
