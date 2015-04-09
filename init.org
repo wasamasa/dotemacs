@@ -2062,12 +2062,20 @@ setting for that is applied in =evil-maps.el= which is loaded by
 
 Some minor modes come with keymaps reminiscent of special major modes,
 these get overridden by Evil.  These can be fixed by using
-~evil-normalize-keymaps~, at least for ~edebug-mode~.  For yet unknown
-reasons it doesn't work for ~macrostep-mode~.
+~evil-normalize-keymaps~, at least for ~edebug-mode~.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'edebug-mode-hook 'evil-normalize-keymaps)
-(add-hook 'macrostep-mode-hook 'evil-normalize-keymaps)
+#+END_SRC
+
+~macrostep-mode~ requires a bit more effort, see [[https://bitbucket.org/lyro/evil/issue/511/let-certain-minor-modes-key-bindings][evil#511]] for the code
+involved and further explanation.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-macrostep-setup ()
+  (evil-make-overriding-map macrostep-keymap 'normal)
+  (evil-normalize-keymaps))
+(add-hook 'macrostep-mode-hook 'my-macrostep-setup)
 #+END_SRC
 
 Let's poke some holes into its keymaps.  Anything not bound will be
