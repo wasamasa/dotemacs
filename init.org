@@ -2419,9 +2419,9 @@ private file which is read in by a password function.
           (plist-get plist :znc-password))))))
 
 (setq circe-network-options
-      '(("ZNC/freenode" :host "brause.cc" :port 30832
+      '(("ZNC/freenode" :host "brause.cc" :port 30832 :family ipv4
          :user "wasamasa/freenode" :pass my-retrieve-irc-password)
-        ("ZNC/f0o" :host "brause.cc" :port 30833
+        ("ZNC/f0o" :host "brause.cc" :port 30833 :family ipv4
          :user "wasamasa/f0o" :pass my-retrieve-irc-password)
         ("Bitlbee" :port 6667 :lagmon-disabled t
          :nickserv-password my-retrieve-irc-password)))
