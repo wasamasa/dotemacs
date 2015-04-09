@@ -130,7 +130,7 @@ combinations remain unchanged."
    (comint-highlight-input :foreground unspecified)
    (comint-highlight-prompt :foreground unspecified)
    (eyebrowse-mode-line-active :foreground fg-2)
-   (fixmee-notice-face :foreground red :weight bold :underline t)
+   (hl-todo :foreground red :weight bold)
 
    ;; basic coloring
    (default :foreground fg-0 :background bg-3)

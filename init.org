@@ -2707,6 +2707,28 @@ And finally, the function for entering IRC.
   (circe "ZNC/f0o"))
 #+END_SRC
 
+*** =hl-todo=
+
+Minor mode for coloring =TODO=, =NOTE=, =FIXME= and many more keywords
+of that sort prevalent in comments and strings.
+
+Its customization setup is twofold, first of all one needs to define a
+regex encompassing all desired keywords.
+
+#+BEGIN_SRC emacs-lisp
+(setq hl-todo-regexp (regexp-opt '("TODO" "NOTE" "FIXME" "KLUDGE")))
+#+END_SRC
+
+The second part consists of assigning the =hl-todo= face to the
+respective keywords.
+
+#+BEGIN_SRC emacs-lisp
+(setq  hl-todo-keyword-faces '(("TODO" . hl-todo)
+                               ("NOTE" . hl-todo)
+                               ("FIXME" . hl-todo)
+                               ("KLUDGE" . hl-todo)))
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
@@ -2799,6 +2821,7 @@ might be worth reporting those.
   (setq indicate-empty-lines t)
   (setq indicate-buffer-boundaries '((top . left) (bottom . left)))
   (setq show-trailing-whitespace t)
+  (hl-todo-mode)
   (modify-syntax-entry ?_ "w")
   (goto-address-mode)
   (smartparens-mode)
