@@ -2677,7 +2677,7 @@ Let's test having fluid-width windows, now that both Circe and Emacs
         wrap-prefix "    ")
   (visual-line-mode)
   (setf (cdr (assoc 'continuation fringe-indicator-alist)) nil))
-(add-hook 'circe-channel-mode-hook 'my-no-fill-lui-setup)
+(add-hook 'circe-chat-mode-hook 'my-no-fill-lui-setup)
 #+END_SRC
 
 **** Entry point
