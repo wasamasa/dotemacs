@@ -227,7 +227,9 @@ the minimum prime bits size to something safer alleviates that.
 
 Since the =*scratch*= buffer is pretty hard-wired into Emacs (see
 =buffer.c=), the least we could do is getting rid of its initial
-message.
+message.  No, it's using its own mode instead of ~emacs-lisp-mode~ for
+the questionable benefit of having a function inserting evaluation
+values after a newline.
 
 #+BEGIN_SRC emacs-lisp
 (setq initial-scratch-message "")
