@@ -2949,6 +2949,7 @@ unconditionally run after init has finished.
   (cl-lib-highlight-initialize)
   (cl-lib-highlight-warn-cl-initialize)
   (unicode-whitespace-setup)
+  (add-to-list 'load-path "~/code/circe")
   (line-number-mode)
   (column-number-mode))
 (add-hook 'after-init-hook 'my-after-init)
