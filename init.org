@@ -2278,10 +2278,10 @@ Next, define a few toggling commands and bind them.
 
 (with-eval-after-load 'evil-maps
   (define-key evil-normal-state-map (kbd "z s") 'describe-char)
-  (define-key evil-normal-state-map (kbd "ze") 'toggle-debug-on-error)
-  (define-key evil-normal-state-map (kbd "zq") 'toggle-debug-on-quit)
-  (define-key evil-normal-state-map (kbd "zt") 'my-solarized-toggle)
-  (define-key evil-normal-state-map (kbd "zm") 'my-toggle-mode-line-minor-modes)
+  (define-key evil-normal-state-map (kbd "z e") 'toggle-debug-on-error)
+  (define-key evil-normal-state-map (kbd "z q") 'toggle-debug-on-quit)
+  (define-key evil-normal-state-map (kbd "z t") 'my-solarized-toggle)
+  (define-key evil-normal-state-map (kbd "z m") 'my-toggle-mode-line-minor-modes)
   (define-key evil-normal-state-map (kbd "z TAB") 'evil-toggle-fold)
   (define-key evil-normal-state-map (kbd "z <backtab>") 'my-evil-toggle-folds))
 #+END_SRC
