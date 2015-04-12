@@ -1286,7 +1286,7 @@ long with something better than =C-s=.
   (define-key company-active-map (kbd "C-:") 'helm-company))
 #+END_SRC
 
-*** [[https://github.com/magnars/dash.el][d]]ash
+*** [[https://github.com/magnars/dash.el][dash]]
 
 Very useful library, too bad I don't know how to properly use it yet.
 Since it's sprinkled all over in code I'd like to have extra syntax
