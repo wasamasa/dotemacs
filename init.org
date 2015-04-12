@@ -2729,6 +2729,16 @@ respective keywords.
                                ("KLUDGE" . hl-todo)))
 #+END_SRC
 
+*** =macrostep=
+
+Expand macros interactively.
+
+I'll go with the recommended keybinding for it.
+
+#+BEGIN_SRC emacs-lisp
+(define-key emacs-lisp-mode-map (kbd "C-x e") 'macrostep-expand)
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
