@@ -170,7 +170,7 @@ Emacs.font: fontset-dejavu14
 #+BEGIN_SRC emacs-lisp
 (setq default-frame-alist '((font . "DejaVu Sans Mono-10.5")))
 (defun my-fix-emojis (&optional frame)
-  (set-fontset-font "fontset-default" '(#x10000 . #x1ffff) "Symbola" frame))
+  (set-fontset-font "fontset-default" nil "Symbola" frame 'append))
 (my-fix-emojis)
 (add-hook 'after-make-frame-functions 'my-fix-emojis)
 #+END_SRC
