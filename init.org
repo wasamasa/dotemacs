@@ -2716,7 +2716,7 @@ Its customization setup is twofold, first of all one needs to define a
 regex encompassing all desired keywords.
 
 #+BEGIN_SRC emacs-lisp
-(setq hl-todo-regexp (regexp-opt '("TODO" "NOTE" "FIXME" "KLUDGE")))
+(setq hl-todo-regexp (concat "\\_<" (regexp-opt '("TODO" "NOTE" "FIXME" "KLUDGE") t) ":?\\_>"))
 #+END_SRC
 
 The second part consists of assigning the =hl-todo= face to the
