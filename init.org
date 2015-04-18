@@ -1176,6 +1176,27 @@ Argument SNAKE-BUFFER is the name of the buffer."
 	  (setq snake-moved-p nil))))))
 #+END_SRC
 
+*** =re-builder=
+
+Interactive preview for RE construction.
+
+It's important to note that there's three flavours of regular
+expressions encountered in Emacs.  The =read= syntax is most
+reminiscent of other RE dialects, but only used in prompts.  The
+=string= syntax is used in code doubles the amount of backslashes as
+the RE strings are passed through the reader which removes the
+extraneous ones.  Finally, there's the ~rx~ macro one can use for
+writing lispy RE.
+
+All listed RE syntaxes are supported by =re-builder=.  For whatever
+reason though the =read= syntax is default (which doesn't make much
+sense for me since Evil gives me search/replace preview), I prefer
+having the =string= syntax as default.
+
+#+BEGIN_SRC emacs-lisp
+(setq reb-re-syntax 'string)
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
