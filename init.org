@@ -2949,6 +2949,7 @@ unconditionally run after init has finished.
   (require 'saveplace)
   (winner-mode)
   (shackle-mode)
+  (firestarter-mode)
   (smex-initialize)
   (helm-mode)
   (electric-indent-mode -1)
