@@ -2675,7 +2675,7 @@ long as it's going on.
 #+END_SRC
 
 Let's test having fluid-width windows, now that both Circe and Emacs
-24.4 seem to be less wonky about it.
+24.4 seem to be less wonky about it.  Adapted from [[https://github.com/jorgenschaefer/circe/wiki/Configuration#fluid-width-windows][the wiki]].
 
 #+BEGIN_SRC emacs-lisp
 (setq lui-time-stamp-position 'right-margin
