@@ -2760,6 +2760,19 @@ I'll go with the recommended keybinding for it.
 (define-key emacs-lisp-mode-map (kbd "C-x e") 'macrostep-expand)
 #+END_SRC
 
+*** =visual-fill-column=
+
+There used to be ~longlines-mode~ which did display a file
+soft-wrapped without breaking words and using the value of
+~fill-column~.  However it got deprecated for ~visual-line-mode~ which
+does the same except it doesn't take ~fill-column~ into account.  The
+=visual-fill-column= package fixes that, I want to enable its mode
+automatically when enabling ~visual-line-mode~.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
