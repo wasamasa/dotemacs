@@ -87,7 +87,11 @@ variable for user-made themes.
 
 #+BEGIN_SRC emacs-lisp
 (setq custom-theme-directory "~/.emacs.d/theme")
-(load-theme 'my-solarized t)
+(defun my-load-theme (&optional frame)
+  (with-selected-frame (or frame (selected-frame))
+    (load-theme 'my-solarized t)))
+(my-load-theme)
+(add-hook 'after-make-frame-functions 'my-load-theme)
 #+END_SRC
 
 Let's disable questions about theme loading while we're at it.
