@@ -2706,6 +2706,7 @@ Let's test having fluid-width windows, now that both Circe and Emacs
 (defun my-no-fill-lui-setup ()
   (setq fringes-outside-margins t
         right-margin-width 7
+        fill-column 80
         wrap-prefix "    ")
   (visual-line-mode)
   (setf (cdr (assoc 'continuation fringe-indicator-alist)) nil))
