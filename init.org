@@ -2864,7 +2864,8 @@ might be worth reporting those.
   (goto-address-mode)
   (smartparens-mode)
   (show-smartparens-mode)
-  (yas-minor-mode))
+  (yas-minor-mode)
+  (form-feed-mode))
 
 (my-add-function-to-hooks
   'my-non-special-modes-setup
