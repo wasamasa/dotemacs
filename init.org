@@ -1414,12 +1414,13 @@ directory that's not under version-control.
 
 There's a few languages I like having linting for, see [[Hooks]].
 Additionally to that there's few things to tweak.  For one I prever
-the =tex-lacheck= linter over the default =tex-chktex= linter, another
-thing is that I don't want linting to start on an idle timer, but
-rather on opening the buffer and saving it to disk.
+the =tex-lacheck= linter over the default =tex-chktex= linter and
+don't want to use the =emacs-lisp-checkdoc= one at all, another thing
+is that I don't want linting to start on an idle timer, but rather on
+opening the buffer and saving it to disk.
 
 #+BEGIN_SRC emacs-lisp
-(setq flycheck-disabled-checkers '(tex-chktex)
+(setq flycheck-disabled-checkers '(tex-chktex emacs-lisp-checkdoc)
       flycheck-check-syntax-automatically '(mode-enabled save))
 #+END_SRC
 
