@@ -1456,7 +1456,7 @@ first and foremost, I have only come to define repetition-free ones.
 (defun my-open-r5rs ()
   (interactive)
   (eww-open-file
-   "~/.usr/local/share/chicken/doc/manual/The R5RS standard.html"))
+   "~/.usr/share/chicken/doc/manual/The R5RS standard.html"))
 
 (defun my-capture-journal ()
   (interactive)
