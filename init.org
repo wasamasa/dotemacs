@@ -2407,11 +2407,7 @@ to disable that it is.
 #+BEGIN_SRC emacs-lisp
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (with-eval-after-load 'yasnippet
-  (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
   (yas-reload-all))
-(global-set-key (kbd "M-o") 'yas-expand)
-(setq yas-fallback-behavior 'return-nil)
 #+END_SRC
 
 *** [[https://github.com/jorgenschaefer/circe][Circe]]
