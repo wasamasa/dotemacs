@@ -309,12 +309,15 @@ There are a bunch of modes that ought to be derived from ~text-mode~
 and ~prog-mode~, but aren't.  All of those should be reported to make
 my hooks section cleaner.
 
-* Discuss why ~package-initialize~ is used after init
+* Fix up the (package-initialize) mess
 
-It's very likely to be the first line in the dotemacs of anyone using
-Marmalade/MELPA.  So, why not cater for it and remove the surprise
-element considering how often it crops up?   The ensuing discussion on
-the mailing list might be fun.
+http://lists.gnu.org/archive/html/emacs-devel/2015-04/msg00620.html
+
+Apparently the quick and dirty "Fix" is inserting this instruction in
+your init.el every time you use package.el if it wasn't found
+before.  Awesome.  I need to go for my "radical" fix and tell
+Marmalade, MELPA and GNU ELPA about the problem of explaining newbies
+about it.
 
 * Rediscover =org-mode= again after having learned elisp
 
@@ -395,19 +398,6 @@ modeline).
 An =evil= state for ASCII drawing would be fun, much better than
 arcane keybinds or ex commands.  Instead you'd have operators and
 motions to edit and draw plus some commands to toggle stuff.
-
-* Get rid of =evil-leader=
-
-It didn't occur me back then that I don't need it at all.  The only
-benefit is configurability in case should I ever change the leader
-prefix, but that's rather unlikely and can already be done with a
-variable.
-
-* Do a better job with the =C-i= hack for evil
-
-It seems to work out initially, but is somehow reset to normal tab key
-behaviour.  Re-evaluating it temporarily fixes it.  This is pretty
-weird, I've got to find out what the hell is happening there.
 
 * Configure =smartparens= to start out with way less pairs
 
@@ -578,12 +568,6 @@ its aspect of repeatable actions definitely sounds interesting, too.
 Obvious candidates would be window resizing and font size changes,
 perhaps other stuff like =macrostep= as well.
 
-* Integrate =macrostep= into =evil=
-
-For yet unknown reasons =macrostep= can only be used in Emacs state.
-Figuring out its hook and using ~evil-normalize-keymaps~ should do the
-trick, but it doesn't.
-
 * Start an Emacs Blog
 
 I've always wanted to do a technical blog, but it will very likely be
@@ -598,9 +582,3 @@ which I will of course elaborate upon in its About page).  The design
 is something I'm less sure about, but I'd love incorporating modelines
 or just flatout stealing from http://emacsrocks.com/.
 
-* Start an Emacs Microblog
-
-This is slightly different from above.  I keep encountering really
-weird/scary code in Emacs' codebase and would like to have something
-like http://whattheemacsd.com/ or the http://opensslrampage.org/ or
-http://geoff.greer.fm/vim/#realwaitforchar.
