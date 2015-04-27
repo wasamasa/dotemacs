@@ -177,6 +177,23 @@ can scroll through cells and offers keybinds to edit rows and columns
 or change the view to something more useful (such as sorting,
 filtering, etc.).
 
+* Try out SVG modeline/margin
+
+forcer suggested on #emacs to do tentacle scrollbars.  This might be
+possible by abusing the margin.
+
+Meanwhile, [[https://github.com/ocodo/.emacs.d/blob/master/plugins/ocodo-svg-mode-line.el][someone]] did dig out sabof's svg-mode-line and created
+something nicer to look at with it.  I don't really like the idea of
+just slapping an image on the left or right side of it and leave the
+rest as is because it's about as boring as Firefox Personas.  What
+interests me is that text used in SVG isn't subject to explicit
+fallback (and fallback works out of the box), another thing to exploit
+would be the fact that there's no height restriction, so this could be
+used to have a two-line modeline.  While it is possible to replicate
+mouse events (the =:map= property in =(info "(elisp) Image
+Descriptors")= explains how), I wouldn't really want to waste time on
+them.
+
 * Write some more graphical games
 
 I've had enough fun with SVG (although I should at least finish up the
