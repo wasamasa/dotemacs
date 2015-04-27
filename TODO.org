@@ -80,7 +80,9 @@ Stuff like =ielm= would qualify.  Perhaps some textual modes, too.
 * TODO Improve elisp completion in =company=
 
 There are a few corner cases (with =company-elisp=, check whether they
-are still present in =company-capf=), fix those (TODO list them).
+are still present in =company-capf=), fix those.  The one annoying me
+most is when I'm in a quoted or let-binding list and the completion
+assumes that it's first item must be a function which is just wrong.
 Additionally to that it would be very cool to have contextual
 completion inside macros, like ~loop~ to get the loop keywords as
 candidates.
