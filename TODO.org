@@ -599,3 +599,32 @@ which I will of course elaborate upon in its About page).  The design
 is something I'm less sure about, but I'd love incorporating modelines
 or just flatout stealing from http://emacsrocks.com/.
 
+* Finish up nekobot
+
+I've started writing a bot using [[https://github.com/jorgenschaefer/circe][Circe]], my prefered IRC client.  Two
+unexpected difficulties cropped up though, for one I didn't find any
+ready-made library to select parts of html (which would have been
+necessary to write extensions dealing with web services), the other
+one is that its author decided to rewrite its internals after hearing
+of my endeavor.  Once that rewrite is fully done (most of it is,
+there's tests and bugs to be fixed), writing a bot should become
+simpler.
+
+* Implement zippers in elisp
+
+https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf
+https://clojure.github.io/clojure/clojure.zip-api.html
+https://github.com/danielfm/cl-zipper
+https://bitbucket.org/DerGuteMoritz/zipper/src
+http://paste.call-cc.org/paste?id=c7b2e8dfde5105479490af2d3ca942b8a6ef519f#a1
+
+These look pretty great for traversing trees in a lispy manner (and
+even modifying them!) and simple to implement.  I'll probably steal
+the API from Clojure and implement them with as little recursion as
+possible (as demonstrated by the very basic cl-zipper).  A =zip-=
+namespace for the generic functions should work (though, hmm, I could
+steal the still unused =z.el=...), additionally to that an
+=esxml-zip-= namespace for the esxml-specific things to have (and
+aliases to everything else?).  In case I shouldn't like them (even
+with threading macros), a function compiling a CSS selector to a list
+of zipper instructions should do the trick.
