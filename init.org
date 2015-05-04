@@ -1270,8 +1270,8 @@ Switch back and forth just like my i3wm configuration, wrap around,
 too.
 
 #+BEGIN_SRC emacs-lisp
-(setq eyebrowse-switch-back-and-forth-p t
-      eyebrowse-wrap-around-p t)
+(setq eyebrowse-switch-back-and-forth t
+      eyebrowse-wrap-around t)
 #+END_SRC
 
 *** TODO [[https://github.com/company-mode/company-mode][company-mode]]
