@@ -657,6 +657,15 @@ solutions for Emacs first.  One half seems to be focused on linking
 org captures to files which is a hack at best, the other half actually
 puts some UI over the original buffer with overlays (but is dead).
 
+https://code.google.com/p/annot/
+https://github.com/emacsmirror/annotate/blob/master/annotate.el
+https://github.com/GoNZooo/annotate
+
+https://github.com/VincentToups/emacs-utils/blob/master/annotate.el
+http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-annotate-file.el;hb=HEAD
+https://github.com/tarsius/orglink
+https://github.com/girzel/org-annotate
+
 The UI can be stolen from Google Docs or Genius (select a range of
 text, enter annotation in a commit-style buffer, save/discard, see a
 highlighted range in the original buffer).  What I'm less sure about
