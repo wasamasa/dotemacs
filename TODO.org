@@ -77,7 +77,7 @@ dates yourself.
 
 Stuff like =ielm= would qualify.  Perhaps some textual modes, too.
 
-* TODO Improve elisp completion in =company=
+* Improve elisp completion in =company=
 
 There are a few corner cases (with =company-elisp=, check whether they
 are still present in =company-capf=), fix those.  The one annoying me
@@ -111,6 +111,8 @@ written line at an arbitrary position where the text before point
 makes up a valid snippet abbreviation triggers it.  That's definitely
 not ok, part of the solution would be writing my own, the other would
 be giving them longer names suitable for tab-completion via =company=.
+
+I should add my whimsy snippets to my Emacs configuration, too.
 
 * Learn the =yasnippet= syntax
 
@@ -167,6 +169,10 @@ patch wouldn't hurt either.
 https://github.com/railwaycat/emacs-mac-port/blob/dbf18e1269297e3a6ff5441c59419ad234449c16/lisp/term/mac-win.el#L2007-L2402
 https://github.com/railwaycat/emacs-mac-port/blob/2e5ff4921e4474713878c587965b7e45a0cd12bf/src/xdisp.c#L16227-L16229
 
+Update: I hope this is not the reason for the C-level hack:
+
+http://lists.gnu.org/archive/html/emacs-devel/2015-04/msg00695.html
+
 * Write a proper CSV viewer/editor
 
 Until that long lines bug is fixed, viewing CSV files is no fun.  To
@@ -193,6 +199,10 @@ used to have a two-line modeline.  While it is possible to replicate
 mouse events (the =:map= property in =(info "(elisp) Image
 Descriptors")= explains how), I wouldn't really want to waste time on
 them.
+
+In case I should reconsider my decision regarding images (like, for a
+fun blog post), I'd like to use [[https://chriskempson.github.io/base16/#grayscale][base16+greyscale]] [[http://a.pomf.se/gzkfay.gif][with]] [[http://a.pomf.se/fipnjh.png][a]] [[http://a.pomf.se/uhnkjp.png][tiny]] [[http://a.pomf.se/xdgfuh.png][bit]] [[http://a.pomf.se/wlwhse.png][of]]
+[[http://a.pomf.se/uokszd.png][color]] and [[http://2.bp.blogspot.com/-Zosgua6dQ9o/Tz3A0LhPF4I/AAAAAAAABX0/gapxpqgNasE/s1600/Goodnight+Punpun+v01+c01+-+010.png][a cartoon bird]].
 
 * Write some more graphical games
 
@@ -332,9 +342,14 @@ http://lists.gnu.org/archive/html/emacs-devel/2015-04/msg00620.html
 
 Apparently the quick and dirty "Fix" is inserting this instruction in
 your init.el every time you use package.el if it wasn't found
-before.  Awesome.  I need to go for my "radical" fix and tell
+before.  Awesome.  I need to go for my "social" fix and tell
 Marmalade, MELPA and GNU ELPA about the problem of explaining newbies
 about it.
+
+Update: MELPA already got such a note, GNU ELPA got one as well.
+Marmalade, well, Nic Ferrier hates the very idea of using
+~package-initialize~ explicitly and everyone doing it, unfortunately
+[[https://github.com/nicferrier/elmarmalade/issues/102][the issue thread]] devolved into offtopic.
 
 * Rediscover =org-mode= again after having learned elisp
 
@@ -433,6 +448,12 @@ https://github.com/syl20bnr/evil-lisp-state/commit/fdddd81806ccbcad8cdf04edeb478
 There's a ton of them, but GIFcasts only for =paredit=.  Would be very
 nice to have visual reminders for them, presumably lots of work, too.
 =byzanz-record= to the rescue!
+
+* Record GIFcasts for my own packages
+
+Demonstrating eyebrowse commands would be quite cool (and an
+improvement over the current "See that pretty indicator?  That's
+eyebrowse!"), not sure how useful it would be for other packages.
 
 * Set up an Emacs mail client
 
@@ -628,3 +649,26 @@ steal the still unused =z.el=...), additionally to that an
 aliases to everything else?).  In case I shouldn't like them (even
 with threading macros), a function compiling a CSS selector to a list
 of zipper instructions should do the trick.
+
+* Write a package for annotating all kinds of human-readable files
+
+This is a pretty popular request, I should research into existing
+solutions for Emacs first.  One half seems to be focused on linking
+org captures to files which is a hack at best, the other half actually
+puts some UI over the original buffer with overlays (but is dead).
+
+The UI can be stolen from Google Docs or Genius (select a range of
+text, enter annotation in a commit-style buffer, save/discard, see a
+highlighted range in the original buffer).  What I'm less sure about
+is for one the storage place of such annotations (in the same place
+with an appended extension or in a central directory generating
+subdirectories as needed?), the storage type (serializing a data
+structure will require defining a stable format to avoid version
+mismatches) and the way these annotations can be displayed
+(minibuffer, pop to buffer, tooltip, right margin, inline, etc.) and
+edited (like the commit buffers?).  How useful it would be in practice
+would be the other question, both because I can't imagine using it
+excessively and because overlays are known to cause performance issues
+(which [[https://lists.gnu.org/archive/html/emacs-devel/2014-09/msg00616.html][won't be addressed]] for now).
+
+No idea about the name (never-knows-best?).
