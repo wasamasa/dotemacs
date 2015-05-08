@@ -544,6 +544,9 @@ specifications, Gremlin, possibly many more.
 It would be pretty snazzy to write it in CHICKEN, although there's
 only separate eggs per decompression algorithm, like [[http://wiki.call-cc.org/eggref/4/z3][z3]].
 
+Update: Zippers would be pretty cool to use for this and query
+languages easy to compile to them.
+
 * Write tool for analysis of Emacs sources
 
 Would be very useful to be able to find function usage with something
