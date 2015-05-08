@@ -712,3 +712,13 @@ because overlays are known to cause performance issues (which [[https://lists.gn
 addressed]] for now).
 
 No idea about the name (never-knows-best?).
+
+* Make a Lisp
+
+[[https://github.com/kanaka/mal/blob/master/process/guide.md][Pretty cool guide]].
+
+I like how it looks both doable and worthwhile.  A lot simpler than
+implementing R5RS, too.  An elisp implementation will be fun to do,
+the recommended requirements should be a given (some things will
+require extra work though, like making Emacs behave properly in
+non-interactive mode or file IO).
