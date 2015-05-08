@@ -132,11 +132,12 @@ This would solve the problem of not having nice and fast flex matching
 à la Sublime Text.  The key to this is the combination of fast
 submatching (heatmap + optimization that makes use of the reuse of the
 string since you usually append a glyph at a time and therefore don't
-need to start all over again) as in
-http://hergert.me/blog/2013/09/13/fuzzy-searching.html and sorting of
-the candidates by criteria that make matches for word boundaries
-appear at the top.  I'm afraid the hard part would be rather
-integrating it in these tools than writing it.
+need to start all over again) as described in [[http://hergert.me/blog/2013/09/13/fuzzy-searching.html][this blog post]] and
+sorting of the candidates by criteria that make matches for word
+boundaries appear at the top.  I'm afraid the hard part would be
+rather integrating it in these tools than writing it judging by the
+fact that some ready-made solutions do exist (like [[https://github.com/Valloric/ycmd/][ycmd]], [[https://github.com/junegunn/fzf][fzf]], [[https://github.com/garybernhardt/selecta][selecta]],
+[[https://github.com/thoughtbot/pick][pick]], etc.), yet nobody did wire them up to Emacs yet.
 
 * Write a pure elisp torrent client
 
