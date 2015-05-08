@@ -703,11 +703,12 @@ is for one the storage place of such annotations (in the same place
 with an appended extension or in a central directory generating
 subdirectories as needed?), the storage type (serializing a data
 structure will require defining a stable format to avoid version
-mismatches) and the way these annotations can be displayed
-(minibuffer, pop to buffer, tooltip, right margin, inline, etc.) and
-edited (like the commit buffers?).  How useful it would be in practice
-would be the other question, both because I can't imagine using it
-excessively and because overlays are known to cause performance issues
-(which [[https://lists.gnu.org/archive/html/emacs-devel/2014-09/msg00616.html][won't be addressed]] for now).
+mismatches, renaming could be caught by using git as storage engine)
+and the way these annotations can be displayed (minibuffer, pop to
+buffer, tooltip, right margin, inline, etc.) and edited (like the
+commit buffers?).  How useful it would be in practice would be the
+other question, both because I can't imagine using it excessively and
+because overlays are known to cause performance issues (which [[https://lists.gnu.org/archive/html/emacs-devel/2014-09/msg00616.html][won't be
+addressed]] for now).
 
 No idea about the name (never-knows-best?).
