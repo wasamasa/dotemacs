@@ -514,6 +514,21 @@ a parser of its files could be built in, alternatively for =bash=.
 Combined with =company-capf= this should make for very awesome
 argument completion.
 
+* Write a package for restoring former active regions
+
+The region consists of mark and point, so saving the values of both
+upon deactivating an active region (with ~deactivate-mark-hook~) for
+the buffer in a ring is required, similiar to what ~winner-mode~ does.
+Upon invoking its command, a preview with a differently colored
+overlay of the last selection is shown, an extra command would switch
+to the next one, just like =C-y= and =M-y= do.  Finally, aborting
+would deactivate the preview (and restore the previous state by
+setting point to what it was, same for the mark and its state if it
+used to be active), selecting would deactivate it and use what the
+preview was displaying as basis for a new selection.  That would
+require a temporarily active keymap, either by using a proper minor
+mode or a transient keymap.
+
 * Write tool for grepping Lisp code
 
 The idea is that since Lisp code parses easily into a tree, one could
