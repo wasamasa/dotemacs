@@ -603,6 +603,20 @@ See http://emacs.stackexchange.com/questions/2293/change-syntax-highlighting-wit
 
 * Make =savehist= save more
 
+* Improve Emacs-Scheme integration
+
+I'm currently using =M-x run-scheme= which is good enough for me (will
+try out Geiser later).  One annoying thing is that flipping through
+the command history can break the REPL by turning its buffer read-only
+and appending the last input to it every time I hit =RET=, then
+doubling the amount of input added (probably related to my hack to
+make it stop wrapping at the beginning and end, but still very bizarre
+and infuriating).  Another one is that =csi= truncates error messages,
+that is not good with ~rainbow-delimiters-mode~ enabled, investigating
+in its sources and offering an option to forbid truncation or truncate
+in a smarter manner (like ~print~ in Emacs, but for backtraces only)
+would be useful.
+
 See ~savehist-additional-variables~.
 
 * Improve =package=
