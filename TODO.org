@@ -677,11 +677,11 @@ simpler.
 
 * Implement zippers in elisp
 
-https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf
-https://clojure.github.io/clojure/clojure.zip-api.html
-https://github.com/danielfm/cl-zipper
-https://bitbucket.org/DerGuteMoritz/zipper/src
-http://paste.call-cc.org/paste?id=c7b2e8dfde5105479490af2d3ca942b8a6ef519f#a1
+- https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf
+- https://clojure.github.io/clojure/clojure.zip-api.html
+- https://github.com/danielfm/cl-zipper
+- https://bitbucket.org/DerGuteMoritz/zipper/src
+- http://paste.call-cc.org/paste?id=c7b2e8dfde5105479490af2d3ca942b8a6ef519f#a1
 
 These look pretty great for traversing trees in a lispy manner (and
 even modifying them!) and simple to implement.  I'll probably steal
@@ -701,14 +701,14 @@ solutions for Emacs first.  One half seems to be focused on linking
 org captures to files which is a hack at best, the other half actually
 puts some UI over the original buffer with overlays (but is dead).
 
-https://code.google.com/p/annot/
-https://github.com/emacsmirror/annotate/blob/master/annotate.el
-https://github.com/GoNZooo/annotate
+- https://code.google.com/p/annot/
+- https://github.com/emacsmirror/annotate/blob/master/annotate.el
+- https://github.com/GoNZooo/annotate
 
-https://github.com/VincentToups/emacs-utils/blob/master/annotate.el
-http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-annotate-file.el;hb=HEAD
-https://github.com/tarsius/orglink
-https://github.com/girzel/org-annotate
+- https://github.com/VincentToups/emacs-utils/blob/master/annotate.el
+- http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-annotate-file.el;hb=HEAD
+- https://github.com/tarsius/orglink
+- https://github.com/girzel/org-annotate
 
 The UI can be stolen from Google Docs or Genius (select a range of
 text, enter annotation in a commit-style buffer, save/discard, see a
