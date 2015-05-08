@@ -91,7 +91,8 @@ candidates.
 
 The elisp backend was replaced by it in 24.4, its code should tell me
 enough about the effort involved in getting other backends to use it.
-Porting the other ones over will give me completion styles.
+Porting the other ones over (like, the nxml, jedi and CSS backend)
+will give me completion styles for them.
 
 * Integrate =yasnippet= into =company=
 
