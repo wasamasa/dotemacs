@@ -480,6 +480,17 @@ traversing all circe buffers by looking for property changes involving
 another hack that retroactively applies fool (maybe ignore, too?)
 information.
 
+I wish for hats to show up in the nicknames of messages, not only in
+the initial listing.  The initial listing could come in sorted
+alphabetically (instead of being sorted by join time?).  Working with
+IRC commands would be cool (IIUC you have sort of a callback system
+with commands and display handlers without the ability of determining
+what request the response belongs to, so this requires guessing), such
+as an /IDLE command (which uses the extended WHOIS form and snips out
+the interesting field) or a module that "stalks" other people by
+checking up whether they've joined recently and what channels they're
+on (with the ISON command, maybe WHO as well).
+
 * Configure =elfeed=
 
 Now that I've configured =newsbeuter= to resemble other newsreaders
