@@ -562,6 +562,26 @@ previously mentioned hypothetical tool would work.  Other stuff to
 look for is library usage and making sure it can parse both libraries
 and configurations for dependencies.
 
+* Write a web UI over a scraper that uses the aforementioned tool on popular hosting solutions
+
+A server-side tool that crawls websites like Github to detect Emacs
+configurations and allow for searching these would be more useful if
+coupled with the aforementioned search tool and would beat Github's
+search for finding out the usage of an elisp feature.
+
+Another cool thing to do with that data would be visualizing the
+popularity and usage of packages and their dependencies.  See [[http://crossclj.info/][CrossClj]]
+for a demonstration.
+
+- http://ghtorrent.org/
+- https://github.com/divad12/vim-awesome/blob/master/tools/scrape/github.py
+
+* Write a web UI that unifies all popular package archives
+
+It sucks that neither Marmalade nor MELPA are particularly good at
+browsing and finding stuff easily.  Something like Vimawesome with
+usage statistics would be very nice to have.  Discoverability FTW.
+
 * Write a web UI to allow comparing differences between the library parts between Emacs releases
 
 It would be very cool to find out what exactly breaks/improves between
@@ -569,12 +589,6 @@ Emacs releases and have an useful UI for browsing over it, sort of
 like RDoc where you see docstrings and can fold out sources to peek at
 the implementation.  Add diffing and a good overview and that should
 be it.
-
-* Write a web UI that unifies all popular package archives
-
-It sucks that neither Marmalade nor MELPA are particularly good at
-browsing and finding stuff easily.  Something like Vimawesome with
-usage statistics would be very nice to have.  Discoverability FTW.
 
 * Make news feeds for MELPA and Marmalade releases
 
