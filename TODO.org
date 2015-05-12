@@ -155,11 +155,17 @@ Unlike the previous entry this sounds very doable and profitable.
 * Fix long lines bug
 
 Oh boy.  My main idea how to fix this properly relies on section 6.3
-of
-http://soft-dev.org/pubs/html/diekmann_tratt__eco_a_language_composition_editor/.
-In other words, keeping track of visual line breaks, using them to
-speed up rendering and keeping them up to date.  This will obviously
-require hacking on the buffer data structure.
+of [[http://soft-dev.org/pubs/html/diekmann_tratt__eco_a_language_composition_editor/][the ECO document]].  In other words, keeping track of visual line
+breaks, using them to speed up rendering and keeping them up to date.
+This will obviously require hacking on the buffer data structure and
+display code to make use of it.
+
+* Fix overlay slowness
+
+See the following thread for the reasons, possible remedies and
+facepalms about RMS being silly for no damn reason.
+
+https://lists.gnu.org/archive/html/emacs-devel/2014-09/msg00616.html
 
 * Bring pixel-level smooth scrolling to Emacs
 
