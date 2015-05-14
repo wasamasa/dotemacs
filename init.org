@@ -2544,7 +2544,7 @@ Sometimes I like knowing just how many people are online.
   (interactive)
   (when (eq major-mode 'circe-channel-mode)
     (message "%i entities are online on %s."
-             (hash-table-count circe-channel-users)
+             (length (circe-channel-nicks))
              (buffer-name))))
 
 (with-eval-after-load 'circe
