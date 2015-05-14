@@ -1023,6 +1023,12 @@ function documentation.
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 
+Form feeds can be displayed as lines in Emacs Lisp files.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-lisp-mode-hook 'form-feed-mode)
+#+END_SRC
+
 *** Scheme
 
 I like [[http://call-cc.org/][CHICKEN]].
@@ -2865,8 +2871,7 @@ might be worth reporting those.
   (goto-address-mode)
   (smartparens-mode)
   (show-smartparens-mode)
-  (yas-minor-mode)
-  (form-feed-mode))
+  (yas-minor-mode))
 
 (my-add-function-to-hooks
   'my-non-special-modes-setup
