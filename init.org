@@ -2703,7 +2703,9 @@ long as it's going on.
 #+END_SRC
 
 Let's test having fluid-width windows, now that both Circe and Emacs
-24.4 seem to be less wonky about it.  Adapted from [[https://github.com/jorgenschaefer/circe/wiki/Configuration#fluid-width-windows][the wiki]].
+24.4 seem to be less wonky about it.  Adapted from [[https://github.com/jorgenschaefer/circe/wiki/Configuration#fluid-width-windows][the wiki]], extended
+to avoid the rather annoying behaviour of the cursor jumping into the
+fridge when reaching the full text width.
 
 #+BEGIN_SRC emacs-lisp
 (setq lui-time-stamp-position 'right-margin
@@ -2715,7 +2717,10 @@ Let's test having fluid-width windows, now that both Circe and Emacs
         fill-column 80
         wrap-prefix "    ")
   (visual-line-mode)
-  (setf (cdr (assoc 'continuation fringe-indicator-alist)) nil))
+  (setf (cdr (assoc 'continuation fringe-indicator-alist)) nil)
+  (make-local-variable 'overflow-newline-into-fringe)
+  (setq overflow-newline-into-fringe nil))
+
 (add-hook 'circe-chat-mode-hook 'my-no-fill-lui-setup)
 #+END_SRC
 
