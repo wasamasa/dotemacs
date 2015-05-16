@@ -240,6 +240,29 @@ canvas-like) and proper bitmap embedding support in Emacs 25.1.
 
 http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
 
+Finally, paying homage to the demo scene would be the silliest option
+I can think of, but cool if combined with audio.
+
+* Finish bytebeat demo
+
+I've started writing one by opening a pty (which is definitely not
+portable) and shoving chars into =aplay= or =paplay=.  Currently it's
+blocking, it would be better to start an asynchronous process, then
+send arrays of ints in regular time intervals (with a timer presumably
+and a bit of extra buffering).  Another cool feature to implement
+would be having the function for creating the ints separate from this
+so that changing and re-evaluation changes the sounds being played
+accordingly.  Finally, visualization of the currently processed ints
+would be pretty awesome, especially if it were wrapped up in a major
+mode depending on the library that pops up a window with a XBM or
+ASCII art in it.
+
+- http://countercomplex.blogspot.de/2011/10/algorithmic-symphonies-from-one-line-of.html
+- http://countercomplex.blogspot.de/2011/12/ibniz-hardcore-audiovisual-virtual.html
+- https://youtu.be/vCEUyx-SxPw
+- https://github.com/erlehmann/libglitch
+- http://www.rossbencina.com/code/real-time-audio-programming-101-time-waits-for-nothing
+
 * Create my own starter kit
 
 HollywoodOS™ with SVG and something terminal-looking with lots of text
@@ -255,13 +278,22 @@ than ~ansi-term~, probably not though.
 
 * Write audio demos
 
-This doesn't work very well with external processes at the moment,
-though my demo with Overtone for Quasiconf 2014 showed promise.  FFI
-might solve it (or not).  It would be super-cool to have something
-like a keyboard to play melodies, ideally by driving CSound instead of
-Supercollider.  It would be even more cool to turn it into a
+See my demo with Overtone for Quasiconf 2014.  It would be super-cool
+to have something like a keyboard to play melodies, ideally by driving
+[[http://en.wikipedia.org/wiki/Csound#Csound_6][CSound 6]] via OSC instead of Supercollider (perhaps [[http://www.zogotounga.net/comp/csoundx-info.html][csound-x]] has some
+hints on that).  It would be even more cool to turn it into a
 keyboard-driven tracker to compose music and tweak synths or create
 samples to play.
+
+- http://en.flossmanuals.net/csound/e-triggering-instrument-events/
+- http://delysid.org/emacs/osc.html
+
+An alternative approach would be either fixing the built-in audio
+support (it blocks and is WAV and AU only) to be asynchronous and work
+on a mixer object or using FFI and a cross-platform library.
+
+- http://wavepot.com/
+- http://www.windytan.com/2014/06/headerless-train-announcements.html
 
 * Work on helm packages
 
