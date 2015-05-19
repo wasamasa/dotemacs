@@ -45,9 +45,21 @@ Krita.
 
 * Rewrite a sane subset of =helm=
 
-Let's call it =union= (since there's =unite= for Vim and it's one char
-shorter, also there's this very pretty kind of union-jack segment LEDs
-of which I happen to have an appropriate animated GIF for).
+I should really just contribute to [[https://github.com/tetracat/sallet][sallet]] by either fixing bugs,
+implementing features or just writing interfaces with it that replace
+the helm ones I'm currently using (see the respective section of my
+[[https://github.com/wasamasa/dotemacs/blob/master/init.org][init.org]]).  Here's a list of helm-like interfaces I'd like to have
+additionally to currently existing ones:
+
+- Arch Linux Package and AUR search
+- Search of Emacs C internals, zipped system parts, personal config
+- helm-do-grep with a history
+- org document outline
+- dict.cc interface
+- mpd
+- a better cmd-T interface which doesn't truncate the paths or locate
+  with path truncation from the current directory on
+- full-text search of info manuals
 
 * Rewrite a sane subset of =dired=
 
