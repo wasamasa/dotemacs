@@ -178,6 +178,13 @@ useful to write a proper frontend to an existing torrent client.
 * Help out holomorph with his =transmission= UI
 
 Unlike the previous entry this sounds very doable and profitable.
+Here's some somewhat related resources:
+
+- https://github.com/skangas/mentor
+- https://github.com/skeeto/emacs-torrent
+- https://i.imgur.com/xX8kgu5.png
+- https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt
+- https://github.com/skeeto/elisp-json-rpc/blob/master/json-rpc.el
 
 * Fix long lines bug
 
@@ -186,6 +193,10 @@ of [[http://soft-dev.org/pubs/html/diekmann_tratt__eco_a_language_composition_ed
 breaks, using them to speed up rendering and keeping them up to date.
 This will obviously require hacking on the buffer data structure and
 display code to make use of it.
+
+- https://emacs.stackexchange.com/questions/598/how-do-i-handle-files-with-extremely-long-lines#answer-603
+- http://debbugs.gnu.org/cgi/bugreport.cgi?bug=15555#11
+- http://emacs.stackexchange.com/a/5559/10
 
 * Fix overlay slowness
 
@@ -300,8 +311,10 @@ colors and all that).
 * Write a fast terminal emulator
 
 Perhaps with FFI (not sure whether the official one or skeeto's
-approach) and libtsm one could write something considerably faster
+approach) and [[http://www.freedesktop.org/wiki/Software/kmscon/libtsm/][libtsm]] one could write something considerably faster
 than ~ansi-term~, probably not though.
+
+Update: [[http://www.reddit.com/r/vim/comments/30btwx/neovim_now_has_a_full_terminal_emulator_mode_i/][Neovim did it]].
 
 * Write audio demos
 
@@ -498,6 +511,20 @@ An =evil= state for ASCII drawing would be fun, much better than
 arcane keybinds or ex commands.  Instead you'd have operators and
 motions to edit and draw plus some commands to toggle stuff.
 
+Some links:
+
+- https://github.com/haya14busa/incsearch.vim + https://github.com/junegunn/vim-oblique/
+- https://github.com/junegunn/limelight.vim
+- https://github.com/yssl/twcmd.vim
+- https://github.com/sosmo/vim-easyreplace
+- https://github.com/chrisbra/vim-diff-enhanced
+- https://github.com/richsoni/vim-ecliptic
+- https://github.com/kana/vim-textobj-user/wiki
+- https://github.com/Shougo/vimfiler.vim
+- https://github.com/Lokaltog/vim-easymotion
+- https://github.com/paradigm/TextObjectify
+- https://github.com/wellle/targets.vim
+- https://github.com/t9md/vim-textmanip
 * Configure =smartparens= to start out with way less pairs
 
 It's annoying to fix quotes for every Lisp-related mode (text-related
