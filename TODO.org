@@ -85,6 +85,21 @@ Also, writing your own calendar seems to be good tradition to
 experience the many falsehoods programmers believe in about time and
 dates yourself.
 
+* Rewrite =AUCTEX=
+
+It behaves differently from every other newer mode, is hard to
+understand and customize and I don't need most of its features
+anyways.  So, maybe take a look at the following and do better (then
+call it nique?):
+
+- http://staff.science.uva.nl/~dominik/Tools/cdlatex/cdlatex.el
+- http://www.gnu.org/software/auctex/reftex.html
+- http://www.gnu.org/software/auctex/index.html
+- https://github.com/jhpalmieri/ultratex
+- http://www.emacswiki.org/emacs/WhizzyTeX
+- http://www.ctan.org/tex-archive/support/ite/
+- http://www.yatex.org/
+
 * Make a list of (REPL) modes to enable =company= for
 
 Stuff like =ielm= would qualify.  Perhaps some textual modes, too.
