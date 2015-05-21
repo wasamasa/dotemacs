@@ -2721,8 +2721,12 @@ And finally, the function for entering IRC.
   (enable-lui-autopaste)
   (require 'circe-chanop)
   (circe "Bitlbee")
-  (circe "ZNC/freenode")
-  (circe "ZNC/f0o"))
+  (circe "ZNC/f0o")
+  (circe "ZNC/freenode"))
+
+(defun my-irc-debug ()
+  (interactive)
+  (circe "Freenode" :nick "not_wasamasa"))
 #+END_SRC
 
 *** =hl-todo=
