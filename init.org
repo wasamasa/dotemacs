@@ -2935,21 +2935,20 @@ Colored color codes however only make sense for CSS, HTML and XML.
 (add-hook 'minibuffer-setup-hook 'show-smartparens-mode)
 #+END_SRC
 
-** Packages
+** Load unpublished packages
 
 Emacs Lisp files can be easily turned into packages one can load and
 install via =package.el=.  While initialization is done, it only
 happens /after/ successful startup.
 
-Both my setup files and unpublished packages reside in their
-respective directories and need to be added to the ~load-path~.
+My unpublished packages reside in =~/.emacs.d/unpublished= and need to
+be added to the ~load-path~.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/setup")
 (add-to-list 'load-path "~/.emacs.d/unpublished")
 #+END_SRC
 
-** Unpublished
+** Set up unpublished packages
 
 I have a bunch of stuff I'm working on.
 
