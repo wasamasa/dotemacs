@@ -588,7 +588,6 @@ combinations remain unchanged."
    (js2-jsdoc-tag :foreground cyan)
    (js2-jsdoc-type :foreground blue)
    (js2-jsdoc-value :foreground violet)
-   (js2-magic-paren :underline t)
    (js2-private-function-call :foreground yellow)
    (js2-private-member :foreground blue)
    (js2-warning :underline (:color orange))
