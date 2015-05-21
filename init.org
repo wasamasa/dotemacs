@@ -1649,22 +1649,6 @@ Let's fancy things up.
 (setq slime-contribs '(slime-fancy))
 #+END_SRC
 
-*** [[http://elpa.gnu.org/packages/rainbow-mode.html][rainbow-mode]]
-
-Highlights color identifiers with their respective color.
-
-For not yet explained reasons I need to use =M-x
-font-lock-fontify-buffer= always after both enabling and disabling
-this minor mode to see changes.  A bit of advice can do this
-automatically.
-
-#+BEGIN_SRC emacs-lisp
-(defadvice rainbow-turn-on (after fontify-buffer activate)
-  (font-lock-fontify-buffer))
-(defadvice rainbow-turn-off (after fontify-buffer activate)
-  (font-lock-fontify-buffer))
-#+END_SRC
-
 *** [[https://github.com/mooz/js2-mode/][js2-mode]]
 
 An IDE-like mode for editing Javascript.  Due to it actually parsing
