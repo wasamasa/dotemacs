@@ -2863,7 +2863,7 @@ might be worth reporting those.
 
 (my-add-function-to-hooks
   'my-non-special-modes-setup
-  '(text-mode-hook prog-mode-hook css-mode-hook))
+  '(text-mode-hook prog-mode-hook css-mode-hook diff-mode-hook))
 #+END_SRC
 
 Same deal with programming-related hooks and text-related hooks.
