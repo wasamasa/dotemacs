@@ -125,12 +125,12 @@ combinations remain unchanged."
     output))
 
 (my-apply-faces
- '((my-circe-greentext-face :foreground green)
+ '((my-circe-greentext-face :inherit success)
    (my-circe-highlight-notification-face :foreground fg-2 :weight bold)
    (comint-highlight-input :foreground unspecified)
    (comint-highlight-prompt :foreground unspecified)
    (eyebrowse-mode-line-active :foreground fg-2)
-   (hl-todo :foreground red :weight bold)
+   (hl-todo :inherit org-todo)
 
    ;; basic coloring
    (default :foreground fg-0 :background bg-3)
