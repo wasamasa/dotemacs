@@ -2928,7 +2928,17 @@ Colored color codes however only make sense for CSS, HTML and XML.
   '(css-mode-hook sgml-mode-hook nxml-mode-hook web-mode-hook))
 #+END_SRC
 
-=smartparens= ought to be enabled in the minibuffer, too.
+=smartparens= ought to be enabled in the minibuffer, but only for =M-:=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-smartparens-minibuffer-setup ()
+  (when (eq this-command 'eval-expression)
+    (smartparens-mode)
+    (show-smartparens-mode)))
+
+(add-hook 'minibuffer-setup-hook 'my-smartparens-minibuffer-setup)
+#+END_SRC
+
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'minibuffer-setup-hook 'smartparens-mode)
