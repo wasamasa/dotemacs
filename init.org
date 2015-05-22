@@ -2939,10 +2939,10 @@ Colored color codes however only make sense for CSS, HTML and XML.
 (add-hook 'minibuffer-setup-hook 'my-smartparens-minibuffer-setup)
 #+END_SRC
 
+I wish for Markdown documents to make use of fenced code blocks.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'minibuffer-setup-hook 'smartparens-mode)
-(add-hook 'minibuffer-setup-hook 'show-smartparens-mode)
+(add-hook 'markdown-mode-hook 'gfm-mode)
 #+END_SRC
 
 ** Load unpublished packages
