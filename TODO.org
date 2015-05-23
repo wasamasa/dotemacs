@@ -29,6 +29,9 @@ files.  In other words, I want a behaviour comparable to =zsh= and its
 history pruning.  In case that's not the reason for it, I'll probably
 just increase the history limit to a ridiculously large number.
 
+If the situation should turn out to be hopeless, I better investigate
+into Fuco's [[https://github.com/Fuco1/autobookmarks][autobookmarks]] instead.
+
 * Join forces with Fuco and think up better names for the projects to hack on
 
 The plan is to do a Github organization and to learn useful stuff
