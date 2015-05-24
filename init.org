@@ -2287,6 +2287,7 @@ Next, define a few toggling commands and bind them.
   (force-mode-line-update))
 
 (with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "z r") 'revert-buffer)
   (define-key evil-normal-state-map (kbd "z s") 'describe-char)
   (define-key evil-normal-state-map (kbd "z e") 'toggle-debug-on-error)
   (define-key evil-normal-state-map (kbd "z q") 'toggle-debug-on-quit)
