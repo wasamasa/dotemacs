@@ -2761,6 +2761,17 @@ automatically when enabling ~visual-line-mode~.
 (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
 #+END_SRC
 
+*** =magit=
+
+The very best.  It did gain a stable release recently and for some
+reason its author decided to not impose the latest changes on MELPA
+users.  This is why it's currently displaying a pretty annoying
+warning on startup I'm just going to deactivate.
+
+#+BEGIN_SRC emacs-lisp
+(setq magit-last-seen-setup-instructions "1.4.0")
+#+END_SRC
+
 ** Keybinds
 
 We already have =F1= for help, so let's turn =C-h= and =M-h= more
