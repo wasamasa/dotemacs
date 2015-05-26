@@ -671,7 +671,7 @@ the interesting field) or a module that "stalks" other people by
 checking up whether they've joined recently and what channels they're
 on (with the ISON command, maybe WHO as well).
 
-The coolest idea I can come up is a link preview à la 4chan for
+The coolest idea I came up with is a link preview à la 4chan/imgur for
 images, especially animated ones.  Hovering the mouse over an image
 link would then fire off a HTTP request (HEAD or a truncated GET?) to
 discover the content-type, if that content-type is an image Emacs can
