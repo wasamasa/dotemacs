@@ -911,3 +911,20 @@ implementing R5RS, too.  An elisp implementation will be fun to do,
 the recommended requirements should be a given (some things will
 require extra work though, like making Emacs behave properly in
 non-interactive mode or file IO).
+
+* Give elnode and friends a try and port [[https://github.com/ring-clojure/ring][Ring]], [[https://github.com/weavejester/hiccup][Hiccup]] and [[https://github.com/weavejester/compojure][Compojure]]
+
+I've been writing a fair bit of Clojure thanks to work and really like
+the aforementioned trio for writing web applications (save the
+unreadable backtraces).  No matter how silly the idea of using Emacs
+as web server is, doing it the Clojure way would be a fun exercise for
+having an easier way of experimentation with the existing
+implementation.  Due to the still lacking abstraction over these,
+there's no Compojure equivalent yet, however there are a few that can
+be used instead of Hiccup.
+
+- https://github.com/nicferrier/elnode
+- https://github.com/eschulte/emacs-web-server/
+- https://github.com/skeeto/emacs-web-server
+- https://github.com/tali713/esxml
+- https://github.com/philjackson/xmlgen
