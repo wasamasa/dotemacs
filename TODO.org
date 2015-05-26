@@ -848,6 +848,12 @@ solution would be special-casing the nicklist, a more general one
 would involve a paste protection for both long messages and messages
 containing newlines with tresholds for both.
 
+There is spam protection present in development versions of ERC, but
+it's not enabled out of the box.  An one-line patch should remedy that
+once it's made it into a release and into Emacs.
+
+- https://lists.gnu.org/archive/html/emacs-devel/2012-05/msg00504.html
+
 * Write package for hacking on keymaps
 
 There's nothing just previewing them properly or more than the bare
