@@ -263,6 +263,20 @@ can scroll through cells and offers keybinds to edit rows and columns
 or change the view to something more useful (such as sorting,
 filtering, etc.).
 
+* Rewrite linum
+
+Looks like this mode is inserting an overlay per visible line which
+contains the margin content.  I can think of a few ways of speeding
+this up:
+
+- http://debbugs.gnu.org/cgi/bugreport.cgi?bug=16545
+- Do it like RMS would and use text properties (managed by font-lock?)
+  to reinvent overlays
+- Just fix overlay slowness
+- Figure out how to put a long image in the margin and make it display
+  something looking like line numbers ([[http://brause.cc/emacs-trollface.png][probably not possible]], but [[https://lists.gnu.org/archive/html/emacs-devel/2014-08/msg00108.html][one
+  can dream...]])
+
 * Try out SVG modeline/margin
 
 forcer suggested on #emacs to do tentacle scrollbars.  This might be
