@@ -189,6 +189,27 @@ Here's some somewhat related resources:
 - https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt
 - https://github.com/skeeto/elisp-json-rpc/blob/master/json-rpc.el
 
+* Investigate in database fun
+
+The standard advice for applications relying on state serialization
+beyond serializing something lispy (with pretty-printing deactivated
+please) is to speak to [[https://www.sqlite.org/][SQlite3]], but that's a poor match for Emacs as
+it's not embedded into it and speaking to the CLI utility can deal
+with the CSV format at best.  Yuck.
+
+The other problem is that Emacs can only read in a file completely.
+No arbitrary seeking and reading allowed.  See [[http://nullprogram.com/blog/2013/09/09/][Elfeed's database]] for a
+workaround.  Maybe using =lseek= or modules will be viable at some
+point, dunno.
+
+An alternative is just using some sort of in-memory store that behaves
+either relational or key-value-like, I've started writing =pdata.el=
+for that purpose because I've seen [[https://github.com/tonsky/datascript][datascript]] and liked the idea of
+worrying less about storing state while being able to query it in a
+more structured manner, but it will be more like [[http://wiki.call-cc.org/eggref/4/sql-de-lite][sql-de-lite]] (very
+bare-bones, yet high-level enough) and [[http://guides.rubyonrails.org/active_record_basics.html][Active Record]] (see the
+convenience methods, not the design).
+
 * Fix long lines bug
 
 Oh boy.  My main idea how to fix this properly relies on section 6.3
