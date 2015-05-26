@@ -747,14 +747,18 @@ Would be very useful to be able to find function usage with something
 a lot more usable than Regex-based solutions (like, tags), perhaps the
 previously mentioned hypothetical tool would work.  Other stuff to
 look for is library usage and making sure it can parse both libraries
-and configurations for dependencies.
+and configurations for dependencies.  For docstrings it's important to
+keep in mind that snarfing them works differently for the internals,
+see =make-docfile.c= for further details.
 
 * Write a web UI over a scraper that uses the aforementioned tool on popular hosting solutions
 
 A server-side tool that crawls websites like Github to detect Emacs
-configurations and allow for searching these would be more useful if
-coupled with the aforementioned search tool and would beat Github's
-search for finding out the usage of an elisp feature.
+configurations and allow for searching these (with automatic tagging
+this would allow for finding all configs using gnus or for writing C)
+would be more useful if coupled with the aforementioned search tool
+and would beat Github's search for finding out the usage of an elisp
+feature.
 
 Another cool thing to do with that data would be visualizing the
 popularity and usage of packages and their dependencies.  See [[http://crossclj.info/][CrossClj]]
