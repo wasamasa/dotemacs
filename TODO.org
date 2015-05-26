@@ -975,7 +975,7 @@ other question, both because I can't imagine using it excessively and
 because overlays are known to cause performance issues (which [[https://lists.gnu.org/archive/html/emacs-devel/2014-09/msg00616.html][won't be
 addressed]] for now).
 
-No idea about the name (never-knows-best?).
+No idea about the name (overly? never-knows-best?).
 
 * Make a Lisp
 
