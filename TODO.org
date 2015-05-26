@@ -899,15 +899,19 @@ Possible things to write about:
 - photoshop cs2 + winetricks (adobe giveaway)
 - markov chains (and a twitter demo)
 - upower (activate daemon, edit /etc/UPower/UPower.conf)
-- ranger's mime bug with images
+- ranger cheatsheet (as replacement for =1?=)
+- systemd and service/timer files for running web applications
 - emacs terminal theming (http://www.reddit.com/r/emacs/comments/2pqeq0/xresourcestheme_keeping_your_themes_consistent/cmzs4hs)
 - chicken hackery (spock, linting, chicken-src, doodle, utilities, etc.)
 - http://emacs.stackexchange.com/questions/5545/how-to-prevent-slow-down-when-an-inferior-processes-generates-long-lines/5559#5559
+- extending circe (auto-switch buffers)
+- hacking on mail
 
 Possible designs:
 - http://limpet.net/mbrubeck/2014/08/13/toy-layout-engine-3-css.html
 - http://nullroute.eu.org/~grawity/
 - http://lkcl.net/reports/ssd_analysis.html (rfc-style, <pre> or no <pre>?)
+- http://bettermotherfuckingwebsite.com/
 - http://emacsrocks.com/
 
 * Finish up nekobot
