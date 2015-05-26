@@ -389,16 +389,6 @@ I'm less happy about =helm-smex=.  It would be a lot better to add a
 helm interface to smex directly instead of hacking something that
 reuses the data the ido interface creates.
 
-As for new packages using =helm=, I'd like having something slightly
-better than my current setup with =dmenu= driving =mpd=.  Another
-thing that would be cool to have would be an interface to
-http://dict.cc/ and its offline dictionaries with history.  Searching
-the package archives and AUR would be better than the Web UI.  Perhaps
-replacing all of my search engine usage if it proves to be better
-(incremental completion is the problem).  Oh and full-text search on
-info manuals, it would be enough to be able to use it on the currently
-open node and its children.
-
 * Bump bug reports without replies
 
 According to Eli Zaretskii this should be alright to do after a week
