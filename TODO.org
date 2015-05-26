@@ -247,6 +247,7 @@ patch wouldn't hurt either.
 
 - https://github.com/railwaycat/emacs-mac-port/blob/dbf18e1269297e3a6ff5441c59419ad234449c16/lisp/term/mac-win.el#L2007-L2402
 - https://github.com/railwaycat/emacs-mac-port/blob/2e5ff4921e4474713878c587965b7e45a0cd12bf/src/xdisp.c#L16227-L16229
+- https://github.com/asvd/naturalScroll
 
 Update: I hope this is not the reason for the C-level hack:
 
