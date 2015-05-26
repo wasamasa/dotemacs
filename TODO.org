@@ -562,7 +562,7 @@ motions to edit and draw plus some commands to toggle stuff.
 Some links:
 
 - https://github.com/haya14busa/incsearch.vim + https://github.com/junegunn/vim-oblique/
-- https://github.com/junegunn/limelight.vim
+- https://github.com/junegunn/limelight.vim <- https://github.com/larstvei/Focus
 - https://github.com/yssl/twcmd.vim
 - https://github.com/sosmo/vim-easyreplace
 - https://github.com/chrisbra/vim-diff-enhanced
