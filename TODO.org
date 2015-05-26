@@ -1,3 +1,12 @@
+* Learn from other people's Emacs configurations
+
+- https://github.com/purcell/emacs.d
+- https://github.com/magnars/.emacs.d
+- https://github.com/Fuco1/.emacs.d
+- https://github.com/skeeto/.emacs.d
+- https://github.com/mbriggs/.emacs.d
+- https://github.com/cofi/dotfiles
+
 * Fix Emacs' selection after window quit/close
 
 So very annoying.  Apparently switching window focus after creating
