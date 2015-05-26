@@ -769,7 +769,7 @@ It would be very cool to find out what exactly breaks/improves between
 Emacs releases and have an useful UI for browsing over it, sort of
 like RDoc where you see docstrings and can fold out sources to peek at
 the implementation.  Add diffing and a good overview and that should
-be it.
+be it.  The data could be static except for HEAD (with daily updates).
 
 * Make news feeds for MELPA and Marmalade releases
 
