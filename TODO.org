@@ -573,6 +573,44 @@ Some links:
 - https://github.com/paradigm/TextObjectify
 - https://github.com/wellle/targets.vim
 - https://github.com/t9md/vim-textmanip
+
+* Write something educational Emacs-related content
+
+A game for drilling readline-bindings or generally Emacs bindings?
+Making it bullethell-like (who wouldn't like shooting the heck out
+of... text) with powerups emulating famous packages (like paredit,
+ace-jump, etc.) would be so very silly.
+
+- http://vim-adventures.com/
+- https://github.com/jmoon018/PacVim
+
+Another thing crossing my mind would be koans.
+
+- http://clojurekoans.com/
+- http://clojurescriptkoans.com/
+- https://github.com/google/lisp-koans
+
+Or even go the full route and write a book on learning proper Emacs
+Lisp, maybe [[http://learncodethehardway.org/][the hard way]].  I suspect just summarizing useful resources
+would already help a lot for the aspiring new blood.
+
+- http://learnvimscriptthehardway.stevelosh.com/
+- http://yoo2080.wordpress.com/2011/12/31/lexical-scoping-and-dynamic-scoping-in-emacs-lisp/
+- http://yoo2080.wordpress.com/2014/02/23/threading-macros-from-dash-for-emacs-lisp/
+- [[http://sachachua.com/blog/series/read-lisp-tweak-emacs/]]
+- [[http://bzg.fr/learn-emacs-lisp-in-15-minutes.html]]
+- [[http://harryrschwartz.com/2014/04/08/an-introduction-to-emacs-lisp.html]]
+- http://steve-yegge.blogspot.com/2008/01/emergency-elisp.html
+- https://github.com/bbatsov/emacs-lisp-style-guide
+- https://www.gnu.org/software/emacs/manual/html_mono/eintr.html
+- http://www.gnu.org/software/emacs/manual/html_mono/elisp.html
+
+An alternative way to teach Emacs Lisp would be in form of a more
+elaborate game, I'm thinking of something text adventurish, but with
+the goal of doing more than in the koans, like by filling in the
+missing parts of the game.  That kind of thing will of course only
+work in Emacs...
+
 * Configure =smartparens= to start out with way less pairs
 
 It's annoying to fix quotes for every Lisp-related mode (text-related
