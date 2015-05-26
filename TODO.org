@@ -809,8 +809,6 @@ Clojure, CL and Scheme would benefit from it, too.
 
 See http://emacs.stackexchange.com/questions/2293/change-syntax-highlighting-without-changing-major-mode
 
-* Make =savehist= save more
-
 * Improve Emacs-Scheme integration
 
 I'm currently using =M-x run-scheme= which is good enough for me (will
@@ -825,9 +823,14 @@ in its sources and offering an option to forbid truncation or truncate
 in a smarter manner (like ~print~ in Emacs, but for backtraces only)
 would be useful.
 
+Update: I've tried out Geiser... and it broke.  [[https://github.com/jaor/geiser/issues/58][It's spamming queries]]
+and auto-completion attempts throw errors :(
+
+* Make =savehist= save more
+
 See ~savehist-additional-variables~.
 
-* Improve =package=
+* Improve =package.el=
 
 When it comes to its adherence to MVC, it's pretty terrible (you need
 to open the view before you're able to do anything beyond installing a
