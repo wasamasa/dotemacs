@@ -1256,8 +1256,7 @@ Declarative popup window rules.
       '((svg-2048-mode :same t)
         ("*Help*" :align t :ratio 0.4 :select t)
         ("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4)
-        (compilation-mode :noselect t)
-        ("*firestarter*" :noselect t)
+        ((compilation-mode "*firestarter*") :noselect t)
         (inferior-scheme-mode :popup t)
         (t :select t)))
 #+END_SRC
