@@ -2145,18 +2145,26 @@ in the jump list.  It also happens to be interpreted as =TAB=, simply
 because terminals are a nightmare.  Fortunately GUI Emacs can be told
 to not resolve =C-i= to indentation.  This should be done by default,
 but I've unbound it earlier to have the tabulator key resolve to
-whatever the right Emacs command would be.  To avoid errors about
-unbound keys, =C-i= is otherwise bound to a keyboard macro that
-triggers whatever =TAB= would do.
+whatever the right Emacs command would be.  I'm stealing Evil's trick
+of making use of an empty menu item since these have the ability to
+make use of a filter function to optionally translate the key into
+another one.  That way I'm sending a custom =<C-i>= when Evil is active
+and in normal state, otherwise =TAB= is passed through.
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<C-i>") (kbd "TAB"))
-(with-eval-after-load 'evil-maps
-  (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
+(defun my-filter-C-i (map)
+  (if (and (bound-and-true-p evil-mode) (eq evil-state 'normal))
+      (kbd "<C-i>")
+    map))
 
 (defun my-fix-C-i (&optional frame)
   (with-selected-frame (or frame (selected-frame))
-    (define-key input-decode-map [?\C-i] (kbd "<C-i>"))))
+    (define-key input-decode-map [?\C-i]
+       `(menu-item "" ,(kbd "TAB") :filter my-filter-C-i))))
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
+
 (my-fix-C-i)
 (add-hook 'after-make-frame-functions 'my-fix-C-i)
 #+END_SRC
