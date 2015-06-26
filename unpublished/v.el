@@ -49,3 +49,49 @@
 (defun v-deep-copy (vector)
   (copy-tree vector t))
 
+(defun v-each (vector fn)
+  (let ((size (length vector))
+        (i 0))
+    (while (< i size)
+      (funcall fn (aref vector i))
+      (setq i (1+ i)))))
+(put 'v-each 'lisp-indent-function 1)
+
+;; this is sort of ugly...
+(v-each [1 2 3]
+  (lambda (x)
+    (v-each [1 2 3]
+      (lambda (y)
+        (message "%s x %s is %s"
+                 x y (* x y))))))
+
+(defun v-map (fn vector)
+  (let* ((size (length vector))
+         (i 0)
+         (results (make-vector size nil)))
+    (while (< i size)
+      (aset results i (funcall fn (aref vector i)))
+      (setq i (1+ i)))
+    results))
+
+(v-map '1+ [0 1 2])
+
+;; TODO figure out more uses in spec other than binding the variable
+;; and specifying the vector
+(defmacro v-do (spec &rest body)
+  (declare (indent 1))
+  (let ((s (make-symbol "s"))
+        (i (make-symbol "i")))
+    `(let ((,s (length ,(cadr spec)))
+           (,i 0)
+           ,(car spec))
+       (while (< ,i ,s)
+         (setq ,(car spec) (aref ,(cadr spec) ,i))
+         ,@body
+         (setq ,i (1+ ,i))))))
+
+;; much better!
+(v-do (x [1 2 3])
+  (v-do (y [1 2 3])
+    (message "%s x %s is %s"
+             x y (* x y))))
