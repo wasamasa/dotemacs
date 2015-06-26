@@ -44,3 +44,8 @@
   (v-set-in grid (1 1) t)
   (v-ref-in grid (1 1)))
 
+(defalias 'v-copy 'copy-sequence)
+
+(defun v-deep-copy (vector)
+  (copy-tree vector t))
+
