@@ -12,31 +12,35 @@
       (push (v-grid width height init) cube))
     (vconcat cube)))
 
-(defun v-peek (vector index-or-indices)
-  (cond
-   ((numberp index-or-indices)
-    (aref vector index-or-indices))
-   ((arrayp index-or-indices)
-    (let ((result vector))
-      (dotimes (index (length index-or-indices))
-        (setq result (aref result (aref index-or-indices index))))
-      result))))
-
-(defun v-poke (vector index-or-indices value)
-  (cond
-   ((numberp index-or-indices)
-    (aset vector index-or-indices value))
-   ((arrayp index-or-indices)
-    (let ((result vector)
-          (last-index (1- (length index-or-indices))))
-      (dotimes (index last-index)
-        (setq result (aref result (aref index-or-indices index))))
-      (aset result (aref index-or-indices last-index) value)))))
+(defalias 'v-ref 'aref)
+(defalias 'v-set 'aset)
 
 (let ((vector [0 1]))
-  (v-poke vector 0 -1)
-  (v-peek vector 0))
+  (v-set vector 0 -1)
+  (v-ref vector 0))
 
-(let ((grid (v-grid 2 2)))
-  (v-poke grid [1 1] t)
-  (v-peek grid [1 1]))
+(let ((grid (v-grid 2 2 nil)))
+  (-> grid
+      (v-ref 1)
+      (v-set 1 t))
+  (-> grid
+      (v-ref 1)
+      (v-ref 1)))
+
+(defmacro v-ref-in (vector spec)
+  (cond
+   ((and (listp spec) (= (length spec) 1))
+    `(v-ref ,vector ,(car spec)))
+   ((listp spec)
+    `(v-ref (v-ref-in ,vector ,(cdr spec))
+            ,(car spec)))
+   (t (error "Wrong spec!"))))
+
+(defmacro v-set-in (vector spec value)
+  `(v-set (v-ref-in ,vector ,(cdr spec))
+          ,(car spec) ,value))
+
+(let ((grid (v-grid 2 2 nil)))
+  (v-set-in grid (1 1) t)
+  (v-ref-in grid (1 1)))
+
