@@ -2470,7 +2470,7 @@ Let's customize a few format strings.
 
 #+BEGIN_SRC emacs-lisp
 (setq circe-format-self-say "<{nick}> {body}"
-      circe-format-server-topic "*** Topic Change by {origin}: {topic-diff}"
+      circe-format-server-topic "*** Topic Change by {userhost}: {topic-diff}"
       circe-server-buffer-name "{network}"
       circe-prompt-string (propertize ">>> " 'face 'circe-prompt-face))
 #+END_SRC
