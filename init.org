@@ -2503,6 +2503,16 @@ nicknames /inside/ messages as well.
 (setq circe-color-nicks-everywhere t)
 #+END_SRC
 
+Additionally to that, make use of colors more compatible with my theme.
+
+#+BEGIN_SRC emacs-lisp
+(setq circe-color-nicks-pool-type
+      '("#b58900" "#cb4b16" "#dc322f" "#d33682" "#6c71c4"
+        "#268bd2" "#2aa198" "#859900" "#7b6000" "#deb542"
+        "#f2804f" "#ff6e64" "#f771ac" "#9ea0e5" "#00629d"
+        "#69b7f0" "#00736f" "#69cabf" "#546e00" "#b4c342"))
+#+END_SRC
+
 **** Add extra keybinds
 
 Let's add a few extra keybindings common in all buffers Circe spawns.
@@ -2548,22 +2558,6 @@ bunch of nicknames and will use the =wasa= one for switching.
           ((string= oldnick "wasa" "wasamasa"))))
 
 (setq circe-nick-next-function 'my-circe-nick-next)
-#+END_SRC
-
-Until the =circe-color-nicks= contrib module takes color buckets for
-selection, I'll monkeypatch it to use the palette of solarized colors
-as defined by bbatsov.
-
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'circe-color-nicks
-  (defun circe-generate-nick-color ()
-    "Patched version which only returns theme colors"
-    (let ((solarized-colors
-           '("#b58900" "#cb4b16" "#dc322f" "#d33682" "#6c71c4"
-             "#268bd2" "#2aa198" "#859900" "#7b6000" "#deb542"
-             "#f2804f" "#ff6e64" "#f771ac" "#9ea0e5" "#00629d"
-             "#69b7f0" "#00736f" "#69cabf" "#546e00" "#b4c342")))
-      (nth (random (length solarized-colors)) solarized-colors))))
 #+END_SRC
 
 There isn't a highlighting function /yet/ that could do something
