@@ -981,6 +981,14 @@ the recommended requirements should be a given (some things will
 require extra work though, like making Emacs behave properly in
 non-interactive mode or file IO).
 
+There do exist implementations of languages inside Emacs, maybe one
+can learn from them.
+
+http://www.emacswiki.org/emacs/bf.el
+http://www.splode.com/~friedman/software/emacs-lisp/src/czscm.el
+https://github.com/darius/escheme
+https://github.com/larsbrinkhoff/emacs-cl
+
 * Give elnode and friends a try and port [[https://github.com/ring-clojure/ring][Ring]], [[https://github.com/weavejester/hiccup][Hiccup]] and [[https://github.com/weavejester/compojure][Compojure]]
 
 I've been writing a fair bit of Clojure thanks to work and really like
