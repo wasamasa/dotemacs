@@ -117,6 +117,7 @@ interesting features like shortening file names and minor modes.
 #+BEGIN_SRC emacs-lisp
 (setq sml/theme 'automatic
       sml/mode-width 'full
+      sml/name-width '(0 . 20)
       sml/replacer-regexp-list
       '(("^~/org/" ":O:")
         ("^~/\\.emacs\\.d/" ":ED:")))
