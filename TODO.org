@@ -676,6 +676,16 @@ quickly putting it back in place).  I can imagine extending this to
 display the title or filename for resources that cannot be displayed
 as a thumbnail.
 
+Minimal demo:
+
+#+BEGIN_SRC emacs-lisp
+;; (info "(elisp) ImageMagick Images")
+(tooltip-show (propertize " " 'display
+                          '(image :type imagemagick
+                                  :file "foobar.png"
+                                  :height 50)))
+#+END_SRC
+
 * Configure =elfeed=
 
 Now that I've configured =newsbeuter= to resemble other newsreaders
