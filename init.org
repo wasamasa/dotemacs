@@ -251,6 +251,14 @@ notes file instead as daily reminder what's left to do.
 (setq initial-buffer-choice 'remember-notes)
 #+END_SRC
 
+There is a bit of mismatch between the keybindings of
+~remember-notes-mode~ and ~org-mode~, so let's fix that:
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'remember
+  (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
+#+END_SRC
+
 *** Find C functions
 
 There's a fair number of Emacs functions that aren't written in Emacs
