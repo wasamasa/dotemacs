@@ -938,6 +938,19 @@ aliases to everything else?).  In case I shouldn't like them (even
 with threading macros), a function compiling a CSS selector to a list
 of zipper instructions should do the trick.
 
+* Port useful Scheme things to elisp
+
+A scm-lib would be fun to have, though the prefixing would kill the
+fun.  What I have specifically in mind is porting the SRFIs defining
+APIs on data structures other than lists, such as hash tables and
+vectors.  So far I've only seen attempts at abstracting over hash
+tables, alists and plists, but pretty much nothing for vectors.
+
+Another cool thing would be [[http://wiki.call-cc.org/eggref/4/foof-loop][foof-loop]] or Racket's [[http://docs.racket-lang.org/reference/for.html][for]] as they look
+easier to port and extend than [[https://common-lisp.net/project/iterate/doc/Don_0027t-Loop-Iterate.html][ITERATE]].  Not only do they make for a
+lispier alternative to LOOP, no, they allow for easier nesting as
+well.
+
 * Write a package for annotating all kinds of human-readable files
 
 This is a pretty popular request, I should research into existing
