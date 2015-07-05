@@ -962,7 +962,7 @@ on an empty prompt, too.
 (defun my-eshell-quit-or-delete-char (arg)
   (interactive "p")
   (if (and (eolp) (looking-back eshell-prompt-regexp))
-      (eshell-life-is-too-much) ; wtf
+      (eshell-life-is-too-much) ;; http://emacshorrors.com/post/life-is-too-much
     (delete-forward-char arg)))
 
 (defun my-eshell-setup ()
