@@ -1,4 +1,8 @@
+;; so very silly
+(setq package--init-file-ensured t)
+
 ;; see http://emacs.stackexchange.com/questions/539/how-do-i-measure-performance-of-elisp-code
+
 (defmacro with-timer (&rest forms)
   "Run the given FORMS, counting and displaying the elapsed time."
   (declare (indent 0))
