@@ -452,7 +452,7 @@ editors does this kind of thing and doesn't offer a straightforward
 option to disable it even.
 
 #+BEGIN_SRC emacs-lisp
-(mapatoms (lambda (s) (when (get s 'disabled) (put s 'disabled nil))))
+(setq disabled-command-function nil)
 #+END_SRC
 
 *** Save clipboard data of other programs in the kill ring when possible
