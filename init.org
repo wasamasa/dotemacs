@@ -1437,6 +1437,14 @@ opening the buffer and saving it to disk.
       flycheck-check-syntax-automatically '(mode-enabled save))
 #+END_SRC
 
+For whatever reason the =emacs-lisp= checker stopped unconditionally
+initializing packages before doing the check, the following avoids
+errors for dependencies in packages I write:
+
+#+BEGIN_SRC emacs-lisp
+(setq flycheck-emacs-lisp-initialize-packages t)
+#+END_SRC
+
 *** [[https://github.com/abo-abo/hydra][Hydra]]
 
 Not sure how to describe it.  A library for defining key-centric
