@@ -2783,13 +2783,13 @@ automatically when enabling ~visual-line-mode~.
 
 *** =magit=
 
-The very best.  It did gain a stable release recently and for some
-reason its author decided to not impose the latest changes on MELPA
-users.  This is why it's currently displaying a pretty annoying
-warning on startup I'm just going to deactivate.
+The very best.  I'm currently on the =next= branch to get the latest
+bugfixes and features.
+
+I'm fine with reverting being silent.
 
 #+BEGIN_SRC emacs-lisp
-(setq magit-last-seen-setup-instructions "1.4.0")
+(setq magit-revert-buffers 'silent)
 #+END_SRC
 
 ** Keybinds
