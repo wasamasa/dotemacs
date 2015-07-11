@@ -2049,8 +2049,8 @@ The initial state for a mode can be set with
             (throw 'done state)))))))
 
 (setq evil-default-state 'emacs
-      evil-insert-state-modes '(git-commit-mode)
       evil-emacs-state-modes '()
+      evil-insert-state-modes '()
       evil-normal-state-modes '(text-mode prog-mode fundamental-mode
                                           css-mode conf-mode
                                           TeX-mode LaTeX-mode
@@ -2063,6 +2063,7 @@ instead.  Same goes for ~view-mode~.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
+(add-hook 'with-editor-mode-hook 'evil-insert-state)
 (add-hook 'view-mode-hook 'evil-emacs-state)
 #+END_SRC
 
