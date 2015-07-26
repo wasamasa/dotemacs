@@ -637,6 +637,19 @@ and templates for mails (like, daily reports).
 
 http://cmacr.ae/blog/2015/01/25/email-in-emacs/
 
+Here's a list of more specific things to look into:
+
+- Improved workflows (sifting through mail, marking all as read,
+  undeleting, archiving, a dired interface)
+- Having one unified inbox/archive (with indicators where the mail
+  came from)
+- Picking the sending details upon replying to something, including a
+  reply-to-all method when having mailing lists or bug trackers as
+  originators
+- Templates
+- Predefined views for quick switching
+- Fixing encoding mess
+
 * Hack more on =circe=
 
 There's plenty on the issue tracker, asides from that I want to make
