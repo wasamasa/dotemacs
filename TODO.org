@@ -6,6 +6,8 @@
 - https://github.com/skeeto/.emacs.d
 - https://github.com/mbriggs/.emacs.d
 - https://github.com/cofi/dotfiles
+- https://github.com/pkkm/.emacs.d
+- http://doc.rix.si/org/fsem.html
 
 * Fix Emacs' selection after window quit/close
 
