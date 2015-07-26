@@ -95,3 +95,5 @@
   (v-do (y [1 2 3])
     (message "%s x %s is %s"
              x y (* x y))))
+
+(provide 'v)
