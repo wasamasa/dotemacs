@@ -434,7 +434,7 @@ need it.
 (setq blink-matching-paren nil)
 #+END_SRC
 
-*** Display fringe indicators in ~visual-line-mode~
+*** Display fringe indicators and fix line movement in ~visual-line-mode~
 
 It's pretty nice to have the option to display words in a buffer as if
 they were hardwrapped around the word boundaries, however it's
@@ -442,6 +442,13 @@ confusing to not have any fringe indicators.
 
 #+BEGIN_SRC emacs-lisp
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+#+END_SRC
+
+I don't like the remappings done to operate on visual lines (for
+=C-a=, =C-e= and =C-k=), so I'm just undefining them.
+
+#+BEGIN_SRC emacs-lisp
+(setcdr visual-line-mode-map nil)
 #+END_SRC
 
 *** Enable every deactivated command
