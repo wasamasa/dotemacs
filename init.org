@@ -2863,10 +2863,8 @@ Helm stuff
 (global-set-key (kbd "<f10>") 'helm-resume)
 #+END_SRC
 
-Org-mode capturing on =<F11>= mirrors inbox look-up on =<F12>=.
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f11>") 'org-capture)
 #+END_SRC
 
 ** TODO Hooks
