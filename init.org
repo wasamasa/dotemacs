@@ -2319,6 +2319,16 @@ Next, define a few toggling commands and bind them.
     (setq rm-blacklist ".*"))
   (force-mode-line-update))
 
+(defun my-narrow-to-region-with-mode (beg end mode)
+  (interactive (list (region-beginning) (region-end)
+                     (completing-read "Major mode: "
+                                      (mapcar 'cdr auto-mode-alist) nil t)))
+  (unless (region-active-p)
+    (error "No region for narrowing selected"))
+  (narrow-to-region beg end)
+  (deactivate-mark)
+  (funcall (intern mode)))
+
 (with-eval-after-load 'evil-maps
   (define-key evil-normal-state-map (kbd "z r") 'revert-buffer)
   (define-key evil-normal-state-map (kbd "z s") 'describe-char)
