@@ -2056,13 +2056,13 @@ The initial state for a mode can be set with
             (throw 'done state)))))))
 
 (setq evil-default-state 'emacs
-      evil-emacs-state-modes '()
-      evil-insert-state-modes '()
+      evil-emacs-state-modes nil
+      evil-insert-state-modes nil
+      evil-motion-state-modes nil
       evil-normal-state-modes '(text-mode prog-mode fundamental-mode
                                           css-mode conf-mode
                                           TeX-mode LaTeX-mode
-                                          yaml-mode)
-      evil-motion-state-modes '())
+                                          yaml-mode))
 #+END_SRC
 
 ~org-capture-mode~ is a minor mode, that's why I need to use its hook
