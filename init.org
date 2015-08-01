@@ -2336,6 +2336,7 @@ Next, define a few toggling commands and bind them.
   (define-key evil-normal-state-map (kbd "z q") 'toggle-debug-on-quit)
   (define-key evil-normal-state-map (kbd "z t") 'my-solarized-toggle)
   (define-key evil-normal-state-map (kbd "z m") 'my-toggle-mode-line-minor-modes)
+  (define-key evil-normal-state-map (kbd "z n") 'my-narrow-to-region-with-mode)
   (define-key evil-normal-state-map (kbd "z TAB") 'evil-toggle-fold)
   (define-key evil-normal-state-map (kbd "z <backtab>") 'my-evil-toggle-folds))
 #+END_SRC
