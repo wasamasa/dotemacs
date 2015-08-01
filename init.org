@@ -2032,13 +2032,10 @@ Returns a different symbol if FUN is an alias, otherwise FUN."
       fun)))
 
 (defun my-derived-mode-p (mode modes)
-  "Non-nil if MODE is derived from one of MODES.
-Uses the `derived-mode-parent' property of the symbol to trace backwards."
-  (let ((parent mode))
-    (while (and (not (memq (my-real-function parent) modes))
-		(setq parent (get (my-real-function parent)
-                                  'derived-mode-parent))))
-    (my-real-function parent)))
+  (let ((parent (my-real-function mode)))
+    (while (and parent (not (memq parent modes)))
+      (setq parent (my-real-function (get parent 'derived-mode-parent))))
+    parent))
 
 (with-eval-after-load 'evil-core
   (defun evil-initial-state (mode &optional default)
