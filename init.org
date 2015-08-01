@@ -3078,4 +3078,15 @@ unconditionally run after init has finished.
 
 * Epilogue
 
-That's all, folks!
+I consider this experiment successful.  I've managed to uncruftify my
+previous setup, have a highly readable init file and get
+recommendations and Github favourites from an reasonable amount of
+people.  It went better than expected because explaining my reasoning
+and hacks in a config file fits me better than doing the same for a
+program's code.
+
+Debugging has suffered a bit due to the indirection.  While =C-x C-e=
+works globally, I no longer have =C-M-x= and the prefix argument
+version for instrumenting, so I need to copy the piece of code over to
+a scratch buffer.  [[https://github.com/jschaf/esup][esup]] reports an artificially low time, unlike what
+=M-x emacs-init-time= does.
