@@ -2567,6 +2567,24 @@ more appropriate command than the default one bound to =C-u=.
   (define-key lui-mode-map (kbd "C-u") 'lui-kill-to-beginning-of-line))
 #+END_SRC
 
+Copy-pasting from other sources (like, browsers) can leave more than
+one line of text in the input area.  Directly sending it would be
+annoying as this would result in either multiple messages or autopaste
+detection.  To avoid resorting to joining lines manually, I've written
+a command doing the opposite of =M-q=, but named it similiarly as the
+intent is the same (making the given text conform to a more suitable
+form).
+
+#+BEGIN_SRC emacs-lisp
+(defun my-fill-lui-input ()
+  (interactive)
+  (fill-delete-newlines lui-input-marker (point-max) nil nil nil)
+  (goto-char (point-max)))
+
+(with-eval-after-load 'lui
+  (define-key lui-mode-map (kbd "M-q") 'my-fill-lui-input))
+#+END_SRC
+
 Sometimes I like knowing just how many people are online.
 
 #+BEGIN_SRC emacs-lisp
