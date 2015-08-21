@@ -7,7 +7,7 @@
   "Run the given FORMS, counting and displaying the elapsed time."
   (declare (indent 0))
   (let ((nowvar (make-symbol "now"))
-        (body   `(progn ,@forms)))
+        (body `(progn ,@forms)))
     `(let ((,nowvar (current-time)))
        (prog1 ,body
          (let ((elapsed (float-time (time-subtract (current-time) ,nowvar))))
@@ -22,14 +22,19 @@
   (while (not (eobp))
     (forward-line 1)
     (cond
-     ;; Report Headers
+     ;; skip headers marked as TODO
+     ((looking-at "^\\*\\* TODO +.*$")
+      (search-forward "\n** "))
+     ((looking-at "^\\*\\*\\* TODO +.*$")
+      (search-forward "\n*** "))
+     ;; report headers
      ((looking-at "\\*\\{2,3\\} +.*$")
       (message "%s" (match-string 0)))
-     ;; Evaluate Code Blocks
+     ;; evaluate code blocks
      ((looking-at "^#\\+BEGIN_SRC +emacs-lisp.*$")
       (let ((l (match-end 0)))
         (search-forward "\n#+END_SRC")
         (with-timer (eval-region l (match-beginning 0)))))
-     ;; Finish on the next level-1 header
+     ;; finish on the next level-1 header
      ((looking-at "^\\* ")
       (goto-char (point-max))))))

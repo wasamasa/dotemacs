@@ -1109,7 +1109,7 @@ Please don't litter my home directory with a score file.
 (setq toe-highscore-file "~/.emacs.d/etc/toe.score")
 #+END_SRC
 
-*** TODO Tetris
+*** Tetris
 
 This implementation lacks a command to move the current piece /down/.
 While I'm at it, I'll define extra bindings for rotating CCW and CW.
@@ -1130,7 +1130,7 @@ While I'm at it, I'll define extra bindings for rotating CCW and CW.
   (define-key tetris-mode-map (kbd "<down>") 'my-tetris-move-down))
 #+END_SRC
 
-*** TODO Snake
+*** Snake
 
 This implementation does behave very differently from pretty much any
 Snake game I've played.  The snake looks like it's emitting apples
@@ -1140,12 +1140,6 @@ time an apple is eaten.  Just like the previous patch this would be a
 candidate for a patch, I wonder whether it will get accepted though
 considering the rather radical change that makes the game harder to
 play.
-
-I should also figure out when ~with-eval-after-load~ is necessary for
-defining functions with different behaviour, but the same name and
-when it is not.  It's probably about whether the function has been
-defined before and whether it might be redefined later.  If either of
-both applies, ~with-eval-after-load~ would be the better choice.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'snake
@@ -1290,19 +1284,12 @@ too.
       eyebrowse-wrap-around t)
 #+END_SRC
 
-*** TODO [[https://github.com/company-mode/company-mode][company-mode]]
+*** [[https://github.com/company-mode/company-mode][company-mode]]
 
 The best auto-completion mode we have out there.
 
 The following sets up a good amount of UI tweaks and everything
-necessary for the global backends.  It's possible to make
-~company-backends~ buffer-local and allow mixing backends as most fit
-per mode to allow for something like =yasnippet= integration.
-
-Alternatively, I could use the relatively new =:with= keyword to
-always use a backend along the previously listed ones.
-
-https://github.com/company-mode/company-mode/issues/79
+necessary for the global backends.
 
 #+BEGIN_SRC emacs-lisp
 (setq company-idle-delay 0.1
@@ -1695,7 +1682,7 @@ using it for HTML these days.
 (setq web-mode-code-indent-offset 2)
 #+END_SRC
 
-*** TODO =company-jedi=
+*** =company-jedi=
 
 Used to be part of [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] which complements the built-in
 =python.el= with code navigation, documentation lookup and
@@ -1710,13 +1697,11 @@ Bootstrap [[https://github.com/davidhalter/jedi][jedi]] automatically per file f
 (add-hook 'python-mode-hook 'company-jedi-start)
 #+END_SRC
 
-*** TODO [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]
+*** [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]
 
 I'm using this mode for everything the stock =ruby-mode= would be used
 for because it provides better syntax highlighting and indentation by
-using an external process.  I still need to test though how it
-compares to vanilla =ruby-mode= now that it's using SMIE for the
-latter.
+using an external process.
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
@@ -1900,7 +1885,7 @@ It may be customized with the following variables:
           (LaTeX-environment-menu environment))))))
 #+END_SRC
 
-*** TODO [[https://github.com/Fuco1/smartparens/][smartparens]]
+*** [[https://github.com/Fuco1/smartparens/][smartparens]]
 
 Promises to go beyond [[http://mumble.net/~campbell/emacs/paredit.el][paredit]] (which is structured editing for Lisp
 code) by supporting other languages than Lisp-likes with arbitrary
@@ -1910,10 +1895,7 @@ and a bit of auto-indent though.
 **** Disable some default pairs
 
 The following wall of code disables pairs for Lisp- and TeX-like modes
-that make absolutely no sense, it would be a lot better to include
-default configs for that upstream since I cannot imagine who would
-disagree with those.  Note how ~show-smartparens-mode~ breaks on a few
-of these lines in the TeX block.
+that make absolutely no sense.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'smartparens
@@ -1998,7 +1980,7 @@ different than its name suggests.
 (setq sp-cancel-autoskip-on-backward-movement nil)
 #+END_SRC
 
-*** TODO [[https://bitbucket.org/lyro/evil/wiki/Home][Evil]]
+*** [[https://bitbucket.org/lyro/evil/wiki/Home][Evil]]
 
 Here comes the set of sane text editing keybindings I can't live
 without.  Both implementation and execution are excellent and reuse as
@@ -2015,12 +1997,7 @@ First of all, there are plenty of special modes where neither insert
 state nor motion state suffice.  I've instead decided to do away with
 motion state and going for Emacs state whenever it makes sense.  To
 aid Evil with this, I've modified its function that decides upon the
-initial state for a major mode to look up derived modes and aliases,
-an improvement I should really propose to upstream, simply because it
-would cut down their oversized whitelists.
-
-Alternatively I could just add the respective state function to the
-corresponding hook.
+initial state for a major mode to look up derived modes and aliases.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-real-function (fun)
@@ -2411,28 +2388,12 @@ before they are.
 (add-hook 'evil-mode-hook 'my-after-evil)
 #+END_SRC
 
-*** TODO [[https://github.com/capitaomorte/yasnippet][yasnippet]]
+*** [[https://github.com/capitaomorte/yasnippet][yasnippet]]
 
 Snippets are quite useful for boilerplatey languages.  Like, Java.
 Although, if you take it far enough, even something as =org-mode=
 qualifies considering I can never remember the proper syntax for code
-blocks.
-
-I dislike bundled snippets though and have written a few of my own.
-Anything more advanced than timestamps and said code blocks will
-require me to read its docs.
-
-There seems to be some sort of keyboard mismatch with my customization
-that makes Evil no longer jump forward after yet unknown preconditions
-which is undoubtedly due to it overloading =TAB= and =<tab>=.  I'll
-just play it safe here and define =M-o= (bound to rather useless
-commands that apparently change the appearance of text weren't it for
-syntax highlighting being a default since at least a decade) for
-triggering expansion instead.  That would normally settle it weren't
-it for this package being super smart and looking up a fallback key to
-call for expansion failure which in the case of a global binding would
-be itself leading to a recursion error.  Yay.  So, extra customization
-to disable that it is.
+blocks.  The following sets up a single directory for snippets.
 
 #+BEGIN_SRC emacs-lisp
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
@@ -2914,7 +2875,7 @@ size only:
 (global-set-key (kbd "C--") 'my-dec-frame-font-size)
 #+END_SRC
 
-** TODO Hooks
+** Hooks
 
 First of all, let's define a helper function that does the boilerplate
 for us.
@@ -3070,11 +3031,24 @@ unconditionally run after init has finished.
   (cl-lib-highlight-initialize)
   (cl-lib-highlight-warn-cl-initialize)
   (unicode-whitespace-setup)
-  (add-to-list 'load-path "~/code/circe")
   (line-number-mode)
   (column-number-mode))
 (add-hook 'after-init-hook 'my-after-init)
 #+END_SRC
+
+* Stuff to do
+
+- Send in patch for Tetris and Snake
+- Learn Yasnippet and write snippets
+- Improve company-mode UI
+- Check backends and reconsider their uses
+- [[https://github.com/wasamasa/dotemacs/blob/master/init.el][Mix in Yasnippet]]
+- Update from company-jedi to anaconda-mode
+- Configure smartparens properly, contribute defaults
+- Fix show-smartparens on that configuration block
+- Figure out how to use [[https://bitbucket.org/lyro/evil/issues/497/regarding-initial-states][Evil initial states via major mode hooks]]
+- Get modes not working with prog- or text-mode-hook fixed
+- Make use of toc-org after fixing its bugs
 
 * Epilogue
 
