@@ -23,10 +23,8 @@
     (forward-line 1)
     (cond
      ;; skip headers marked as TODO
-     ((looking-at "^\\*\\* TODO +.*$")
-      (search-forward "\n** "))
-     ((looking-at "^\\*\\*\\* TODO +.*$")
-      (search-forward "\n*** "))
+     ((looking-at "^\\(\\*+\\) TODO +.*$")
+      (search-forward (format "\n%s " (match-string 1))))
      ;; report headers
      ((looking-at "\\*\\{2,3\\} +.*$")
       (message "%s" (match-string 0)))
