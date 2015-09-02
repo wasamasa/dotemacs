@@ -948,9 +948,6 @@ combinations remain unchanged."
  ;; compilation
  '(compilation-message-face 'default)
 
- ;; magit
- '(magit-use-overlays nil)
-
  ;; highlight-tail
  `(highlight-tail-colors '((,(my-solarized-color 'bg-2 (display-graphic-p)) . 0)
                            (,(my-solarized-color 'green-d (display-graphic-p)) . 20)
