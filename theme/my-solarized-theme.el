@@ -374,7 +374,7 @@ combinations remain unchanged."
    (cscope-mouse-face :background blue :foreground fg-0)
 
    ;; ctable
-   (ctbl:face-cell-select :background bg-2 :foreground fg-1 :underline fg-1 :weight bold)
+   (ctbl:face-cell-select :background bg-2 :foreground fg-1 :underline t :weight bold)
    (ctbl:face-continue-bar :background bg-2 :foreground yellow)
    (ctbl:face-row-select :background bg-2 :foreground fg-0 :underline t)
 
