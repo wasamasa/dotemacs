@@ -11,7 +11,7 @@
   '((name . "M-x")
     (candidates . helm-smex-items)
     (coerce . intern)
-    (action ("smex" . (helm-smex-execute-command)))))
+    (action ("smex" . helm-smex-execute-command))))
 
 (defun helm-smex ()
   (interactive)
