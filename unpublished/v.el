@@ -96,4 +96,19 @@
     (message "%s x %s is %s"
              x y (* x y))))
 
+(defun v-shuffle (vector)
+  "Shuffle VECTOR in-place.
+This uses the Knuth shuffle algorithm."
+  (let ((i (1- (length vector)))
+        j)
+    (while (>= i 1)
+      (setq j (random (1+ i)))
+      ;; swap pieces at i and j
+      (let ((x (aref vector i))
+            (y (aref vector j)))
+        (aset vector i y)
+        (aset vector j x))
+      (setq i (1- i)))
+    vector))
+
 (provide 'v)
