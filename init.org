@@ -1117,88 +1117,6 @@ Please don't litter my home directory with a score file.
 (setq toe-highscore-file "~/.emacs.d/etc/toe.score")
 #+END_SRC
 
-*** Tetris
-
-This implementation lacks a command to move the current piece /down/.
-While I'm at it, I'll define extra bindings for rotating CCW and CW.
-
-#+BEGIN_SRC emacs-lisp
-(defun my-tetris-move-down ()
-  (interactive)
-  (unless tetris-paused
-    (tetris-erase-shape)
-    (setq tetris-pos-y (1+ tetris-pos-y))
-    (if (tetris-test-shape)
-        (setq tetris-pos-y (1- tetris-pos-y)))
-    (tetris-draw-shape)))
-
-(with-eval-after-load 'tetris
-  (define-key tetris-mode-map (kbd "z") 'tetris-rotate-next)
-  (define-key tetris-mode-map (kbd "x") 'tetris-rotate-prev)
-  (define-key tetris-mode-map (kbd "<down>") 'my-tetris-move-down))
-#+END_SRC
-
-*** Snake
-
-This implementation does behave very differently from pretty much any
-Snake game I've played.  The snake looks like it's emitting apples
-from its tail in regular intervals instead of an apple being placed at
-a random location at the beginning of the game and from then on every
-time an apple is eaten.  Just like the previous patch this would be a
-candidate for a patch, I wonder whether it will get accepted though
-considering the rather radical change that makes the game harder to
-play.
-
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'snake
-  (defun snake-start-game ()
-    "Start a new game of Snake."
-    (interactive)
-    (snake-reset-game)
-    (snake-set-dot)
-    (use-local-map snake-mode-map)
-    (gamegrid-start-timer snake-tick-period 'snake-update-game))
-
-  (defun snake-set-dot ()
-    (let ((x (random snake-width)) (y (random snake-height)))
-      (while (not (= (gamegrid-get-cell x y) snake-blank))
-        (setq x (random snake-width))
-        (setq y (random snake-height)))
-      (gamegrid-set-cell x y snake-dot)))
-
-  (defun snake-update-game (snake-buffer)
-    "Called on each clock tick.
-Advances the snake one square, testing for collision.
-Argument SNAKE-BUFFER is the name of the buffer."
-    (when (and (not snake-paused)
-               (eq (current-buffer) snake-buffer))
-      (snake-update-velocity)
-      (let* ((pos (car snake-positions))
-             (x (+ (aref pos 0) snake-velocity-x))
-             (y (+ (aref pos 1) snake-velocity-y))
-             (c (gamegrid-get-cell x y)))
-        (if (or (= c snake-border)
-                (= c snake-snake))
-            (snake-end-game)
-          (cond ((= c snake-dot)
-                 (cl-incf snake-length)
-                 (cl-incf snake-score)
-                 (snake-update-score)
-                 (snake-set-dot))
-                (t
-                 (let* ((last-cons (nthcdr (- snake-length 2)
-                                           snake-positions))
-                        (tail-pos (cadr last-cons))
-                        (x0 (aref tail-pos 0))
-                        (y0 (aref tail-pos 1)))
-                   (gamegrid-set-cell x0 y0 snake-blank)
-                   (cl-incf snake-cycle))))
-          (gamegrid-set-cell x y snake-snake)
-          (setq snake-positions
-                (cons (vector x y) snake-positions))
-	  (setq snake-moved-p nil))))))
-#+END_SRC
-
 *** =re-builder=
 
 Interactive preview for RE construction.
@@ -3055,7 +2973,6 @@ unconditionally run after init has finished.
 
 * Stuff to do
 
-- Send in patch for Tetris and Snake
 - Learn Yasnippet and write snippets
 - Improve company-mode UI
 - Check backends and reconsider their uses
