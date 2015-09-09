@@ -2788,6 +2788,14 @@ behaviour to be used without confirmation.
 (setq magit-revert-buffers 'silent)
 (setq magit-push-always-verify nil)
 #+END_SRC
+
+*** Geiser
+
+The closest thing to [[https://github.com/slime/slime][SLIME]].  It supports three Scheme implementations
+currently, so I'm picking my prefered one.
+
+#+BEGIN_SRC emacs-lisp
+(setq geiser-default-implementation 'chicken)
 #+END_SRC
 
 ** Keybinds
