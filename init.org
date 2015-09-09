@@ -2781,10 +2781,13 @@ automatically when enabling ~visual-line-mode~.
 The very best.  I'm currently on the =next= branch to get the latest
 bugfixes and features.
 
-I'm fine with reverting being silent.
+For some reason they've started nagging me to opt-in for default
+behaviour to be used without confirmation.
 
 #+BEGIN_SRC emacs-lisp
 (setq magit-revert-buffers 'silent)
+(setq magit-push-always-verify nil)
+#+END_SRC
 #+END_SRC
 
 ** Keybinds
