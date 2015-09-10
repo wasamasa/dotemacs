@@ -908,53 +908,6 @@ its aspect of repeatable actions definitely sounds interesting, too.
 Obvious candidates would be window resizing and font size changes,
 perhaps other stuff like =macrostep= as well.
 
-* Start an Emacs Blog
-
-I've always wanted to do a technical blog, but it will very likely be
-mostly about Emacs which is totally fine.  Interludes about other Lisp
-dialects, Arch Linux and general Software Engineering would be pretty
-cool.  I have a 90% finished blog engine, completing it would solve
-the technical issues, as domain I've chosen http://emacsninja.com/
-(because there's this one fun article about ninjas and pirates using
-Vim and Emacs at
-http://philosecurity.org/2009/03/23/pirates-and-ninjas-emacs-or-vi
-which I will of course elaborate upon in its About page).
-
-Possible things to write about:
-
-- `setxkbmap` customization
-- newsbeuter (grouping feeds)
-- https://github.com/Khan/KaTeX
-- completion (part 1: ido, etc.)
-- completion (part 2: company, capf)
-- matching (sublime, ctrlp, cmd-t, lusty-*, ycm, fuzzyfinder,
-  ido-flex, ido-flx, grizzl, helm-flex, helm-tokens, completion
-  styles)
-- how evil works
-- extending evil (interactive spec, repeatability, implementing gs)
-- wm hackery (stumpwm and per-application keys or wayland and orbment)
-- emacs daemon
-- tllocalmgr as the ultimate texlive-ersatz
-- yunocommit for emacs
-- top (old vs. new, how does one use it?)
-- photoshop cs2 + winetricks (adobe giveaway)
-- markov chains (and a twitter demo)
-- upower (activate daemon, edit /etc/UPower/UPower.conf)
-- ranger cheatsheet (as replacement for =1?=)
-- systemd and service/timer files for running web applications
-- emacs terminal theming (http://www.reddit.com/r/emacs/comments/2pqeq0/xresourcestheme_keeping_your_themes_consistent/cmzs4hs)
-- chicken hackery (spock, linting, chicken-src, doodle, utilities, etc.)
-- http://emacs.stackexchange.com/questions/5545/how-to-prevent-slow-down-when-an-inferior-processes-generates-long-lines/5559#5559
-- extending circe (auto-switch buffers)
-- hacking on mail
-
-Possible designs:
-- http://limpet.net/mbrubeck/2014/08/13/toy-layout-engine-3-css.html
-- http://nullroute.eu.org/~grawity/
-- http://lkcl.net/reports/ssd_analysis.html (rfc-style, <pre> or no <pre>?)
-- http://bettermotherfuckingwebsite.com/
-- http://emacsrocks.com/
-
 * Finish up nekobot
 
 I've started writing a bot using [[https://github.com/jorgenschaefer/circe][Circe]], my prefered IRC client.  Two
