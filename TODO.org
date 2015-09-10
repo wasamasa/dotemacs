@@ -263,7 +263,29 @@ remedy it for now I thought of writing something like a mixture of
 values).  In other words this displays a truncated viewport where you
 can scroll through cells and offers keybinds to edit rows and columns
 or change the view to something more useful (such as sorting,
-filtering, etc.).
+filtering, etc.), something well known from curses applications.  More
+specifically, I would try inserting the long lines, then attaching the
+display property to display less than that and keep updating its value
+on changes.  No idea how navigation would work (overloading keys à la
+org-mode or binding something else than the normal movement commands
+in a keymap property?).
+
+* Write a proper hex editor
+
+There's the built-in ~hexl-mode~ which uses the =hexl= binary upon the
+buffer and creates a new buffer from it.  This is less than ideal as
+it loses editing history and isn't just an alternate view for the data
+you're editing.  I should check out [[http://elpa.gnu.org/packages/nhexl-mode.html][nhexl-mode]] as it's using overlays
+for the display trickery, but this will probably make the experience
+pretty slow.
+
+Ideally I'd like to have assistance from the mode in understanding the
+structure of the binary file I'm looking at.  The [[http://www.sweetscape.com/010editor/][010 editor]] has a
+[[http://www.sweetscape.com/010editor/#templates][binary templates]] feature which picks a template file and uses it to
+dissect the binary data into the sections of its file format.  [[http://www.sweetscape.com/010editor/templates/][Here]]'s
+a few of them in a C-like format, using something lispier might beat
+them for tasks like reverse engineering a new format and getting
+feedback by displaying overlays on the contents.
 
 * Rewrite linum
 
