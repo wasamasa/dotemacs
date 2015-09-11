@@ -1109,6 +1109,15 @@ Emacs is not aware of version-dependent shebangs.
 (add-to-list 'interpreter-mode-alist '("python3" . python-mode))
 #+END_SRC
 
+For some reason guessing the indentation offset is on by default
+although nearly all Python code I've worked with did use 4 spaces.  I
+wouldn't even care weren't it for the message displayed after it's
+done.
+
+#+BEGIN_SRC emacs-lisp
+(setq python-indent-guess-indent-offset nil)
+#+END_SRC
+
 *** Typing of Emacs
 
 Please don't litter my home directory with a score file.
