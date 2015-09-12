@@ -13,6 +13,19 @@ purposes.
 To debug it, I've added a properties drawer to the following subtree
 that exports the code blocks to =.emacs= with =M-x org-babel-tangle=.
 
+Please don't use this Emacs configuration as is.  I suggest you to
+study it instead and inspect the many variables involved with the
+built-in help system by hitting =F1 v=.
+
+Here's a list of other literate Emacs configurations I've drawn
+inspiration from:
+
+- http://writequit.org/org/
+- http://doc.rix.si/org/fsem.html
+- https://postmomentum.ch/steckemacs.html
+- http://pages.sachachua.com/.emacs.d/Sacha.html
+- https://github.com/larstvei/dot-emacs/blob/master/init.org
+
 * Init
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle ../.emacs
