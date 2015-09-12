@@ -77,7 +77,10 @@
 (v-map '1+ [0 1 2])
 
 ;; TODO figure out more uses in spec other than binding the variable
-;; and specifying the vector
+;; and specifying the vector, like python- (either stop argument or
+;; start and stop and optional step argument) or CL- (keywords!) or
+;; elisp-style (fixed ordering and optional) beginning and end
+;; positions
 (defmacro v-do (spec &rest body)
   (declare (indent 1))
   (let ((s (make-symbol "s"))
@@ -110,5 +113,14 @@ This uses the Knuth shuffle algorithm."
         (aset vector j x))
       (setq i (1- i)))
     vector))
+
+;; other algorithms could be sort, binary search, ...
+;; other primitives could be subset, extend, fill, ...
+
+;; write proper tests (and run them!)
+
+;; APIs to steal from:
+;; - http://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html
+;; - http://srfi.schemers.org/srfi-43/srfi-43.html
 
 (provide 'v)
