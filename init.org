@@ -2034,7 +2034,7 @@ The initial state for a mode can be set with
       evil-normal-state-modes '(text-mode prog-mode fundamental-mode
                                           css-mode conf-mode
                                           TeX-mode LaTeX-mode
-                                          yaml-mode))
+                                          yaml-mode diff-mode))
 #+END_SRC
 
 ~org-capture-mode~ is a minor mode, that's why I need to use its hook
