@@ -2691,7 +2691,7 @@ long as it's going on.
 Let's test having fluid-width windows, now that both Circe and Emacs
 24.4 seem to be less wonky about it.  Adapted from [[https://github.com/jorgenschaefer/circe/wiki/Configuration#fluid-width-windows][the wiki]], extended
 to avoid the rather annoying behaviour of the cursor jumping into the
-fridge when reaching the full text width.
+fringe when reaching the full text width.
 
 #+BEGIN_SRC emacs-lisp
 (setq lui-time-stamp-position 'right-margin
