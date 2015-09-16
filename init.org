@@ -3017,6 +3017,11 @@ unconditionally run after init has finished.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-after-init ()
+  (add-to-list 'load-path "~/code/circe")
+  (add-to-list 'load-path "~/code/shackle")
+  (add-to-list 'load-path "~/code/eyebrowse")
+  (add-to-list 'load-path "~/code/form-feed")
+  (add-to-list 'load-path "~/code/firestarter")
   (sml/setup)
   (require 'dash)
   (recentf-mode)
