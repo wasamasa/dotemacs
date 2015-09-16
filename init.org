@@ -2739,6 +2739,7 @@ of that sort prevalent in comments and strings.
 #+BEGIN_SRC emacs-lisp
 (setq hl-todo-keyword-faces '(("TODO" . hl-todo)
                               ("NOTE" . hl-todo)
+                              ("HACK" . hl-todo)
                               ("FIXME" . hl-todo)
                               ("KLUDGE" . hl-todo)))
 
