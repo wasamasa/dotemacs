@@ -802,6 +802,16 @@ using is deactivated by default :<
 (setq org-export-backends '(ascii beamer html latex md))
 #+END_SRC
 
+It's a bit tricky to color code listings and permit more flexible tables:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "tabu") ("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
 *** =comint=
 
 Here comes another particularly interesting Emacs package.  It allows
