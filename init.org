@@ -1253,9 +1253,11 @@ Declarative popup window rules.
       '((svg-2048-mode :same t)
         ("*Help*" :align t :ratio 0.4 :select t)
         ("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4)
-        ((compilation-mode "*firestarter*") :noselect t)
-        (inferior-scheme-mode :popup t)
-        (t :select t)))
+        ((compilation-mode "\\`\\*firestarter\\*\\'"
+          "\\`\\*magit-diff: .*?\\*\\'") :regexp t :noselect t)
+        ((inferior-scheme-mode "*shell*" "*eshell*") :popup t))
+       shackle-default-rule '(:select t)
+       shackle-inhibit-window-quit-on-same-windows t)
 #+END_SRC
 
 *** [[https://github.com/wasamasa/eyebrowse][eyebrowse]]
