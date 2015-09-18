@@ -128,6 +128,7 @@ This uses the Knuth shuffle algorithm."
 ;; other primitives could be subset, extend, fill, ...
 
 ;; write proper tests (and run them!)
+;; write proper docs (see dash and f.el for examples)
 
 ;; APIs to steal from:
 ;; - http://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html
