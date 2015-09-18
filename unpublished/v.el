@@ -132,5 +132,6 @@ This uses the Knuth shuffle algorithm."
 ;; APIs to steal from:
 ;; - http://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html
 ;; - http://srfi.schemers.org/srfi-43/srfi-43.html
+;; - http://www.clojuredocs.org/clojure.core
 
 (provide 'v)
