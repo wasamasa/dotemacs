@@ -1,3 +1,12 @@
+(defalias 'v 'vector)
+
+(defalias 'v-length 'length)
+(defalias 'v-size 'length)
+
+(defalias 'v-vector? 'vectorp)
+
+(defalias 'v-fill 'fillarray)
+
 (defalias 'v-line 'make-vector)
 
 (defun v-grid (width height init)
@@ -37,6 +46,13 @@
 (let ((grid (v-grid 2 2 nil)))
   (v-set-in grid (1 1) t)
   (v-ref-in grid (1 1)))
+
+(defalias 'v->vector 'vconcat)
+
+(defun v->list (&rest sequences)
+  (append (apply 'vconcat sequences) nil))
+
+(defalias 'v->string 'concat)
 
 (defalias 'v-copy 'copy-sequence)
 
