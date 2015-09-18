@@ -106,7 +106,7 @@ This uses the Knuth shuffle algorithm."
         j)
     (while (>= i 1)
       (setq j (random (1+ i)))
-      ;; swap pieces at i and j
+      ;; swap items at i and j
       (let ((x (aref vector i))
             (y (aref vector j)))
         (aset vector i y)
