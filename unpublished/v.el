@@ -1,16 +1,10 @@
 (defalias 'v-line 'make-vector)
 
 (defun v-grid (width height init)
-  (let (grid)
-    (dotimes (_ height)
-      (push (make-vector width init) grid))
-    (vconcat grid)))
-
-(defun v-cube (width height depth init)
-  (let (cube)
-    (dotimes (_ depth)
-      (push (v-grid width height init) cube))
-    (vconcat cube)))
+  (let ((grid (make-vector height nil)))
+    (dotimes (i height)
+      (aset grid i (v-line width init)))
+    grid))
 
 (defalias 'v-ref 'aref)
 (defalias 'v-set 'aset)
