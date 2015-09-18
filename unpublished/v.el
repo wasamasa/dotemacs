@@ -37,7 +37,7 @@
    ((listp spec)
     `(v-ref (v-ref-in ,vector ,(cdr spec))
             ,(car spec)))
-   (t (error "Wrong spec!"))))
+   (t (error "Wrong spec"))))
 
 (defmacro v-set-in (vector spec value)
   `(v-set (v-ref-in ,vector ,(cdr spec))
