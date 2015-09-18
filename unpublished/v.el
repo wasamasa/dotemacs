@@ -83,12 +83,12 @@
 ;; positions
 (defmacro v-do (spec &rest body)
   (declare (indent 1))
-  (let ((s (make-symbol "s"))
+  (let ((size (make-symbol "s"))
         (i (make-symbol "i")))
-    `(let ((,s (length ,(cadr spec)))
+    `(let ((,size (length ,(cadr spec)))
            (,i 0)
            ,(car spec))
-       (while (< ,i ,s)
+       (while (< ,i ,size)
          (setq ,(car spec) (aref ,(cadr spec) ,i))
          ,@body
          (setq ,i (1+ ,i))))))
