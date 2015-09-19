@@ -1415,6 +1415,12 @@ directory that's not under version-control.
 (setq helm-cmd-t-default-repo "~/code/dotfiles")
 #+END_SRC
 
+I don't know why, but helm tries doing window management.  Please stop:
+
+#+BEGIN_SRC emacs-lisp
+(setq helm-display-function 'pop-to-buffer)
+#+END_SRC
+
 *** [[https://github.com/flycheck/flycheck][flycheck]]
 
 There's a few languages I like having linting for, see [[Hooks]].
