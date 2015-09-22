@@ -132,12 +132,14 @@
 (defmacro v-do (spec &rest body)
   (declare (indent 1))
   (let ((size (make-symbol "s"))
-        (i (make-symbol "i")))
-    `(let ((,size (length ,(cadr spec)))
+        (i (make-symbol "i"))
+        (var (car spec))
+        (vector (cadr spec)))
+    `(let ((,size (length ,vector))
            (,i 0)
-           ,(car spec))
+           ,var)
        (while (< ,i ,size)
-         (setq ,(car spec) (aref ,(cadr spec) ,i))
+         (setq ,var (aref ,vector ,i))
          ,@body
          (setq ,i (1+ ,i))))))
 
