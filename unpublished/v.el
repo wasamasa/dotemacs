@@ -164,6 +164,17 @@ This uses the Knuth shuffle algorithm."
       (setq i (1- i)))
     vector))
 
+(defun v-reverse (vector)
+  "Reverse VECTOR in-place."
+  (dotimes (i (/ (length vector) 2))
+    (let ((j (1- (- (length vector) i))))
+      (let ((x (aref vector i))
+            (y (aref vector j)))
+        ;; swap items at opposite ends, then advance towards center
+        (aset vector i y)
+        (aset vector j x))))
+  vector)
+
 ;; other algorithms could be sort, binary search, ...
 ;; other primitives could be subset, extend, fill, ...
 
