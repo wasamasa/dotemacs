@@ -8,6 +8,7 @@
 - https://github.com/cofi/dotfiles
 - https://github.com/pkkm/.emacs.d
 - http://doc.rix.si/org/fsem.html
+- https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org
 
 * Fix Emacs' selection after window quit/close
 
