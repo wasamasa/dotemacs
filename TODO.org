@@ -84,6 +84,8 @@ getting file information by parsing =ls= output is brittle and it's
 surprisingly hard to extend.  I really like =ranger=, but it does
 neither live within Emacs nor is it able to be extended with elisp.
 Fuco's =etable= looks like a good starting place for writing the UI.
+Alternatively, [[https://github.com/kiwanami/emacs-ctable][ctable]] might be it, weren't it for all these strange
+diagrams...
 
 * Rewrite a sane subset of =tramp=
 
