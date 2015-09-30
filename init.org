@@ -2075,6 +2075,12 @@ setting for that is applied in =evil-maps.el= which is loaded by
 
 **** Keymap hacking
 
+I want =Y= to yank to the end of line.
+
+#+BEGIN_SRC emacs-lisp
+(setq evil-want-Y-yank-to-eol t)
+#+END_SRC
+
 Some minor modes come with keymaps reminiscent of special major modes,
 these get overridden by Evil.  These can be fixed by using
 ~evil-normalize-keymaps~, at least for ~edebug-mode~.
@@ -2206,17 +2212,6 @@ less to hit for entering ex state.
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd ";") 'evil-ex)
   (define-key evil-visual-state-map (kbd ";") 'evil-ex))
-#+END_SRC
-
-I want =Y= to yank to the end of line.
-
-#+BEGIN_SRC emacs-lisp
-(defun my-evil-yank-to-eol ()
-  (interactive)
-  (evil-yank (point) (line-end-position)))
-
-(with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map (kbd "Y") 'my-evil-yank-to-eol))
 #+END_SRC
 
 =U= is a much more fit key for redoing than =C-r=.
