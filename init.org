@@ -2297,8 +2297,12 @@ Next, define a few toggling commands and bind them.
   (deactivate-mark)
   (funcall (intern mode)))
 
+(defun my-revert-buffer ()
+  (interactive)
+  (revert-buffer nil t))
+
 (with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map (kbd "z r") 'revert-buffer)
+  (define-key evil-normal-state-map (kbd "z r") 'my-revert-buffer)
   (define-key evil-normal-state-map (kbd "z s") 'describe-char)
   (define-key evil-normal-state-map (kbd "z e") 'toggle-debug-on-error)
   (define-key evil-normal-state-map (kbd "z q") 'toggle-debug-on-quit)
