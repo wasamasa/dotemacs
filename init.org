@@ -2204,7 +2204,7 @@ command by default which I most definitely will not miss.
 #+BEGIN_SRC emacs-lisp
 (define-key global-map (kbd "C-u") 'kill-whole-line)
 (define-key global-map (kbd "M-u") 'universal-argument)
-(define-key universal-argument-map (kbd "C-u") 'kill-whole-line)
+(define-key universal-argument-map (kbd "C-u") nil)
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
