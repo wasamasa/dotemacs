@@ -131,6 +131,7 @@ combinations remain unchanged."
    (comint-highlight-prompt :foreground unspecified)
    (eyebrowse-mode-line-active :foreground fg-2)
    (hl-todo :inherit org-todo)
+   (form-feed-line :strike-through bg-1)
 
    ;; basic coloring
    (default :foreground fg-0 :background bg-3)
