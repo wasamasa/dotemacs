@@ -1398,6 +1398,19 @@ something, but so far hasn't shown any obvious side-effects.
       helm-grep-default-recurse-command "ag --vimgrep -z %p %f")
 #+END_SRC
 
+Here's two commands for pretty common queries, one going through the
+official Emacs Lisp sources, the other through the C parts:
+
+#+BEGIN_SRC emacs-lisp
+(defun my-grep-emacs-elisp ()
+  (interactive)
+  (helm-do-grep-1 '("/usr/share/emacs/*/lisp/*.el.gz")))
+
+(defun my-grep-emacs-C ()
+  (interactive)
+  (helm-do-grep-1 '("~/.emacs.d/src/*.c" "~/.emacs.d/src/*.h")))
+#+END_SRC
+
 **** ~completing-read~ behaviour
 
 For whatever reason ~find-library~ isn't used properly with
@@ -1568,6 +1581,8 @@ This is used in ~after-init-hook~.
    (defhydra hydra-search (:color blue)
      "Search"
      ("a" helm-imenu-anywhere "Imenu Anywhere")
+     ("e" my-grep-emacs-elisp "Grep Emacs Elisp")
+     ("E" my-grep-emacs-C "Grep Emacs C")
      ("g" helm-do-grep "Grep")
      ("h" helm-org-headlines "Org Headlines")
      ("i" helm-imenu "Imenu")
