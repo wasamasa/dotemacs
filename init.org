@@ -1391,7 +1391,7 @@ not within compressed files.  That's why I'll go for [[https://github.com/ggreer
 and columns in its output, something the =--vimgrep== option (the
 irony) does.  Another subtle hack hidden in here is deliberately using
 the recursing variant for both types of searches, this might break
-something, but so far hasn't shown any obvious side-effects
+something, but so far hasn't shown any obvious side-effects.
 
 #+BEGIN_SRC emacs-lisp
 (setq helm-grep-default-command "ag --vimgrep -z %p %f"
