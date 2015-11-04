@@ -2,7 +2,6 @@
 (setq package--init-file-ensured t)
 
 ;; see http://emacs.stackexchange.com/questions/539/how-do-i-measure-performance-of-elisp-code
-
 (defmacro with-timer (&rest forms)
   "Run the given FORMS, counting and displaying the elapsed time."
   (declare (indent 0))
@@ -15,24 +14,42 @@
              (message "spent (%.3fs)" elapsed)))))))
 
 ;; see http://endlessparentheses.com/init-org-Without-org-mode.html
-(with-temp-buffer
-  (insert-file "~/.emacs.d/init.org")
-  (goto-char (point-min))
-  (search-forward "\n* Init")
-  (while (not (eobp))
-    (forward-line 1)
-    (cond
-     ;; skip headers marked as TODO
-     ((looking-at "^\\(\\*+\\) TODO +.*$")
-      (search-forward (format "\n%s " (match-string 1))))
-     ;; report headers
-     ((looking-at "\\*\\{2,3\\} +.*$")
-      (message "%s" (match-string 0)))
-     ;; evaluate code blocks
-     ((looking-at "^#\\+BEGIN_SRC +emacs-lisp.*$")
-      (let ((l (match-end 0)))
-        (search-forward "\n#+END_SRC")
-        (with-timer (eval-region l (match-beginning 0)))))
-     ;; finish on the next level-1 header
-     ((looking-at "^\\* ")
-      (goto-char (point-max))))))
+(let (errors)
+  (with-temp-buffer
+    (insert-file "~/.emacs.d/init.org")
+    (goto-char (point-min))
+    (search-forward "\n* Init")
+    (while (not (eobp))
+      (forward-line 1)
+      (cond
+       ;; skip headers marked as TODO
+       ((looking-at "^\\(\\*+\\) TODO +.*$")
+        (search-forward (format "\n%s " (match-string 1))))
+       ;; report headers
+       ((looking-at "\\*\\{2,3\\} +.*$")
+        (message "%s" (match-string 0)))
+       ;; evaluate code blocks
+       ((looking-at "^#\\+BEGIN_SRC +emacs-lisp.*$")
+        (let (src-beg src-end)
+          (condition-case error
+              (progn
+                (setq src-beg (match-end 0))
+                (search-forward "\n#+END_SRC")
+                (setq src-end (match-beginning 0))
+                (with-timer (eval-region src-beg src-end)))
+            (error
+             (push (format "%s for:\n%s\n\n---\n"
+                           (error-message-string error)
+                           (buffer-substring src-beg src-end))
+                   errors)))))
+       ;; finish on the next level-1 header
+       ((looking-at "^\\* ")
+        (goto-char (point-max))))))
+  (when errors
+    (with-current-buffer (get-buffer-create "*init errors*")
+      (insert (format "%i error(s) found\n\n" (length errors)))
+      (dolist (error (nreverse errors))
+        (insert error "\n"))
+      (goto-char (point-min))
+      (special-mode))
+    (display-buffer "*init errors*")))
