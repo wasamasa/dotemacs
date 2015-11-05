@@ -52,4 +52,4 @@
         (insert error "\n"))
       (goto-char (point-min))
       (special-mode))
-    (display-buffer "*init errors*")))
+    (setq initial-buffer-choice (lambda () (get-buffer "*init errors*")))))
