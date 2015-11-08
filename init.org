@@ -2085,6 +2085,23 @@ instead.  Same goes for ~view-mode~.
 (add-hook 'view-mode-hook 'evil-emacs-state)
 #+END_SRC
 
+Allow quitting =M-x magit-blame= with =q= by toggling Evil's current
+state.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-evil-toggle ()
+  (interactive)
+  (cond
+    ((eq evil-state 'insert)
+     (evil-emacs-state))
+    ((eq evil-state 'emacs)
+     (evil-exit-emacs-state))
+    ((eq evil-state 'normal)
+     (evil-emacs-state))))
+
+(add-hook 'magit-blame-mode-hook 'my-evil-toggle)
+#+END_SRC
+
 **** More Emacs-like feel
 
 These make movement, undo and search feel a bit less weird.
