@@ -3091,7 +3091,6 @@ unconditionally run after init has finished.
   (my-setup-hydra)
   (evil-mode)
   (my-disable-tramp-file-handlers)
-  (company-quickhelp-mode)
   (cl-lib-highlight-initialize)
   (cl-lib-highlight-warn-cl-initialize)
   (line-number-mode)
