@@ -223,7 +223,7 @@ combinations remain unchanged."
    (mode-line-inactive :foreground bg-1 :background bg-3 :box (:line-width -1 :color bg-2))
    (header-line :foreground fg-1 :background bg-2 :box (:line-width -1 :color bg-2))
    (region :foreground bg-3 :background fg-1)
-   (secondary-selection :background bg-2)
+   (secondary-selection :foreground bg-3 :background bg-1)
 
    (trailing-whitespace :background red)
    (vertical-border :foreground fg-0)
