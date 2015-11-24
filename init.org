@@ -1404,7 +1404,8 @@ official Emacs Lisp sources, the other through the C parts:
 #+BEGIN_SRC emacs-lisp
 (defun my-grep-emacs-elisp ()
   (interactive)
-  (helm-do-grep-1 '("/usr/share/emacs/*/lisp/*.el.gz")))
+  (helm-do-grep-1 '("/usr/share/emacs/*/lisp/*.el.gz"
+                    "/usr/share/emacs/*/lisp/*/*.el.gz")))
 
 (defun my-grep-emacs-C ()
   (interactive)
