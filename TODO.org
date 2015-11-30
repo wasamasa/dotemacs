@@ -183,6 +183,9 @@ rather integrating it in these tools than writing it judging by the
 fact that some ready-made solutions do exist (like [[https://github.com/Valloric/ycmd/][ycmd]], [[https://github.com/junegunn/fzf][fzf]], [[https://github.com/garybernhardt/selecta][selecta]],
 [[https://github.com/thoughtbot/pick][pick]], etc.), yet nobody did wire them up to Emacs yet.
 
+- https://github.com/nixprime/cpsm
+- https://github.com/burke/matcher
+
 * Write a pure elisp torrent client
 
 Sounds like a pretty hefty exercise considering a network process that
@@ -631,6 +634,8 @@ Some links:
 - https://github.com/paradigm/TextObjectify
 - https://github.com/wellle/targets.vim
 - https://github.com/t9md/vim-textmanip
+- https://github.com/AndrewRadev/switch.vim
+- https://github.com/unblevable/quick-scope
 
 * Write something educational Emacs-related content
 
@@ -852,6 +857,7 @@ popularity and usage of packages and their dependencies.  See [[http://crossclj.
 for a demonstration.
 
 - http://ghtorrent.org/
+- http://api.mongodb.org/libbson/current/parsing.html
 - https://github.com/divad12/vim-awesome/blob/master/tools/scrape/github.py
 
 * Write a web UI that unifies all popular package archives
@@ -1026,11 +1032,14 @@ puts some UI over the original buffer with overlays (but is dead).
 - https://code.google.com/p/annot/
 - https://github.com/emacsmirror/annotate/blob/master/annotate.el
 - https://github.com/GoNZooo/annotate
+- https://github.com/bastibe/annotate.el
 
 - https://github.com/VincentToups/emacs-utils/blob/master/annotate.el
 - http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-annotate-file.el;hb=HEAD
 - https://github.com/tarsius/orglink
 - https://github.com/girzel/org-annotate
+
+- https://github.com/rudolfochrist/interleave
 
 The UI can be stolen from Google Docs or Genius (select a range of
 text, enter annotation in a commit-style buffer, save/discard, see a
