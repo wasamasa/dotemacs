@@ -192,6 +192,11 @@ internal C functions for advancing to arbitrary positions in files,
 see =fileio.c= when searching for =lseek=).  It would probably be more
 useful to write a proper frontend to an existing torrent client.
 
+edit: ~write-region~ supports seeking with the =APPEND= argument,
+~insert-file-contents~ takes a start byte and seeks to it if
+possible.  That leaves allocating a sparse file, but maybe you can
+leave that to an external utility like =dd= or =fallocate=?
+
 * Help out holomorph with his =transmission= UI
 
 Unlike the previous entry this sounds very doable and profitable.
@@ -209,12 +214,18 @@ The standard advice for applications relying on state serialization
 beyond serializing something lispy (with pretty-printing deactivated
 please) is to speak to [[https://www.sqlite.org/][SQlite3]], but that's a poor match for Emacs as
 it's not embedded into it and speaking to the CLI utility can deal
-with the CSV format at best.  Yuck.
+with the CSV format at best.  Yuck.  See also [[https://github.com/skeeto/emacsql][emacsql]] for a package
+doing exactly that, it could use a lower-level API for more utility
+(as described [[https://github.com/skeeto/emacsql/issues/11][here]]).
 
 The other problem is that Emacs can only read in a file completely.
 No arbitrary seeking and reading allowed.  See [[http://nullprogram.com/blog/2013/09/09/][Elfeed's database]] for a
 workaround.  Maybe using =lseek= or modules will be viable at some
 point, dunno.
+
+edit: That's wrong!  You can actually read and write after seeking to
+an offset, it's just not very obvious that this kind of thing is
+possible.  See ~write-region~ and ~insert-file-contents~ for details.
 
 An alternative is just using some sort of in-memory store that behaves
 either relational or key-value-like, I've started writing =pdata.el=
@@ -235,6 +246,11 @@ display code to make use of it.
 - https://emacs.stackexchange.com/questions/598/how-do-i-handle-files-with-extremely-long-lines#answer-603
 - http://debbugs.gnu.org/cgi/bugreport.cgi?bug=15555#11
 - http://emacs.stackexchange.com/a/5559/10
+
+Update: Apparently there is such a thing as [[http://www.reddit.com/r/emacs/comments/3aprkn/linumrelative_slow/csetpji][a cache for newlines]] in
+the buffer.  So maybe I'm not totally screwed and it's merely a matter
+of working with font-lock.  Whether that's actually simpler is a
+different question of course.
 
 * Fix overlay slowness
 
@@ -307,7 +323,7 @@ this up:
 * Try out SVG modeline/margin
 
 forcer suggested on #emacs to do tentacle scrollbars.  This might be
-possible by abusing the margin.
+possible by abusing the margin or the toolbar.
 
 Meanwhile, [[https://github.com/ocodo/.emacs.d/blob/master/plugins/ocodo-svg-mode-line.el][someone]] did dig out sabof's svg-mode-line and created
 something nicer to look at with it.  I don't really like the idea of
@@ -331,30 +347,55 @@ I've had enough fun with SVG (although I should at least finish up the
 animation part in =svg-2048=), XPM would be the next thing I'd tackle
 (for something like Conway's Game of Life).  By then I should have a
 good idea what's better to use and could proceed with other fun games,
-such as clones of =xeyes=, =breakout=, =tetris= (replicating TGM3 would
-be very cool), something like Tower Defense.  Maybe something
-demo-like with procedural graphics.  Maybe go more abstract and whip
-up everything necessary to do more advanced games, like stuff
-reminiscent of visual novels (although, would they work without
-sound?), platformers, bullethell shmups, etc.  Who knows whether one
-of those might become the next Emacs killer app.
+such as clones of =xeyes=, =breakout=, =tetris= (replicating TGM3
+would be very cool), super hexagon, something like Tower Defense.
+Maybe something demo-like with procedural graphics.  Maybe go more
+abstract and whip up everything necessary to do more advanced games,
+like stuff reminiscent of visual novels (although, would they work
+without sound?), platformers, bullethell shmups, etc.  Who knows
+whether one of those might become the next Emacs killer app.
+
+Update: Although a game engine is probably not a good idea, it might
+be worth taking a look at dto's [[https://gist.github.com/dto/4112806][rlx]] for helpful hints regarding UI and
+capabilities.
 
 * Write graphical demos
 
 So far I had a flipbook (see the Quasiconf 2014 files), this could be
 abstracted into a video player (which converts the video into frames
-beforehand, mind you).  A pixelart editor would be very cool,
-especially for things like my demo on http://brause.cc/.  GIF editing
-by wrapping =gifsicle= and inserting the created previews could be
-better than what Photoshop and GIMP offer.  A fully-featured
-SVG/Bitmap editor would be more utopian, but the groundwork for that
-is laid with the =svg.el= package (which could become a fast
-canvas-like) and proper bitmap embedding support in Emacs 25.1.
+beforehand, mind you).  The more realistical option would be extending
+it to become a GIF authoring environment taking a set of frames and
+offering preview functions for changes made to them.  A pixelart
+editor would be very cool, especially for things like my demo on
+http://brause.cc/.  A fully-featured SVG/Bitmap editor would be more
+utopian, but the groundwork for that is laid with the =svg.el= package
+(which could become a fast canvas-like) and proper bitmap embedding
+support in Emacs 25.1.
 
 http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
 
 Finally, paying homage to the demo scene would be the silliest option
 I can think of, but cool if combined with audio.
+
+* Try out the bgex patch set
+
+This allows you to make use of a XPM image as static background.
+Maybe that's the way to implement the shoop from [[https://github.com/esneider/YUNOcommit.vim/][YUNOcommit.vim]],
+assuming it supports transparency and I'd generate the right XPM on
+every window size change.  A more advanced example would be recreating
+an [[https://www.smore.com/clippy-js][animated clippy character]] and call it clippy.xpm (in resemblance of
+[[https://github.com/Fuco1/clippy.el][clippy.el]])
+
+https://github.com/wachikun/emacs_bgex
+
+* Bring images into the terminal
+
+Some crazy japanese guy wrote [[https://github.com/saitoha/libsixel][libsixel]], a library providing encoding
+functions for the [[https://en.wikipedia.org/wiki/Sixel][Sixel]] standard used by really old terminals (and
+some newer terminals, including a patched xterm) to have escape codes
+that are decoded as 256-color images.  I can imagine this to work as
+transparently as possible by turning a decoded image into the
+respective escape codes instead of discarding it completely.
 
 * Finish bytebeat demo
 
@@ -628,6 +669,12 @@ the goal of doing more than in the koans, like by filling in the
 missing parts of the game.  That kind of thing will of course only
 work in Emacs...
 
+See [[https://github.com/technomancy/calandria][calandria]] for something that will hopefully prove a subset of this
+(fixing things in a game to teach you programming generally instead of
+the programming that made up that game) is workable.  [[http://store.steampowered.com/app/370360/][TIS-100]] looks a
+bit closer to what I've envisioned with its minimalistic visual style
+and developer-oriented UI.
+
 * Configure =smartparens= to start out with way less pairs
 
 It's annoying to fix quotes for every Lisp-related mode (text-related
@@ -679,9 +726,9 @@ Here's a list of more specific things to look into:
 
 * Hack more on =circe=
 
-There's plenty on the issue tracker, asides from that I want to make
-nick coloring more flexible by incorporating
-https://github.com/TaylanUB/circe/commits/nick-colors/lisp/circe-color-nicks.el.
+There's plenty on the issue tracker.  I'd find a cloud-to-butt thing
+funny which would replace instances of "Cloud" with a propertized
+"Butt" that shows the original word on hovering.
 
 Another fun hack is displaying fools as XPM piggies instead of hiding
 them, ideally with the toggle function doing a bit more work (by
