@@ -146,7 +146,7 @@ However I prefer hiding minor modes by default.
 
 The first obvious thing one notices upon launching an uncustomized
 Emacs is a rather fancy splash screen that informs you about the usage
-and advertises for [[https://www.gnu.org/][the GNU project]].  I did eventually grew annoyed by
+and advertises for [[https://www.gnu.org/][the GNU project]].  I did eventually grow annoyed by
 it.
 
 #+BEGIN_SRC emacs-lisp
@@ -2455,7 +2455,7 @@ blocks.  The following sets up a single directory for snippets.
 =rcirc= is too small, [[http://savannah.gnu.org/projects/erc/][ERC]] is too large.  So I chose Circe as my IRC
 client living inside Emacs.  As for why IRC in Emacs in the first
 place, I wanted to leave irssi behind and didn't really like Weechat.
-So why not try something extensible?
+So, why not try something extensible?
 
 **** Authentication and identification
 
