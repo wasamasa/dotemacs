@@ -941,6 +941,21 @@ aliases to everything else?).  In case I shouldn't like them (even
 with threading macros), a function compiling a CSS selector to a list
 of zipper instructions should do the trick.
 
+* Port FORMAT to elisp
+
+Self-explanatory.  ~format~ is actually a complicated wrapper around
+=sprintf= which is sort of a letdown.  It would be neat to have
+something more powerful than that when the situation calls for it.
+
+See also https://github.com/clojure/clojure/blob/clojure-1.7.0/src/clj/clojure/pprint/cl_format.clj
+
+* Port ITERATE to elisp
+
+LOOP was ported, but it's hard to extend and doesn't look as lispy as
+[[https://common-lisp.net/project/iterate/doc/Don_0027t-Loop-Iterate.html][ITERATE]].
+
+See also https://github.com/jpalmucci/clj-iterate
+
 * Port useful Scheme things to elisp
 
 A scm-lib would be fun to have, though the prefixing would kill the
