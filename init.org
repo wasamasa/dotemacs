@@ -1330,6 +1330,15 @@ workaround for both:
   (define-key company-search-map (kbd "<escape>") 'company-search-abort))
 #+END_SRC
 
+I've transitioned from [[https://github.com/auto-complete/auto-complete][auto-complete-mode]] so I'm missing its selection
+behaviour.  Company is not quite there yet, but this remapping helps:
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle))
+#+END_SRC
+
 *** [[https://github.com/magnars/dash.el][dash]]
 
 Very useful library, too bad I don't know how to properly use it yet.
