@@ -2500,8 +2500,7 @@ private file which is read in by a password function.
          :user "wasamasa/freenode" :pass my-retrieve-irc-password)
         ("ZNC/f0o" :host "brause.cc" :port 30833 :family ipv4
          :user "wasamasa/f0o" :pass my-retrieve-irc-password)
-        ("Bitlbee" :port 6667 :lagmon-disabled t
-         :nickserv-password my-retrieve-irc-password)))
+        ("Bitlbee" :nickserv-password my-retrieve-irc-password)))
 #+END_SRC
 
 **** Basic usability tweaks
