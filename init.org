@@ -1336,7 +1336,22 @@ behaviour.  Company is not quite there yet, but this remapping helps:
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle))
+  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+
+  (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
+  (define-key company-active-map (kbd "<backtab>") 'company-select-previous))
+#+END_SRC
+
+Other helpful settings involve the frontends to preview the current
+candidate inline and triggering completion of it on a few selected
+keys, including =SPC=:
+
+#+BEGIN_SRC emacs-lisp
+(setq company-frontends
+      '(company-pseudo-tooltip-unless-just-one-frontend
+        company-echo-metadata-frontend
+        company-preview-frontend)
+      company-auto-complete t)
 #+END_SRC
 
 *** [[https://github.com/magnars/dash.el][dash]]
