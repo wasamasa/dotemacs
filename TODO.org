@@ -815,6 +815,17 @@ a parser of its files could be built in, alternatively for =bash=.
 Combined with =company-capf= this should make for very awesome
 argument completion.
 
+* Hack on =eshell= to acquire non-standard functionality
+
+Having ~company-mode~ enabled is one of the easier examples what's
+possible to do in an Emacs shell.  However, I'm sure it's possible to
+progress beyond that.  Both [[https://github.com/p-e-w/finalterm][finalterm]] (possibly magit-process as well
+for its foldable view and color-coded feedback) and [[http://xiki.org/][xiki]] (which
+ironically started out as an Emacs package extending org-babel)
+demonstrate other cool features.
+
+http://www.tecmint.com/wp-content/uploads/2014/01/FinalTerm.gif
+
 * Write a package for restoring former active regions
 
 The region consists of mark and point, so saving the values of both
