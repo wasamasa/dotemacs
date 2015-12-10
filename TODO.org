@@ -121,6 +121,16 @@ call it nique?):
 - http://www.ctan.org/tex-archive/support/ite/
 - http://www.yatex.org/
 
+* Write a more interactive LaTeX preview
+
+Something à la LyX or https://www.overleaf.com/.  This will be pretty
+tricky.  One possible approach is writing something along the lines of
+[[https://github.com/Khan/KaTeX][KaTeX]] for fast visualization, then some heuristics to figure out when
+to rerender and logic for turning interaction into updates.  Either it
+will be about putting a pseudo-cursor into a rendered image which you
+can interact with in a limited way or incrementally updating already
+typed TeX code.  Probably not worth the effort.
+
 * Make a list of (REPL) modes to enable =company= for
 
 Stuff like =ielm= would qualify.  Perhaps some textual modes, too.
