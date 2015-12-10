@@ -94,6 +94,10 @@ test such a thing considering I don't have many remote boxes to try it
 on (or to be more precise, just a single one).  It could very well be
 that my issues with it arise from its implicit integration into Emacs.
 
+Here's a Sublime Text package going for the explicit way:
+
+https://wbond.net/sublime_packages/sftp
+
 * Rewrite =calfw=
 
 It is pretty much impossible to understand and has bizarre bugs (like,
