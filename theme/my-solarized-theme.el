@@ -114,12 +114,12 @@ combinations remain unchanged."
              (index (if display 1 2))
              (color (my-solarized-color value display)))
         (cond
-         ((and (not (memq value '(t unspecified)))
-               (memq key '(:foreground :background :underline :overline :strike-through :color)))
-          (setq output (append output (list key color))))
          ((and (memq key '(:box :underline)) (listp value))
           (setq output (append output
                                (list key (my-transform-spec value display)))))
+         ((and (not (memq value '(t unspecified)))
+               (memq key '(:foreground :background :underline :overline :strike-through :color)))
+          (setq output (append output (list key color))))
          (t (setq output (append output (list key value))))))
       (setq spec (cddr spec)))
     output))
