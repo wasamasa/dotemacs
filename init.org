@@ -1089,6 +1089,11 @@ Emacs Lisp.
 (put 'match 'scheme-indent-function 1)
 (put 'match-let 'scheme-indent-function 1)
 (put 'match-let* 'scheme-indent-function 1)
+(put 'when 'scheme-indent-function 1)
+(put 'and-let* 'scheme-indent-function 1)
+(put 'let-location 'scheme-indent-function 1)
+(put 'select 'scheme-indent-function 1)
+(put 'bitmatch 'scheme-indent-function 1)
 #+END_SRC
 
 There's a few schemey file formats I'd like to automatically
@@ -1097,6 +1102,8 @@ recognize:
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.sxml\\'" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.setup\\'" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.meta\\'" . scheme-mode))
 #+END_SRC
 
 *** Common Lisp
