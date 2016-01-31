@@ -1268,12 +1268,13 @@ Declarative popup window rules.
 #+BEGIN_SRC emacs-lisp
 (setq shackle-rules
       '((svg-2048-mode :same t)
-        ("*Help*" :align t :ratio 0.4 :select t)
-        ("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4)
+        ("*Help*" :align t :select t)
+        ("\\`\\*helm.*?\\*\\'" :regexp t :align t)
         ((compilation-mode "\\`\\*firestarter\\*\\'"
           "\\`\\*magit-diff: .*?\\'") :regexp t :noselect t)
         ((inferior-scheme-mode "*shell*" "*eshell*") :popup t))
        shackle-default-rule '(:select t)
+       shackle-default-size 0.4
        shackle-inhibit-window-quit-on-same-windows t)
 #+END_SRC
 
