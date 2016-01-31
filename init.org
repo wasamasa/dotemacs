@@ -2208,18 +2208,29 @@ often.
   (define-key evil-normal-state-map (kbd "M-.") nil))
 #+END_SRC
 
-The hole poking continues, this time for the insert state keymap.
-Everything except the keys to exit insert state and toggle to Emacs
-state has to go.
+The hole poking continues, this time for the insert state and ex
+completion keymap.  Everything with a modifier (except for the toggle
+key for Emacs state and other useful keys) has to go.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-maps
-  (setq evil-insert-state-map
-        (cons 'keymap
-              (let ((key-number (string-to-char (kbd evil-toggle-key))))
-                (--select
-                 (memq (car-safe it) `(escape ,key-number))
-                 (cdr evil-insert-state-map))))))
+  (setcdr evil-insert-state-map
+          (let ((toggle-key (string-to-char (kbd evil-toggle-key))))
+            (--reject
+             (and (memq 'control (event-modifiers (car-safe it)))
+                  (/= (car-safe it) toggle-key))
+             (cdr evil-insert-state-map))))
+
+  (setcdr evil-ex-completion-map
+          (--reject
+           (and (memq 'control (event-modifiers (car-safe it)))
+                ;; abort prompt
+                (/= (car-safe it) ?\C-c)
+                (/= (car-safe it) ?\C-g)
+                ;; previous/next input
+                (/= (car-safe it) ?\C-p)
+                (/= (car-safe it) ?\C-n))
+           (cdr evil-ex-completion-map))))
 #+END_SRC
 
 **** =C-w=
@@ -2334,19 +2345,15 @@ with code folding.  First of all, get rid of them.
 
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-maps
-  (setq evil-normal-state-map
-        (cons 'keymap
-              (let ((key-number (string-to-char "z")))
-                (--reject
-                 (eq (car-safe it) key-number)
-                 (cdr evil-normal-state-map)))))
+  (setcdr evil-normal-state-map
+          (--reject
+           (eq (car-safe it) ?z)
+           (cdr evil-normal-state-map)))
 
-  (setq evil-motion-state-map
-        (cons 'keymap
-              (let ((key-number (string-to-char "z")))
-                (--reject
-                 (eq (car-safe it) key-number)
-                 (cdr evil-motion-state-map))))))
+  (setcdr evil-motion-state-map
+          (--reject
+           (eq (car-safe it) ?z)
+           (cdr evil-motion-state-map))))
 #+END_SRC
 
 Next, define a few toggling commands and bind them.
