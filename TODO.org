@@ -1,3 +1,5 @@
+#+TODO: TODO | INPROGRESS | DONE INVALID
+
 * Learn from other people's Emacs configurations
 
 - https://github.com/purcell/emacs.d
@@ -44,7 +46,7 @@ just increase the history limit to a ridiculously large number.
 If the situation should turn out to be hopeless, I better investigate
 into Fuco's [[https://github.com/Fuco1/autobookmarks][autobookmarks]] instead.
 
-* Join forces with Fuco and think up better names for the projects to hack on
+* DONE Join forces with Fuco and think up better names for the projects to hack on
 
 The plan is to do a Github organization and to learn useful stuff
 along the way, such as advanced =dash= usage, EIEIO (an undebuggable
@@ -394,7 +396,7 @@ http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
 Finally, paying homage to the demo scene would be the silliest option
 I can think of, but cool if combined with audio.
 
-* Try out the bgex patch set
+* DONE Try out the bgex patch set
 
 This allows you to make use of a XPM image as static background.
 Maybe that's the way to implement the shoop from [[https://github.com/esneider/YUNOcommit.vim/][YUNOcommit.vim]],
@@ -404,6 +406,10 @@ an [[https://www.smore.com/clippy-js][animated clippy character]] and call it cl
 [[https://github.com/Fuco1/clippy.el][clippy.el]])
 
 https://github.com/wachikun/emacs_bgex
+
+Update: It sort of works.  Animation is terrible (everything flickers)
+and there's only tiling, so you'd need to generate pngs all the time
+and that's not really feasible.
 
 * Bring images into the terminal
 
@@ -826,7 +832,7 @@ demonstrate other cool features.
 
 http://www.tecmint.com/wp-content/uploads/2014/01/FinalTerm.gif
 
-* Write a package for restoring former active regions
+* INPROGRESS Write a package for restoring former active regions
 
 The region consists of mark and point, so saving the values of both
 upon deactivating an active region (with ~deactivate-mark-hook~) for
@@ -899,13 +905,18 @@ like RDoc where you see docstrings and can fold out sources to peek at
 the implementation.  Add diffing and a good overview and that should
 be it.  The data could be static except for HEAD (with daily updates).
 
-* Make news feeds for MELPA and Marmalade releases
+* DONE Make news feeds for MELPA and Marmalade releases
 
 There's currently twitter feeds that are mixed, not sure whether
 there's anything for Marmalade even.  It would be useful to have one
 for newly released packages and a separate one for their updates,
 maybe even with Changelog links (either a commit summary or a file if
 it exists with diffs).
+
+* INPROGRESS Make a progress website on MELPA Stable
+
+Not all things can be used from MELPA Stable (like, Evil).  Make a
+website visualizing how ready it is to be actually used.
 
 * Bring =comint= hacks upstream
 
@@ -1019,13 +1030,15 @@ aliases to everything else?).  In case I shouldn't like them (even
 with threading macros), a function compiling a CSS selector to a list
 of zipper instructions should do the trick.
 
-* Port FORMAT to elisp
+* INVALID Port FORMAT to elisp
 
 Self-explanatory.  ~format~ is actually a complicated wrapper around
 =sprintf= which is sort of a letdown.  It would be neat to have
 something more powerful than that when the situation calls for it.
 
 See also https://github.com/clojure/clojure/blob/clojure-1.7.0/src/clj/clojure/pprint/cl_format.clj
+
+edit: It has been done: https://marmalade-repo.org/packages/cl-format
 
 * Port ITERATE to elisp
 
@@ -1046,6 +1059,10 @@ Another cool thing would be [[http://wiki.call-cc.org/eggref/4/foof-loop][foof-l
 easier to port and extend than [[https://common-lisp.net/project/iterate/doc/Don_0027t-Loop-Iterate.html][ITERATE]].  Not only do they make for a
 lispier alternative to LOOP, no, they allow for easier nesting as
 well.
+
+* Port useful Clojure things to elisp
+
+Same as above, but as a clj-lib.
 
 * Write a package for annotating all kinds of human-readable files
 
@@ -1083,7 +1100,7 @@ addressed]] for now).
 
 No idea about the name (overly? never-knows-best?).
 
-* Make a Lisp
+* DONE Make a Lisp
 
 [[https://github.com/kanaka/mal/blob/master/process/guide.md][Pretty cool guide]].
 
@@ -1115,5 +1132,6 @@ be used instead of Hiccup.
 - https://github.com/nicferrier/elnode
 - https://github.com/eschulte/emacs-web-server/
 - https://github.com/skeeto/emacs-web-server
+- https://github.com/jrhbailey/emacs-http-server
 - https://github.com/tali713/esxml
 - https://github.com/philjackson/xmlgen
