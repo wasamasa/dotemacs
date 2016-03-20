@@ -1135,3 +1135,73 @@ be used instead of Hiccup.
 - https://github.com/jrhbailey/emacs-http-server
 - https://github.com/tali713/esxml
 - https://github.com/philjackson/xmlgen
+
+* Invent Eljure
+
+- Standalone language running on top of Emacs
+- Intention: Small scripts
+- Not made for: Extending Emacs (see Guilemacs for that)
+- Inspired by Clojure (duh)
+- Fast startup time
+- Comprehensible error messages
+- Batteries included
+- Minimal interop abilities
+- Focus on practicality
+- Builds upon MAL
+
+Planned extensions to MAL:
+
+** Reader macros
+
+*** Regex
+
+- backslash doubling
+- translation of =\d= into =[:digit:]=
+- swap of =()= / =\(\)= and ={}= / =\{\}=)
+
+#+BEGIN_SRC clojure
+#"\d{4}-\d\d-\d\d"
+;=> "[[:digit:]]\{4\}-[[:digit:]][[:digit:]]-[[:digit:]][[:digit:]]"
+#+END_SRC
+
+*** Lambda
+
+See Clojure
+
+*** Set
+
+See Clojure.  Back it with a hash table?
+
+*** Comment
+
+See Clojure.  I prefer the look of =#;= though...
+
+*** Quote
+
+Extend it to work on vectors.  Ensure unquoting works.
+
+** Namespaces
+
+Not sure whether Python- (inspectable, dictionaries) or Scheme-style
+(fast, symbol manipulation), but use Clojure syntax.
+
+** Core namespace
+
+- Keep it small, unlike with Clojure.
+- Bit ops for instance don't need to be there
+- Implement fn/let/try macros in terms of fn*/let*/try*
+
+** Batteries
+
+- eljure.core
+- better process control
+- easy shelling out
+- date parsing
+- better date handling
+- better string/regex manipulation
+- files and file paths
+- networking
+- HTTP client
+- HTTP server (+ abstraction), routing, templating
+- parsing XML/HTML, zippers
+- XCB?
