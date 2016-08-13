@@ -1817,6 +1817,16 @@ Bootstrap [[https://github.com/davidhalter/jedi][jedi]] automatically per file f
 (add-hook 'python-mode-hook 'company-jedi-start)
 #+END_SRC
 
+*** =company-tern=
+
+[[http://ternjs.net/][Tern]] is kind of cool.  Don't forget installing it via =npm=, then
+adding a =.tern-project= file to your project root.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'js-mode-hook 'tern-mode)
+(add-to-list 'company-backends 'company-tern)
+#+END_SRC
+
 *** [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]
 
 I'm using this mode for everything the stock =ruby-mode= would be used
