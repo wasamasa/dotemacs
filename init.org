@@ -905,7 +905,8 @@ Let's kill it after noticing such an event with a process sentinel.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-shell-kill-buffer-sentinel (process event)
-  (when (memq (process-status process) '(exit signal))
+  (when (and (memq (process-status process) '(exit signal))
+             (buffer-live-p (process-buffer process)))
     (kill-buffer)))
 
 (defun my-kill-process-buffer-on-exit ()
