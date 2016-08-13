@@ -1223,6 +1223,14 @@ instead."
   (define-key Info-mode-map (kbd "c") 'my-info-copy-current-node-name))
 #+END_SRC
 
+*** nroff
+
+I'll just pretend that mdoc is the same as nroff:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.mdoc\\'" . nroff-mode))
+#+END_SRC
+
 ** Packages outside Emacs
 
 Welcome to the blind spot of =emacs-devel=.  Unlike the people on
