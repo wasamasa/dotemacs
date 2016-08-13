@@ -1027,10 +1027,12 @@ be customized into something more sophisticated.
 
 *** =eldoc-mode=
 
-The default idle delay is way too long.
+The default idle delay is way too long.  Also, avoid displaying overly
+long function signatures.
 
 #+BEGIN_SRC emacs-lisp
-(setq eldoc-idle-delay 0.1)
+(setq eldoc-idle-delay 0.1
+      eldoc-echo-area-use-multiline-p nil)
 #+END_SRC
 
 *** Emacs Lisp
