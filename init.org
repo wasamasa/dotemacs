@@ -1283,11 +1283,12 @@ Declarative popup window rules.
 
 #+BEGIN_SRC emacs-lisp
 (setq shackle-rules
-      '((svg-2048-mode :same t)
+      '(((svg-2048-mode circe-query-mode) :same t)
         ("*Help*" :align t :select t)
         ("\\`\\*helm.*?\\*\\'" :regexp t :align t)
         ((compilation-mode "\\`\\*firestarter\\*\\'"
           "\\`\\*magit-diff: .*?\\'") :regexp t :noselect t)
+        ("\\`\\*cider-repl .*" :regexp t :align t :size 0.2)
         ((inferior-scheme-mode "*shell*" "*eshell*") :popup t))
        shackle-default-rule '(:select t)
        shackle-default-size 0.4
