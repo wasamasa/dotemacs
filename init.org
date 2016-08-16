@@ -2491,8 +2491,7 @@ Add a few convenience bindings to the window map on =C-w=.
 #+BEGIN_SRC emacs-lisp
 (defun my-work-on-scratch ()
   (interactive)
-  (switch-to-buffer (get-buffer-create "*scratch*"))
-  (emacs-lisp-mode))
+  (switch-to-buffer (get-buffer-create "*scratch*")))
 
 (with-eval-after-load 'evil-maps
   (define-key evil-window-map (kbd "n") 'my-work-on-scratch)
