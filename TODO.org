@@ -204,6 +204,9 @@ fact that some ready-made solutions do exist (like [[https://github.com/Valloric
 
 * Write a pure elisp torrent client
 
+- https://cheatdeath.github.io/research-bittorrent-doc/
+- http://pietro.menna.net.br/recurse-center/rust/2015/06/19/rusty-torrent/
+
 Sounds like a pretty hefty exercise considering a network process that
 errors out can cause Emacs to hang up and it doesn't have the
 facilities required for writing sparse files exposed (yet, I've found
@@ -342,7 +345,8 @@ this up:
 * Try out SVG modeline/margin
 
 forcer suggested on #emacs to do tentacle scrollbars.  This might be
-possible by abusing the margin or the toolbar.
+possible by abusing the margin or the toolbar.  See ~tool-bar-setup~
+as entry point.
 
 Meanwhile, [[https://github.com/ocodo/.emacs.d/blob/master/plugins/ocodo-svg-mode-line.el][someone]] did dig out sabof's svg-mode-line and created
 something nicer to look at with it.  I don't really like the idea of
@@ -433,6 +437,10 @@ accordingly.  Finally, visualization of the currently processed ints
 would be pretty awesome, especially if it were wrapped up in a major
 mode depending on the library that pops up a window with a XBM or
 ASCII art in it.
+
+As for the interaction style, perhaps something as minimal as
+~lisp-interaction-mode~ (~meep-mode~ anyone?) could work, with =C-c
+C-c= sending off the current buffer's formula.
 
 - http://countercomplex.blogspot.de/2011/10/algorithmic-symphonies-from-one-line-of.html
 - http://countercomplex.blogspot.de/2011/12/ibniz-hardcore-audiovisual-virtual.html
@@ -656,6 +664,7 @@ Some links:
 - https://github.com/t9md/vim-textmanip
 - https://github.com/AndrewRadev/switch.vim
 - https://github.com/unblevable/quick-scope
+- https://github.com/jonmorehouse/vim-nav
 
 * Write something educational Emacs-related content
 
@@ -693,6 +702,9 @@ elaborate game, I'm thinking of something text adventurish, but with
 the goal of doing more than in the koans, like by filling in the
 missing parts of the game.  That kind of thing will of course only
 work in Emacs...
+
+http://codelauren.com/
+https://www.codecademy.com/
 
 See [[https://github.com/technomancy/calandria][calandria]] for something that will hopefully prove a subset of this
 (fixing things in a game to teach you programming generally instead of
@@ -1191,6 +1203,15 @@ Not sure whether Python- (inspectable, dictionaries) or Scheme-style
 - Bit ops for instance don't need to be there
 - Implement fn/let/try macros in terms of fn*/let*/try*
 
+** Parameter lists
+
+- Decide against supporting multi-arity functions?
+- Add =?= as symbol in parameter lists for optional arguments
+
+#+BEGIN_SRC clojure
+(def! foo (fn* [bar ? baz & args] ...))
+#+END_SRC
+
 ** Batteries
 
 - eljure.core
@@ -1204,4 +1225,5 @@ Not sure whether Python- (inspectable, dictionaries) or Scheme-style
 - HTTP client
 - HTTP server (+ abstraction), routing, templating
 - parsing XML/HTML, zippers
-- XCB?
+- [[https://github.com/Vannil/cheerilee.el][XCB]]?
+
