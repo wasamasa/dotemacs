@@ -2436,7 +2436,7 @@ Next, define a few toggling commands and bind them.
   (if rm-blacklist
       (setq rm-blacklist nil)
     (setq rm-blacklist ".*"))
-  (force-mode-line-update))
+  (force-mode-line-update t))
 
 (defun my-narrow-to-region-with-mode (beg end mode)
   (interactive (list (region-beginning) (region-end)
