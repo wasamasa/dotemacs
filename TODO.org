@@ -627,6 +627,16 @@ package.  It would be a lot better to have official access to this to
 avoid endless cascades of wrappers outsmarting each other (it's not as
 bad as in Win32 yet, but who knows how bad it will become).
 
+* Implement virtualedit=block for Evil
+
+See cua-rect.el and the =cursor= text property for allowing to move
+into a *virtual* position (both after text and in tab indentation).
+The other problem to solve is to tell Evil that editing these virtual
+positions is OK, perhaps you can fill/replace them with actual
+spaces...
+
+See also http://emacs.stackexchange.com/questions/14775/evil-rectangles-with-point-past-eol
+
 * Discover worthwhile Vim plugins to turn into =evil= packages
 
 Should be mostly editing-related hacks, such as replacing the =t=,
@@ -1042,6 +1052,16 @@ aliases to everything else?).  In case I shouldn't like them (even
 with threading macros), a function compiling a CSS selector to a list
 of zipper instructions should do the trick.
 
+* Add a CSS selector thing to ESXML
+
+- https://github.com/zweifisch/enlive
+- https://github.com/Shinmera/lquery
+- https://github.com/Shinmera/CLSS
+- https://github.com/Shinmera/plump
+- https://github.com/jquery/sizzle/wiki#selectors
+- https://github.com/jgehring/hcxselect/
+- https://bitbucket.org/grauw/grauw-lib/src/default/src/selector.js?fileviewer=file-view-default
+
 * INVALID Port FORMAT to elisp
 
 Self-explanatory.  ~format~ is actually a complicated wrapper around
@@ -1058,6 +1078,10 @@ LOOP was ported, but it's hard to extend and doesn't look as lispy as
 [[https://common-lisp.net/project/iterate/doc/Don_0027t-Loop-Iterate.html][ITERATE]].
 
 See also https://github.com/jpalmucci/clj-iterate
+
+* Port FOR to elisp
+
+https://github.com/Shinmera/for
 
 * Port useful Scheme things to elisp
 
@@ -1227,3 +1251,20 @@ Not sure whether Python- (inspectable, dictionaries) or Scheme-style
 - parsing XML/HTML, zippers
 - [[https://github.com/Vannil/cheerilee.el][XCB]]?
 
+* TODO Write an EPUB reader for Emacs
+
+[[https://www.emacswiki.org/emacs/epubmode.el][epubmode.el]] just sucks.  Fuco attempted to do better, but got hung up
+on [[https://github.com/Fuco1/justify-kp][typographically correct filling]].  I've created [[https://github.com/wasamasa/teapub][teapub]] in CHICKEN
+with WebKit and think one could port the approach over to Emacs with
+relatively little effort:
+
+- Thinking up a witty name (nov.el?)
+- Extract EPUB as ZIP to =/tmp= with =unzip=
+- Basic validation (checking the mimetype file and existence of a
+  content file)
+- Parsing/searching the XML files for the documents and their order
+  (sort of tricky given the absence of XSLT/XPATH equivalents)
+- Creating a derived mode based on Eww (sorry, Emacs 24.3 users) with
+  extra navigation keys and stored metadata
+- Cleaning up after you're done (sort of tricky as burying is much
+  more common than quitting, an exit hook could work)
