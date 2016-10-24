@@ -2186,12 +2186,10 @@ state.
 (defun my-evil-toggle ()
   (interactive)
   (cond
-    ((eq evil-state 'insert)
+    ((memq evil-state '(insert normal))
      (evil-emacs-state))
     ((eq evil-state 'emacs)
-     (evil-exit-emacs-state))
-    ((eq evil-state 'normal)
-     (evil-emacs-state))))
+     (evil-exit-emacs-state))))
 
 (add-hook 'magit-blame-mode-hook 'my-evil-toggle)
 #+END_SRC
@@ -2202,7 +2200,7 @@ These make movement, undo and search feel a bit less weird.
 
 #+BEGIN_SRC emacs-lisp
 (setq evil-cross-lines t
-      evil-move-cursor-back nil
+      evil-move-beyond-eol t
       evil-want-fine-undo t
       evil-symbol-word-search t)
 #+END_SRC
@@ -2215,6 +2213,11 @@ setting for that is applied in =evil-maps.el= which is loaded by
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-vars
   (setq evil-want-C-w-in-emacs-state t))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-common
+  (evil-declare-motion 'recenter-top-bottom))
 #+END_SRC
 
 **** Keymap hacking
@@ -2243,6 +2246,15 @@ involved and further explanation.
 (add-hook 'macrostep-mode-hook 'my-macrostep-setup)
 #+END_SRC
 
+Same goes for ~cider-debug~:
+
+#+BEGIN_SRC emacs-lisp
+(defun my-cider-debug-setup ()
+  (evil-make-overriding-map cider--debug-mode-map 'normal)
+  (evil-normalize-keymaps))
+(add-hook 'cider--debug-mode-hook 'my-cider-debug-setup)
+#+END_SRC
+
 Let's poke some holes into its keymaps.  Anything not bound will be
 passed through to Emacs other keymaps.  Because =SPC=, =RET= and =TAB=
 are bound to rather silly commands in Vim I'm unbinding them to allow
@@ -2252,11 +2264,8 @@ links, scrolling a page down, etc.).
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "SPC") nil)
-  (define-key evil-visual-state-map (kbd "SPC") nil)
   (define-key evil-motion-state-map (kbd "RET") nil)
-  (define-key evil-visual-state-map (kbd "RET") nil)
-  (define-key evil-motion-state-map (kbd "TAB") nil)
-  (define-key evil-visual-state-map (kbd "TAB") nil))
+  (define-key evil-motion-state-map (kbd "TAB") nil))
 #+END_SRC
 
 Same story with =C-.= and =M-.=, the latter is usually bound to lookup
@@ -2454,6 +2463,7 @@ Next, define a few toggling commands and bind them.
 
 (with-eval-after-load 'evil-maps
   (define-key evil-normal-state-map (kbd "z r") 'my-revert-buffer)
+  (define-key evil-normal-state-map (kbd "z b") 'magit-blame)
   (define-key evil-normal-state-map (kbd "z s") 'describe-char)
   (define-key evil-normal-state-map (kbd "z e") 'toggle-debug-on-error)
   (define-key evil-normal-state-map (kbd "z q") 'toggle-debug-on-quit)
@@ -2520,6 +2530,14 @@ Then some "leader" bindings.
   (define-key evil-normal-state-map (kbd ", .") 'helm-mini)
   (define-key evil-normal-state-map (kbd ", /") 'helm-find-files)
   (define-key evil-normal-state-map (kbd ", ?") 'my-find-file-with-root-privileges))
+#+END_SRC
+
+As =calc= keeps bewildering me, but =calculator= doesn't, I'll bind
+the latter for one-off calculations:
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "=") 'calculator))
 #+END_SRC
 
 **** Load supplementary modes
