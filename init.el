@@ -1,3 +1,15 @@
+;; -*- lexical-binding: t; -*-
+(defun my-memoize (f)
+  (let ((cache (make-hash-table :test 'equal))
+        (not-found (make-symbol "not-found")))
+    (lambda (&rest args)
+      (let ((hit (gethash args cache not-found)))
+        (if (eq hit not-found)
+            (let ((result (apply f args)))
+              (puthash args result cache)
+              result)
+          hit)))))
+
 ;; so very silly
 (setq package--init-file-ensured t)
 
