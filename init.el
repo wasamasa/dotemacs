@@ -13,6 +13,8 @@
 ;; so very silly
 (setq package--init-file-ensured t)
 
+(defvar my-init-time 0)
+
 ;; see http://emacs.stackexchange.com/questions/539/how-do-i-measure-performance-of-elisp-code
 (defmacro with-timer (&rest forms)
   "Run the given FORMS, counting and displaying the elapsed time."
@@ -22,6 +24,7 @@
     `(let ((,nowvar (current-time)))
        (prog1 ,body
          (let ((elapsed (float-time (time-subtract (current-time) ,nowvar))))
+           (setq my-init-time (+ my-init-time elapsed))
            (when (> elapsed 0.001)
              (message "spent (%.3fs)" elapsed)))))))
 
@@ -36,7 +39,9 @@
       (cond
        ;; skip headers marked as TODO
        ((looking-at "^\\(\\*+\\) TODO +.*$")
-        (search-forward (format "\n%s " (match-string 1))))
+        (when (ignore-errors (search-forward (format "\n%s " (match-string 1))
+                                             nil t))
+          (forward-line -1))) ; avoid (forward-line 1) messing this up
        ;; report headers
        ((looking-at "\\*\\{2,3\\} +.*$")
         (message "%s" (match-string 0)))
@@ -57,6 +62,7 @@
        ;; finish on the next level-1 header
        ((looking-at "^\\* ")
         (goto-char (point-max))))))
+  (message "pre-init: (%.3fs)" my-init-time)
   (when errors
     (with-current-buffer (get-buffer-create "*init errors*")
       (insert (format "%i error(s) found\n\n" (length errors)))
