@@ -219,6 +219,8 @@ edit: ~write-region~ supports seeking with the =APPEND= argument,
 possible.  That leaves allocating a sparse file, but maybe you can
 leave that to an external utility like =dd= or =fallocate=?
 
+NOTE: http://www.vidarholen.net/contents/blog/?p=479
+
 * Help out holomorph with his =transmission= UI
 
 Unlike the previous entry this sounds very doable and profitable.
@@ -281,7 +283,7 @@ facepalms about RMS being silly for no damn reason.
 
 https://lists.gnu.org/archive/html/emacs-devel/2014-09/msg00616.html
 
-* Bring pixel-level smooth scrolling to Emacs
+* INVALID Bring pixel-level smooth scrolling to Emacs
 
 This is part of the railwaycat OS X Emacs port.  To my surprise the
 code enabling it is 99% elisp and a few lines of C in =xdisp.c=.  It
@@ -295,6 +297,8 @@ patch wouldn't hurt either.
 Update: I hope this is not the reason for the C-level hack:
 
 http://lists.gnu.org/archive/html/emacs-devel/2015-04/msg00695.html
+
+Edit: http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/pixel-scroll.el
 
 * Write a proper CSV viewer/editor
 
@@ -328,7 +332,7 @@ a few of them in a C-like format, using something lispier might beat
 them for tasks like reverse engineering a new format and getting
 feedback by displaying overlays on the contents.
 
-* Rewrite linum
+* INVALID Rewrite linum
 
 Looks like this mode is inserting an overlay per visible line which
 contains the margin content.  I can think of a few ways of speeding
@@ -341,6 +345,8 @@ this up:
 - Figure out how to put a long image in the margin and make it display
   something looking like line numbers ([[http://brause.cc/emacs-trollface.png][probably not possible]], but [[https://lists.gnu.org/archive/html/emacs-devel/2014-08/msg00108.html][one
   can dream...]])
+
+Edit: https://lists.gnu.org/archive/html/emacs-devel/2017-07/msg00236.html
 
 * Try out SVG modeline/margin
 
@@ -400,6 +406,32 @@ http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
 Finally, paying homage to the demo scene would be the silliest option
 I can think of, but cool if combined with audio.
 
+http://machinethink.net/blog/3d-rendering-without-shaders/
+https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform (matrix)
+
+Assuming I omit the rasterizing step, this should just work when
+applied to SVG as target.  No real shaders though, so either it's
+going to be wireframes (hello vectrex!) or distorted textures (hello
+doom!).
+
+http://lodev.org/cgtutor/raycasting.html <- wolfenstein 3d
+
+https://css-tricks.com/mega-list-svg-information/
+
+* Write textual demos
+
+Maybe hack on https://github.com/johanvts/emacs-fireplace ?
+
+Writing something like zone (that is acting on buffer contents), but
+for interactive usage might be cool:
+
+- asteroids (shoot at letters?)
+- breakout (shoot at letters?)
+- tetris (fill in the blanks)
+
+While porting https://atom.io/packages/activate-power-mode is not
+feasable, its combo mode might be...
+
 * DONE Try out the bgex patch set
 
 This allows you to make use of a XPM image as static background.
@@ -455,13 +487,15 @@ over it would be a really silly one.  So would be a 1984 one that
 makes Emacs look and behave even more arcane than usual (with reduced
 colors and all that).
 
-* Write a fast terminal emulator
+* INVALID Write a fast terminal emulator
 
 Perhaps with FFI (not sure whether the official one or skeeto's
 approach) and [[http://www.freedesktop.org/wiki/Software/kmscon/libtsm/][libtsm]] one could write something considerably faster
 than ~ansi-term~, probably not though.
 
 Update: [[http://www.reddit.com/r/vim/comments/30btwx/neovim_now_has_a_full_terminal_emulator_mode_i/][Neovim did it]].
+
+Update: Sort of invalid: https://github.com/akermu/emacs-libvterm
 
 * Write audio demos
 
@@ -493,7 +527,7 @@ reuses the data the ido interface creates.
 According to Eli Zaretskii this should be alright to do after a week
 without replies.
 
-* Hand in a bug for ~browse-url-can-use-xdg~
+* DONE Hand in a bug for ~browse-url-can-use-xdg~
 
 This function is not reliable as it only works on a few select Desktop
 Environments and essentially replicates what =xdg-open= is doing
@@ -567,6 +601,10 @@ Update: MELPA already got such a note, GNU ELPA got one as well.
 Marmalade, well, Nic Ferrier hates the very idea of using
 ~package-initialize~ explicitly and everyone doing it, unfortunately
 [[https://github.com/nicferrier/elmarmalade/issues/102][the issue thread]] devolved into offtopic.
+
+NOTE: write patch removing that feature and replace it with creating
+an init file with these lines if none was found and emacs was started
+normally (so, no quiet mode or explicitly loading a file).
 
 * Rediscover =org-mode= again after having learned elisp
 
@@ -935,7 +973,7 @@ for newly released packages and a separate one for their updates,
 maybe even with Changelog links (either a commit summary or a file if
 it exists with diffs).
 
-* INPROGRESS Make a progress website on MELPA Stable
+* Make a progress website on MELPA Stable
 
 Not all things can be used from MELPA Stable (like, Evil).  Make a
 website visualizing how ready it is to be actually used.
@@ -1033,13 +1071,14 @@ of my endeavor.  Once that rewrite is fully done (most of it is,
 there's tests and bugs to be fixed), writing a bot should become
 simpler.
 
-* Implement zippers in elisp
+* INVALID Implement zippers in elisp
 
 - https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf
 - https://clojure.github.io/clojure/clojure.zip-api.html
 - https://github.com/danielfm/cl-zipper
 - https://bitbucket.org/DerGuteMoritz/zipper/src
 - http://paste.call-cc.org/paste?id=c7b2e8dfde5105479490af2d3ca942b8a6ef519f#a1
+- http://blog.korny.info/2014/03/08/xml-for-fun-and-profit.html
 
 These look pretty great for traversing trees in a lispy manner (and
 even modifying them!) and simple to implement.  I'll probably steal
@@ -1052,9 +1091,13 @@ aliases to everything else?).  In case I shouldn't like them (even
 with threading macros), a function compiling a CSS selector to a list
 of zipper instructions should do the trick.
 
-* Add a CSS selector thing to ESXML
+edit: Done by someone else: https://github.com/volrath/treepy.el
+
+* DONE Add a CSS selector thing to ESXML
 
 - https://github.com/zweifisch/enlive
+- https://github.com/AdamNiederer/elquery
+
 - https://github.com/Shinmera/lquery
 - https://github.com/Shinmera/CLSS
 - https://github.com/Shinmera/plump
@@ -1251,7 +1294,7 @@ Not sure whether Python- (inspectable, dictionaries) or Scheme-style
 - parsing XML/HTML, zippers
 - [[https://github.com/Vannil/cheerilee.el][XCB]]?
 
-* TODO Write an EPUB reader for Emacs
+* DONE Write an EPUB reader for Emacs
 
 [[https://www.emacswiki.org/emacs/epubmode.el][epubmode.el]] just sucks.  Fuco attempted to do better, but got hung up
 on [[https://github.com/Fuco1/justify-kp][typographically correct filling]].  I've created [[https://github.com/wasamasa/teapub][teapub]] in CHICKEN
@@ -1268,3 +1311,39 @@ relatively little effort:
   extra navigation keys and stored metadata
 - Cleaning up after you're done (sort of tricky as burying is much
   more common than quitting, an exit hook could work)
+
+edit: https://github.com/bddean/emacs-ereader is a thing now, haven't
+tried it yet though.
+
+edit: I've successfully ported it and extended it way beyond the
+original: https://github.com/wasamasa/nov.el
+
+* NeoVim RPC bindings to script it in elisp
+
+Because irony, that's why.  Emacs Lisp is after all, the best language
+for hacking editors, right??
+
+* TODO NES emulator
+
+I can imagine this to be doable if the NES uses tiles instead of
+manipulating individual pixels.
+
+https://github.com/AndreaOrru/LaiNES <- small codebase
+https://github.com/samanthadoran/potential-disco
+
+<axion> the NES can only blit backgrounds and sprite tiles, with palletes
+<axion> see http://wiki.nesdev.com/w/index.php/PPU_rendering
+
+the internet suggests to do a chip-8 emulator, then a 8080 emulator
+(space invaders), then a NES emulator, then maybe a GB emulator.
+
+* enh-c-mode
+
+Use libclang to write a syntax highlighting server (C? C++? Python?
+Ruby? CHICKEN?)
+
+http://www.llvm.org/devmtg/2010-11/Gregor-libclang.pdf
+
+Note that ^ only shows off tokenization, so the highlighting would be
+only marginally smarter than cc-mode, however getting *that* working
+would be a useful PoC to see whether speed is acceptable.
