@@ -3,9 +3,12 @@
   (smex-convert-for-ido smex-cache))
 
 (defun helm-smex-execute-command (command)
-  (let ((prefix-arg current-prefix-arg))
-    (command-execute command 'record)
-    (smex-rank command)))
+  (when (commandp command)
+    (setq this-command command)
+    (setq real-this-command command)
+    (let ((prefix-arg current-prefix-arg))
+      (command-execute command 'record)
+      (smex-rank command))))
 
 (setq helm-smex-source
   '((name . "M-x")
