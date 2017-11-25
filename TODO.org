@@ -401,6 +401,8 @@ utopian, but the groundwork for that is laid with the =svg.el= package
 (which could become a fast canvas-like) and proper bitmap embedding
 support in Emacs 25.1.
 
+edit: Nope, =svg.el= isn't it either.  I better stick to esxml....
+
 http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
 
 Finally, paying homage to the demo scene would be the silliest option
@@ -415,6 +417,7 @@ going to be wireframes (hello vectrex!) or distorted textures (hello
 doom!).
 
 http://lodev.org/cgtutor/raycasting.html <- wolfenstein 3d
+https://medium.com/@btco_code/writing-a-retro-3d-fps-engine-from-scratch-b2a9723e6b06
 
 https://css-tricks.com/mega-list-svg-information/
 
@@ -1142,6 +1145,9 @@ well.
 * Port useful Clojure things to elisp
 
 Same as above, but as a clj-lib.
+
+The crown-jewel being core.async, that might end up tricky considering
+how it's implemented.
 
 * Write a package for annotating all kinds of human-readable files
 
