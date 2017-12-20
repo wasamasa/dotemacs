@@ -4,7 +4,7 @@ This is an experiment to find out whether [[https://en.wikipedia.org/wiki/Litera
 single monolithic [[http://orgmode.org/][org-mode]] file actually have a perceivable benefit.
 
 I'm using this configuration on a system running [[https://www.archlinux.org/][Arch Linux]] and Emacs
-24.5, that's why this configuration will be using the latest and
+25.3, that's why this configuration will be using the latest and
 greatest features and /not/ check for the system it's running on.
 While I do use =emacsclient= for most of my editing needs, I
 occasionally open =emacs= instances for things like IRC or testing
