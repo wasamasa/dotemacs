@@ -111,7 +111,6 @@ combinations remain unchanged."
     (while spec
       (let* ((key (car spec))
              (value (cadr spec))
-             (index (if display 1 2))
              (color (my-solarized-color value display)))
         (cond
          ((and (memq key '(:box :underline)) (listp value))
