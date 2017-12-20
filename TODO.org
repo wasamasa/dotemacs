@@ -1353,3 +1353,27 @@ http://www.llvm.org/devmtg/2010-11/Gregor-libclang.pdf
 Note that ^ only shows off tokenization, so the highlighting would be
 only marginally smarter than cc-mode, however getting *that* working
 would be a useful PoC to see whether speed is acceptable.
+
+* Saner syntax highlighting
+
+Pygments is pretty much the epitome of what I'd like to see and uses a
+state machine for the task that allows hooking into with regex and
+whatnot.  There's at least one more problem with this approach, it's
+designed for batch highlighting as opposed to highlighting as you
+edit, but that can be solved by keeping the parse state per line,
+picking up the last parse state on the line you edit and comparing
+whether the outcome is different from the last one.  If it is, you
+must rehighlight every line afterwards until encountering a matching
+parse state (like, if someone inserted a multi-line comment/string
+character and it makes everything until the matching comment/string
+character rehighlight).  Another problem is that in Emacs applying
+font-lock information is only half the battle, the other half is
+applying syntax table information to the string/comment/symbol things
+so that Emacs can do correct movement.
+
+Anyway, it seems that other editors did that kind of thing before,
+here's a few interesting resources:
+
+- https://github.com/google/xi-editor/blob/master/doc/rope_science/rope_science_11.md
+- https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations
+- https://microsoft.github.io/monaco-editor/monarch.html
