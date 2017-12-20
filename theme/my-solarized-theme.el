@@ -323,9 +323,9 @@ combinations remain unchanged."
    (lui-irc-colors-fg-2-face :foreground blue)
    (lui-irc-colors-fg-3-face :foreground green)
    (lui-irc-colors-fg-4-face :foreground red)
-   (lui-irc-colors-fg-5-face :foreground orange-d)
+   (lui-irc-colors-fg-5-face :foreground orange)
    (lui-irc-colors-fg-6-face :foreground violet)
-   (lui-irc-colors-fg-7-face :foreground orange)
+   (lui-irc-colors-fg-7-face :foreground orange-l)
    (lui-irc-colors-fg-8-face :foreground yellow)
    (lui-irc-colors-fg-9-face :foreground green-l)
    (lui-irc-colors-fg-10-face :foreground cyan)
@@ -354,7 +354,7 @@ combinations remain unchanged."
 
    ;; company-mode
    (company-tooltip :background bg-2 :foreground cyan)
-   (company-tooltip-annotation :background bg-2 :foreground cyan-l)
+   (company-tooltip-annotation :background unspecified :foreground cyan-l)
    (company-tooltip-selection :background cyan-d :foreground cyan-l)
    (company-tooltip-mouse :background cyan-l :foreground cyan-d)
    (company-tooltip-common :foreground cyan :background bg-2 :weight bold)
