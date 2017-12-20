@@ -99,10 +99,11 @@ separate file, to accomodate for that fact we need to customize a
 variable for user-made themes.
 
 #+BEGIN_SRC emacs-lisp
-(setq custom-theme-directory "~/.emacs.d/theme")
+(add-to-list 'custom-theme-load-path "~/code/elisp/punpun-theme")
+(add-to-list 'load-path "~/code/elisp/punpun-theme")
 (defun my-load-theme (&optional frame)
   (with-selected-frame (or frame (selected-frame))
-    (load-theme 'my-solarized t)))
+    (load-theme 'punpun-light t)))
 (my-load-theme)
 (add-hook 'after-make-frame-functions 'my-load-theme)
 #+END_SRC
@@ -128,7 +129,7 @@ which comes with more useful and color-coded items and a few
 interesting features like shortening file names and minor modes.
 
 #+BEGIN_SRC emacs-lisp
-(setq sml/theme 'automatic
+(setq sml/theme 'respectful
       sml/mode-width 'full
       sml/name-width '(0 . 20)
       sml/replacer-regexp-list
@@ -1657,7 +1658,6 @@ This is used in ~after-init-hook~.
      ("i" package-install "Package Install")
      ("p" package-list-packages "Package List")
      ("q" quelpa "Quelpa")
-     ("t" helm-themes "Load Theme")
      ("v" customize-variable "Customize Variable")))
 
   (global-set-key
@@ -2461,13 +2461,23 @@ Next, define a few toggling commands and bind them.
   (interactive)
   (revert-buffer nil t))
 
+(defun my-theme-toggle ()
+  (interactive)
+  (cond
+   ((memq 'punpun-light custom-enabled-themes)
+    (disable-theme 'punpun-light)
+    (load-theme 'punpun-dark t))
+   ((memq 'punpun-dark custom-enabled-themes)
+    (disable-theme 'punpun-dark)
+    (load-theme 'punpun-light t))))
+
 (with-eval-after-load 'evil-maps
   (define-key evil-normal-state-map (kbd "z r") 'my-revert-buffer)
   (define-key evil-normal-state-map (kbd "z b") 'magit-blame)
   (define-key evil-normal-state-map (kbd "z s") 'describe-char)
   (define-key evil-normal-state-map (kbd "z e") 'toggle-debug-on-error)
   (define-key evil-normal-state-map (kbd "z q") 'toggle-debug-on-quit)
-  (define-key evil-normal-state-map (kbd "z t") 'my-solarized-toggle)
+  (define-key evil-normal-state-map (kbd "z t") 'my-theme-toggle)
   (define-key evil-normal-state-map (kbd "z m") 'my-toggle-mode-line-minor-modes)
   (define-key evil-normal-state-map (kbd "z n") 'my-narrow-to-region-with-mode)
   (define-key evil-normal-state-map (kbd "z TAB") 'evil-toggle-fold)
@@ -2667,10 +2677,8 @@ Additionally to that, make use of colors more compatible with my theme.
 
 #+BEGIN_SRC emacs-lisp
 (setq circe-color-nicks-pool-type
-      '("#b58900" "#cb4b16" "#dc322f" "#d33682" "#6c71c4"
-        "#268bd2" "#2aa198" "#859900" "#7b6000" "#deb542"
-        "#f2804f" "#ff6e64" "#f771ac" "#9ea0e5" "#00629d"
-        "#69b7f0" "#00736f" "#69cabf" "#546e00" "#b4c342"))
+      '("#ffaf00" "#d75f00" "#d70000" "#00af00"
+        "#5f00ff" "#0087ff" "#ff005f" "#8700d7"))
 #+END_SRC
 
 **** Add extra keybinds
