@@ -2317,16 +2317,16 @@ key for Emacs state and other useful keys) has to go.
 =C-i= is used in Vim as counterpart to =C-o= for going back and forth
 in the jump list.  It also happens to be interpreted as =TAB=, simply
 because terminals are a nightmare.  Fortunately GUI Emacs can be told
-to not resolve =C-i= to indentation.  I'm stealing Evil's trick of
-making use of an empty menu item since these have the ability to make
-use of a filter function to optionally translate the key into another
-one.  That way I'm sending a custom =<C-i>= when Evil is active and in
-normal state, otherwise =TAB= is passed through.
+to not resolve =C-i= to indentation by defining a function in
+~key-translation-map~ that returns the desired key.  That way I'm
+sending a custom =<C-i>= when Evil is active, in normal state and
+=C-i= (as opposed to the =TAB= key) has been pressed, otherwise =TAB=
+is passed through.
 
 #+BEGIN_SRC emacs-lisp
 (defun my-translate-C-i (_prompt)
-  (if (and (= (length (this-command-keys-vector)) 1)
-           (= (aref (this-command-keys-vector) 0) ?\C-i)
+  (if (and (= (length (this-single-command-raw-keys)) 1)
+           (eql (aref (this-single-command-raw-keys) 0) ?\C-i)
            (bound-and-true-p evil-mode)
            (eq evil-state 'normal))
       (kbd "<C-i>")
