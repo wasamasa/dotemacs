@@ -813,6 +813,21 @@ It's a bit tricky to color code listings and permit more flexible tables:
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 #+END_SRC
 
+Org's exporter has a rather weird way of figuring out how to open an
+exported file, so we'll give it a nudge.  Note that since Emacs
+handles PDFs with ~docview~ *and* its mailcap implementation prefers
+Lisp viewers over system viewers, it ends up using ~docview~ in both
+cases, so we'll just tell it not to by placing the PDF entry at the
+top while still defining that we'd rather want to use ~xdg-open~
+instead of that piece of rubbish.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-file-apps '(("pdf" . system)
+                      (auto-mode . emacs)
+                      (system . "xdg-open %s")
+                      (t . system)))
+#+END_SRC
+
 *** =comint=
 
 Here comes another particularly interesting Emacs package.  It allows
