@@ -1,4 +1,5 @@
 #+TODO: TODO | INPROGRESS | DONE INVALID
+#+OPTIONS: todo:t
 
 * Learn from other people's Emacs configurations
 
@@ -416,6 +417,7 @@ applied to SVG as target.  No real shaders though, so either it's
 going to be wireframes (hello vectrex!) or distorted textures (hello
 doom!).
 
+https://github.com/ssloy/tinyrenderer/wiki
 http://lodev.org/cgtutor/raycasting.html <- wolfenstein 3d
 https://medium.com/@btco_code/writing-a-retro-3d-fps-engine-from-scratch-b2a9723e6b06
 
@@ -717,6 +719,11 @@ Some links:
 - https://github.com/unblevable/quick-scope
 - https://github.com/jonmorehouse/vim-nav
 
+* Discover worthwhile Vim features to port to Evil
+
+=:help hex-editing= lists autocommands that allow you to edit binary
+content with =xxd=.
+
 * Write something educational Emacs-related content
 
 A game for drilling readline-bindings or generally Emacs bindings?
@@ -747,6 +754,7 @@ would already help a lot for the aspiring new blood.
 - https://github.com/bbatsov/emacs-lisp-style-guide
 - https://www.gnu.org/software/emacs/manual/html_mono/eintr.html
 - http://www.gnu.org/software/emacs/manual/html_mono/elisp.html
+- https://github.com/chrisdone/elisp-guide
 
 An alternative way to teach Emacs Lisp would be in form of a more
 elaborate game, I'm thinking of something text adventurish, but with
@@ -1074,6 +1082,14 @@ of my endeavor.  Once that rewrite is fully done (most of it is,
 there's tests and bugs to be fixed), writing a bot should become
 simpler.
 
+- Rewrite the bot in terms of event handlers (with as many per event
+  as you like)
+- Provide an object containing all context you'd need in the event
+  handler, including who to respond to
+- Keep the bot alive when an event handler errors out
+
+Manga/Anime lookup: https://github.com/Nihilate/Roboragi
+
 * INVALID Implement zippers in elisp
 
 - https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf
@@ -1329,7 +1345,7 @@ original: https://github.com/wasamasa/nov.el
 Because irony, that's why.  Emacs Lisp is after all, the best language
 for hacking editors, right??
 
-* TODO NES emulator
+* NES emulator
 
 I can imagine this to be doable if the NES uses tiles instead of
 manipulating individual pixels.
@@ -1354,6 +1370,10 @@ Note that ^ only shows off tokenization, so the highlighting would be
 only marginally smarter than cc-mode, however getting *that* working
 would be a useful PoC to see whether speed is acceptable.
 
+The following lists the existing options for Vim:
+
+https://www.reddit.com/r/vim/comments/7mkd31/clang_based_syntax_highlight_plugin_for_cc/
+
 * Saner syntax highlighting
 
 Pygments is pretty much the epitome of what I'd like to see and uses a
@@ -1377,3 +1397,4 @@ here's a few interesting resources:
 - https://github.com/google/xi-editor/blob/master/doc/rope_science/rope_science_11.md
 - https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations
 - https://microsoft.github.io/monaco-editor/monarch.html
+- https://github.com/tree-sitter/tree-sitter (to be used by Atom)
